@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
+//import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+//import 'package:sos_bebe_app/testimonial_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:sos_bebe_app/payment_screen.dart';
-import 'package:sos_bebe_app/testimonial_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 
 class QuestionaireScreen extends StatefulWidget {
@@ -41,28 +41,45 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
             child: Column(
               children: [
                 Row(children: [
-                  Text('Chestionar', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500))
+                  //Text('Chestionar', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500)) old
+
+                  //adăugat de George Valentin Iordache
+                  Text('Chestionar', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
+
                 ]),
                 const SizedBox(height: 15),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  Text('Nume si prenume pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
-                  Text('Laura Popescu', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
+                  //Text('Nume si prenume pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
+                  //Text('Laura Popescu', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
+
+                  //adăugat de George Valentin Iordache
+                  Text('Nume si prenume pacient', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                  Text('Laura Popescu', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
                 ]),
                 customDivider(),
                 const SizedBox(height: 10),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  Text('Varsta', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
-                  Text('1 an si 8 luni', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
+                  //Text('Varsta', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
+                  //Text('1 an si 8 luni', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
+
+                  //adăugat de George Valentin Iordache
+                  Text('Varsta', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                  Text('1 an si 8 luni', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
                 ]),
                 customDivider(),
                 const SizedBox(height: 10),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  Text('Greutate', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
-                  Text('10 kg', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
+                  // Text('Greutate', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
+                  // Text('10 kg', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
+
+                  //adăugat de George Valentin Iordache
+                  Text('Greutate', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                  Text('10 kg', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300))
                 ]),
                 customDivider(),
                 const SizedBox(height: 10),
                 TextAndSwitchWidget(isToggled: isVisible, disease: "Alergic la vreun medicament?", callback: callback),
+                
                 // Column(
                 //   children: [
                 //     Row(
@@ -98,28 +115,42 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                       Row(
                         children: [
                           Text('La ce medicament este alergic?',
-                              style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
+
+                            //style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
+                            
+                            //adăugat de George Valentin Iordache
+                            style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
                         ],
                       ),
                       const SizedBox(height: 5),
                       Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color.fromARGB(255, 242, 239, 239),
-                          ),
-                          height: 70,
-                          child: const TextField(
-                            decoration:
-                                InputDecoration(border: InputBorder.none, hintText: 'Alergic la paracetamol...'),
-                            maxLines: 2,
-                          )),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: const BoxDecoration(
+                          //borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 242, 239, 239),
+                        ),
+                        height: 70,
+                        child: const TextField(
+                          decoration:
+                              InputDecoration(border: InputBorder.none, 
+                                hintText: 'Alergic la paracetamol...',
+                                
+                                 //added by George Valentin Iordache
+                                hintStyle: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
+                              ),
+                          maxLines: 2,
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 const SizedBox(height: 15),
                 Row(children: [
-                  Text('Simptome pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500))
+                  //Text('Simptome pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500)) old
+
+                  //adăugat de George Valentin Iordache
+                  Text('Simptome pacient', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
+
                 ]),
                 const SizedBox(height: 15),
                 TextAndSwitchWidget(isToggled: isToggled, disease: "Febră"),
@@ -148,7 +179,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
               margin: const EdgeInsets.fromLTRB(25, 0, 25, 5),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.green,
+                //color: Colors.green,
+
+                color: const Color.fromRGBO(14, 190, 127, 1),//adăugat de George Valentin Iordache
+
               ),
               height: 60,
               child: Row(
@@ -162,7 +196,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
               ),
             ),
           ),
-          SizedBox(height: 15),
+          //SizedBox(height: 15), old
+          const SizedBox(height: 15),
         ],
       )),
     );
@@ -171,6 +206,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   Divider customDivider() => const Divider(color: Colors.black12, height: 2, thickness: 1);
 }
 
+// ignore: must_be_immutable
 class TextAndSwitchWidget extends StatefulWidget {
   bool isToggled;
   final Function(bool)? callback;
@@ -189,12 +225,22 @@ class _TextAndSwitchWidgetState extends State<TextAndSwitchWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.disease, style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
+
+
+            //Text(widget.disease, style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
+
+            Text(widget.disease, style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+
             FlutterSwitch(
               value: widget.isToggled,
               height: 25,
               width: 60,
-              activeColor: const Color.fromARGB(255, 103, 197, 108),
+
+              //activeColor: const Color.fromARGB(255, 103, 197, 108),
+
+              //added by George Valentin Iordache
+              activeColor: const Color.fromRGBO(14, 190, 127, 1),
+              
               inactiveColor: Colors.grey[200]!,
               onToggle: (value) {
                 if (widget.callback != null) {

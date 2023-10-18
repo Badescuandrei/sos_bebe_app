@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/login_screen.dart';
@@ -24,6 +25,21 @@ class IntroScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
+                        child: AutoSizeText.rich(// old value RichText(
+                          TextSpan(
+                            text: "Găsește cel mai bun Doctor Pediatru!",
+                            style: GoogleFonts.rubik(
+                              //color: const Color.fromRGBO(14, 210, 62, 1), old
+                              color: const Color.fromRGBO(14, 190, 127, 1),
+                              // fontSize: 32, old
+                              fontSize: 35,
+                              fontWeight: FontWeight.w500,
+                            )),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                        ),
+                        /*
                         child: RichText(
                           text: TextSpan(
                               text: "Gaseste cel mai bun \nDoctor Pediatru",
@@ -36,6 +52,7 @@ class IntroScreen extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.start,
                         ),
+                        */
                       ),
                     ],
                   ),
@@ -43,6 +60,21 @@ class IntroScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Expanded(
+                        child:AutoSizeText.rich( 
+                          TextSpan(
+                            text: "Găsiți cei mai buni medici specialiști pentru copilul dvs.",
+                            style: GoogleFonts.rubik(
+                              color: Colors.black,
+                              //fontSize: 18, old
+                              fontSize: 15,
+                              fontWeight: FontWeight.w300,
+                            )),
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.start,
+                      )),
+                      /*
                       RichText(
                         text: TextSpan(
                             text: "Găsiți cei mai buni medici specialiști\npentru copilul dvs. ",
@@ -53,10 +85,12 @@ class IntroScreen extends StatelessWidget {
                             )),
                         textAlign: TextAlign.start,
                       ),
+                      */
                     ],
                   ),
                   const SizedBox(height: 30),
-                  Container(
+                  //Container( old
+                  SizedBox(
                     width: double.infinity,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,11 +101,15 @@ class IntroScreen extends StatelessWidget {
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     minimumSize: const Size.fromHeight(60),
-                                    backgroundColor: const Color.fromRGBO(14, 210, 62, 1),
+
+                                    //backgroundColor: const Color.fromRGBO(14, 210, 62, 1), // old
+                                    backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    shadowColor: const Color.fromRGBO(14, 210, 62, 1),
+
+                                    //shadowColor: const Color.fromRGBO(14, 210, 62, 1), //old
+                                    shadowColor: const Color.fromRGBO(14, 190, 127, 1),
                                     elevation: 20.0),
                                 onPressed: () {
                                   Navigator.push(
@@ -80,7 +118,8 @@ class IntroScreen extends StatelessWidget {
                                         builder: (context) => const LoginScreen(),
                                       ));
                                 },
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,  
+                                  children: [
                                   const ImageIcon(
                                     AssetImage("./assets/images/babyhead.png"),
                                     color: Colors.white,
@@ -88,9 +127,10 @@ class IntroScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: 20), // give the width that you desire
                                   Text(
-                                    "CONTINUA",
+                                    "CONTINUĂ",
                                     style: GoogleFonts.rubik(
-                                        color: Colors.white, fontWeight: FontWeight.w500, fontSize: 24),
+                                      color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
+                                      //color: Colors.white, fontWeight: FontWeight.w500, fontSize: 24), old cu mesajul RIGHT OVERFLOW BY 3 PIXELS
                                   ),
                                 ]),
                                 // icon: const ImageIcon(
@@ -101,7 +141,7 @@ class IntroScreen extends StatelessWidget {
                                 // label:
                               )),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 130,
                         )
                       ],

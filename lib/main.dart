@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:sos_bebe_app/intro_screen.dart';
+//import 'package:sos_bebe_app/intro_screen.dart';
+import  'package:sos_bebe_app/confirmare_servicii_screen.dart';
+//import  'package:sos_bebe_app/payment_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +23,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const IntroScreen(),
+      //home: const IntroScreen(),
+      home: const ConfirmareServiciiScreen(),
+      //home: const PaymentScreen(),
     );
+    
   }
 }

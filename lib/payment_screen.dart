@@ -21,20 +21,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
     return Scaffold(
       body: SafeArea(
           child: Column(
-        children: [
-          Center(
-            child: ElevatedButton(
-              child: const Text(
-                'Pay NOW mothafuka',
-                style: TextStyle(color: Colors.black),
+            children: [
+            Center(
+              child: ElevatedButton(
+                child: const Text(
+                  'Pay NOW mothafuka',
+                  style: TextStyle(color: Colors.black),
+                ),
+                onPressed: () async {
+                  await makePayment();
+                },
               ),
-              onPressed: () async {
-                await makePayment();
-              },
-            ),
-          )
-        ],
-      )),
+            )
+          ],
+        ),
+      ),
     );
   }
 

@@ -94,7 +94,7 @@ class _MedicInfoScreenState extends State<MedicInfoScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
@@ -102,7 +102,7 @@ class _MedicInfoScreenState extends State<MedicInfoScreen> {
                   GestureDetector(
                     onTap: () => Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return QuestionaireScreen();
+                        return const QuestionaireScreen();
                       },
                     )),
                     child: Container(
@@ -145,11 +145,11 @@ class _MedicInfoScreenState extends State<MedicInfoScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Row(
                     children: [Text('Sumar', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500))],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   const sumarWidget(
                     descriere: 'Medic primar',
                     titlu: 'Titlu profesional',
