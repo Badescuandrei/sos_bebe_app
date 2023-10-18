@@ -41,6 +41,8 @@ dependencies:
   flutter_stripe: ^9.3.0
   http: ^1.1.0
   auto_size_text: ^3.0.0
+  flip_card: ^0.7.0
+  patterns_canvas: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,7 @@ flutter:
   
   assets:
     - assets/images/
+    - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

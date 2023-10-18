@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 //import 'package:sos_bebe_app/intro_screen.dart';
-import  'package:sos_bebe_app/confirmare_servicii_screen.dart';
+//import  'package:sos_bebe_app/confirmare_servicii_screen.dart';
+import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 //import  'package:sos_bebe_app/payment_screen.dart';
 
 void main() {
@@ -24,9 +25,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       //home: const IntroScreen(),
-      home: const ConfirmareServiciiScreen(),
+      //home: const ConfirmareServiciiScreen(),
       //home: const PaymentScreen(),
+      home: const AdaugaMetodaPlataScreen(),
     );
-    
+
   }
 }
