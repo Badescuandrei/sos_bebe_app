@@ -31,6 +31,16 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Înapoi'),
+        backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
+        foregroundColor: Colors.white,
+        leading: const BackButton(
+          color: Colors.white,
+        ),
+      ),
+      //end added by George Valentin Iordache
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -138,7 +148,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                 children:[
                   const SizedBox(width: 30,),
                   Text('Card Number', 
-                    style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w700, fontSize: 16, fontStyle: FontStyle.italic,),
+                    style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                   ),
                 ],
               ),
@@ -203,7 +213,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                 children:[
                   const SizedBox(width: 30,),
                   Text('Nume', 
-                    style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w700, fontSize: 16, fontStyle: FontStyle.italic,),
+                    style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                   ),
                 ],
               ),
@@ -269,7 +279,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                         children:[
                           const SizedBox(width: 5,),
                           Text('CVV', 
-                            style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w700, fontSize: 16, fontStyle: FontStyle.italic,),
+                            style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                           ),
                         ],
                       ),
@@ -339,7 +349,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                         children:[
                           const SizedBox(width: 5),
                           Text('Expired Date', 
-                            style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w700, fontSize: 16, fontStyle: FontStyle.italic,),
+                            style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                           ),
                         ],
                       ),

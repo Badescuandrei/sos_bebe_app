@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 Card buildCreditCard({
   required Color color,
@@ -22,21 +23,15 @@ Card buildCreditCard({
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Introduceti datele cardului',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: 1,
-                ),
+                style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18),
               ),
-              /*Image.asset(
-                "assets/logos/mastercard.png",
+              Image.asset(
+                "assets/images/mastercard.png",
                 height: 60,
                 width: 60,
               ),
-              */
             ],
           ),
           Row(
