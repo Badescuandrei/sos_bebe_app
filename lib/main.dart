@@ -5,12 +5,17 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 //import  'package:sos_bebe_app/confirmare_screen.dart';
 
-import  'package:sos_bebe_app/apel_video_pacient_screen.dart';
+//import  'package:sos_bebe_app/apel_video_pacient_screen.dart';
+//import  'package:sos_bebe_app/medic_info_screen.dart';
 
 //import  'package:sos_bebe_app/register.dart';
 
 //import 'package:sos_bebe_app/login_screen.dart';
 //import  'package:sos_bebe_app/payment_screen.dart';
+
+//import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
+
+import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +43,9 @@ class MyApp extends StatelessWidget {
       //home: const LoginScreen(),
       //home: const RegisterScreen(),
       //home: const ConfirmareScreen(correctCard: true,),
-      home: const ApelVideoPacientScreen(),
+      //home: const ApelVideoPacientScreen(),
+      //home: const AdaugaMetodaPlataScreen(),
+      home: const VeziTotiMediciiScreen(),
     );
 
   }
