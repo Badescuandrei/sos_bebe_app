@@ -17,13 +17,24 @@ Padding customDividerConfirmareServicii() {
   );
 }
 
-
 Padding customDividerConfirmareScreen() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal:1.0),
     child: Container(
       height: 1.0,
       width: 312.0,
+      //color:Colors.black12,
+      color: const Color.fromRGBO(6, 39, 55, 0.1)
+    ),
+  );
+}
+
+Padding customDividerProfil() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal:1.0),
+    child: Container(
+      height: 1.0,
+      width: 339.0,
       //color:Colors.black12,
       color: const Color.fromRGBO(6, 39, 55, 0.1)
     ),

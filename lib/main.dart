@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:sos_bebe_app/intro_screen.dart';
+//import 'package:sos_bebe_app/intro_screen.dart';
 //import  'package:sos_bebe_app/confirmare_servicii_screen.dart';
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 //import  'package:sos_bebe_app/confirmare_screen.dart';
@@ -16,6 +16,8 @@ import 'package:sos_bebe_app/intro_screen.dart';
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
 //import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
+
+import  'package:sos_bebe_app/profil_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const IntroScreen(),
+      //home: const IntroScreen(),
       //home: const ConfirmareServiciiScreen(),
       //home: const PaymentScreen(),
       //home: const AdaugaMetodaPlataScreen(),
@@ -47,6 +49,10 @@ class MyApp extends StatelessWidget {
       //home: const AdaugaMetodaPlataScreen(),
       //home: const VeziTotiMediciiScreen(),
       //home: const IntroScreen(),
+      //home: const MedicInfoScreen(),
+      
+      home: const ProfilScreen(),
+
     );
 
   }
