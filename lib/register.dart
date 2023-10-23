@@ -38,7 +38,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
-                const SizedBox(height: 120),
+                const SizedBox(height: 10),
+                Center(child: Image.asset('./assets/images/Sosbebe.png', 
+                  height: 102, 
+                  width: 81)
+                ),
+                const SizedBox(height: 50),
                 Form(
                   child: Column(
                     children: [
@@ -52,13 +57,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 14, 190, 127),
+                              color: Color.fromRGBO(205, 211, 223, 1),
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 14, 190, 127),
+                              color: Color.fromRGBO(205, 211, 223, 1),
                               width: 1.0,
                             ),
                           ),
@@ -86,13 +91,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 14, 190, 127),
+                              color: Color.fromRGBO(205, 211, 223, 1),
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                             borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 14, 190, 127),
+                              color: Color.fromRGBO(205, 211, 223, 1),
                               width: 1.0,
                             ),
                           ),
@@ -124,13 +129,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 14, 190, 127),
+                                color: Color.fromRGBO(205, 211, 223, 1),
                               ),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: const BorderSide(
-                                color: Color.fromARGB(255, 14, 190, 127),
+                                color: Color.fromRGBO(205, 211, 223, 1),
                                 width: 1.0,
                               ),
                             ),
@@ -170,24 +175,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)),
                 ),
                 //const SizedBox(height: 20), old
-                const SizedBox(height: 60),
-                /* old value
-                RichText(
-                  text: TextSpan(
-                      text:
-                          "Dacă te înscrii, îți exprimi acordul cu Condițiile de utilizare. Din Politica de confidențialitate poti afla com colectăm, folosim și distribuim datele tale, iar din Politica de utilizare a modulelor cookie poți afla cum utilizăm modulele cookie și tehnologii similare.",
-                      style: GoogleFonts.rubik(
-                        color: Colors.black,
-                        fontSize: 14,
-                      )),
-                  maxLines: 6,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
-                ),
-                */
-                // George Valentin Iordache
+                const SizedBox(height: 35),
 
-                //Expanded(
                 //  child: 
                 AutoSizeText.rich(// old value RichText(
                   TextSpan(
@@ -211,21 +200,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 //George Valentin Iordache
                 //const SizedBox(height: 20),
-                const SizedBox(height: 100),
+                const SizedBox(height: 60),
                 OutlinedButton(
                   onPressed: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ServiceSelectScreen(),
-                        ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ServiceSelectScreen(),
+                      )
+                    );
                   },
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Colors.white,
                       minimumSize: const Size.fromHeight(50), // NEW
-                      side: const BorderSide(color: Color.fromRGBO(103, 114, 148, 1), width: 1.5),
+                      side: const BorderSide(color: Color.fromRGBO(205, 211, 223, 1), width: 1.5),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(5),
                       )),
                   /* old
                   child: Text(

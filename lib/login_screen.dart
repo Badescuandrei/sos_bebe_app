@@ -62,8 +62,11 @@ class _LoginScreenState extends State<LoginScreen> {
               */ 
               // end added by George Valentin Iordache    
               const SizedBox(height: 10),
-              Center(child: Image.asset('./assets/images/Sosbebe.png', height: 180)),
-              const SizedBox(height: 30),
+              Center(child: Image.asset('./assets/images/Sosbebe.png', 
+                height: 102, 
+                width: 81)
+              ),
+              const SizedBox(height: 75),
               Form(
                 child: Column(
                   children: [
@@ -77,14 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: const BorderSide(
-                            color: Color.fromRGBO(14, 190, 127, 1), 
+                            color: Color.fromRGBO(205, 211, 223, 1), 
                             //color: Color.fromARGB(255, 14, 190, 127), old
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: const BorderSide(
-                            color: Color.fromRGBO(14, 190, 127, 1),
+                            color: Color.fromRGBO(205, 211, 223, 1),
                             //color: Color.fromARGB(255, 14, 190, 127), old
                             width: 1.0,
                           ),
@@ -119,14 +122,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
                               //color: Color.fromARGB(255, 14, 190, 127), old
-                              color: Color.fromRGBO(14, 190, 127, 1),
+                              color: Color.fromRGBO(205, 211, 223, 1),
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                             borderSide: const BorderSide(
                               //color: Color.fromARGB(255, 14, 190, 127), old
-                              color: Color.fromRGBO(14, 190, 127, 1),
+                              color: Color.fromRGBO(205, 211, 223, 1),
                               width: 1.0,
                             ),
                           ),
@@ -148,8 +151,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              const Text('Ai uitat parola?', style: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300)),
-              const SizedBox(height: 20),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('Ai uitat parola?', style: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300)),
+                ],
+              ),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -163,9 +171,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 20)), old
                     style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 18)), //George Valentin Iordache
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 100),
               // Text("OR", style: GoogleFonts.rubik(color: Colors.black45, fontWeight: FontWeight.w500)), old
-              Text("OR", style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 14)),
+              Text("OR", style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 14)),
               const SizedBox(height: 10),
               OutlinedButton(
                 onPressed: () {},
@@ -176,9 +184,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
-                child: Text(
-                  "CONECTARE CU FACEBOOK",
-                  style: GoogleFonts.rubik(color: Colors.blue, fontWeight: FontWeight.w500, fontSize: 16),
+                child: 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset('./assets/images/facebook_icon.png'),
+                    const SizedBox(width: 15),
+                    Text(
+                      "CONECTARE CU FACEBOOK",
+                      style: GoogleFonts.rubik(color: Colors.blue, fontWeight: FontWeight.w400, fontSize: 16),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 10),
@@ -191,9 +207,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
-                child: Text(
-                  "CONECTARE CU GOOGLE",
-                  style: GoogleFonts.rubik(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16),
+                child: 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset('./assets/images/google_icon.png'),
+                    const SizedBox(width: 15),
+                    Text(
+                      "CONECTARE CU GOOGLE",
+                      style: GoogleFonts.rubik(color: Colors.red, fontWeight: FontWeight.w400, fontSize: 16),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 10),
@@ -214,13 +238,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
-                child: Text(
-                  "NU AI CONT? INSCRIE-TE!",
-                  style: GoogleFonts.rubik(
-                    color: const Color.fromRGBO(14, 190, 127, 1),
-                    //color: Colors.green, old value
-                    fontWeight: FontWeight.w500, fontSize: 16),
+                child: 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      width:45,
+                    ),
+                    Text(
+                      "NU AI CONT?",
+                      style: GoogleFonts.rubik(
+                        color: const Color.fromRGBO(14, 190, 127, 1),
+                        //color: Colors.green, old value
+                        fontWeight: FontWeight.w300, fontSize: 16),
+                    ),
+                    Text(
+                      " INSCRIE-TE!",
+                      style: GoogleFonts.rubik(
+                        color: const Color.fromRGBO(14, 190, 127, 1),
+                        //color: Colors.green, old value
+                        fontWeight: FontWeight.w400, fontSize: 16),
+                    ),                  ],
                 ),
+              ),
+              const SizedBox(
+                height: 20,
               ),
             ],
           ),
