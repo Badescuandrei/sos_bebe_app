@@ -97,6 +97,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
           children: [
             const TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png'),
             const ButoaneAlegeOptiunea(),
+            const SizedBox(height:25),
             Center(
               child: Column(
                 children: 
@@ -323,78 +324,121 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:[
-                    widget.eInConsultatie? Container(
-                      width: 69,
-                      height: 16,
-                      //color: const Color.fromRGBO(255, 0, 0, 1),
-                      decoration: BoxDecoration(
-                      border: Border.all(
+                SizedBox(
+                  width:200,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      widget.eInConsultatie? Container(
+                        width: 69,
+                        height: 16,
+                        //color: const Color.fromRGBO(255, 0, 0, 1),
+                        decoration: BoxDecoration(
+                        border: Border.all(
+                          color: const Color.fromRGBO(255, 0, 0, 1),
+                        ),
+                        borderRadius: BorderRadius.circular(3.0),
                         color: const Color.fromRGBO(255, 0, 0, 1),
                       ),
-                      borderRadius: BorderRadius.circular(3.0),
-                      color: const Color.fromRGBO(255, 0, 0, 1),
-                    ),
-                      child: Text(' în consultație', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)),
-                    ) : const SizedBox(width:0, height:0),
-                    RatingBar(
-                      ignoreGestures: true,
-                      initialRating: 4.9,
-                      direction: Axis.horizontal,
-                      itemCount: 5,
-                      itemSize: 13,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 5.0),
-                      ratingWidget: RatingWidget(
-                        //full: const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)),
-                        full: widget.eInConsultatie?  const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : 
-                          widget.eDisponibil? const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star, color: Color.fromRGBO(103, 114, 148, 1)),
-                        /*half: const Icon(
-                          Icons.star_half,
-                          color: Color.fromRGBO(252, 220, 85, 1),
+                        child: Text(' în consultație', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)),
+                      ) : const SizedBox(width:0, height:0),
+                      RatingBar(
+                        ignoreGestures: true,
+                        initialRating: 4.9,
+                        direction: Axis.horizontal,
+                        itemCount: 5,
+                        itemSize: 13,
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 5.0),
+                        ratingWidget: RatingWidget(
+                          //full: const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)),
+                          full: widget.eInConsultatie?  const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : 
+                            widget.eDisponibil? const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star, color: Color.fromRGBO(103, 114, 148, 1)),
+                          /*half: const Icon(
+                            Icons.star_half,
+                            color: Color.fromRGBO(252, 220, 85, 1),
+                          ),
+                          */  
+                          half: widget.eInConsultatie?  const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : 
+                            widget.eDisponibil? const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_half, color: Color.fromRGBO(103, 114, 148, 1)),
+                          /*
+                          empty: const Icon(
+                            Icons.star_outline,
+                            color: Color.fromRGBO(252, 220, 85, 1),
+                          )*/  
+                          empty: widget.eInConsultatie?  const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : 
+                            widget.eDisponibil? const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_outline, color: Color.fromRGBO(103, 114, 148, 1)),
+                          ),
+                          
+                        onRatingUpdate: (value) {
+                          setState(() {
+                            //_ratingValue = value;
+                          });
+                        }
+                      ),
+                      SizedBox(
+                        width: 50,
+                        child: widget.eInConsultatie? 
+                          Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                          : widget.eDisponibil? Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                          : Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    widget.eInConsultatie? SizedBox(
+                          width: 175,
+                          height: 17,
+                          child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 0, 0, 1), fontSize: 14, fontWeight: FontWeight.w400))
+                        ) : SizedBox(
+                          width: 175,
+                          height: 17,
+                          child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
-                        */  
-                        half: widget.eInConsultatie?  const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : 
-                          widget.eDisponibil? const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_half, color: Color.fromRGBO(103, 114, 148, 1)),
-                        /*
-                        empty: const Icon(
-                          Icons.star_outline,
-                          color: Color.fromRGBO(252, 220, 85, 1),
-                        )*/  
-                        empty: widget.eInConsultatie?  const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : 
-                          widget.eDisponibil? const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_outline, color: Color.fromRGBO(103, 114, 148, 1)),
-                        ),
-                        
-                      onRatingUpdate: (value) {
-                        setState(() {
-                          //_ratingValue = value;
-                        });
-                      }
-                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
                     SizedBox(
-                      width: 50,
-                      child: widget.eInConsultatie? 
-                        Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
-                        : widget.eDisponibil? Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
-                        : Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                      width: 175,
+                      height: 17,
+                      child: Text(widget.textSpital, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 12, fontWeight: FontWeight.w300)),
                     ),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    widget.eInConsultatie? SizedBox(
-                          width: 140,
-                          height: 17,
-                          child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 0, 0, 1), fontSize: 14, fontWeight: FontWeight.w400))
-                        ) : SizedBox(
-                          width: 140,
-                          height: 17,
-                          child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 14, fontWeight: FontWeight.w400)),
-                        ),
+                    SizedBox(
+                      width: 175,
+                      height: 17,
+                      child: Text(widget.textTipMedic, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
+                    ),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset('./assets/images/ok_mic_icon.png'),
+                    const SizedBox(
+                      width: 5
+                    ),
+                    SizedBox(
+                      width: 100,
+                      height: 17,
+                      child: Text(widget.likes.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                SizedBox(height: 17),
+                Image.asset('./assets/images/love_icon.png'),
               ],
             ),
           ],
