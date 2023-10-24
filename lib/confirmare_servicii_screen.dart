@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/register.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
-
+import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
 class ConfirmareServiciiScreen extends StatelessWidget {
   const ConfirmareServiciiScreen({super.key});
@@ -139,16 +139,13 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                 height: 250,
               ),
               ElevatedButton(
-                onPressed: () {},
-                /*
                 onPressed: () {
-                  Navigator.push(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const RegisterScreen(),
+                        builder: (context) => const AdaugaMetodaPlataScreen(),
                       ));
                 },
-                */
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
                     //const Color.fromARGB(255, 14, 190, 127), old

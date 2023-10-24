@@ -68,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 75),
               Form(
+                key: loginKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -159,7 +160,12 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final isValidForm = loginKey.currentState!.validate();
+                  if (isValidForm) {
+
+                  }
+                },  
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
                     //const Color.fromARGB(255, 14, 190, 127), old

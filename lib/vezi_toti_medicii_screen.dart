@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/initializare_medici_widget.dart';
+import 'package:sos_bebe_app/profil_screen.dart';
+import 'package:sos_bebe_app/medic_info_screen.dart';
 
 class VeziTotiMediciiScreen extends StatefulWidget {
   const VeziTotiMediciiScreen({super.key});
@@ -126,13 +128,35 @@ class TopIconFiltreazaWidget extends StatelessWidget {
       children: [
         const SizedBox(width: 15),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfilScreen(),
+              )
+            );
+          },
           icon: Image.asset(topIcon),
         ),
-        const SizedBox(width: 190),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfilScreen(),
+              )
+            );
+          },
+          child: 
+          Text('Profilul meu',
+            style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+          ),
+        ), 
+        const SizedBox(width: 100),
         Text('Filtrează', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
         const SizedBox(width: 20),
         Image.asset('./assets/images/filtreaza_medici_icon.png'),
+        
       ],
     );
   }
@@ -282,6 +306,12 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
   return InkWell(
       onTap: () {
         print("tapped on container medic");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MedicInfoScreen(),
+          )
+        );
       },                         
       child: 
       Container(
