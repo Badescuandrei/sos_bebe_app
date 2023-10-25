@@ -13,11 +13,22 @@ class IntroScreen extends StatelessWidget {
         child: 
         Stack(
           children: [
-            Image.asset(
-                    height: 600,
-                    width: 440,
-                    './assets/images/splash_background_image.png'
-            ),
+            ShaderMask(
+              shaderCallback: (rect) {
+                return const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.white, Colors.white, Colors.transparent],
+                ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
+              },
+              blendMode: BlendMode.dstIn,
+              child: 
+              Image.asset(
+                      height: 600,
+                      width: 440,
+                      './assets/images/splash_background_image.png'
+              ),
+            ),  
             Column(
               children: [
                 const SizedBox(height: 40),
