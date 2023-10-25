@@ -36,149 +36,151 @@ class ProfilScreen extends StatelessWidget {
         centerTitle: false,
       ),  
       body:
-      Column(
-        children: [
-          const IconDateProfil(iconPathPacient: './assets/images/user_profil_icon.png', textNume: 'Cristina Mihalache', textAdresaEmail: 'cristina.24@gmail.com',
-            textNumarTelefon: '+40 0770 545 224',),  
-          const SizedBox(height:35,),
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
+      SingleChildScrollView(
+        child: Column(
+          children: [
+            const IconDateProfil(iconPathPacient: './assets/images/user_profil_icon.png', textNume: 'Cristina Mihalache', textAdresaEmail: 'cristina.24@gmail.com',
+              textNumarTelefon: '+40 0770 545 224',),  
+            const SizedBox(height:35,),
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+                color: Colors.white,
               ),
-              color: Colors.white,
+              child:Column(
+                children: [
+                  const SizedBox(height: 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      const SizedBox(width: 45),
+                      IconButton(
+                      onPressed: () {},
+                        icon: Image.asset('./assets/images/doctori_salvati_icon.png'),
+                      ),
+                      const SizedBox(width: 25),
+                      SizedBox(width: 245,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
+                          children: [
+                            Text('Doctori Salvati',
+                              style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Image.asset('./assets/images/doctori_salvati_forward_icon.png'),
+                            ),
+                          ],
+                        ),
+                      ),  
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  customDividerProfil(),
+                  const SizedBox(height: 20),
+      
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      const SizedBox(width: 110),
+                      SizedBox(width: 245,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: 
+                              Text('Vezi Plati',
+                                style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                            ),  
+                          ],
+                        ),
+                      ),  
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 20),
+                  customDividerProfil(),
+                  const SizedBox(height: 20),
+      
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      const SizedBox(width: 110),
+                      SizedBox(width: 245,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: Text('GDPR',
+                                style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                            ),  
+                          ],
+                        ),
+                      ),  
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 20),
+                  customDividerProfil(),
+                  const SizedBox(height: 20),
+      
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      const SizedBox(width: 110),
+                      SizedBox(width: 245,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child: Text('SETARI',
+                                style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),  
+                    ],
+                  ),
+                  
+                  const SizedBox(height: 20),
+                  customDividerProfil(),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.24),
+      
+                  /*Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children:[
+                      const SizedBox(width: 120),
+                      SizedBox(width: 245,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
+                          children: [
+                            TextButton(
+                              onPressed: () {},
+                              child:Text(' ',
+                                style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),  
+                    ],
+                  ),
+                  
+                  */
+                ],
+              ),  
             ),
-            child:Column(
-              children: [
-                const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:[
-                    const SizedBox(width: 45),
-                    IconButton(
-                    onPressed: () {},
-                      icon: Image.asset('./assets/images/doctori_salvati_icon.png'),
-                    ),
-                    const SizedBox(width: 25),
-                    SizedBox(width: 245,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                        children: [
-                          Text('Doctori Salvati',
-                            style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: Image.asset('./assets/images/doctori_salvati_forward_icon.png'),
-                          ),
-                        ],
-                      ),
-                    ),  
-                  ],
-                ),
-                const SizedBox(height: 20),
-                customDividerProfil(),
-                const SizedBox(height: 20),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:[
-                    const SizedBox(width: 110),
-                    SizedBox(width: 245,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: 
-                            Text('Vezi Plati',
-                              style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                          ),  
-                        ],
-                      ),
-                    ),  
-                  ],
-                ),
-                
-                const SizedBox(height: 20),
-                customDividerProfil(),
-                const SizedBox(height: 20),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:[
-                    const SizedBox(width: 110),
-                    SizedBox(width: 245,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text('GDPR',
-                              style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                          ),  
-                        ],
-                      ),
-                    ),  
-                  ],
-                ),
-                
-                const SizedBox(height: 20),
-                customDividerProfil(),
-                const SizedBox(height: 20),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:[
-                    const SizedBox(width: 110),
-                    SizedBox(width: 245,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: Text('SETARI',
-                              style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),  
-                  ],
-                ),
-                
-                const SizedBox(height: 20),
-                customDividerProfil(),
-                const SizedBox(height: 48.42),
-
-                /*Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children:[
-                    const SizedBox(width: 120),
-                    SizedBox(width: 245,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child:Text(' ',
-                              style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),  
-                  ],
-                ),
-                
-                */
-              ],
-            ),  
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

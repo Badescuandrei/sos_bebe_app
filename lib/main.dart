@@ -17,7 +17,7 @@ import 'package:sos_bebe_app/intro_screen.dart';
 
 //import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
-//import  'package:sos_bebe_app/profil_screen.dart';
+import  'package:sos_bebe_app/profil_screen.dart';
 
 
 //import  'package:sos_bebe_app/raspunde_intrebare_medic_screen.dart';
@@ -54,10 +54,10 @@ class MyApp extends StatelessWidget {
       //home: const ApelVideoPacientScreen(),
       //home: const AdaugaMetodaPlataScreen(),
       //home: const VeziTotiMediciiScreen(),
-      home: const IntroScreen(),
+      //home: const IntroScreen(),
       //home: const MedicInfoScreen(),
       
-      //home: const ProfilScreen(),
+      home: const ProfilScreen(),
       
       /*
       home: const FacturaScreen(tipPlata:'SOS', emailAddressPlata: 'info@sosromania.ro', phoneNumberPlata: '+40 000112112',
