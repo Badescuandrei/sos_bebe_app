@@ -83,7 +83,7 @@ class ServiceSelectScreen extends StatelessWidget {
                 pret: "99.9 ",
                 //text: "Suna acum",
                 text: "Sună acum",
-                iconLocation: './assets/images/phone-call.png',
+                iconLocation: './assets/images/phone-call_mare.png',
                 color: Colors.green,
               ),
               const SizedBox(height: 10),
