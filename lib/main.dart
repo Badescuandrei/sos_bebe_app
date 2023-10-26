@@ -28,6 +28,8 @@ import  'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart
 
 //import  'package:sos_bebe_app/factura_screen.dart';
 
+import  'package:sos_bebe_app/plata_esuata_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -56,7 +58,7 @@ class MyApp extends StatelessWidget {
       //home: const ConfirmareScreen(correctCard: true,),
       //home: const ApelVideoPacientScreen(),
       //home: const AdaugaMetodaPlataScreen(),
-      home: const VeziTotiMediciiScreen(),
+      //home: const VeziTotiMediciiScreen(),
       //home: const IntroScreen(),
       //home: const MedicInfoScreen(),
       
@@ -71,7 +73,8 @@ class MyApp extends StatelessWidget {
         detaliiFacturaServicii: 'Pediatrie', detaliiFacturaNumar: '7810',
       ),
       */
-      /*home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
+      /*
+      home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
         likes: 330, iconPath: './assets/images/profil_doctor_image.png', rating:4.9, textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București', 
         textTipMedic: 'Pediatrie, Medic Primar', textTitluProfesional: 'Medic Primar', textTitluSpecializare: 'Pediatrie', textExperienta: '45 ani', 
         textLocDeMuncaNume: 'AIS Clinics & Hospital București', textLocDeMuncaAdresa: 'Șos. Alexandriei 144, București 051523', 
@@ -80,6 +83,7 @@ class MyApp extends StatelessWidget {
       ),
       */
 
+      home: const PlataEsuataScreen(),
 
       //required this.tutorId, required this.emailSubiect, required this.phoneNumberSubiect, required this.dataPlatii, required this.dataPlatiiProcesata,
       //required this.detaliiFacturaNume, required this.detaliiFacturaServicii, required this.detaliiFacturaNumar,
