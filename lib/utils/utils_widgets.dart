@@ -40,3 +40,13 @@ Padding customDividerProfil() {
     ),
   );
 }
+
+
+Container customDividerProfilDoctor() {
+  return Container(
+      height: 0.7,
+      width: 370.0,
+      //color:Colors.black12,
+      color: const Color.fromRGBO(205, 211, 223, 1),
+  );
+}

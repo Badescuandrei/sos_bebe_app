@@ -170,107 +170,18 @@ class ButoaneAlegeOptiunea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        InkWell(
-          onTap: () {                          
-            print("tapped on container întrebare");
-          },                         
-          child:
-          Container(
-            height: 60,
-            width: 101,
-            //color: const Color.fromRGBO(241, 248, 251, 1),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(241, 248, 251, 1),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color.fromRGBO(241, 248, 251, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Image.asset('./assets/images/intrebare_icon.png'),
-                SizedBox(
-                  width: 50,
-                  height: 35,
-                  child: Text('Scrie o întrebare', 
-                    style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 166, 219, 1), fontSize: 11, fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    ),
-                ),  
-              ],
-            ),
-          ),
-        ),  
-        InkWell(
-          onTap: () {                          
-            print("tapped on container apel video");
-          },                         
-          child: 
-          Container(
-            height: 60,
-            width: 108,
-            //color: const Color.fromRGBO(236, 251, 247, 1),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(236, 251, 247, 1),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color.fromRGBO(236, 251, 247, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Image.asset('./assets/images/phone-call_apel_video.png'),
-                SizedBox(
-                  width: 65,
-                  height: 35,
-                  child: Text('Consultație video', 
-                    style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 214, 158, 1), fontSize: 11, fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    ),
-                ),  
-              ],
-            ),
-          ),
-        ),
-          
-        InkWell(
-          onTap: () {                          
-            print("tapped on container analize");
-          },                         
-          child: 
-          Container(
-            height: 60,
-            width: 115,
-            //color: const Color.fromRGBO(253, 250, 234, 1),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(253, 250, 234, 1),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color.fromRGBO(253, 250, 234, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
-                Image.asset('./assets/images/analize_icon.png'),
-                SizedBox(
-                  width: 69,
-                  height: 35,
-                  child: Text('Interpretare analize', 
-                    style: GoogleFonts.rubik(color: const Color.fromRGBO(241, 201, 0, 1), fontSize: 11, fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    ),
-                ),  
-              ],
-            ),
-          ),
-        ),    
+        
+        ButonAlegeServiciu(textServiciu: 'Scrie o întrebare', iconLocation: './assets/images/intrebare_icon.png', colorBackground: Color.fromRGBO(241, 248, 251, 1), 
+          colorScris: Color.fromRGBO(30, 166, 219, 1), widthScris: 60),
+
+        ButonAlegeServiciu(textServiciu: 'Consultație video', iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: Color.fromRGBO(236, 251, 247, 1),
+          colorScris: Color.fromRGBO(30, 214, 158, 1), widthScris: 70),
+        
+        ButonAlegeServiciu(textServiciu: 'Interpretare analize', iconLocation: './assets/images/analize_icon.png', colorBackground: Color.fromRGBO(253, 250, 234, 1), 
+          colorScris: Color.fromRGBO(241, 201, 0, 1), widthScris: 73),    
       ],
     );
   }
@@ -616,6 +527,64 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
       ],
     );
     */
+  }
+}
+
+// ignore: must_be_immutable
+class ButonAlegeServiciu extends StatelessWidget {
+  
+  final String textServiciu;
+  final String iconLocation;
+  final Color colorBackground;
+  final Color colorScris;
+  final double widthScris;
+
+  const ButonAlegeServiciu({
+    super.key,
+    required this.textServiciu,
+    required this.iconLocation,
+    required this.colorBackground,
+    required this.colorScris,
+    required this.widthScris,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+    GestureDetector(
+      onTap: () {  
+        // ignore: avoid_print                        
+        print("tapped on container întrebare");
+      },                         
+      child:
+      Container(
+        height: 60,
+        //color: const Color.fromRGBO(241, 248, 251, 1),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: colorBackground,
+          ),
+          borderRadius: BorderRadius.circular(15.0),
+          color: colorBackground //const Color.fromRGBO(241, 248, 251, 1),
+        ),
+        child: Row(
+          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:[
+            const SizedBox(width: 5),
+            Image.asset(iconLocation),
+            const SizedBox(width:5),
+            SizedBox(
+              width: widthScris,
+              height: 35,
+              child: Text(textServiciu, 
+                style: GoogleFonts.rubik(color: colorScris, fontSize: 11, fontWeight: FontWeight.w400), //const Color.fromRGBO(30, 166, 219, 1),
+                maxLines: 2,
+                ),
+            ),  
+          ],
+        ),
+      ),
+    );
   }
 }
 

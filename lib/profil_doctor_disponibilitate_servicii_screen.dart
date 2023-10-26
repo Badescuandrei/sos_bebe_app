@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:sos_bebe_app/confirmare_servicii_screen.dart';
+import 'package:sos_bebe_app/initializare_recenzii.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
-import 'package:sos_bebe_app/initializare_medici_widget.dart';
-import 'package:sos_bebe_app/profil_screen.dart';
+//import 'package:sos_bebe_app/initializare_medici_widget.dart';
+//import 'package:sos_bebe_app/profil_screen.dart';
 import 'package:sos_bebe_app/medic_info_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -45,9 +47,13 @@ class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
 
 class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctorDisponibilitateServiciiScreen> {
 
-  
+  List<RecenzieItem> listaRecenzii = [];
+
   @override
   void initState() {
+
+    listaRecenzii = InitializareRecenziiWidget().initList();
+
     // Do some other stuff
     super.initState();
   }
@@ -64,6 +70,45 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
   
     //var length = listaMedici.length;
     //print('Size lista: $length');
+
+    List<RecenzieItem> listaFiltrata = listaRecenzii;
+
+    //print('Lungime lista recenzii: ${listaFiltrata.length}');
+
+    for(int index = 0; index <listaFiltrata.length; index++){
+      var item = listaFiltrata[index];
+      //if (index < listaFiltrata.length-1)
+      if (index < 2)
+      {
+        mywidgets.add(
+          RecenzieWidget( textNume: item.textNume, textData: item.textData, rating: item.rating,), 
+        );
+        mywidgets.add(
+          const SizedBox(height: 5),
+        );
+        mywidgets.add(
+          customDividerProfilDoctor(),
+        );
+
+      }
+      //else if (index == listaFiltrata.length-1)
+      else if (index == 2)
+      {
+        
+        mywidgets.add(
+          RecenzieWidget( textNume: item.textNume, textData: item.textData, rating: item.rating,), 
+        );
+        mywidgets.add(
+          const SizedBox(height: 5),
+        );
+        mywidgets.add(
+          customDividerProfilDoctor(),
+        );
+        mywidgets.add(
+          const SizedBox(height: 25),
+        );
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -83,33 +128,389 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
             rating: widget.rating,
             iconPath: widget.iconPath, textNume: widget.textNume, textSpital: widget.textSpital, textTipMedic: widget.textTipMedic,),
             //const TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png'),
-          const Row(
-            children:[
+          Container(
+            padding: const EdgeInsets.only(left: 15, right: 15),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:[
+                  
+                ButtonServiciiProfilDoctor(
+                  pret: "49.9 ",
+                  textServiciu: "Scrie o întrebare",
+                  iconLocation: './assets/images/chat_profil_doctor_icon.png',
+                  color: Color.fromRGBO(30, 166, 219, 1),
+                  tipConsultatieReteta: false,
+                ),
+                ButtonServiciiProfilDoctor(
+                  pret: "25.9 ",
+                  textServiciu: "Sună acum",
+                  iconLocation: './assets/images/apel_video_profil_doctor_icon.png',
+                  color: Color.fromRGBO(14, 190, 127, 1),
+                  tipConsultatieReteta: false,
+                ),
                 
-              MyButton(
-                pret: "49.9 ",
-                text: "Scrie o întrebare",
-                iconLocation: './assets/images/chat_profil_doctor_icon.png',
-                color: Color.fromRGBO(30, 166, 219, 1),
-                tipConsultatieReteta: false,
-              ),
-              MyButton(
-                pret: "25.9 ",
-                text: "Sună acum",
-                iconLocation: './assets/images/apel_video_profil_doctor_icon.png',
-                color: Color.fromRGBO(14, 190, 127, 1),
-                tipConsultatieReteta: false,
-              ),
-              
-              MyButton(
-                pret: "99,9 ",
-                text: "Primiți o recomandare\n și rețetă medicală",
-                iconLocation: './assets/images/reteta_profil_doctor_icon.png',
-                color: Color.fromRGBO(241, 201, 0, 1),
-                tipConsultatieReteta: true,
-              ),
-            ],
-          ),    
+                ButtonServiciiProfilDoctor(
+                  pret: "99,9 ",
+                  textServiciu: "Primiți o recomandare și rețetă medicală",
+                  iconLocation: './assets/images/reteta_profil_doctor_icon.png',
+                  color: Color.fromRGBO(241, 201, 0, 1),
+                  tipConsultatieReteta: true,
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Text(
+                  'Sumar',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ]
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                SizedBox( width: 100,
+                  child:Text(
+                    'Titlu profesional',
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(103, 114, 148, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 172),  
+                SizedBox( width: 80,
+                  child:Text(
+                    widget.textTitluProfesional,
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(103, 114, 148, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ]
+            ),
+          ),
+
+          customDividerProfilDoctor(),
+          
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                SizedBox( width: 100,
+                  child:Text(
+                    'Specializare',
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(103, 114, 148, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 172),  
+                SizedBox( width: 80,
+                  child:Text(
+                    widget.textTitluSpecializare,
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(103, 114, 148, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ]
+            ),
+          ),
+          
+          customDividerProfilDoctor(),
+          
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                SizedBox( width: 100,
+                  child:Text(
+                    'Experiență',
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(103, 114, 148, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 172),  
+                SizedBox( width: 80,
+                  child:Text(
+                    widget.textExperienta,
+                    style: GoogleFonts.rubik(
+                      color: const Color.fromRGBO(103, 114, 148, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+              ]
+            ),
+          ),
+          
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Text(
+                  'Loc de muncă',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ]
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Image.asset('./assets/images/spital_icon.png'),
+                const SizedBox(width: 5),
+                Text(
+                  widget.textSpital,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ]
+            ),
+          ),
+          
+          customDividerProfilDoctor(),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Image.asset('./assets/images/adresa_icon.png'),
+                const SizedBox(width: 5),
+                Text(
+                  widget.textLocDeMuncaAdresa,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ]
+            ),
+          ),
+          
+          customDividerProfilDoctor(),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Text(
+                  'Activitate',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ]
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Image.asset('./assets/images/utilizatori_multumiti_icon.png'),
+                const SizedBox(width: 5),
+                Text(
+                  'Utilizatori mulțumiți: ',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Text(
+                  widget.textActivitateUtilizatori,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),  
+              ]
+            ),
+          ),
+          
+          customDividerProfilDoctor(),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Image.asset('./assets/images/numar_pacienti_ajutati_icon.png'),
+                const SizedBox(width: 5),
+                Text(
+                  'Am ajutat',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Text(
+                  ' ${widget.textActivitateNumarPacientiAplicatie} pacienți ',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  ' ai aplicației',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ]
+            ),
+          ),
+          
+          customDividerProfilDoctor(),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Image.asset('./assets/images/testimoniale_icon.png'),
+                const SizedBox(width: 5),
+                Text(
+                  '${widget.textActivitateNumarTestimoniale} ',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Text(
+                  'Testimoniale',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ]
+            ),
+          ),
+          
+          customDividerProfilDoctor(),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, top: 5, bottom: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Image.asset('./assets/images/timp_raspuns_icon.png'),
+                const SizedBox(width: 5),
+                Text(
+                  'Timp de răspuns',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Text(
+                  ' ${widget.textActivitateTimpDeRaspuns} ',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ]
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.only(left: 20, right: 10, top: 10, bottom: 25),
+            child: 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                SizedBox( width: 360,
+                  child: AutoSizeText.rich(
+                    TextSpan(text: 'Acest timp este estimat folosind cele mai recente răspunsuri. Ocazional poate fi mai mare sau mai mic decat intervalul afișat.',
+                      style: GoogleFonts.rubik(color: const Color.fromRGBO(161, 168, 190, 1), fontWeight: FontWeight.w300, fontSize: 12),
+                    ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ]
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                Text(
+                  'Recenzii',
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ]
+            ),
+          ),
+
+          //const RecenzieWidget( textNume: 'Irina Coman', textData: '26 Iulie 2023', rating: 5.0,),
+
+          Center(
+            child: Column(
+              children: 
+                mywidgets,
+            ),
+          ),
 
           /*const SizedBox(height:25),
           Center(
@@ -126,168 +527,6 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
   }
 }
 
-
-// ignore: must_be_immutable
-class TopIconFiltreazaWidget extends StatelessWidget {
-
-  final String topIcon;
-  
-  const TopIconFiltreazaWidget({super.key, required this.topIcon});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const SizedBox(width: 15),
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProfilScreen(),
-              )
-            );
-          },
-          icon: Image.asset(topIcon),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProfilScreen(),
-              )
-            );
-          },
-          child: 
-          Text('Profilul meu',
-            style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-          ),
-        ), 
-        const SizedBox(width: 100),
-        Text('Filtrează', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
-        const SizedBox(width: 20),
-        Image.asset('./assets/images/filtreaza_medici_icon.png'),
-        
-      ],
-    );
-  }
-}
-
-
-// ignore: must_be_immutable
-class ButoaneAlegeOptiunea extends StatelessWidget {
-  
-  const ButoaneAlegeOptiunea({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        InkWell(
-          onTap: () {                          
-            print("tapped on container întrebare");
-          },                         
-          child:
-          Container(
-            height: 60,
-            width: 101,
-            //color: const Color.fromRGBO(241, 248, 251, 1),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(241, 248, 251, 1),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color.fromRGBO(241, 248, 251, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Image.asset('./assets/images/intrebare_icon.png'),
-                SizedBox(
-                  width: 50,
-                  height: 35,
-                  child: Text('Scrie o întrebare', 
-                    style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 166, 219, 1), fontSize: 11, fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    ),
-                ),  
-              ],
-            ),
-          ),
-        ),  
-        InkWell(
-          onTap: () {                          
-            print("tapped on container apel video");
-          },                         
-          child: 
-          Container(
-            height: 60,
-            width: 108,
-            //color: const Color.fromRGBO(236, 251, 247, 1),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(236, 251, 247, 1),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color.fromRGBO(236, 251, 247, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children:[
-                Image.asset('./assets/images/phone-call_apel_video.png'),
-                SizedBox(
-                  width: 65,
-                  height: 35,
-                  child: Text('Consultație video', 
-                    style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 214, 158, 1), fontSize: 11, fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    ),
-                ),  
-              ],
-            ),
-          ),
-        ),
-          
-        InkWell(
-          onTap: () {                          
-            print("tapped on container analize");
-          },                         
-          child: 
-          Container(
-            height: 60,
-            width: 115,
-            //color: const Color.fromRGBO(253, 250, 234, 1),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: const Color.fromRGBO(253, 250, 234, 1),
-              ),
-              borderRadius: BorderRadius.circular(15.0),
-              color: const Color.fromRGBO(253, 250, 234, 1),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
-                Image.asset('./assets/images/analize_icon.png'),
-                SizedBox(
-                  width: 69,
-                  height: 35,
-                  child: Text('Interpretare analize', 
-                    style: GoogleFonts.rubik(color: const Color.fromRGBO(241, 201, 0, 1), fontSize: 11, fontWeight: FontWeight.w400),
-                    maxLines: 2,
-                    ),
-                ),  
-              ],
-            ),
-          ),
-        ),    
-      ],
-    );
-  }
-}
 
 class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
   
@@ -311,20 +550,23 @@ class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
 
 class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSpitalLikesMedic> {
   
-  double? _ratingValue = 4.9;
+  final double _ratingValue = 4.9;
 
   @override
   Widget build(BuildContext context) {
 
   return InkWell(
       onTap: () {
+        // ignore: avoid_print
         print("tapped on container medic");
+        /*
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const MedicInfoScreen(),
           )
         );
+        */
       },                         
       child: 
       Container(
@@ -434,6 +676,11 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                           width: 175,
                           height: 17,
                           child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 0, 0, 1), fontSize: 14, fontWeight: FontWeight.w400))
+                        ) : 
+                        widget.eDisponibil? SizedBox(
+                          width: 175,
+                          height: 17,
+                          child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(30, 214, 158, 1), fontSize: 14, fontWeight: FontWeight.w400)),
                         ) : SizedBox(
                           width: 175,
                           height: 17,
@@ -487,159 +734,19 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
         ),
       ),
     );
-    /*return
-    Column(
-      children: [
-        Row(
-          children:[
-            const SizedBox(
-              width: 20,
-            ),
-            Container(
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(211, 211, 211, 1),
-                    blurRadius: 5.0,
-                  ),
-                ],
-              ),
-              child: Card(
-                color: const Color.fromRGBO(255, 255, 255, 1),
-                child: ClipPath(
-                  clipper: ShapeBorderClipper(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)
-                      ),
-                    ),
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        left: BorderSide(color: Color.fromRGBO(14, 190, 127, 1), width: 7),
-                      ),
-                    ),
-                    child: Column(
-                      children:[
-                        Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:[
-                          const SizedBox(width: 20), 
-                          CircleAvatar(foregroundImage: AssetImage(widget.iconPath), radius: 25),  
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontSize: 15, fontWeight: FontWeight.w400)),
-                                ),
-                                Row(
-                                  children:[
-                                    RatingBar(
-                                      ignoreGestures: true,
-                                      initialRating: 4.9,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 13,
-                                      itemPadding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 5.0),
-                                      ratingWidget: RatingWidget(
-                                        full: const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)),
-                                        half: const Icon(
-                                          Icons.star_half,
-                                          color: Color.fromRGBO(252, 220, 85, 1),
-                                        ),
-                                        empty: const Icon(
-                                          Icons.star_outline,
-                                          color: Color.fromRGBO(252, 220, 85, 1),
-                                        )),
-                                        
-                                      onRatingUpdate: (value) {
-                                        setState(() {
-                                          _ratingValue = value;
-                                        });
-                                      }
-                                    ),
-                                    SizedBox(
-                                      width: 50,
-                                      child: Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:Colors.yellow, fontSize: 12, fontWeight: FontWeight.w500)),
-                                    ),
-                                  ],  
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      width: 240,
-                                      child: Text( widget.textComentariu,
-                                        style: GoogleFonts.rubik(
-                                          color: const Color.fromRGBO(103, 114, 148, 1),
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w300,
-                                        )
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                customPaddingRating(),
-            
-                                Row(children: [
-                                    SizedBox(
-                                      width: 110,
-                                      child: Text(widget.textData,
-                                      style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
-                                    ),
-                                    const SizedBox(
-                                      width: 26,
-                                    ),  
-                                    SizedBox(
-                                      width: 61,
-                                      child: Text('Răspunde',
-                                        style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 12, fontWeight: FontWeight.w400)
-                                      ),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Image.asset('./assets/images/raspunde_rating.png'),
-                                    ),
-                                  ]  
-                                )
-                              ],  
-                            ),
-                          ),
-                        ]
-                      ),
-                      ]
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],  
-        ),  
-      ],
-    );
-    */
   }
 }
 
-class MyButton extends StatelessWidget {
-  final String text;
+class ButtonServiciiProfilDoctor extends StatelessWidget {
+  final String textServiciu;
   final String pret;
   final String iconLocation;
   final Color color;
   final bool tipConsultatieReteta;
-  const MyButton({
+
+  const ButtonServiciiProfilDoctor({
     super.key,
-    required this.text,
+    required this.textServiciu,
     required this.pret,
     required this.iconLocation,
     required this.color,
@@ -648,59 +755,165 @@ class MyButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: color,
-      ),
-      height: 61,
-      child:
-     
-      Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(         
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                child: Image.asset(iconLocation),
-              ), 
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left:10, right: 15, top: 10),
-                      child:Text(
-                      text,
-                      //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18), old
-                      style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 9),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:10, top:5),
-                    child:  
-                    AutoSizeText.rich(
-                      TextSpan(text: pret, style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w300,), 
-                        children: [
-                          TextSpan(
-                            text: "RON",
-                            // style: GoogleFonts.rubik(fontSize: 16), old
-                            style: GoogleFonts.rubik(fontSize: 9, fontWeight: FontWeight.w300,)
+    return 
+    GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return ConfirmareServiciiScreen(pret: pret);
+          },
+        ));
+      },
+      child:Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: color,
+        ),
+        height: 55,
+        child:     
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(         
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  child: Image.asset(iconLocation),
+                ), 
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    tipConsultatieReteta?  
+                    Padding(
+                      padding: const EdgeInsets.only(left:10, right: 10, top: 1),
+                      child:
+                      SizedBox( width: 95, height: 23,
+                        child: AutoSizeText.rich(
+                          TextSpan(text: textServiciu,
+                          //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18), old
+                            style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 9),
                           ),
-                        ],
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),  
+                    )   :
+                    Padding(
+                      padding: const EdgeInsets.only(left:10, right: 10, top: 10),
+                      child:
+                      AutoSizeText.rich(
+                        TextSpan(text: textServiciu,
+                        //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18), old
+                          style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 9),
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),   
+                    Padding(
+                      padding: const EdgeInsets.only(left:10, top:5),
+                      child:  
+                      AutoSizeText.rich(
+                        TextSpan(text: pret, style: GoogleFonts.rubik(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400,), 
+                          children: [
+                            TextSpan(
+                              text: "RON",
+                              // style: GoogleFonts.rubik(fontSize: 16), old
+                              style: GoogleFonts.rubik(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w300,)
+                            ),
+                          ],
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),  
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),           
+    );
+  }
+}
+
+class RecenzieWidget extends StatelessWidget {
+  final String textNume;
+  final String textData;
+  final double rating;
+
+  bool isInteger(num value) => (value % 1) == 0;
+
+
+  const RecenzieWidget({
+    super.key,
+    required this.textNume,
+    required this.textData,
+    required this.rating,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return 
+      Container(
+        padding: const EdgeInsets.only(left:25, top:15, right: 20),
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(         
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  textNume,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),         
+                ),
+              ],
+            ),
+            Row(         
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  textData,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 9,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Image.asset('./assets/images/utilizatori_multumiti_icon.png'),
+                    const SizedBox(width:5),
+                    isInteger(rating)?
+                    Text(
+                      'Rating ${rating.toInt()}/5',
+                      style: GoogleFonts.rubik(
+                        color: const Color.fromRGBO(103, 114, 148, 1),
+                        fontSize: 9,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ):
+                    Text(
+                      'Rating $rating/5',
+                      style: GoogleFonts.rubik(
+                        color: const Color.fromRGBO(103, 114, 148, 1),
+                        fontSize: 9,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),            
     );
   }
 }

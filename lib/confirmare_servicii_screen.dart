@@ -5,7 +5,13 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
 class ConfirmareServiciiScreen extends StatelessWidget {
-  const ConfirmareServiciiScreen({super.key});
+
+  final String pret;
+
+  const ConfirmareServiciiScreen({
+    super.key,
+    required this.pret,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +85,7 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                               width: 69,
                               height: 38,
                               child: 
-                              Text('99,9',
+                              Text(pret,
                                 style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w400, fontSize: 32,),
                               ),
                             ),
@@ -109,7 +115,7 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
                         Text('Subtotal', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
-                        Text('99.9 RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300, fontSize: 14,),),
+                        Text('$pret RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300, fontSize: 14,),),
                       ],
                     ),
                   ),  
@@ -129,7 +135,7 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
                         Text('Total', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
-                        Text('99.9 RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 18,),),
+                        Text('$pret RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 18,),),
                       ],
                     ),
                   ),

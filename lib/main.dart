@@ -15,7 +15,7 @@ import 'package:sos_bebe_app/intro_screen.dart';
 
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
-//import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
+import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
 //import  'package:sos_bebe_app/profil_screen.dart';
 
@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
       //home: const ConfirmareScreen(correctCard: true,),
       //home: const ApelVideoPacientScreen(),
       //home: const AdaugaMetodaPlataScreen(),
-      //home: const VeziTotiMediciiScreen(),
+      home: const VeziTotiMediciiScreen(),
       //home: const IntroScreen(),
       //home: const MedicInfoScreen(),
       
@@ -71,13 +71,14 @@ class MyApp extends StatelessWidget {
         detaliiFacturaServicii: 'Pediatrie', detaliiFacturaNumar: '7810',
       ),
       */
-      home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
+      /*home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
         likes: 330, iconPath: './assets/images/profil_doctor_image.png', rating:4.9, textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București', 
         textTipMedic: 'Pediatrie, Medic Primar', textTitluProfesional: 'Medic Primar', textTitluSpecializare: 'Pediatrie', textExperienta: '45 ani', 
         textLocDeMuncaNume: 'AIS Clinics & Hospital București', textLocDeMuncaAdresa: 'Șos. Alexandriei 144, București 051523', 
         textActivitateUtilizatori: '100%', textActivitateNumarPacientiAplicatie: '214', textActivitateNumarTestimoniale: '112', 
         textActivitateTimpDeRaspuns: '<2 ore (estimat)',
       ),
+      */
 
 
       //required this.tutorId, required this.emailSubiect, required this.phoneNumberSubiect, required this.dataPlatii, required this.dataPlatiiProcesata,
