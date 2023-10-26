@@ -30,6 +30,8 @@ import  'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart
 
 import  'package:sos_bebe_app/plata_esuata_screen.dart';
 
+import  'package:sos_bebe_app/plata_succes_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -83,7 +85,9 @@ class MyApp extends StatelessWidget {
       ),
       */
 
-      home: const PlataEsuataScreen(),
+      //home: const PlataEsuataScreen(),
+
+      home: const PlataRealizataCuSuccesScreen(),
 
       //required this.tutorId, required this.emailSubiect, required this.phoneNumberSubiect, required this.dataPlatii, required this.dataPlatiiProcesata,
       //required this.detaliiFacturaNume, required this.detaliiFacturaServicii, required this.detaliiFacturaNumar,
