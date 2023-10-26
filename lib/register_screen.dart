@@ -13,7 +13,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final loginKey = GlobalKey<FormState>();
+  final registerKey = GlobalKey<FormState>();
   bool isHidden = true;
   final controllerEmail = TextEditingController();
   final controllerPass = TextEditingController();
@@ -45,6 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 50),
                 Form(
+                  key: registerKey,
                   child: Column(
                     children: [
                       TextFormField(
@@ -73,8 +74,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                         ),
                         validator: (value) {
-                          if (value!.isEmpty || !RegExp(r'.+@.+\.+').hasMatch(value)) {
-                            return "Enter a valid Email Address";
+                          String emailPattern = r'.+@.+\.+';
+                          RegExp emailRegExp = RegExp(emailPattern);
+                          String phonePattern = r'(^(?:[+0]4)?[0-9]{10}$)';
+                          RegExp phoneRegExp = RegExp(phonePattern);
+                          String namePattern = r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$";
+                          final nameRegExp = RegExp(namePattern);
+                          if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
+                            return "Introduceți un utilizator/email/numar de telefon valabil!";
                           } else {
                             return null;
                           }
@@ -85,8 +92,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onFieldSubmitted: (String s) {
                           focusNodePassword.requestFocus();
                         },
-                        controller: controllerEmail,
-                        keyboardType: TextInputType.emailAddress,
+                        controller: controllerNumeComplet,
+                        keyboardType: TextInputType.name,
                         decoration: InputDecoration(
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
@@ -107,10 +114,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                         ),
                         validator: (value) {
-                          if (value!.isEmpty || !RegExp(r'.+@.+\.+').hasMatch(value)) {
-                            return "Enter a valid Email Address";
-                          } else {
-                            return null;
+                          if (value!.isEmpty) {
+                            return "Vă rugăm introduceți numele complet!";
                           }
                         },
                       ),
@@ -143,9 +148,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fillColor: Colors.white),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return "Please Enter New Password";
+                            return "Vă rugăm introduceți o parolă!";
                           } else if (value.length < 6) {
-                            return "Password must be at least 6 characters long";
+                            return "Parola trebuie să aibă cel puțin 6 caractere!";
                           } else {
                             return null;
                           }
@@ -157,12 +162,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
+                    final isValidForm = registerKey.currentState!.validate();
+                    if (isValidForm) {  
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ServiceSelectScreen(),
                           //builder: (context) => const TestimonialScreen(),
                         ));
+                    }    
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 14, 190, 127),

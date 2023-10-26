@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sos_bebe_app/register.dart';
+import 'package:sos_bebe_app/register_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 

@@ -8,9 +8,9 @@ import 'package:sos_bebe_app/intro_screen.dart';
 //import  'package:sos_bebe_app/apel_video_pacient_screen.dart';
 //import  'package:sos_bebe_app/medic_info_screen.dart';
 
-//import  'package:sos_bebe_app/register.dart';
+import  'package:sos_bebe_app/register_screen.dart';
 
-//import 'package:sos_bebe_app/login_screen.dart';
+import 'package:sos_bebe_app/login_screen.dart';
 //import  'package:sos_bebe_app/payment_screen.dart';
 
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
       //home: const ConfirmareServiciiScreen(),
       //home: const PaymentScreen(),
       //home: const AdaugaMetodaPlataScreen(),
-      //home: const LoginScreen(),
+      home: const LoginScreen(),
       //home: const RegisterScreen(),
       //home: const ConfirmareScreen(correctCard: true,),
       //home: const ApelVideoPacientScreen(),
@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
 
       //home: const PlataEsuataScreen(),
 
-      home: const PlataRealizataCuSuccesScreen(),
+      //home: const PlataRealizataCuSuccesScreen(),
 
       //required this.tutorId, required this.emailSubiect, required this.phoneNumberSubiect, required this.dataPlatii, required this.dataPlatiiProcesata,
       //required this.detaliiFacturaNume, required this.detaliiFacturaServicii, required this.detaliiFacturaNumar,

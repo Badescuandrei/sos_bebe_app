@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sos_bebe_app/register.dart';
+import 'package:sos_bebe_app/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -75,6 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onFieldSubmitted: (String s) {
                         focusNodePassword.requestFocus();
                       },
+                      focusNode: focusNodeEmail,
                       controller: controllerEmail,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
@@ -99,8 +100,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                       ),
                       validator: (value) {
-                        if (value!.isEmpty || !RegExp(r'.+@.+\.+').hasMatch(value)) {
-                          return "Enter a valid Email Address";
+                        String emailPattern = r'.+@.+\.+';
+                        RegExp emailRegExp = RegExp(emailPattern);
+                        String phonePattern = r'(^(?:[+0]4)?[0-9]{10}$)';
+                        RegExp phoneRegExp = RegExp(phonePattern);
+                        String namePattern = r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$";
+                        RegExp nameRegExp = RegExp(namePattern);
+                        if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
+                          return "Introduceți un utilizator/email/numar de telefon valabil!";
                         } else {
                           return null;
                         }
@@ -163,7 +170,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () {
                   final isValidForm = loginKey.currentState!.validate();
                   if (isValidForm) {
-
+                    print("pressed on button CONECTARE");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      )
+                    );
                   }
                 },  
                 style: ElevatedButton.styleFrom(

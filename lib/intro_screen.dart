@@ -61,20 +61,6 @@ class IntroScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.start,
                             ),
-                            /*
-                            child: RichText(
-                              text: TextSpan(
-                                  text: "Gaseste cel mai bun \nDoctor Pediatru",
-                                  style: GoogleFonts.rubik(
-                                    color: const Color.fromRGBO(14, 210, 62, 1),
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w700,
-                                  )),
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                            ),
-                            */
                           ),
                         ],
                       ),
@@ -96,18 +82,6 @@ class IntroScreen extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.start,
                           )),
-                          /*
-                          RichText(
-                            text: TextSpan(
-                                text: "Găsiți cei mai buni medici specialiști\npentru copilul dvs. ",
-                                style: GoogleFonts.rubik(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300,
-                                )),
-                            textAlign: TextAlign.start,
-                          ),
-                          */
                         ],
                       ),
                       const SizedBox(height: 30),
@@ -155,12 +129,6 @@ class IntroScreen extends StatelessWidget {
                                           //color: Colors.white, fontWeight: FontWeight.w500, fontSize: 24), old cu mesajul RIGHT OVERFLOW BY 3 PIXELS
                                       ),
                                     ]),
-                                    // icon: const ImageIcon(
-                                    //   AssetImage("./assets/images/babyhead.png"),
-                                    //   color: Colors.white,
-                                    //   size: 20,
-                                    // ),
-                                    // label:
                                   )),
                             ),
                             const SizedBox(
