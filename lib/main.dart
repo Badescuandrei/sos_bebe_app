@@ -5,7 +5,7 @@ import 'package:sos_bebe_app/intro_screen.dart';
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 //import  'package:sos_bebe_app/confirmare_screen.dart';
 
-//import  'package:sos_bebe_app/apel_video_pacient_screen.dart';
+import  'package:sos_bebe_app/apel_video_pacient_screen.dart';
 //import  'package:sos_bebe_app/medic_info_screen.dart';
 
 import  'package:sos_bebe_app/register_screen.dart';
@@ -32,6 +32,8 @@ import  'package:sos_bebe_app/plata_esuata_screen.dart';
 
 import  'package:sos_bebe_app/plata_succes_screen.dart';
 
+import  'package:sos_bebe_app/questionare_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -51,11 +53,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      
+      //home: const LoginScreen(),
+      
       //home: const IntroScreen(),
       //home: const ConfirmareServiciiScreen(),
       //home: const PaymentScreen(),
       //home: const AdaugaMetodaPlataScreen(),
-      home: const LoginScreen(),
+      
       //home: const RegisterScreen(),
       //home: const ConfirmareScreen(correctCard: true,),
       //home: const ApelVideoPacientScreen(),
@@ -93,6 +98,8 @@ class MyApp extends StatelessWidget {
       //required this.detaliiFacturaNume, required this.detaliiFacturaServicii, required this.detaliiFacturaNumar,
 
       //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
+
+      home: const QuestionaireScreen(),      
 
     );
 

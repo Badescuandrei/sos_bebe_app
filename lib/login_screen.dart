@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sos_bebe_app/intro_screen.dart';
 import 'package:sos_bebe_app/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -174,7 +175,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) => const IntroScreen(),
                       )
                     );
                   }

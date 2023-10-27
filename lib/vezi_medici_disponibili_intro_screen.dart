@@ -34,7 +34,7 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    const SizedBox(height: 85),
+                    const SizedBox(height: 95),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -49,7 +49,7 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                           blendMode: BlendMode.dstIn,
                           child: 
                           Image.asset(
-                                  width: 336,
+                                  width: 300,
                                   './assets/images/medici_disponibili_intro_background_image.png'
                           ),
                         ),

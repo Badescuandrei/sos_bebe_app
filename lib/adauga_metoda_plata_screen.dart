@@ -3,6 +3,8 @@ import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sos_bebe_app/plata_succes_screen.dart';
+import 'package:sos_bebe_app/plata_esuata_screen.dart';
 import '../components/card_alert_dialog.dart';
 import '../components/card_input_formatter.dart';
 import '../components/card_month_input_formatter.dart';
@@ -420,7 +422,14 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                 ),
                 onPressed: () {
                   Future.delayed(const Duration(milliseconds: 300), () {
-                    showDialog(
+                    
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const PlataRealizataCuSuccesScreen();
+                        //return const PlataEsuataScreen();
+                      },
+                    ));
+                    /*showDialog(
                         context: context,
                         builder: (context) => const CardAlertDialog());
                     cardCvvController.clear();
@@ -428,6 +437,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                     cardHolderNameController.clear();
                     cardNumberController.clear();
                     flipCardController.toggleCard();
+                    */
                   });
                 },
                 child: const Text(

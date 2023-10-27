@@ -1,7 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sos_bebe_app/login_screen.dart';
+//import 'package:sos_bebe_app/login_screen.dart';
+import 'package:sos_bebe_app/vezi_medici_disponibili_intro_screen.dart';
 
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
@@ -111,7 +112,7 @@ class IntroScreen extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => const LoginScreen(),
+                                            builder: (context) => const VeziMediciDisponibiliIntroScreen(),//LoginScreen(),
                                           ));
                                     },
                                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,  

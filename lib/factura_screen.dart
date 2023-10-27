@@ -14,6 +14,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'package:external_path/external_path.dart';
 
+import 'package:sos_bebe_app/testimonial_screen.dart';
+
 
 
 class FacturaScreen extends StatefulWidget {
@@ -648,6 +650,15 @@ final ScreenshotController _screenshotController = ScreenshotController();
                         
                           
                           _takeScreenshot(context);
+
+                          print("pressed on button CONECTARE");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TestimonialScreen(),
+                            )
+                          );
+
                         },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color.fromRGBO(14, 190, 127, 1),

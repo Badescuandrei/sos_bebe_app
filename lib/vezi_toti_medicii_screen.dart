@@ -5,7 +5,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/initializare_medici_widget.dart';
 import 'package:sos_bebe_app/profil_screen.dart';
-import 'package:sos_bebe_app/medic_info_screen.dart';
+//import 'package:sos_bebe_app/medic_info_screen.dart';
+import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart';
 
 class VeziTotiMediciiScreen extends StatefulWidget {
   const VeziTotiMediciiScreen({super.key});
@@ -217,12 +218,27 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
   return InkWell(
       onTap: () {
         print("tapped on container medic");
+        /*
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const MedicInfoScreen(),
+            builder: (context) => const IconStatusNumeRatingSpitalLikesMedic(),//MedicInfoScreen(),
           )
         );
+        */
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
+                              likes: 330, iconPath: './assets/images/profil_doctor_image.png', rating:4.9, textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București', 
+                              textTipMedic: 'Pediatrie, Medic Primar', textTitluProfesional: 'Medic Primar', textTitluSpecializare: 'Pediatrie', textExperienta: '45 ani', 
+                              textLocDeMuncaNume: 'AIS Clinics & Hospital București', textLocDeMuncaAdresa: 'Șos. Alexandriei 144, București 051523', 
+                              textActivitateUtilizatori: '100%', textActivitateNumarPacientiAplicatie: '214', textActivitateNumarTestimoniale: '112', 
+                              textActivitateTimpDeRaspuns: '<2 ore (estimat)',
+                            ),//MedicInfoScreen(),
+          )
+        );
+
       },                         
       child: 
       Container(

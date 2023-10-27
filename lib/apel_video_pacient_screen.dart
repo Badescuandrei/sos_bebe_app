@@ -9,18 +9,38 @@ import 'package:permission_handler/permission_handler.dart';
 
 //import 'package:device_info_plus/device_info_plus.dart';
 import 'package:sos_bebe_app/raspunde_intrebare_medic_screen.dart';
-
+import 'package:agora_token_service/agora_token_service.dart';
 
 const appId = "da37c68ec4f64cd1af4093c758f20869";
       //appId: 'a6810f83c0c549aab473207134b69489',
 const channel =  "TestIGV_1";
+
+const appCertificate = '69b34ac5d15044a7906063342cc15471';
 /*      username: "4",
       uid: 4,
 */
 //const username = "pacient1";
 //const uid = 10;
-const token = '007eJxTYFDa4BtxltOdc4/w3TlaJgpamQuZNH+uEDO4+a/bYBsTZ5wCQ0qisXmymUVqskmamUlyimFimomBpXGyualFmpGBhZmlgpJhakMgI4OYiCUTIwMEgvicDCGpxSWe7mHxhgwMAJRDG3A=';
+const token = '007eJxTYDi2f1+vAhsDV53PrI2FssuXScx8HqkslLBlxeYt5ZYbTmQoMKQkGpsnm1mkJpukmZkkpxgmppkYWBonm5tapBkZWJhZemRZpzYEMjKIpKkzMEIhiM/JEJJaXOLpHhZvyMAAAHnwHpU=';
 
+/*
+const role = RtcRole.publisher;
+
+const expirationInSeconds = 1000000;
+
+final currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+final expireTimestamp = currentTimestamp + expirationInSeconds;
+
+final token = RtcTokenBuilder.build(
+        appId: appId,
+        channelName: channel,
+        appCertificate: appCertificate,
+        uid: 'doctor1',
+        role: role,
+        expireTimestamp: expireTimestamp,
+
+);
+*/
 
 class ApelVideoPacientScreen extends StatefulWidget {
   const ApelVideoPacientScreen({Key? key}) : super(key: key);
@@ -49,13 +69,19 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   void _start() {
     // Timer.periodic() will call the callback function every 100 milliseconds
     
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
       // Update the UI
       setState(() {
         // result in hh:mm:ss format
-        int secunde = 60 - _stopwatch.elapsed.inSeconds % 60;
+
+        int secundeDeScazut = (_stopwatch.elapsed.inSeconds % 60 == 0)? 60 : _stopwatch.elapsed.inSeconds % 60;
+        int secunde = 60 - secundeDeScazut;
+
+        //int secunde = _stopwatch.elapsed.inSeconds == 0? 0 : 60 - _stopwatch.elapsed.inSeconds % 60;
         
-        int minute = 15 - _stopwatch.elapsed.inMinutes - 1;
+        int minuteDeScazut = (_stopwatch.elapsed.inSeconds % 60 == 0)? 0 : 1;
+        int minute = _stopwatch.elapsed.inSeconds == 0? 15: 15 - _stopwatch.elapsed.inMinutes - minuteDeScazut;
+
         _result = 
             '${minute.toString().padLeft(2, '0')}:${secunde.toString().padLeft(2, '0')}';
             //'${_stopwatch.elapsed.inMinutes.toString().padLeft(2, '0')}:${(_stopwatch.elapsed.inSeconds % 60).toString().padLeft(2, '0')}';
@@ -76,7 +102,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   void initState() {
     super.initState();
     initAgora();
-    _start();
+    //_start();
   }
 
   Future<void> initAgora() async {
@@ -192,7 +218,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
                       "./assets/images/cerc_apel_video.png",
                     ),
                     Text(
-                      _stopwatch.elapsed.inSeconds <= 60 ? _result : "14:01",
+                      _stopwatch.elapsed.inSeconds <= 60 ? _result : "14:00",
                       style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(255, 86, 86, 1),
                         fontSize: 18,
@@ -240,6 +266,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   // Display remote user's video
   Widget _remoteVideo() {
     if (_remoteUid != null) {
+      _start();
       return AgoraVideoView(
         controller: VideoViewController.remote(
           rtcEngine: _engine,
