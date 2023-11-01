@@ -6,6 +6,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/payment_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
+import 'package:sos_bebe_app/raspunde_intrebare_doar_chat_screen.dart';
 
 class QuestionaireScreen extends StatefulWidget {
   const QuestionaireScreen({super.key});
@@ -172,7 +173,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           InkWell(
             onTap: () => Navigator.push(context, MaterialPageRoute(
               builder: (context) {
-                return const PaymentScreen();
+                //return const PaymentScreen();
+                return const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '',);
               },
             )),
             child: Container(

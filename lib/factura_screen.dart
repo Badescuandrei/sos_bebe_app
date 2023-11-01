@@ -16,6 +16,8 @@ import 'package:external_path/external_path.dart';
 
 import 'package:sos_bebe_app/testimonial_screen.dart';
 
+import 'package:sos_bebe_app/questionare_screen.dart';
+
 
 
 class FacturaScreen extends StatefulWidget {
@@ -655,7 +657,7 @@ final ScreenshotController _screenshotController = ScreenshotController();
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const TestimonialScreen(),
+                              builder: (context) => const QuestionaireScreen(),
                             )
                           );
 

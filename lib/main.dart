@@ -13,7 +13,7 @@ import  'package:sos_bebe_app/register_screen.dart';
 import 'package:sos_bebe_app/login_screen.dart';
 //import  'package:sos_bebe_app/payment_screen.dart';
 
-//import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
+import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
 import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
       //home: const RegisterScreen(),
       //home: const ConfirmareScreen(correctCard: true,),
       //home: const ApelVideoPacientScreen(),
-      //home: const AdaugaMetodaPlataScreen(),
+      home: const AdaugaMetodaPlataScreen(),
       //home: const VeziTotiMediciiScreen(),
       //home: const IntroScreen(),
       //home: const MedicInfoScreen(),
@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
 
       //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
 
-      home: const QuestionaireScreen(),      
+      //home: const QuestionaireScreen(),      
 
     );
 

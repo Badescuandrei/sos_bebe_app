@@ -114,6 +114,11 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
   void _handleFileSelection() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.any,
+
+      //type: FileType.custom,
+      // 2. Only allow these formats
+      //allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
+
     );
 
     if (result != null && result.files.single.path != null) {

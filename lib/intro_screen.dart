@@ -26,7 +26,7 @@ class IntroScreen extends StatelessWidget {
               child: 
               Image.asset(
                       height: 600,
-                      width: 440,
+                      width: 420,
                       './assets/images/splash_background_image.png'
               ),
             ),  
