@@ -8,6 +8,59 @@ import 'package:sos_bebe_app/profil_screen.dart';
 //import 'package:sos_bebe_app/medic_info_screen.dart';
 import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart';
 
+
+  List<MedicItem> listaMedici = [];
+
+  List<MedicItem> filterListByAvailability()
+  {
+    List<MedicItem> listResult = [];
+    for(int index = 0; index <listaMedici.length; index++){
+      if (listaMedici[index].eOnline == true)
+      {
+        listResult.add(listaMedici[index]);
+      }
+    }  
+    return listResult; 
+  }
+  
+
+  List<MedicItem> filterListByDisponibilitateScrieIntrebare()
+  {
+    List<MedicItem> listResult = [];
+    for(int index = 0; index <listaMedici.length; index++){
+      if (listaMedici[index].primesteIntrebari == true)
+      {
+        listResult.add(listaMedici[index]);
+      }
+    }  
+    return listResult; 
+  }
+  
+  List<MedicItem> filterListByDisponibilitateConsultatieVideo()
+  {
+    List<MedicItem> listResult = [];
+    for(int index = 0; index <listaMedici.length; index++){
+      if (listaMedici[index].consultatieVideo == true)
+      {
+        listResult.add(listaMedici[index]);
+      }
+    }  
+    return listResult; 
+  }
+  
+  List<MedicItem> filterListByDisponibilitateInterpretareAnalize()
+  {
+    List<MedicItem> listResult = [];
+    for(int index = 0; index <listaMedici.length; index++){
+      if (listaMedici[index].interpretareAnalize == true)
+      {
+        listResult.add(listaMedici[index]);
+      }
+    }  
+    return listResult; 
+  }
+
+
 class VeziTotiMediciiScreen extends StatefulWidget {
   const VeziTotiMediciiScreen({super.key});
 
@@ -17,13 +70,42 @@ class VeziTotiMediciiScreen extends StatefulWidget {
 
 class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
 
-  List<MedicItem> listaMedici = [];
-  
+  List<MedicItem> listaFiltrata = [];
+
   @override
   void initState() {
+    
     // Do some other stuff
     super.initState();
     listaMedici = InitializareMediciWidget().initList();
+    listaFiltrata = listaMedici;
+
+  }
+
+  void callbackScrieIntrebare(List<MedicItem> newListaFiltrataScrieIntrebare) {
+    setState(() {
+
+      listaFiltrata = newListaFiltrataScrieIntrebare;
+      // ignore: avoid_print
+      //print('is checked alergic: ' + isAlergic.toString());
+
+    });
+  }
+  
+  void callbackConsultatieVideo(List<MedicItem> newListaFiltrataConsultatieVideo) {
+    setState(() {
+      listaFiltrata = newListaFiltrataConsultatieVideo;
+      // ignore: avoid_print
+      //print('is checked alergic: ' + isAlergic.toString());
+    });
+  }
+
+  void callbackInterpretareAnalize(List<MedicItem> newListaFiltrataInterpretareAnalize) {
+    setState(() {
+      listaFiltrata = newListaFiltrataInterpretareAnalize;
+      // ignore: avoid_print
+      //print('is checked alergic: ' + isAlergic.toString());
+    });
   }
 
   List<MedicItem> filterListByIndex()
@@ -38,6 +120,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     return listResult; 
   }
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -47,15 +130,15 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     //List<NumarPacientiItem> listaFiltrata = filterListByHigherData(DateTime.utc(2023, 1, 8));
     //List<MedicItem> listaFiltrata = filterListByIntervalData(DateTime.utc(2021, 11, 9), DateTime.utc(2023, 3, 14));
 
-    List<MedicItem> listaFiltrata = listaMedici;
-
+    
+  
     
     for(int index = 0; index <listaFiltrata.length; index++){
       var item = listaFiltrata[index];
       if (index < listaFiltrata.length-1)
       {
         mywidgets.add(
-          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: item.eInConsultatie, eDisponibil: item.eDisponibil, likes: item.likes,
+          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: item.eInConsultatie, eDisponibil: item.eOnline, likes: item.likes,
             rating: item.rating,
             iconPath: item.iconPath, textNume: item.textNume, textSpital: item.textSpital, textTipMedic: item.textTipMedic,),  
         );
@@ -66,7 +149,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
       else if (index == listaFiltrata.length-1)
       {
         mywidgets.add(
-          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: item.eInConsultatie, eDisponibil: item.eDisponibil, likes: item.likes,
+          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: item.eInConsultatie, eDisponibil: item.eOnline, likes: item.likes,
             rating: item.rating,
             iconPath: item.iconPath, textNume: item.textNume, textSpital: item.textSpital, textTipMedic: item.textTipMedic,),  
         );
@@ -99,7 +182,8 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
         child: Column(
           children: [
             const TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png'),
-            const ButoaneAlegeOptiunea(),
+            ButoaneAlegeOptiunea(listaMedici: listaFiltrata, callbackScrieIntrebare: callbackScrieIntrebare, callbackConsultatieVideo: callbackConsultatieVideo,
+              callbackInterpretareAnalize: callbackInterpretareAnalize,),
             const SizedBox(height:25),
             Center(
               child: Column(
@@ -163,26 +247,32 @@ class TopIconFiltreazaWidget extends StatelessWidget {
   }
 }
 
-
 // ignore: must_be_immutable
 class ButoaneAlegeOptiunea extends StatelessWidget {
+
+  final List<MedicItem> listaMedici;
   
-  const ButoaneAlegeOptiunea({super.key});
+  final Function(List<MedicItem>)? callbackScrieIntrebare;
+  final Function(List<MedicItem>)? callbackConsultatieVideo;
+  final Function(List<MedicItem>)? callbackInterpretareAnalize;
+
+  const ButoaneAlegeOptiunea({super.key, required this.listaMedici, required this.callbackScrieIntrebare
+  , required this.callbackConsultatieVideo, required this.callbackInterpretareAnalize});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         
-        ButonAlegeServiciu(textServiciu: 'Scrie o întrebare', iconLocation: './assets/images/intrebare_icon.png', colorBackground: Color.fromRGBO(241, 248, 251, 1), 
-          colorScris: Color.fromRGBO(30, 166, 219, 1), widthScris: 60),
+        ButonAlegeServiciu(textServiciu: 'Scrie o întrebare', iconLocation: './assets/images/intrebare_icon.png', colorBackground: const Color.fromRGBO(241, 248, 251, 1), 
+          colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMedici, onPressed: callbackScrieIntrebare, tipServiciu: 1,),
 
-        ButonAlegeServiciu(textServiciu: 'Consultație video', iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: Color.fromRGBO(236, 251, 247, 1),
-          colorScris: Color.fromRGBO(30, 214, 158, 1), widthScris: 70),
+        ButonAlegeServiciu(textServiciu: 'Consultație video', iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: const Color.fromRGBO(236, 251, 247, 1),
+          colorScris: const Color.fromRGBO(30, 214, 158, 1), widthScris: 70, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 2,),
         
-        ButonAlegeServiciu(textServiciu: 'Interpretare analize', iconLocation: './assets/images/analize_icon.png', colorBackground: Color.fromRGBO(253, 250, 234, 1), 
-          colorScris: Color.fromRGBO(241, 201, 0, 1), widthScris: 73),    
+        ButonAlegeServiciu(textServiciu: 'Interpretare analize', iconLocation: './assets/images/analize_icon.png', colorBackground: const Color.fromRGBO(253, 250, 234, 1), 
+          colorScris: const Color.fromRGBO(241, 201, 0, 1), widthScris: 73, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 3,),
       ],
     );
   }
@@ -546,23 +636,50 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
   }
 }
 
-// ignore: must_be_immutable
-class ButonAlegeServiciu extends StatelessWidget {
-  
+
+class ButonAlegeServiciu extends StatefulWidget {
+
   final String textServiciu;
   final String iconLocation;
   final Color colorBackground;
   final Color colorScris;
   final double widthScris;
+  final List<MedicItem> listaMedici;
+  final int tipServiciu;
+
+  
+  final Function(List<MedicItem>)? onPressed;
 
   const ButonAlegeServiciu({
+    
     super.key,
     required this.textServiciu,
     required this.iconLocation,
     required this.colorBackground,
     required this.colorScris,
     required this.widthScris,
+    required this.listaMedici,
+    required this.onPressed,
+    required this.tipServiciu,
+
   });
+
+  @override
+  State<ButonAlegeServiciu> createState() => _ButonAlegeServiciuState();
+
+}
+
+class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
+  
+  bool isChecked = false;
+
+  @override
+  initState() {
+
+    listaMedici = widget.listaMedici;
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -571,6 +688,65 @@ class ButonAlegeServiciu extends StatelessWidget {
       onTap: () {  
         // ignore: avoid_print                        
         print("tapped on container întrebare");
+        if (widget.tipServiciu == 1)
+        {
+          setState(
+            () {
+              isChecked = !isChecked;
+              if(isChecked == true)
+              {
+                listaMedici = filterListByDisponibilitateScrieIntrebare(); 
+                widget.onPressed!(listaMedici);
+              }
+              else {
+
+                listaMedici = InitializareMediciWidget().initList();
+                widget.onPressed!(listaMedici);
+                
+              } 
+            }
+          );
+        }
+        else if (widget.tipServiciu == 2)
+        {
+          setState(
+            () {
+              isChecked = !isChecked;
+              if(isChecked == true)
+              {
+                
+                listaMedici = filterListByDisponibilitateConsultatieVideo(); 
+                widget.onPressed!(listaMedici);
+
+              }
+              else {
+
+                listaMedici = InitializareMediciWidget().initList();
+                widget.onPressed!(listaMedici);
+                
+              }
+            }
+          );
+        }
+        else if (widget.tipServiciu == 3)
+        {
+          setState(
+            () {
+
+              isChecked = !isChecked;
+              if(isChecked == true)
+              {
+                listaMedici = filterListByDisponibilitateInterpretareAnalize(); 
+                widget.onPressed!(listaMedici);
+              }
+              else {
+                listaMedici = InitializareMediciWidget().initList();
+                widget.onPressed!(listaMedici);
+              }
+
+            }
+          );
+        }
       },                         
       child:
       Container(
@@ -578,22 +754,22 @@ class ButonAlegeServiciu extends StatelessWidget {
         //color: const Color.fromRGBO(241, 248, 251, 1),
         decoration: BoxDecoration(
           border: Border.all(
-            color: colorBackground,
+            color: widget.colorBackground,
           ),
           borderRadius: BorderRadius.circular(15.0),
-          color: colorBackground //const Color.fromRGBO(241, 248, 251, 1),
+          color: widget.colorBackground //const Color.fromRGBO(241, 248, 251, 1),
         ),
         child: Row(
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children:[
             const SizedBox(width: 5),
-            Image.asset(iconLocation),
+            Image.asset(widget.iconLocation),
             const SizedBox(width:5),
             SizedBox(
-              width: widthScris,
+              width: widget.widthScris,
               height: 35,
-              child: Text(textServiciu, 
-                style: GoogleFonts.rubik(color: colorScris, fontSize: 11, fontWeight: FontWeight.w400), //const Color.fromRGBO(30, 166, 219, 1),
+              child: Text(widget.textServiciu, 
+                style: GoogleFonts.rubik(color: widget.colorScris, fontSize: 11, fontWeight: FontWeight.w400), //const Color.fromRGBO(30, 166, 219, 1),
                 maxLines: 2,
                 ),
             ),  

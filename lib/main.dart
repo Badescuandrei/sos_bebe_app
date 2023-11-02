@@ -64,8 +64,10 @@ class MyApp extends StatelessWidget {
       //home: const RegisterScreen(),
       //home: const ConfirmareScreen(correctCard: true,),
       //home: const ApelVideoPacientScreen(),
-      home: const AdaugaMetodaPlataScreen(),
-      //home: const VeziTotiMediciiScreen(),
+      //home: const AdaugaMetodaPlataScreen(),
+
+      home: const VeziTotiMediciiScreen(),
+
       //home: const IntroScreen(),
       //home: const MedicInfoScreen(),
       

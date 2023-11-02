@@ -105,8 +105,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         RegExp emailRegExp = RegExp(emailPattern);
                         String phonePattern = r'(^(?:[+0]4)?[0-9]{10}$)';
                         RegExp phoneRegExp = RegExp(phonePattern);
-                        String namePattern = r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$";
-                        RegExp nameRegExp = RegExp(namePattern);
+                        //String namePattern = r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$";
+                        //String namePattern = r'^[a-z A-Z,.\-]+$';
+                        
+                        String userNamePattern = r'^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$';
+                        RegExp nameRegExp = RegExp(userNamePattern);
+                        //RegExp nameRegExp = RegExp(namePattern);
                         if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
                           return "Introduceți un utilizator/email/numar de telefon valabil!";
                         } else {

@@ -4,21 +4,25 @@ class InitializareMediciWidget {
 
   InitializareMediciWidget();
 
-    List<MedicItem> listaRatings = [MedicItem(eInConsultatie: true, eDisponibil: false, rating: 4.9, likes: 330, 
+    List<MedicItem> listaRatings = [MedicItem(eInConsultatie: true, eOnline: false, primesteIntrebari: false, interpretareAnalize: false,
+                                      consultatieVideo: false, rating: 4.9, likes: 330, 
                                       iconPath:'./assets/images/medici_daniela_preoteasa_consultatie.png', 
                                       textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București',
                                       textTipMedic: 'Pediatrie, Medic Primar',),
-                                    MedicItem(eInConsultatie: false, eDisponibil: false, rating: 4.9, likes: 214, 
+                                    MedicItem(eInConsultatie: false, eOnline: false, primesteIntrebari: false, interpretareAnalize: false,
+                                      consultatieVideo: false, rating: 4.9, likes: 214, 
                                       iconPath:'./assets/images/medici_daniela_preoteasa_offline.png', 
                                       textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București',
                                       textTipMedic: 'Pediatrie, Medic Primar',),
-                                    MedicItem(eInConsultatie: false, eDisponibil: true, rating: 4.9, likes: 330, 
+                                    MedicItem(eInConsultatie: false, eOnline: true, primesteIntrebari: true, interpretareAnalize: false,
+                                      consultatieVideo: true, rating: 4.9, likes: 330, 
                                       iconPath:'./assets/images/medici_daniela_preoteasa_offline.png', 
                                       textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București',
                                       textTipMedic: 'Pediatrie, Medic Primar',),
-                                    MedicItem(eInConsultatie: false, eDisponibil: true, rating: 4.9, likes: 330, 
+                                    MedicItem(eInConsultatie: false, eOnline: true, primesteIntrebari: false, interpretareAnalize: true,
+                                      consultatieVideo: false, rating: 4.8, likes: 340, 
                                       iconPath:'./assets/images/medici_daniela_preoteasa_offline.png', 
-                                      textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București',
+                                      textNume: 'Dr. Daniela Preoteasa nou', textSpital: 'AIS Clinics & Hospital București',
                                       textTipMedic: 'Pediatrie, Medic Primar',),
                                   ];
 
@@ -131,7 +135,10 @@ for(int index = 0; index <listaRatings.length; index++){
 
 class MedicItem {
   final bool eInConsultatie;
-  final bool eDisponibil;
+  final bool eOnline;
+  final bool primesteIntrebari;
+  final bool interpretareAnalize;
+  final bool consultatieVideo;
   final int likes;
   final double rating;
   final String iconPath;
@@ -142,7 +149,8 @@ class MedicItem {
   final String textTipMedic;
   //DateTime dataStart;
   
-  MedicItem({required this.eInConsultatie, required this.eDisponibil, required this.likes, required this.rating, 
+  MedicItem({required this.eInConsultatie, required this.eOnline, required this.primesteIntrebari, 
+    required this.interpretareAnalize, required this.consultatieVideo, required this.likes, required this.rating, 
     required this.iconPath, required this.textNume, required this.textSpital, required this.textTipMedic});
 
 }
