@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import  'package:sos_bebe_app/factura_screen.dart';
+import  'package:sos_bebe_app/questionare_screen.dart';
 
 
 class PlataRealizataCuSuccesScreen extends StatefulWidget {
@@ -18,12 +19,18 @@ class _PlataRealizataCuSuccesScreenState extends State<PlataRealizataCuSuccesScr
   @override
   void initState() {
     Timer(const Duration(seconds: 3), (){
+      /*
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
                           => const FacturaScreen(tipPlata:'SOS', emailAddressPlata: 'info@sosromania.ro', phoneNumberPlata: '+40 000112112',
         textNumeSubiect: 'Istiak Ahmed', tutorId: '135248', emailSubiect: 'istiakahmed194@gmail.com', phoneNumberSubiect: '01521448905',
         dataPlatii: 'Iul. 02, 2023', dataPlatiiProcesata: 'Iul. 02, 2023', detaliiFacturaNume: 'Radu Timofte',
         detaliiFacturaServicii: 'Pediatrie', detaliiFacturaNumar: '7810',
       )));
+      */
+
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
+                          => const QuestionaireScreen()));
+
   });
   
   super.initState();

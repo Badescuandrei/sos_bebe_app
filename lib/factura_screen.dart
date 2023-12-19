@@ -654,10 +654,17 @@ final ScreenshotController _screenshotController = ScreenshotController();
                           _takeScreenshot(context);
 
                           print("pressed on button CONECTARE");
-                          Navigator.push(
+                          /*Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const QuestionaireScreen(),
+                            )
+                          );
+                          */
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TestimonialScreen(),
                             )
                           );
 

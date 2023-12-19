@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import  'package:sos_bebe_app/register_screen.dart';
 
+import  'package:sos_bebe_app/factura_screen.dart';
+
 
 class ProfilScreen extends StatelessWidget {
   const ProfilScreen({super.key});
@@ -21,19 +23,10 @@ class ProfilScreen extends StatelessWidget {
             color: Colors.white,
           ),
           
-        title:Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            //const SizedBox(width: 20),
-            //const Text('Înapoi'),
-            //const SizedBox(width: 20),
-            const SizedBox(width: 55),
-            Text('Profil',
+        title:Text('Profil',
               style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 16, fontWeight: FontWeight.w500),
             ),
-          ],
-        ),
-        centerTitle: false,
+        centerTitle: true,
       ),  
       body:
       SingleChildScrollView(
@@ -81,7 +74,6 @@ class ProfilScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   customDividerProfil(),
                   const SizedBox(height: 20),
-      
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children:[
@@ -91,9 +83,18 @@ class ProfilScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,    
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
+                                  => const FacturaScreen(tipPlata:'SOS', emailAddressPlata: 'info@sosromania.ro', phoneNumberPlata: '+40 000112112',
+                                  textNumeSubiect: 'Istiak Ahmed', tutorId: '135248', emailSubiect: 'istiakahmed194@gmail.com', phoneNumberSubiect: '01521448905',
+                                  dataPlatii: 'Iul. 02, 2023', dataPlatiiProcesata: 'Iul. 02, 2023', detaliiFacturaNume: 'Radu Timofte',
+                                  detaliiFacturaServicii: 'Pediatrie', detaliiFacturaNumar: '7810',
+                                )));
+
+                              },
                               child: 
-                              Text('Vezi Plati',
+                              Text('Vezi Plăti',
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                             ),  
@@ -102,11 +103,9 @@ class ProfilScreen extends StatelessWidget {
                       ),  
                     ],
                   ),
-                  
                   const SizedBox(height: 20),
                   customDividerProfil(),
                   const SizedBox(height: 20),
-      
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children:[
@@ -126,11 +125,9 @@ class ProfilScreen extends StatelessWidget {
                       ),  
                     ],
                   ),
-                  
                   const SizedBox(height: 20),
                   customDividerProfil(),
                   const SizedBox(height: 20),
-      
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children:[

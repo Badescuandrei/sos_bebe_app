@@ -232,11 +232,11 @@ class TopIconFiltreazaWidget extends StatelessWidget {
               )
             );
           },
-          child: 
+          child:
           Text('Profilul meu',
             style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
           ),
-        ), 
+        ),
         const SizedBox(width: 100),
         Text('Filtrează', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
         const SizedBox(width: 20),

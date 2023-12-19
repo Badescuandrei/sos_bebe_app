@@ -53,6 +53,7 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                                     width: 300,
                                     './assets/images/medici_disponibili_intro_background_image.png'
                             ),
+                            //Image.memory(poza, height: 190, width: 175, fit: BoxFit.cover)), Unident Andrei Bădescu
                           ),
                         ],
                       ),

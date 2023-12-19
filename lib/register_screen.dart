@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sos_bebe_app/login_screen.dart';
 import 'package:sos_bebe_app/select_service_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
@@ -216,7 +217,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ServiceSelectScreen(),
+                        //builder: (context) => const ServiceSelectScreen(),
+                        builder: (context) => const LoginScreen(),
                       )
                     );
                   },
