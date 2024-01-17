@@ -67,6 +67,12 @@ dependencies:
   screenshot: ^2.1.0
   external_path: ^1.0.3
   agora_token_service: ^0.1.2
+  pin_code_fields: ^8.0.1
+  shared_preferences: ^2.2.2
+  device_info_plus: ^9.1.1
+  crypto: ^3.0.3
+  firebase_messaging: ^14.7.10
+  xml: ^6.5.0
 
 dev_dependencies:
   flutter_test:

@@ -3,8 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/login_screen.dart';
 import 'package:sos_bebe_app/select_service_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+import 'package:http/http.dart' as http;
+import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
 //import 'package:sos_bebe_app/testimonial_screen.dart';
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -29,6 +36,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
       isHidden = !isHidden;
     });
   }
+
+    adaugaContClient() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      /*
+      http.Response? res = await apiCallFunctions.getContClient(
+        pUser: controllerEmail.text,
+        pParola: controllerPass.text,
+      );
+      */
+
+      http.Response? resAdaugaCont = await apiCallFunctions.adaugaContClient(
+        pNumeComplet: controllerNumeComplet.text,
+        pUser: controllerEmail.text,
+        pParola: controllerPass.text,
+      );
+
+      if (int.parse(resAdaugaCont!.body) == 200)
+      {
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString(pref_keys.userEmail, controllerEmail.text);
+        //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
+
+        prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+        print('Register încheiat cu succes');
+
+      }
+      else if (int.parse(resAdaugaCont!.body) == 400)
+      {
+
+        print('Apel invalid');
+
+      }
+      else if (int.parse(resAdaugaCont!.body) == 401)
+      {
+
+        prefs.setString(pref_keys.userEmail, controllerEmail.text);
+        prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+        print('Cont deja existent');
+
+      }
+      else if (int.parse(resAdaugaCont!.body) == 405)
+      {
+
+        print('Informatii insuficiente');
+
+      }
+      else if (int.parse(resAdaugaCont!.body) == 500)
+      {
+
+        print('A apărut o eroare la execuția metodei');
+
+      }
+
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           RegExp phoneRegExp = RegExp(phonePattern);
                           //String namePattern = r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$";
                           //String namePattern = r'^[a-z A-Z,.\-]+$';
-                          String userNamePattern = r'^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$';
+                          String userNamePattern = r'^(?=[a-zA-Z][a-zA-Z0-9._]{7,29}$)(?!.*[_.]{2})[^_.].*[^_.]$';
                           RegExp nameRegExp = RegExp(userNamePattern);
                           if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
                             return "Introduceți un utilizator/email/numar de telefon valabil!";
@@ -164,15 +228,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final isValidForm = registerKey.currentState!.validate();
                     if (isValidForm) {  
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ServiceSelectScreen(),
-                          //builder: (context) => const TestimonialScreen(),
-                        ));
+                      await adaugaContClient();
+                      
+                      /*
+                      if(context.mounted)
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ServiceSelectScreen(),
+                            //builder: (context) => const TestimonialScreen(),
+                          ));
+                      }
+                      */
                     }    
                   },
                   style: ElevatedButton.styleFrom(

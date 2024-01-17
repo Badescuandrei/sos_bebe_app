@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/intro_screen.dart';
 import 'package:sos_bebe_app/register_screen.dart';
+import 'package:sos_bebe_app/reset_password_pacient_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -164,10 +165,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 10),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('Ai uitat parola?', style: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300)),
+                  GestureDetector(
+                    onTap:()
+                    {
+
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const ResetPasswordPacientScreen();
+                            //return const PlataEsuataScreen();
+                          },
+                        ));
+
+                    },
+                    child: 
+                    const Text('Ai uitat parola?', style: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300))
+                  ),
                 ],
               ),
               const SizedBox(height: 30),
