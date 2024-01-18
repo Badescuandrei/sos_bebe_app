@@ -4,11 +4,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 //import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:sos_bebe_app/parola_noua_pacient_screen.dart';
+import 'package:sos_bebe_app/utils_api/functions.dart';
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+import 'package:http/http.dart' as http;
 //import 'package:flutter_pin_code_widget/flutter_pin_code_widget.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
+
 class VerificaCodulPacientScreen extends StatefulWidget {
-  const VerificaCodulPacientScreen({super.key});
+
+  final String user;
+  const VerificaCodulPacientScreen({super.key, required this.user});
 
   @override
   State<VerificaCodulPacientScreen> createState() => _VerificaCodulPacientScreenState();
@@ -16,6 +23,8 @@ class VerificaCodulPacientScreen extends StatefulWidget {
 
 class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen> {
   final verificaCodulKey = GlobalKey<FormState>();
+
+  String? currentPIN;
   bool isHidden = true;
   final controllerCode = TextEditingController();
 
@@ -104,10 +113,13 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                                   print("Completed");
                                 },
                                 onChanged: (value) {
-                                  print(value);
+                                  
                                   setState(() {
-                                    //currentText = value;
+                                    currentPIN = value;
                                   });
+
+                                  print('pinValue: $value currentPIN: $currentPIN');
+
                                 },
                                 beforeTextPaste: (text) {
                                   print("Allowing to paste $text");
@@ -145,19 +157,31 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                   width: 160,
                   height: 44,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       
                       final isValidForm = verificaCodulKey.currentState!.validate();
-                      if (isValidForm) {  
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            //builder: (context) => const ServiceSelectScreen(),
-                            builder: (context) => const ParolaNouaPacientScreen(),
-                          ) 
-                        );
-                      }  
-                      
+                      if (isValidForm) { 
+                        http.Response? resVerificaPin;
+          
+                        resVerificaPin = await verificaCodPinClient();
+
+                        if(context.mounted)
+                        {
+                          //if (int.parse(resVerificaPin!.body) == 200)
+                          //{
+
+                            print('verifica_codul_pacient resVerificaPin!.body: ${resVerificaPin!.body}');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                //builder: (context) => const ServiceSelectScreen(),
+                                builder: (context) => ParolaNouaPacientScreen(user: widget.user),
+                              ) 
+                            );
+                        
+                          //}
+                        }  
+                      }
                       //Navigator.push(
                           //context,
                           //MaterialPageRoute(
@@ -183,4 +207,108 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
       ),
     );
   }
+
+  
+  Future<http.Response?> verificaCodPinClient() async {
+
+      /*
+      http.Response? res = await apiCallFunctions.getContClient(
+        pUser: controllerEmail.text,
+        pParola: controllerPass.text,
+      );
+      */
+
+      
+      http.Response? resVerificaCodPin = await apiCallFunctions.verificaCodPinClient(
+        pUser: widget.user,
+        pCodPIN: currentPIN ?? '1234',
+      );
+
+      if (int.parse(resVerificaCodPin!.body) == 200)
+      {
+
+        //SharedPreferences prefs = await SharedPreferences.getInstance();
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+        print('Cod verificat cu succes!');
+
+        
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Cod verificat cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
+
+        }
+
+        return resVerificaCodPin;
+
+      }
+      else if (int.parse(resVerificaCodPin.body) == 400)
+      {
+
+        print('Apel invalid');
+
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
+
+        }
+
+        return resVerificaCodPin;
+
+      }
+      else if (int.parse(resVerificaCodPin!.body) == 401)
+      {
+
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+        print('Eroare! Codul nu a putut fi verificat!');
+
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
+
+        }
+
+        return resVerificaCodPin;
+
+      }
+      else if (int.parse(resVerificaCodPin!.body) == 405)
+      {
+
+        
+        print('Informatii insuficiente');
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
+
+        }
+        
+        return resVerificaCodPin;
+
+      }
+      else if (int.parse(resVerificaCodPin!.body) == 500)
+      {
+
+        print('A apărut o eroare la execuția metodei');
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
+
+        }
+
+        return resVerificaCodPin;
+
+      }
+      
+      return null;
+
+    }
+
 }

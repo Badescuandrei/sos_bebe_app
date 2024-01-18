@@ -5,6 +5,7 @@ import 'package:sos_bebe_app/verifica_codul_pacient_screen.dart';
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
@@ -176,8 +177,15 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-                        String? userPassMD5 = prefs.getString(pref_keys.userPassMD5);
 
+                        prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5('123456'));
+
+                        //String? userPassMD5 = prefs.getString(pref_keys.userPassMD5);
+
+                        String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+                        print('userPassMD5 : $userPassMD5');
+                        
                         ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
                           pUser: controllerPhoneEmailUser.text,
                           pParola: userPassMD5 ?? '',
@@ -185,12 +193,48 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
                         if (resGetCont != null )
                         {
-                          print('register_screen adaugaContClient getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
+                          print('register_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
+
+                          if (resGetCont.telefon.isEmpty && resGetCont.email.isEmpty)
+                          {
+
+                            if(context.mounted)
+                            {
+                              showSnackbar(context, "Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe", Colors.red, Colors.black);
+                            }
+                            return;
+
+                          }
+
+                        }
+                        else
+                        {
+
+                          print('reset_password_pacient Aici resGetCont null');
+
                         }
                         
-                        http.Response? resGetContClient = await apiCallFunctions.trimitePinPentruResetareParolaClient(
-                          pUser: controllerPhoneEmailUser.text,
-                        );
+                        http.Response? resTrimitePin;
+          
+                        resTrimitePin = await trimitePinPentruResetareParolaClient();
+
+                        if(context.mounted)
+                        {
+                          //if (int.parse(resTrimitePin!.body) == 200)
+
+                          {
+                            print('reset_password_pacient: user ${controllerPhoneEmailUser.text} resTrimitePin!.statusCode: ${resTrimitePin!.statusCode} resTrimitePin!.body: ${resTrimitePin.body}' );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VerificaCodulPacientScreen(user: controllerPhoneEmailUser.text),
+                                //builder: (context) => const ServiceSelectScreen(),
+                                //builder: (context) => const TestimonialScreen(),
+                              ),
+                            );
+                          }
+                        }
+
                         /*                              
                         Navigator.push(
                           context,
@@ -220,4 +264,107 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
       ),
     );
   }
+
+  Future<http.Response?> trimitePinPentruResetareParolaClient() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      /*
+      http.Response? res = await apiCallFunctions.getContClient(
+        pUser: controllerEmail.text,
+        pParola: controllerPass.text,
+      );
+      */
+
+      
+      http.Response? resTrimitePin = await apiCallFunctions.trimitePinPentruResetareParolaClient(
+        pUser: controllerPhoneEmailUser.text,
+      );
+
+      if (int.parse(resTrimitePin!.body) == 200)
+      {
+
+        //SharedPreferences prefs = await SharedPreferences.getInstance();
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+        print('Cod trimis cu succes!');
+
+        
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Cod trimis cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
+
+        }
+
+        return resTrimitePin;
+
+      }
+      else if (int.parse(resTrimitePin.body) == 400)
+      {
+
+        print('Apel invalid');
+
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
+
+        }
+
+        return resTrimitePin;
+
+      }
+      else if (int.parse(resTrimitePin!.body) == 401)
+      {
+
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+        print('Cont inexistent');
+
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Cont inexistent!", Colors.red, Colors.black);
+
+        }
+
+        return resTrimitePin;
+
+      }
+      else if (int.parse(resTrimitePin!.body) == 405)
+      {
+
+        
+        print('Informatii insuficiente');
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "Cont existent dar clientul nu are date de contact!", Colors.red, Colors.black);
+
+        }
+        
+        return resTrimitePin;
+
+      }
+      else if (int.parse(resTrimitePin!.body) == 500)
+      {
+
+        print('A apărut o eroare la execuția metodei');
+        if (context.mounted)
+        {
+
+          showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
+
+        }
+
+        return resTrimitePin;
+
+      }
+      
+      return null;
+
+    }
+
 }

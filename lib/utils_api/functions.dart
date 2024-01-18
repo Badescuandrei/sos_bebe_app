@@ -20,12 +20,15 @@ Future<List<String>> getUserName() async {
   return user;
 }
 
-void showSnackbar(BuildContext context, String text) {
+void showSnackbar(BuildContext context, String text, Color bckColor, Color textColor) {
   final snackBar = SnackBar(
     
-    content: Text(text, textAlign: TextAlign.center, style: TextStyle(color: Colors.black,),),
+    //content: Text(text, textAlign: TextAlign.center, style: TextStyle(color: Colors.black,),), //old IGV
+
+    content: Text(text, textAlign: TextAlign.center, style: TextStyle(color: textColor,),),
     
-    backgroundColor: const Color.fromARGB(255,200,200,200),
+    //backgroundColor: const Color.fromARGB(255,200,200,200), //old IGV
+    backgroundColor: bckColor,
     duration: const Duration(seconds: 2),
   );
   ScaffoldMessenger.of(context).showSnackBar(snackBar);

@@ -23,8 +23,6 @@ class ApiCallFunctions {
     
     http.Response res;
 
-    
-
     String url, key;
     key = api_config.keyAppPacienti;
     //url = '${api_config.apiUrl}$pNumeMetoda';
@@ -35,14 +33,10 @@ class ApiCallFunctions {
     parametriiApiCall.forEach((key, value) {
       url = '$url&$key=$value';
     });
-
     
     print('getApelFuncție url: $url');
 
     res = await http.get(Uri.parse(url));
-
-    //res = await http.get(Uri.parse('https://sosbebe.crmonline.ro/api/OnlineShopAPI/GetContClient?pCheie=6nDjtwV4kPUsIuBtgLhV4bTZNerrxzThPGImSsFa&pUser=0737862090&pParolaMD5=e10adc3949ba59abbe56e057f20f883e'));
-
 
     print('getApelFuncție rezultat: ${res.statusCode}');
     return res;
@@ -56,8 +50,6 @@ class ApiCallFunctions {
     
     http.Response res;
 
-    
-
     String url, key;
     key = api_config.keyAppPacienti;
     //url = '${api_config.apiUrl}$pNumeMetoda';
@@ -68,8 +60,7 @@ class ApiCallFunctions {
     parametriiApiCall.forEach((key, value) {
       url = '$url&$key=$value';
     });
-
-    
+ 
     print('postApelFuncție url: $url');
 
     res = await http.post(
@@ -83,11 +74,8 @@ class ApiCallFunctions {
 
     //res = await http.get(Uri.parse('https://sosbebe.crmonline.ro/api/OnlineShopAPI/GetContClient?pCheie=6nDjtwV4kPUsIuBtgLhV4bTZNerrxzThPGImSsFa&pUser=0737862090&pParolaMD5=e10adc3949ba59abbe56e057f20f883e'));
 
-
     print('postApelFuncție rezultat: ${res.statusCode}');
     return res;
-
-    //res = await http.get(Uri.parse('https://sosbebe.crmonline.ro/api/OnlineShopAPI/GetContClient?pCheie=6nDjtwV4kPUsIuBtgLhV4bTZNerrxzThPGImSsFa&pUser=0737862090&pParolaMD5=e10adc3949ba59abbe56e057f20f883e'));
 
   }
 
@@ -96,12 +84,12 @@ class ApiCallFunctions {
     required String pUser,
     required String pParola,
   }) async {
-    final String pParolaMD5 = generateMd5(pParola);
+    //final String pParolaMD5 = generateMd5(pParola);
     final Map<String, String> parametriiApiCall = {
       //'pNumeComplet': pNumeComplet,
       'pUser': pUser, //IGV
       //'pUser': '0737862090',
-      'pParolaMD5': pParolaMD5,
+      'pParolaMD5': pParola,
     };
 
     http.Response? resGetContClient;
@@ -111,15 +99,15 @@ class ApiCallFunctions {
     print('getContClient rezultat: ${resGetContClient!.statusCode}');
 
     if (resGetContClient.statusCode == 200) {
-    // If the server did return a 201 CREATED response,
-    // then parse the JSON.
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
       return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
     } 
     else {
-    // If the server did not return a 201 CREATED response,
-    // then throw an exception.
-    throw Exception('Failed to create album.');
-  }
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.');
+    }
 
     //return resGetContClient;
 
@@ -146,7 +134,6 @@ class ApiCallFunctions {
 
     return resAdaugaContClient;
 
-
   }
 
   Future<http.Response?> trimitePinPentruResetareParolaClient({
@@ -161,13 +148,53 @@ class ApiCallFunctions {
 
     resTrimitePin = await postApelFunctie(parametriiApiCall, 'TrimitePinPentruResetareParolaClient');
 
-    print('trimitePinPentruResetareParolaClient rezultat: ${resTrimitePin!.statusCode}');
+    print('trimitePinPentruResetareParolaClient rezultat: ${resTrimitePin!.statusCode} body rezultat: ${resTrimitePin.body}');
 
     return resTrimitePin;
+
+  }
+
+  Future<http.Response?> verificaCodPinClient({
+    required String pUser,
+    required String pCodPIN,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser,
+      'pCodPIN': pCodPIN, //IGV
+    };
+
+    http.Response? resVerificaCodPin;
+
+    resVerificaCodPin = await postApelFunctie(parametriiApiCall, 'VerificaCodPinClient');
+
+    print('verificaCodPinClient rezultat: ${resVerificaCodPin!.statusCode} body rezultat: ${resVerificaCodPin.body}');
+
+    return resVerificaCodPin;
 
 
   }
 
+  Future<http.Response?> reseteazaParolaClient({
+    required String pUser,
+    required String pNouaParola,
+  }) async {
+    final String pNouaParolaMD5 = generateMd5(pNouaParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser,
+      'pNouaParolaMD5': pNouaParolaMD5, //IGV
+    };
+
+    http.Response? resReseteazaParola;
+
+    resReseteazaParola = await postApelFunctie(parametriiApiCall, 'ReseteazaParolaClient');
+
+    print('reseteazaParolaClient rezultat: ${resReseteazaParola!.statusCode} body rezultat: ${resReseteazaParola.body}');
+
+    return resReseteazaParola;
+
+  }
+}
 
 /*
   Future<http.Response?> getContClient({
@@ -284,83 +311,7 @@ class ApiCallFunctions {
   }
   */
 
-  Future<http.Response?> verificaCodPinClient({
-    required String pUser,
-    required String pCodPIN,
-  }) async {
-
-    String url, key;
-    key = api_config.keyAppPacienti;
-    //url = '${api_config.apiUrl}$pNumeMetoda';
-
-    final Map<String, String> parametriiApiCall = {
-      'pCheie': key,
-      'pUser': pUser,
-      'pCodPIN': pCodPIN, //IGV
-    };
-
-    url = '${api_config.apiUrl}VerificaCodPinClient';
-
-    print('trimitePinPentruResetareParolaClient url: $url parametriiApiCall: $parametriiApiCall');
-    
-    http.Response res;
-
-    res = await http.post(
-      Uri.parse('https://sosbebe.crmonline.ro/api/OnlineShopAPI/AdaugaContClient?pCheie=6nDjtwV4kPUsIuBtgLhV4bTZNerrxzThPGImSsFa&pNumeComplet=TestMobile&pUser=0737862090&pParolaMD5=e10adc3949ba59abbe56e057f20f883e'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      //body: jsonEncode(parametriiApiCall),
-      body:'',
-    );
-
-    //res = await http.get(Uri.parse('https://sosbebe.crmonline.ro/api/OnlineShopAPI/GetContClient?pCheie=6nDjtwV4kPUsIuBtgLhV4bTZNerrxzThPGImSsFa&pUser=0737862090&pParolaMD5=e10adc3949ba59abbe56e057f20f883e'));
-
-
-    print('trimitePinPentruResetareParolaClient rezultat: ${res.statusCode}');
-    return res;
-  }
-  
-
-  Future<http.Response?> reseteazaParolaClient({
-    required String pUser,
-    required String pCodPIN,
-  }) async {
-
-    String url, key;
-    key = api_config.keyAppPacienti;
-    //url = '${api_config.apiUrl}$pNumeMetoda';
-
-    final Map<String, String> parametriiApiCall = {
-      'pCheie': key,
-      'pUser': pUser,
-      'pCodPIN': pCodPIN, //IGV
-    };
-
-    url = '${api_config.apiUrl}ReseteazaParolaClient';
-
-    print('trimitePinPentruResetareParolaClient url: $url parametriiApiCall: $parametriiApiCall');
-    
-    http.Response res;
-
-    res = await http.post(
-      Uri.parse(url),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(parametriiApiCall),
-    );
-
-    //res = await http.get(Uri.parse('https://sosbebe.crmonline.ro/api/OnlineShopAPI/GetContClient?pCheie=6nDjtwV4kPUsIuBtgLhV4bTZNerrxzThPGImSsFa&pUser=0737862090&pParolaMD5=e10adc3949ba59abbe56e057f20f883e'));
-
-
-    print('trimitePinPentruResetareParolaClient rezultat: ${res.statusCode}');
-    return res;
-  }
-
-}
-
-
+//////////////////////////////////////////////////////// old Andrei Bădescu
 /*
 
   Future<String?> register({
