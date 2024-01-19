@@ -32,15 +32,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final FocusNode focusNodePassword = FocusNode();
   final FocusNode focusNodeNumeComplet = FocusNode();
 
+  bool registerCorect = false;
+  bool showInainteButton = true;
+
   void passVisibiltyToggle() {
+  
     setState(() {
       isHidden = !isHidden;
     });
+  
   }
 
     Future<http.Response?> adaugaContClient() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
+      String textMessage = '';
+      Color backgroundColor = Colors.red;
+      Color textColor = Colors.black;
+      
       /*
       http.Response? res = await apiCallFunctions.getContClient(
         pUser: controllerEmail.text,
@@ -57,6 +66,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (int.parse(resAdaugaCont!.body) == 200)
       {
 
+        setState(() {
+
+          registerCorect = true;
+          showInainteButton = false;
+
+        });
+
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString(pref_keys.userEmail, controllerEmail.text);
         //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
@@ -65,7 +82,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         print('Înregistrare finalizată cu succes!');
 
-        
+        textMessage = 'Înregistrare finalizată cu succes!';
+        backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+        textColor = Colors.white;
+        /*
         if (context.mounted)
         {
 
@@ -74,13 +94,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
 
         return resAdaugaCont;
+        */
 
       }
       else if (int.parse(resAdaugaCont.body) == 400)
       {
 
+        
+        setState(() {
+
+          registerCorect = false;
+          showInainteButton = true;
+
+        });
+
         print('Apel invalid');
 
+        /*
         if (context.mounted)
         {
 
@@ -89,6 +119,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
 
         return resAdaugaCont;
+        */
+        textMessage = 'Apel invalid!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
 
       }
       else if (int.parse(resAdaugaCont!.body) == 401)
@@ -98,6 +132,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Cont deja existent');
 
+        
+        setState(() {
+
+          registerCorect = false;
+          showInainteButton = true;
+
+        });
+
+        /*
         if (context.mounted)
         {
 
@@ -106,13 +149,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
 
         return resAdaugaCont;
+        */
+        
+        textMessage = 'Cont deja existent!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
 
       }
       else if (int.parse(resAdaugaCont!.body) == 405)
       {
 
         
+        setState(() {
+
+          registerCorect = false;
+          showInainteButton = true;
+
+        });
+
         print('Informatii insuficiente');
+        
+        /*
         if (context.mounted)
         {
 
@@ -121,18 +178,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
         }
         
         return resAdaugaCont;
+        */
+        
+        textMessage = 'Informatii insuficiente!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
 
       }
       else if (int.parse(resAdaugaCont!.body) == 500)
       {
 
+        
+        setState(() {
+
+          registerCorect = false;
+          showInainteButton = true;
+
+        });
+
         print('A apărut o eroare la execuția metodei');
+        
+        
+        
+        textMessage = 'A apărut o eroare la execuția metodei!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+        /*
         if (context.mounted)
         {
 
           showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
 
         }
+
+        return resAdaugaCont;
+        */
+
+      }
+
+      if (context.mounted)
+      {
+
+        showSnackbar(context, textMessage, backgroundColor, textColor);
 
         return resAdaugaCont;
 
@@ -283,44 +370,58 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final isValidForm = registerKey.currentState!.validate();
-                      if (isValidForm) {  
-                        
-                        http.Response? resAdaugaCont;
-          
-                        resAdaugaCont = await adaugaContClient();
-                        
-                        if(context.mounted)
-                        {
-                          if (int.parse(resAdaugaCont!.body) == 200)
+                  (!registerCorect && !showInainteButton)? Text('Se încearcă înregistrarea',
+                    //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
+                    style: GoogleFonts.rubik(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18))
+                    :
+                    ElevatedButton(
+                      onPressed: () async {
+
+                        print('register_screen showInainteButton = $showInainteButton registerCorect = $registerCorect');
+
+                        final isValidForm = registerKey.currentState!.validate();
+                        if (isValidForm) {  
+
+                          setState(() {
+
+                            registerCorect = false;
+                            showInainteButton = false;
+
+                          });
+                          
+                          http.Response? resAdaugaCont;
+            
+                          resAdaugaCont = await adaugaContClient();
+                          
+                          if(context.mounted)
                           {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LoginScreen(),
-                                //builder: (context) => const ServiceSelectScreen(),
-                                //builder: (context) => const TestimonialScreen(),
-                              ),
-                            );
+                            if (int.parse(resAdaugaCont!.body) == 200)
+                            {
+                              
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                  //builder: (context) => const ServiceSelectScreen(),
+                                  //builder: (context) => const TestimonialScreen(),
+                                ),
+                              );
+                            }
                           }
-                        }
-                      }    
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 14, 190, 127),
-                        minimumSize: const Size.fromHeight(50), // NEW
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        )),
-                    child: Text('ÎNAINTE',
-                        //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
-                        style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)),
-                  ),
+                        }    
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 14, 190, 127),
+                          minimumSize: const Size.fromHeight(50), // NEW
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          )),
+                      child: Text('ÎNAINTE',
+                          //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
+                          style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)),
+                    ),
                   //const SizedBox(height: 20), old
                   const SizedBox(height: 35),
-          
                   //  child: 
                   AutoSizeText.rich(// old value RichText(
                     TextSpan(

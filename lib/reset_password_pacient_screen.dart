@@ -167,6 +167,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                     onPressed: () async {
                       final isValidForm = resetPasswordKey.currentState!.validate();
                       if (isValidForm) {
+
                       //Navigator.push(
                           //context,
                           //MaterialPageRoute(
@@ -177,7 +178,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-
                         prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5('123456'));
 
                         //String? userPassMD5 = prefs.getString(pref_keys.userPassMD5);
@@ -186,28 +186,32 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
                         print('userPassMD5 : $userPassMD5');
                         
+                        
                         ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
                           pUser: controllerPhoneEmailUser.text,
                           pParola: userPassMD5 ?? '',
                         );
 
-                        if (resGetCont != null )
-                        {
-                          print('register_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
 
-                          if (resGetCont.telefon.isEmpty && resGetCont.email.isEmpty)
+                        print('reset_password_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
+
+                        //if (resGetCont != null )
+                        {
+                          //print('reset_password_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
+
+                          //if (resGetCont.telefon.isEmpty && resGetCont.email.isEmpty)
                           {
 
                             if(context.mounted)
                             {
                               showSnackbar(context, "Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe", Colors.red, Colors.black);
                             }
-                            return;
+                            //return;
 
                           }
 
                         }
-                        else
+                        //else
                         {
 
                           print('reset_password_pacient Aici resGetCont null');
@@ -275,7 +279,10 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
       );
       */
 
-      
+      String textMessage = '';
+      Color backgroundColor = Colors.red;
+      Color textColor = Colors.black;
+
       http.Response? resTrimitePin = await apiCallFunctions.trimitePinPentruResetareParolaClient(
         pUser: controllerPhoneEmailUser.text,
       );
@@ -290,15 +297,10 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
         print('Cod trimis cu succes!');
 
+        textMessage = 'Cod trimis cu succes!';
+        backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+        textColor = Colors.white;
         
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Cod trimis cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
-
-        }
-
-        return resTrimitePin;
 
       }
       else if (int.parse(resTrimitePin.body) == 400)
@@ -306,6 +308,10 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
         print('Apel invalid');
 
+        textMessage = 'Apel invalid!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+        /*
         if (context.mounted)
         {
 
@@ -314,6 +320,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         }
 
         return resTrimitePin;
+        */
 
       }
       else if (int.parse(resTrimitePin!.body) == 401)
@@ -323,6 +330,11 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Cont inexistent');
 
+        textMessage = 'Cont inexistent!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+        /*
         if (context.mounted)
         {
 
@@ -331,6 +343,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         }
 
         return resTrimitePin;
+        */
 
       }
       else if (int.parse(resTrimitePin!.body) == 405)
@@ -338,6 +351,11 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
         
         print('Informatii insuficiente');
+        
+        textMessage = 'Cont existent dar clientul nu are date de contact!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+        /*
         if (context.mounted)
         {
 
@@ -346,12 +364,19 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         }
         
         return resTrimitePin;
+        */
 
       }
       else if (int.parse(resTrimitePin!.body) == 500)
       {
 
         print('A apărut o eroare la execuția metodei');
+
+        textMessage = 'A apărut o eroare la execuția metodei!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+        
+        /*
         if (context.mounted)
         {
 
@@ -360,9 +385,19 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         }
 
         return resTrimitePin;
+        */
 
       }
-      
+
+      if (context.mounted)
+      {
+
+        showSnackbar(context, textMessage, backgroundColor, textColor);
+
+        return resTrimitePin;
+
+      }
+    
       return null;
 
     }

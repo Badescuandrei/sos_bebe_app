@@ -39,10 +39,15 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
   
   final FocusNode focusNodeParolaNouaRepetata = FocusNode();
   
+  bool resetCorect = false;
+  bool showSendCodeButton = true;
+  
   void parolaNouaVisibiltyToggle() {
+
     setState(() {
       isHiddenParolaNoua = !isHiddenParolaNoua;
     });
+
   }
   
   void parolaNouaRepetataVisibiltyToggle() {
@@ -53,108 +58,192 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
   }
 
-  
-    Future<http.Response?> reseteazaParolaClient() async {
+  Future<http.Response?> reseteazaParolaClient() async {
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    /*
+    http.Response? res = await apiCallFunctions.getContClient(
+      pUser: controllerEmail.text,
+      pParola: controllerPass.text,
+    );
+    */
+
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+
+
+    http.Response? resReseteazaParola = await apiCallFunctions.reseteazaParolaClient(
+      pUser: widget.user,
+      pNouaParola: controllerParolaNoua.text,
+    );
+
+    if (int.parse(resReseteazaParola!.body) == 200)
+    {
+
+      setState(() {
+
+        resetCorect = true;
+        showSendCodeButton = false;
+
+      });
+
       //SharedPreferences prefs = await SharedPreferences.getInstance();
+      //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+      //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
+
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+      print('Parolă resetată cu succes!');
+
+      
+      textMessage = 'Parolă resetată cu succes!';
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
 
       /*
-      http.Response? res = await apiCallFunctions.getContClient(
-        pUser: controllerEmail.text,
-        pParola: controllerPass.text,
-      );
+      if (context.mounted)
+      {
+
+        showSnackbar(context, "Parolă resetată cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
+
+      }
+
+      return resReseteazaParola;
       */
 
-      http.Response? resReseteazaParola = await apiCallFunctions.reseteazaParolaClient(
-        pUser: widget.user,
-        pNouaParola: controllerParolaNoua.text,
-      );
+    }
+    else if (int.parse(resReseteazaParola.body) == 400)
+    {
+      
+      setState(() {
 
-      if (int.parse(resReseteazaParola!.body) == 200)
+        resetCorect = false;
+        showSendCodeButton = true;
+
+      });
+
+      print('Apel invalid');
+
+      
+      textMessage = 'Apel invalid!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+      /*
+      if (context.mounted)
       {
 
-        //SharedPreferences prefs = await SharedPreferences.getInstance();
-        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
-        //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
-
-        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
-
-        print('Parolă resetată cu succes!');
-
-        
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Parolă resetată cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
-
-        }
-
-        return resReseteazaParola;
+        showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
 
       }
-      else if (int.parse(resReseteazaParola.body) == 400)
+
+      return resReseteazaParola;
+      */
+
+    }
+    else if (int.parse(resReseteazaParola.body) == 401)
+    {
+
+      //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+      print('Eroare la resetare parolă');
+
+      setState(() {
+
+        resetCorect = false;
+        showSendCodeButton = true;
+
+      });
+
+      /*
+      if (context.mounted)
       {
 
-        print('Apel invalid');
-
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
-
-        }
-
-        return resReseteazaParola;
+        showSnackbar(context, "Eroare la resetare parolă!", Colors.red, Colors.black);
 
       }
-      else if (int.parse(resReseteazaParola.body) == 401)
+
+      return resReseteazaParola;
+      */
+
+      
+      textMessage = 'Eroare la resetare parolă!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resReseteazaParola!.body) == 405)
+    {
+      
+      
+      setState(() {
+
+        resetCorect = false;
+        showSendCodeButton = true;
+
+      });
+
+      print('Informatii insuficiente');
+
+      /*
+      if (context.mounted)
       {
 
-        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
-        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
-        print('Eroare la resetare parolă');
-
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Eroare la resetare parolă!", Colors.red, Colors.black);
-
-        }
-
-        return resReseteazaParola;
-
-      }
-      else if (int.parse(resReseteazaParola!.body) == 405)
-      {
-        
-        print('Informatii insuficiente');
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
-
-        }
-        
-        return resReseteazaParola;
-
-      }
-      else if (int.parse(resReseteazaParola!.body) == 500)
-      {
-
-        print('A apărut o eroare la execuția metodei');
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
-
-        }
-
-        return resReseteazaParola;
+        showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
 
       }
       
-      return null;
+      return resReseteazaParola;
+      */
+      
+      textMessage = 'Informatii insuficiente!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
 
     }
+    else if (int.parse(resReseteazaParola!.body) == 500)
+    {
+
+      
+      setState(() {
+
+        resetCorect = false;
+        showSendCodeButton = true;
+
+      });
+
+      print('A apărut o eroare la execuția metodei');
+
+      /*
+      if (context.mounted)
+      {
+
+        showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
+
+      }
+
+      return resReseteazaParola;
+      */
+
+      
+      textMessage = 'A apărut o eroare la execuția metodei!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+      return resReseteazaParola;
+
+    }
+
+    return null;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -311,10 +400,21 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                 SizedBox(
                   width: 160,
                   height: 44,
-                  child: ElevatedButton(
+                  child: 
+                    (!resetCorect && !showSendCodeButton)? Text('Se încearcă trimiterea codului',
+                    //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
+                    style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)):
+                    ElevatedButton(
                     onPressed: () async {
                       final isValidForm = parolaNouaKey.currentState!.validate();
                       if (isValidForm) {
+
+                        setState(() {
+
+                          resetCorect = false;
+                          showSendCodeButton = false;
+
+                        });
 
                         http.Response? resReseteazaParola;
           
@@ -325,7 +425,7 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                           //if (int.parse(resVerificaPin!.body) == 200)
                           //{
 
-                            print('parola_noua_pacient resVerificaPin!.statusCode: ${resReseteazaParola!.statusCode} resVerificaPin!.body: ${resReseteazaParola!.body}');
+                            print('parola_noua_pacient resReseteazaParola!.statusCode: ${resReseteazaParola!.statusCode} resVerificaPin!.body: ${resReseteazaParola!.body}');
 
                           if(controllerParolaNoua.value.text.length >= 7 && ((controllerParolaNoua.value.text).compareTo(controllerParolaNouaRepetata.value.text) == 0))
                           {
@@ -375,7 +475,7 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                     child: Text('Confirmă',
                         style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
-                ),  
+                ),
                 //const SizedBox(height: 100),
               ],
             ),

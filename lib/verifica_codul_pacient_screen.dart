@@ -162,7 +162,7 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                       final isValidForm = verificaCodulKey.currentState!.validate();
                       if (isValidForm) { 
                         http.Response? resVerificaPin;
-          
+
                         resVerificaPin = await verificaCodPinClient();
 
                         if(context.mounted)
@@ -171,16 +171,17 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                           //{
 
                             print('verifica_codul_pacient resVerificaPin!.body: ${resVerificaPin!.body}');
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                 //builder: (context) => const ServiceSelectScreen(),
                                 builder: (context) => ParolaNouaPacientScreen(user: widget.user),
-                              ) 
+                              )
                             );
-                        
+
                           //}
-                        }  
+                        }
                       }
                       //Navigator.push(
                           //context,
@@ -218,7 +219,10 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
       );
       */
 
-      
+      String textMessage = '';
+      Color backgroundColor = Colors.red;
+      Color textColor = Colors.black;
+
       http.Response? resVerificaCodPin = await apiCallFunctions.verificaCodPinClient(
         pUser: widget.user,
         pCodPIN: currentPIN ?? '1234',
@@ -235,14 +239,17 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         print('Cod verificat cu succes!');
 
         
-        if (context.mounted)
-        {
+        //if (context.mounted)
+        //{
 
-          showSnackbar(context, "Cod verificat cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
+          textMessage = 'Cod verificat cu succes!';
+          backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+          textColor = Colors.white;
+          //showSnackbar(context, "Cod verificat cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
 
-        }
+        //}
 
-        return resVerificaCodPin;
+        //return resVerificaCodPin;
 
       }
       else if (int.parse(resVerificaCodPin.body) == 400)
@@ -250,14 +257,17 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
 
         print('Apel invalid');
 
-        if (context.mounted)
-        {
+        //if (context.mounted)
+        //{
 
-          showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
+          textMessage = 'Apel invalid!';
+          backgroundColor = Colors.red;
+          textColor = Colors.black;
+          //showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
 
-        }
+        //}
 
-        return resVerificaCodPin;
+        //return resVerificaCodPin;
 
       }
       else if (int.parse(resVerificaCodPin!.body) == 401)
@@ -267,46 +277,65 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Eroare! Codul nu a putut fi verificat!');
 
-        if (context.mounted)
-        {
+        //if (context.mounted)
+        //{
 
-          showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
+          textMessage = 'Eroare! Codul nu a putut fi verificat!';
+          backgroundColor = Colors.red;
+          textColor = Colors.black;
+          //showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
 
-        }
+        //}
 
-        return resVerificaCodPin;
+        //return resVerificaCodPin;
 
       }
       else if (int.parse(resVerificaCodPin!.body) == 405)
       {
 
         
-        print('Informatii insuficiente');
-        if (context.mounted)
-        {
+        print('Informatii insuficiente!');
 
-          showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
+        textMessage = 'Informatii insuficiente!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+        //if (context.mounted)
+        //{
 
-        }
+          
+          //showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
+
+        //}
         
-        return resVerificaCodPin;
+        //return resVerificaCodPin;
 
       }
       else if (int.parse(resVerificaCodPin!.body) == 500)
       {
 
         print('A apărut o eroare la execuția metodei');
+        
+        textMessage = 'Informatii insuficiente!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+        /*
         if (context.mounted)
         {
 
           showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
 
         }
+        */
 
-        return resVerificaCodPin;
+        
 
       }
       
+      if (context.mounted)
+      {
+        showSnackbar(context, textMessage, backgroundColor, textColor);
+        return resVerificaCodPin;
+      }
       return null;
 
     }
