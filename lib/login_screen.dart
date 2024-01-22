@@ -3,6 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/intro_screen.dart';
 import 'package:sos_bebe_app/register_screen.dart';
 import 'package:sos_bebe_app/reset_password_pacient_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/utils_api/functions.dart';
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+import 'package:http/http.dart' as http;
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final loginKey = GlobalKey<FormState>();
   bool isHidden = true;
   
-  final controllerEmail = TextEditingController();
+  final controllerEmailTelefonUser = TextEditingController();
   final controllerPass = TextEditingController();
 
   final FocusNode focusNodeEmail = FocusNode();
@@ -25,6 +33,63 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       isHidden = !isHidden;
     });
+  }
+
+  login(BuildContext context) async 
+  {
+    
+    String textMesaj = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+
+    String mailTelefonUser = controllerEmailTelefonUser.text;
+    String pass = controllerPass.text;
+
+    String userPassMD5 = apiCallFunctions.generateMd5(pass);
+
+    ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
+      pUser: mailTelefonUser,
+      pParola: userPassMD5,
+    );
+
+    if (resGetCont != null)
+    {
+      
+      textMesaj = 'Login realizat cu succes!';
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(pref_keys.userEmail, resGetCont.email);
+      prefs.setString(pref_keys.userTelefon, resGetCont.telefon);
+      prefs.setString(pref_keys.user, resGetCont.user);
+      //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
+      prefs.setString(pref_keys.userPassMD5, userPassMD5);
+
+    }
+    else
+    {
+      
+      textMesaj = 'Eroare! Reintroduceți user-ul și parola!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+      print('Eroare');
+
+    }
+    if (context.mounted)
+    {
+
+      showSnackbar(
+        context,
+        textMesaj,
+        backgroundColor,
+        textColor,
+      );
+
+    }
+
+    return resGetCont;
+
   }
 
   @override
@@ -78,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         focusNodePassword.requestFocus();
                       },
                       focusNode: focusNodeEmail,
-                      controller: controllerEmail,
+                      controller: controllerEmailTelefonUser,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
@@ -187,16 +252,25 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final isValidForm = loginKey.currentState!.validate();
                   if (isValidForm) {
                     print("pressed on button CONECTARE");
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const IntroScreen(),
-                      )
-                    );
+                    
+                    ContClientMobile? resGetCont = await login(context);
+
+                    if (resGetCont != null)
+                    {
+                      if (context.mounted)
+                      {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const IntroScreen(),
+                          )
+                        );
+                      }
+                    }
                   }
                 },  
                 style: ElevatedButton.styleFrom(

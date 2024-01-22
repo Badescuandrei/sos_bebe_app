@@ -106,7 +106,59 @@ class ApiCallFunctions {
     else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-      throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.');
+      //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
+      return null;
+    }
+
+    //return resGetContClient;
+
+  }
+
+  Future<List<MedicMobile>?> getListaMedici({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+    };
+
+    http.Response? resGetListaMedici;
+
+    resGetListaMedici = await getApelFunctie(parametriiApiCall, 'GetListaMedici');
+
+    if (resGetListaMedici!.statusCode == 200) 
+    {
+
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      List<MedicMobile> parseMediciMobile(String responseBody) 
+      {
+        final parsed =
+            (jsonDecode(responseBody) as List).cast<Map<String, dynamic>>();
+
+        return parsed.map<MedicMobile>((json) => MedicMobile.fromJson(json)).toList();
+      }
+
+      print('resGetListaMedici rezultat parsat: ${parseMediciMobile(resGetListaMedici.body)}');
+      return parseMediciMobile(resGetListaMedici.body);
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
     }
 
     //return resGetContClient;
@@ -176,8 +228,10 @@ class ApiCallFunctions {
   }
 
   Future<http.Response?> reseteazaParolaClient({
+
     required String pUser,
     required String pNouaParola,
+
   }) async {
     final String pNouaParolaMD5 = generateMd5(pNouaParola);
     final Map<String, String> parametriiApiCall = {

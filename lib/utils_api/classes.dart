@@ -34,6 +34,60 @@ class ContClientMobile {
   }
 }
 
+enum EnumStatusMedicMobile
+{
+    nedefinit(0),
+    activ(1),
+    indisponibil(2),
+    inConsultatie(3);
+
+    const EnumStatusMedicMobile(this.value);
+    final int value;
+
+}
+
+
+
+class MedicMobile {
+  final int id;
+  final String linkPozaProfil;
+  final String titulatura;
+  final String numeleComplet;
+  final String locDeMunca;
+  final String functia;
+  final String specializarea;
+  final double medieReviewuri;
+  final int nrLikeuri;
+  final int status;
+  final bool primesteIntrebari;
+  final bool interpreteazaAnalize;
+  final bool consultatieVideo;
+
+  const MedicMobile({required this.id, required this.linkPozaProfil, required this.titulatura, required this.numeleComplet, required this.locDeMunca, 
+  required this.functia, required this.specializarea, required this.medieReviewuri, required this.nrLikeuri, required this.status, 
+  required this.primesteIntrebari, required this.interpreteazaAnalize, required this.consultatieVideo, });
+
+  factory MedicMobile.fromJson(Map<String, dynamic> json) {
+
+    print('MedicMobile.fromJson $json');
+
+    return MedicMobile(
+      id: json['Id'] as int,
+      linkPozaProfil: json['LinkPozaProfil'] as String,
+      titulatura: json['Titulatura'] as String,
+      numeleComplet: json['NumeleComplet'] as String,
+      locDeMunca: json['LocDeMunca'] as String,
+      functia: json['Functia'] as String,
+      specializarea: json['Specializarea'] as String,
+      medieReviewuri: json['MedieReviewuri'] as double,
+      nrLikeuri: json['NrLikeuri'] as int,
+      status: json['Status'] as int,
+      primesteIntrebari: json['PrimesteIntrebari'] as bool,
+      interpreteazaAnalize: json['InterpreteazaAnalize'] as bool,
+      consultatieVideo: json['ConsultatieVideo'] as bool,
+    );
+  }
+}
 
 ////////////////////////////////////////////////// old Andrei Bădescu
 

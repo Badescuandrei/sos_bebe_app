@@ -5,28 +5,36 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/initializare_medici_widget.dart';
 import 'package:sos_bebe_app/profil_screen.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/utils_api/functions.dart';
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 //import 'package:sos_bebe_app/medic_info_screen.dart';
 import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
-  List<MedicItem> listaMedici = [];
+List<MedicMobile> listaMedici = [];
 
-  List<MedicItem> filterListByAvailability()
+  List<MedicMobile> filterListByActiv()
   {
-    List<MedicItem> listResult = [];
+
+    const activ = EnumStatusMedicMobile.activ;
+    List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].eOnline == true)
+      if (listaMedici[index].status == activ.value)
       {
+        print('filterListByActiv: index = $index ');
         listResult.add(listaMedici[index]);
       }
     }  
     return listResult; 
   }
-  
 
-  List<MedicItem> filterListByDisponibilitateScrieIntrebare()
+  List<MedicMobile> filterListByDisponibilitateScrieIntrebare()
   {
-    List<MedicItem> listResult = [];
+    List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
       if (listaMedici[index].primesteIntrebari == true)
       {
@@ -35,10 +43,12 @@ import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart'
     }  
     return listResult; 
   }
+
   
-  List<MedicItem> filterListByDisponibilitateConsultatieVideo()
+  
+  List<MedicMobile> filterListByDisponibilitateConsultatieVideo()
   {
-    List<MedicItem> listResult = [];
+    List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
       if (listaMedici[index].consultatieVideo == true)
       {
@@ -48,11 +58,11 @@ import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart'
     return listResult; 
   }
   
-  List<MedicItem> filterListByDisponibilitateInterpretareAnalize()
+  List<MedicMobile> filterListByDisponibilitateInterpretareAnalize()
   {
-    List<MedicItem> listResult = [];
+    List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].interpretareAnalize == true)
+      if (listaMedici[index].interpreteazaAnalize == true)
       {
         listResult.add(listaMedici[index]);
       }
@@ -60,8 +70,8 @@ import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart'
     return listResult; 
   }
 
-
 class VeziTotiMediciiScreen extends StatefulWidget {
+  
   const VeziTotiMediciiScreen({super.key});
 
   @override
@@ -70,37 +80,83 @@ class VeziTotiMediciiScreen extends StatefulWidget {
 
 class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
 
-  List<MedicItem> listaFiltrata = [];
+  //List<MedicMobile> listaFiltrata = [];
+
+  List<MedicMobile> listaFiltrata = [];
 
   @override
   void initState() {
     
     // Do some other stuff
     super.initState();
-    listaMedici = InitializareMediciWidget().initList();
-    listaFiltrata = listaMedici;
+
+    getListaMedici();
+
+    setState(() {
+
+      listaFiltrata = listaMedici;
+
+    });
+    
+    //listaMedici = InitializareMediciWidget().initList(); //old IGV
+    
+    //listaFiltrata = listaMedici;
 
   }
 
-  void callbackScrieIntrebare(List<MedicItem> newListaFiltrataScrieIntrebare) {
+  getListaMedici() async 
+  {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    listaMedici = await apiCallFunctions.getListaMedici(
+      pUser: user,
+      pParola: userPassMD5,
+    )?? [];
+
+    print('listaMedici: $listaMedici');
+
+  }
+  
+
+  void callbackFiltreazaLista(List<MedicMobile> newListaFiltrataActiv) {
+
+    //print('newListaFiltrataActiv: ${newListaFiltrataActiv.length}');
+
+    setState(() {
+      listaFiltrata = newListaFiltrataActiv;
+      // ignore: avoid_print
+      //print('is checked alergic: ' + isAlergic.toString());
+    });
+
+  }
+
+  void callbackScrieIntrebare(List<MedicMobile> newListaFiltrataScrieIntrebare) {
     setState(() {
 
       listaFiltrata = newListaFiltrataScrieIntrebare;
+
+      //listaFiltrata = newListaFiltrataScrieIntrebare;
       // ignore: avoid_print
       //print('is checked alergic: ' + isAlergic.toString());
 
     });
   }
   
-  void callbackConsultatieVideo(List<MedicItem> newListaFiltrataConsultatieVideo) {
-    setState(() {
+  void callbackConsultatieVideo(List<MedicMobile> newListaFiltrataConsultatieVideo) {
+    setState(() 
+    {
+
       listaFiltrata = newListaFiltrataConsultatieVideo;
       // ignore: avoid_print
       //print('is checked alergic: ' + isAlergic.toString());
     });
   }
 
-  void callbackInterpretareAnalize(List<MedicItem> newListaFiltrataInterpretareAnalize) {
+  void callbackInterpretareAnalize(List<MedicMobile> newListaFiltrataInterpretareAnalize) {
     setState(() {
       listaFiltrata = newListaFiltrataInterpretareAnalize;
       // ignore: avoid_print
@@ -108,6 +164,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     });
   }
 
+  /*
   List<MedicItem> filterListByIndex()
   {
     List<MedicItem> listResult = [];
@@ -119,6 +176,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     }  
     return listResult; 
   }
+  */
 
 
   @override
@@ -129,18 +187,13 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     //List<NumarPacientiItem> listaFiltrata = filterListByLowerData(DateTime.utc(2023, 2, 1));
     //List<NumarPacientiItem> listaFiltrata = filterListByHigherData(DateTime.utc(2023, 1, 8));
     //List<MedicItem> listaFiltrata = filterListByIntervalData(DateTime.utc(2021, 11, 9), DateTime.utc(2023, 3, 14));
-
-    
-  
     
     for(int index = 0; index <listaFiltrata.length; index++){
       var item = listaFiltrata[index];
       if (index < listaFiltrata.length-1)
       {
         mywidgets.add(
-          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: item.eInConsultatie, eDisponibil: item.eOnline, likes: item.likes,
-            rating: item.rating,
-            iconPath: item.iconPath, textNume: item.textNume, textSpital: item.textSpital, textTipMedic: item.textTipMedic,),  
+          IconStatusNumeRatingSpitalLikesMedic(medicItem: item,),  
         );
         mywidgets.add(
           const SizedBox(height: 15),
@@ -149,9 +202,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
       else if (index == listaFiltrata.length-1)
       {
         mywidgets.add(
-          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: item.eInConsultatie, eDisponibil: item.eOnline, likes: item.likes,
-            rating: item.rating,
-            iconPath: item.iconPath, textNume: item.textNume, textSpital: item.textSpital, textTipMedic: item.textTipMedic,),  
+          IconStatusNumeRatingSpitalLikesMedic(medicItem: item,),  
         );
       }
       /*
@@ -181,7 +232,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
       SingleChildScrollView(
         child: Column(
           children: [
-            const TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png'),
+            TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png', callbackFiltreaza: callbackFiltreazaLista, listaMedici:listaMedici),
             ButoaneAlegeOptiunea(listaMedici: listaFiltrata, callbackScrieIntrebare: callbackScrieIntrebare, callbackConsultatieVideo: callbackConsultatieVideo,
               callbackInterpretareAnalize: callbackInterpretareAnalize,),
             const SizedBox(height:25),
@@ -198,13 +249,35 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
   }
 }
 
-
-// ignore: must_be_immutable
-class TopIconFiltreazaWidget extends StatelessWidget {
-
-  final String topIcon;
+class TopIconFiltreazaWidget extends StatefulWidget {
   
-  const TopIconFiltreazaWidget({super.key, required this.topIcon});
+  final String topIcon;
+
+  final List<MedicMobile> listaMedici;
+  
+  final Function(List<MedicMobile>)? callbackFiltreaza;
+  
+  const TopIconFiltreazaWidget({super.key, required this.topIcon, required this.listaMedici, required this.callbackFiltreaza});
+
+  @override
+  State<TopIconFiltreazaWidget> createState() => _TopIconFiltreazaWidgetState();
+
+}
+
+class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
+
+  //List<MedicMobile> listaFiltrata = [];
+  
+  List<MedicMobile> listaFiltrataRezultat = [];
+  bool isChecked = false;
+
+  @override
+  void initState() {
+    
+    // Do some other stuff
+    super.initState();
+  
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +294,7 @@ class TopIconFiltreazaWidget extends StatelessWidget {
               )
             );
           },
-          icon: Image.asset(topIcon),
+          icon: Image.asset(widget.topIcon),
         ),
         TextButton(
           onPressed: () {
@@ -238,10 +311,59 @@ class TopIconFiltreazaWidget extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 100),
-        Text('Filtrează', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+        TextButton(
+          onPressed: () {
+
+            print('onPressed Aici');
+            setState(
+              () {
+                isChecked = !isChecked;
+                if(isChecked == true)
+                {
+
+                  listaFiltrataRezultat = filterListByActiv();
+                  //print('filterListByActiv: listaFiltrataRezultat.length = ${listaFiltrataRezultat.length}'); 
+                  widget.callbackFiltreaza!(listaFiltrataRezultat);
+
+                }
+                else {
+
+                  //listaMedici = InitializareMediciWidget().initList();
+                  widget.callbackFiltreaza!(listaMedici);
+
+                } 
+              }
+            );
+            
+          },
+          child:
+          Text('Filtrează', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+        ),
         const SizedBox(width: 20),
-        Image.asset('./assets/images/filtreaza_medici_icon.png'),
         
+        GestureDetector(
+          onTap: () {
+
+            print('onPressed Aici');
+            setState(
+              () {
+                isChecked = !isChecked;
+                if(isChecked == true)
+                {
+                  listaFiltrataRezultat = filterListByActiv(); 
+                  widget.callbackFiltreaza!(listaFiltrataRezultat);
+                }
+                else {
+
+                  //listaMedici = InitializareMediciWidget().initList();
+                  widget.callbackFiltreaza!(listaMedici);
+                  
+                } 
+              }
+            );
+          },
+          child: Image.asset('./assets/images/filtreaza_medici_icon.png')
+        ),
       ],
     );
   }
@@ -250,11 +372,11 @@ class TopIconFiltreazaWidget extends StatelessWidget {
 // ignore: must_be_immutable
 class ButoaneAlegeOptiunea extends StatelessWidget {
 
-  final List<MedicItem> listaMedici;
+  final List<MedicMobile> listaMedici;
   
-  final Function(List<MedicItem>)? callbackScrieIntrebare;
-  final Function(List<MedicItem>)? callbackConsultatieVideo;
-  final Function(List<MedicItem>)? callbackInterpretareAnalize;
+  final Function(List<MedicMobile>)? callbackScrieIntrebare;
+  final Function(List<MedicMobile>)? callbackConsultatieVideo;
+  final Function(List<MedicMobile>)? callbackInterpretareAnalize;
 
   const ButoaneAlegeOptiunea({super.key, required this.listaMedici, required this.callbackScrieIntrebare
   , required this.callbackConsultatieVideo, required this.callbackInterpretareAnalize});
@@ -280,19 +402,9 @@ class ButoaneAlegeOptiunea extends StatelessWidget {
 
 class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
   
-  final bool eInConsultatie;
-  final bool eDisponibil;
-  final int likes;
-  final String iconPath;
-  //final String statusIconPath;
-  final double rating;
-  final String textNume;
-  final String textSpital;
-  final String textTipMedic;
+  final MedicMobile medicItem;
 
-  const IconStatusNumeRatingSpitalLikesMedic({super.key, required this.eInConsultatie, required this.eDisponibil, required this.likes,
-    required this.rating, required this.iconPath, //required this.statusIconPath,
-    required this.textNume, required this.textSpital, required this.textTipMedic,});
+  const IconStatusNumeRatingSpitalLikesMedic({super.key, required this.medicItem,});
 
   @override
   State<IconStatusNumeRatingSpitalLikesMedic> createState() => _IconStatusNumeRatingSpitalLikesMedic();
@@ -301,6 +413,10 @@ class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
 class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSpitalLikesMedic> {
   
   double? _ratingValue = 4.9;
+
+  static const activ = EnumStatusMedicMobile.activ;
+  static const indisponibil = EnumStatusMedicMobile.indisponibil;
+  static const inConsultatie = EnumStatusMedicMobile.inConsultatie;
 
   @override
   Widget build(BuildContext context) {
@@ -336,10 +452,18 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
         width: 335,
         //color: const Color.fromRGBO(253, 250, 234, 1),
         decoration: BoxDecoration(
+          /*
           border: Border.all(
             color: widget.eInConsultatie ? const Color.fromRGBO(214, 30, 42, 1): 
               widget.eDisponibil? const Color.fromRGBO(30, 214, 158, 1) : const Color.fromRGBO(205, 211, 223, 1),
           ),
+          */
+
+          border: Border.all(
+            color: widget.medicItem.status == inConsultatie.value ? const Color.fromRGBO(214, 30, 42, 1): 
+              widget.medicItem.status == activ.value ? const Color.fromRGBO(30, 214, 158, 1) : const Color.fromRGBO(205, 211, 223, 1),
+          ),
+
           borderRadius: BorderRadius.circular(15.0),
           color: const Color.fromRGBO(255, 255, 255, 1),
         ),
@@ -354,11 +478,16 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                     const SizedBox(width: 15),
                     Stack(
                       children: [
-                        Image.asset(widget.iconPath),
+                        //Image.asset(widget.iconPath),
+                        widget.medicItem.linkPozaProfil.isNotEmpty?
+
+                        Image.network(widget.medicItem.linkPozaProfil, width:60, height: 60):
+                        Image.asset('./assets/images/user_fara_poza.png', width:60, height: 60),
                         Positioned(
                           top: 0.0,
                           right: 0.0,
-                          child: Image.asset(widget.eInConsultatie? './assets/images/on_call_icon.png' : widget.eDisponibil? './assets/images/online_icon.png': './assets/images/offline_icon.png'),
+                          //child: Image.asset(widget.eInConsultatie? './assets/images/on_call_icon.png' : widget.eDisponibil? './assets/images/online_icon.png': './assets/images/offline_icon.png'),
+                          child: Image.asset(widget.medicItem.status == inConsultatie.value? './assets/images/on_call_icon.png' : widget.medicItem.status == activ.value? './assets/images/online_icon.png': './assets/images/offline_icon.png'),
                         ),  
                       ],
                     ),
@@ -376,7 +505,9 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children:[
-                      widget.eInConsultatie? Container(
+                      //widget.eInConsultatie?  //old IGV
+                      widget.medicItem.status == inConsultatie.value?
+                      Container(
                         width: 69,
                         height: 16,
                         //color: const Color.fromRGBO(255, 0, 0, 1),
@@ -398,22 +529,31 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                         itemPadding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 5.0),
                         ratingWidget: RatingWidget(
                           //full: const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)),
-                          full: widget.eInConsultatie?  const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : 
-                            widget.eDisponibil? const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star, color: Color.fromRGBO(103, 114, 148, 1)),
+                          full: 
+                            //widget.eInConsultatie?  const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) :  //old IGV
+                            //widget.eDisponibil? const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star, color: Color.fromRGBO(103, 114, 148, 1)), //old IGV
+                            widget.medicItem.status == inConsultatie.value? const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : 
+                            widget.medicItem.status == activ.value? const Icon(Icons.star, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star, color: Color.fromRGBO(103, 114, 148, 1)),
                           /*half: const Icon(
                             Icons.star_half,
                             color: Color.fromRGBO(252, 220, 85, 1),
                           ),
                           */  
-                          half: widget.eInConsultatie?  const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : 
-                            widget.eDisponibil? const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_half, color: Color.fromRGBO(103, 114, 148, 1)),
+                          //half: widget.eInConsultatie?  const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : // old IGV
+                          //  widget.eDisponibil? const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_half, color: Color.fromRGBO(103, 114, 148, 1)), // old IGV  
+                          half:
+                            widget.medicItem.status == inConsultatie.value?  const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : // old IGV
+                            widget.medicItem.status == activ.value? const Icon(Icons.star_half, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_half, color: Color.fromRGBO(103, 114, 148, 1)), // old IGV
                           /*
                           empty: const Icon(
                             Icons.star_outline,
                             color: Color.fromRGBO(252, 220, 85, 1),
                           )*/  
-                          empty: widget.eInConsultatie?  const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : 
-                            widget.eDisponibil? const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_outline, color: Color.fromRGBO(103, 114, 148, 1)),
+                          empty: 
+                            //widget.eInConsultatie?  const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : //old IGV
+                            //widget.eDisponibil? const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_outline, color: Color.fromRGBO(103, 114, 148, 1)), //old IGV
+                            widget.medicItem.status == inConsultatie.value?  const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) :
+                            widget.medicItem.status == activ.value? const Icon(Icons.star_outline, color: Color.fromRGBO(252, 220, 85, 1)) : const Icon(Icons.star_outline, color: Color.fromRGBO(103, 114, 148, 1)), //old IGV
                           ),
                           
                         onRatingUpdate: (value) {
@@ -424,9 +564,16 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                       ),
                       SizedBox(
                         width: 50,
-                        child: widget.eInConsultatie? 
+                        child: 
+                        /*
+                          widget.eInConsultatie? 
                           Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
                           : widget.eDisponibil? Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                          : Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                        */
+                          widget.medicItem.status == inConsultatie.value? 
+                          Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
+                          : widget.medicItem.status == activ.value? Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(252, 220, 85, 1), fontSize: 12, fontWeight: FontWeight.w500))
                           : Text(_ratingValue.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500))
                       ),
                     ],
@@ -435,6 +582,18 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    
+                    widget.medicItem.status == inConsultatie.value? SizedBox(
+                      width: 175,
+                      height: 17,
+                      child: Text('${widget.medicItem.titulatura}. ${widget.medicItem.numeleComplet}', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 0, 0, 1), fontSize: 14, fontWeight: FontWeight.w400))
+                    ) : SizedBox(
+                      width: 175,
+                      height: 17,
+                      child: Text('${widget.medicItem.titulatura}. ${widget.medicItem.numeleComplet}', style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 14, fontWeight: FontWeight.w400)),
+                    ),
+
+                    /* //old IGV
                     widget.eInConsultatie? SizedBox(
                           width: 175,
                           height: 17,
@@ -444,6 +603,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                           height: 17,
                           child: Text(widget.textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
+                    */
                   ],
                 ),
                 Row(
@@ -452,7 +612,8 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                     SizedBox(
                       width: 175,
                       height: 17,
-                      child: Text(widget.textSpital, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+                      //child: Text(widget.textSpital, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 12, fontWeight: FontWeight.w300)), //old IGV
+                      child: Text(widget.medicItem.locDeMunca, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 12, fontWeight: FontWeight.w300)),
                     ),
                   ],
                 ),
@@ -462,7 +623,8 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                     SizedBox(
                       width: 175,
                       height: 17,
-                      child: Text(widget.textTipMedic, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
+                      //child: Text(widget.textTipMedic, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
+                      child: Text('${widget.medicItem.specializarea}, ${widget.medicItem.functia}', style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
                     ),
                   ],
                 ),
@@ -476,7 +638,8 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                     SizedBox(
                       width: 100,
                       height: 17,
-                      child: Text(widget.likes.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
+                      //child: Text(widget.likes.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),//old IGV
+                      child: Text(widget.medicItem.nrLikeuri.toString(), style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
                     ),
                   ],
                 ),
@@ -484,7 +647,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
             ),
             Column(
               children: [
-                SizedBox(height: 17),
+                const SizedBox(height: 17),
                 Image.asset('./assets/images/love_icon.png'),
               ],
             ),
@@ -644,11 +807,10 @@ class ButonAlegeServiciu extends StatefulWidget {
   final Color colorBackground;
   final Color colorScris;
   final double widthScris;
-  final List<MedicItem> listaMedici;
+  final List<MedicMobile> listaMedici;
   final int tipServiciu;
 
-  
-  final Function(List<MedicItem>)? onPressed;
+  final Function(List<MedicMobile>)? onPressed;
 
   const ButonAlegeServiciu({
     
@@ -673,10 +835,12 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
   
   bool isChecked = false;
 
+  List<MedicMobile> listaFiltrataRezultat = [];
+
   @override
   initState() {
 
-    listaMedici = widget.listaMedici;
+    //listaMedici = widget.listaMedici;
     super.initState();
 
   }
@@ -688,6 +852,7 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
       onTap: () {  
         // ignore: avoid_print                        
         print("tapped on container întrebare");
+        
         if (widget.tipServiciu == 1)
         {
           setState(
@@ -695,12 +860,12 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
               isChecked = !isChecked;
               if(isChecked == true)
               {
-                listaMedici = filterListByDisponibilitateScrieIntrebare(); 
-                widget.onPressed!(listaMedici);
+                listaFiltrataRezultat = filterListByDisponibilitateScrieIntrebare(); 
+                widget.onPressed!(listaFiltrataRezultat);
               }
               else {
 
-                listaMedici = InitializareMediciWidget().initList();
+                //listaMedici = InitializareMediciWidget().initList();
                 widget.onPressed!(listaMedici);
                 
               } 
@@ -715,13 +880,13 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
               if(isChecked == true)
               {
                 
-                listaMedici = filterListByDisponibilitateConsultatieVideo(); 
-                widget.onPressed!(listaMedici);
+                listaFiltrataRezultat = filterListByDisponibilitateConsultatieVideo(); 
+                widget.onPressed!(listaFiltrataRezultat);
 
               }
               else {
 
-                listaMedici = InitializareMediciWidget().initList();
+                //listaMedici = InitializareMediciWidget().initList();
                 widget.onPressed!(listaMedici);
                 
               }
@@ -736,11 +901,11 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
               isChecked = !isChecked;
               if(isChecked == true)
               {
-                listaMedici = filterListByDisponibilitateInterpretareAnalize(); 
-                widget.onPressed!(listaMedici);
+                listaFiltrataRezultat = filterListByDisponibilitateInterpretareAnalize(); 
+                widget.onPressed!(listaFiltrataRezultat);
               }
               else {
-                listaMedici = InitializareMediciWidget().initList();
+                //listaMedici = InitializareMediciWidget().initList();
                 widget.onPressed!(listaMedici);
               }
 
