@@ -165,6 +165,98 @@ class ApiCallFunctions {
 
   }
 
+  Future<MedicMobile>? getDetaliiMedic({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    required String pIdMedic,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resGetDetaliiMedic;
+
+    resGetDetaliiMedic = await getApelFunctie(parametriiApiCall, 'GetDetaliiMedic');
+
+    
+    if (resGetDetaliiMedic!.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return MedicMobile.fromJson(jsonDecode(resGetDetaliiMedic.body) as Map<String, dynamic>);
+    } 
+    else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
+      return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
+        specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0);
+    }
+
+    //return resGetContClient;
+
+  }
+
+  Future<List<RecenzieMobile>?> getListaRecenziiByIdMedic({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    required String pIdMedic,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resGetListaRecenziiByIdMedic;
+
+    resGetListaRecenziiByIdMedic = await getApelFunctie(parametriiApiCall, 'GetListaRecenziiByIdMedic');
+
+    if (resGetListaRecenziiByIdMedic!.statusCode == 200) 
+    {
+
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      List<RecenzieMobile> parseRecenzii(String responseBody) 
+      {
+        final parsed =
+            (jsonDecode(responseBody) as List).cast<Map<String, dynamic>>();
+
+        return parsed.map<RecenzieMobile>((json) => RecenzieMobile.fromJson(json)).toList();
+      }
+
+      print('resGetListaMedici rezultat parsat: ${parseRecenzii(resGetListaRecenziiByIdMedic.body)}');
+      return parseRecenzii(resGetListaRecenziiByIdMedic.body);
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
+    }
+
+    //return resGetContClient;
+
+  }
+
   Future<http.Response?> adaugaContClient({
     required String pNumeComplet,
     required String pUser,

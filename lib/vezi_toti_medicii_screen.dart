@@ -344,7 +344,7 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
         GestureDetector(
           onTap: () {
 
-            print('onPressed Aici');
+            print('onTap Aici');
             setState(
               () {
                 isChecked = !isChecked;

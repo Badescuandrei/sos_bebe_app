@@ -34,6 +34,17 @@ class ContClientMobile {
   }
 }
 
+enum EnumTipMoneda
+{
+    nedefinit(0),
+    lei(1),
+    euro(2);
+
+    const EnumTipMoneda(this.value);
+    final int value;
+
+}
+
 enum EnumStatusMedicMobile
 {
     nedefinit(0),
@@ -62,29 +73,86 @@ class MedicMobile {
   final bool primesteIntrebari;
   final bool interpreteazaAnalize;
   final bool consultatieVideo;
+  final int monedaPreturi;
+  final double pretIntrebare;
+  final double pretConsultatieVideo;
+  final double pretInterpretareAnalize;
+  final String experienta;
+  final String adresaLocDeMunca;
+  final int totalClienti;
+  final int totalTestimoniale;
+
 
   const MedicMobile({required this.id, required this.linkPozaProfil, required this.titulatura, required this.numeleComplet, required this.locDeMunca, 
-  required this.functia, required this.specializarea, required this.medieReviewuri, required this.nrLikeuri, required this.status, 
-  required this.primesteIntrebari, required this.interpreteazaAnalize, required this.consultatieVideo, });
+    required this.functia, required this.specializarea, required this.medieReviewuri, required this.nrLikeuri, required this.status, 
+    required this.primesteIntrebari, required this.interpreteazaAnalize, required this.consultatieVideo, required this.monedaPreturi,
+    required this.pretIntrebare, required this.pretConsultatieVideo, required this.pretInterpretareAnalize, required this.experienta,
+    required this.adresaLocDeMunca, required this.totalClienti, required this.totalTestimoniale, 
+  });
 
   factory MedicMobile.fromJson(Map<String, dynamic> json) {
 
     print('MedicMobile.fromJson $json');
 
-    return MedicMobile(
-      id: json['Id'] as int,
-      linkPozaProfil: json['LinkPozaProfil'] as String,
-      titulatura: json['Titulatura'] as String,
-      numeleComplet: json['NumeleComplet'] as String,
-      locDeMunca: json['LocDeMunca'] as String,
-      functia: json['Functia'] as String,
-      specializarea: json['Specializarea'] as String,
-      medieReviewuri: json['MedieReviewuri'] as double,
-      nrLikeuri: json['NrLikeuri'] as int,
-      status: json['Status'] as int,
-      primesteIntrebari: json['PrimesteIntrebari'] as bool,
-      interpreteazaAnalize: json['InterpreteazaAnalize'] as bool,
-      consultatieVideo: json['ConsultatieVideo'] as bool,
+    if (json.isNotEmpty)
+    {
+      return MedicMobile(
+        id: json['Id'] as int,
+        linkPozaProfil: json['LinkPozaProfil'] as String,
+        titulatura: json['Titulatura'] as String,
+        numeleComplet: json['NumeleComplet'] as String,
+        locDeMunca: json['LocDeMunca'] as String,
+        functia: json['Functia'] as String,
+        specializarea: json['Specializarea'] as String,
+        medieReviewuri: json['MedieReviewuri'] as double,
+        nrLikeuri: json['NrLikeuri'] as int,
+        status: json['Status'] as int,
+        primesteIntrebari: json['PrimesteIntrebari'] as bool,
+        interpreteazaAnalize: json['InterpreteazaAnalize'] as bool,
+        consultatieVideo: json['ConsultatieVideo'] as bool,
+        monedaPreturi: json['MonedaPreturi'] as int,
+        pretIntrebare: json['PretIntrebare'] as double,
+        pretConsultatieVideo: json['PretConsultatieVideo'] as double,
+        pretInterpretareAnalize: json['PretInterpretareAnalize'] as double,
+        experienta: json['Experienta']??'',
+        adresaLocDeMunca: json['AdresaLocDeMunca']??'',
+        totalClienti: json['TotalClienti'] as int,
+        totalTestimoniale: json['TotalTestimoniale'] as int,
+
+      );
+    }
+    else 
+    {
+
+      return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
+        specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0);
+    }
+  }
+}
+
+
+class RecenzieMobile {
+
+  final double rating;
+  final String identitateClient;
+  final DateTime dataRecenzie;
+  final String comentariu;
+
+  const RecenzieMobile({required this.rating, required this.identitateClient, required this.dataRecenzie, required this.comentariu, 
+
+  });
+
+  factory RecenzieMobile.fromJson(Map<String, dynamic> json) {
+
+    print('RecenzieMobile.fromJson $json');
+
+    return RecenzieMobile(
+      rating: json['Rating'] as double,
+      identitateClient: json['IdentitateClient'] as String,
+      //dataRecenzie: json['DataRecenzie'] as DateTime,
+      dataRecenzie: DateTime.parse(json['DataRecenzie'].toString()),
+      comentariu: json['Comentariu'] as String,
+
     );
   }
 }
