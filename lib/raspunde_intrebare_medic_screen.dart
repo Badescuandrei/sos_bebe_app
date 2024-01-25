@@ -112,14 +112,43 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
   }
 
   void _handleFileSelection() async {
+    
+    /*
     final result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
+      type: FileType.any, allowMultiple: false,
 
       //type: FileType.custom,
       // 2. Only allow these formats
       //allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
 
     );
+    */
+
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+      // 2. Only allow these formats
+      //allowedExtensions: ['jpg', 'pdf', 'doc', 'png'],
+
+    );
+
+    List<File> files = [];
+
+    if(result!=null){
+      
+      List<File> files = result.paths.map((path) => File(path!)).toList();
+    
+    }
+    else 
+    {
+      
+      print("No file selected");
+
+    }
+
+    final bytes = await files[0].readAsBytes();
 
     if (result != null && result.files.single.path != null) {
       final message = types.FileMessage(
@@ -190,7 +219,9 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
             final file = File(localPath);
             await file.writeAsBytes(bytes);
           }
-        } finally {
+        } 
+        finally 
+        {
 
           final index =
               _messages.indexWhere((element) => element.id == message.id);
@@ -202,6 +233,7 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
           setState(() {
             _messages[index] = updatedMessage;
           });
+
         }
       }
 

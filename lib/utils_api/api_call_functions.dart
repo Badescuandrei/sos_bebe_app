@@ -257,6 +257,114 @@ class ApiCallFunctions {
 
   }
 
+  Future<List<ConversatieMobile>?> getListaConversatii({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    //required String pIdMedic,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      //'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resGetListaConversatii;
+
+    resGetListaConversatii = await getApelFunctie(parametriiApiCall, 'GetListaConversatii');
+
+    if (resGetListaConversatii!.statusCode == 200) 
+    {
+
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      List<ConversatieMobile> parseConversatii(String responseBody) 
+      {
+        final parsed =
+            (jsonDecode(responseBody) as List).cast<Map<String, dynamic>>();
+
+        return parsed.map<ConversatieMobile>((json) => ConversatieMobile.fromJson(json)).toList();
+      }
+
+      print('resGetListaMedici rezultat parsat: ${parseConversatii(resGetListaConversatii.body)}');
+      return parseConversatii(resGetListaConversatii.body);
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
+    }
+
+    //return resGetContClient;
+
+  }
+
+  Future<List<MesajConversatieMobile>?> getListaMesajePeConversatie({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    required String pIdConversatie,
+    //required String pIdMedic,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      'pIdConversatie': pIdConversatie,
+      //'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resGetListaMesajePeConversatie;
+
+    resGetListaMesajePeConversatie = await getApelFunctie(parametriiApiCall, 'GetListaMesajePeConversatie');
+
+    if (resGetListaMesajePeConversatie!.statusCode == 200) 
+    {
+
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      List<MesajConversatieMobile> parseListaMesajePeConversatie(String responseBody) 
+      {
+        final parsed =
+            (jsonDecode(responseBody) as List).cast<Map<String, dynamic>>();
+
+        return parsed.map<MesajConversatieMobile>((json) => MesajConversatieMobile.fromJson(json)).toList();
+      }
+
+      print('resGetListaMedici rezultat parsat: ${parseListaMesajePeConversatie(resGetListaMesajePeConversatie.body)}');
+      return parseListaMesajePeConversatie(resGetListaMesajePeConversatie.body);
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
+    }
+
+    //return resGetContClient;
+
+  }
+
   Future<http.Response?> adaugaContClient({
     required String pNumeComplet,
     required String pUser,

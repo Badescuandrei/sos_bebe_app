@@ -21,22 +21,25 @@ List<MedicMobile> listaMedici = [];
   {
 
     const activ = EnumStatusMedicMobile.activ;
+    const inConsultatie = EnumStatusMedicMobile.inConsultatie;
     List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].status == activ.value)
+      if (listaMedici[index].status == activ.value || listaMedici[index].status == inConsultatie.value)
       {
         print('filterListByActiv: index = $index ');
         listResult.add(listaMedici[index]);
       }
-    }  
+    }
+    print('filterListByActiv: listResult.length = ${listResult.length} ');
     return listResult; 
   }
 
   List<MedicMobile> filterListByDisponibilitateScrieIntrebare()
   {
+    const activ = EnumStatusMedicMobile.activ;
     List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].primesteIntrebari == true)
+      if ((listaMedici[index].primesteIntrebari == true) && (listaMedici[index].status == activ.value))
       {
         listResult.add(listaMedici[index]);
       }
@@ -48,9 +51,10 @@ List<MedicMobile> listaMedici = [];
   
   List<MedicMobile> filterListByDisponibilitateConsultatieVideo()
   {
+    const activ = EnumStatusMedicMobile.activ;
     List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].consultatieVideo == true)
+      if ((listaMedici[index].consultatieVideo == true) && (listaMedici[index].status == activ.value))
       {
         listResult.add(listaMedici[index]);
       }
@@ -60,9 +64,10 @@ List<MedicMobile> listaMedici = [];
   
   List<MedicMobile> filterListByDisponibilitateInterpretareAnalize()
   {
+    const activ = EnumStatusMedicMobile.activ;
     List<MedicMobile> listResult = [];
     for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].interpreteazaAnalize == true)
+      if ((listaMedici[index].interpreteazaAnalize == true) && (listaMedici[index].status == activ.value))
       {
         listResult.add(listaMedici[index]);
       }
@@ -310,35 +315,68 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
             style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
           ),
         ),
-        const SizedBox(width: 100),
         TextButton(
+          
           onPressed: () {
 
             print('onPressed Aici');
             setState(
               () {
-                isChecked = !isChecked;
-                if(isChecked == true)
-                {
+                //isChecked = !isChecked;
+                //if(isChecked == true)
+                //{
 
                   listaFiltrataRezultat = filterListByActiv();
-                  //print('filterListByActiv: listaFiltrataRezultat.length = ${listaFiltrataRezultat.length}'); 
+                  print('filterListByActiv: listaFiltrataRezultat.length = ${listaFiltrataRezultat.length}'); 
                   widget.callbackFiltreaza!(listaFiltrataRezultat);
 
-                }
-                else {
+                //}
+              }
+            );
+          },
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(236, 251, 247, 1)),
+          ),
+          child:
+          //Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+          Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 214, 158, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+        ),
+        
+        const SizedBox(width: 5),
+        TextButton(
+          
+          onPressed: () {
+
+            print('onPressed Aici');
+            setState(
+              () {
+                //isChecked = !isChecked;
+                //if(isChecked == true)
+                //{
+
+                //  listaFiltrataRezultat = filterListByActiv();
+                //  print('filterListByActiv: listaFiltrataRezultat.length = ${listaFiltrataRezultat.length}'); 
+                //  widget.callbackFiltreaza!(listaFiltrataRezultat);
+
+                //}
+                //else {
 
                   //listaMedici = InitializareMediciWidget().initList();
                   widget.callbackFiltreaza!(listaMedici);
 
-                } 
+                //} 
               }
             );
-            
           },
+          style: const ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(const Color.fromRGBO(241, 248, 251, 1)),
+          ),
           child:
-          Text('Filtrează', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+          //Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+          Text('Toți medicii', style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 166, 219, 1), fontSize: 12, fontWeight: FontWeight.w300)),
         ),
+        
+        /*
         const SizedBox(width: 20),
         
         GestureDetector(
@@ -364,6 +402,7 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
           },
           child: Image.asset('./assets/images/filtreaza_medici_icon.png')
         ),
+        */
       ],
     );
   }

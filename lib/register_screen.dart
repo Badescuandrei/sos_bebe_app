@@ -480,7 +480,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 14)
                         ),
                       ],
-                    ),  
+                    ),
                   ),
                 ],
               ),

@@ -130,7 +130,7 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                   Row(
                     children: [
                       Image.asset(
-                        './assets/images/like_icon.png',
+                        './assets/images/love_white.png',
 
                         // fit: BoxFit.contain,
                         height: 16,
@@ -163,10 +163,10 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
-                    Image.asset('./assets/images/like_red.png', fit: BoxFit.contain, height: 24, width: 24),
+                    Image.asset('./assets/images/love_red.png', fit: BoxFit.contain, height: 24, width: 24),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

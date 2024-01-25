@@ -35,6 +35,8 @@ import  'package:sos_bebe_app/plata_succes_screen.dart';
 
 import  'package:sos_bebe_app/questionare_screen.dart';
 
+//import 'package:sos_bebe_app/raspunde_intrebare_doar_chat_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const LoginScreen(),
+      //home: const LoginScreen(),
          
       //home: const IntroScreen(),
 
@@ -107,7 +109,6 @@ class MyApp extends StatelessWidget {
       ),
       */
 
-      /*
       home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
         likes: 330, iconPath: './assets/images/profil_doctor_image.png', rating:4.9, textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București', 
         textTipMedic: 'Pediatrie, Medic Primar', textTitluProfesional: 'Medic Primar', textTitluSpecializare: 'Pediatrie', textExperienta: '45 ani', 
@@ -115,13 +116,14 @@ class MyApp extends StatelessWidget {
         textActivitateUtilizatori: '100%', textActivitateNumarPacientiAplicatie: '214', textActivitateNumarTestimoniale: '112', 
         textActivitateTimpDeRaspuns: '<2 ore (estimat)',
       ),
-      */
 
 
       //required this.tutorId, required this.emailSubiect, required this.phoneNumberSubiect, required this.dataPlatii, required this.dataPlatiiProcesata,
       //required this.detaliiFacturaNume, required this.detaliiFacturaServicii, required this.detaliiFacturaNumar,
 
       //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
+
+      //home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
 
       //home: const QuestionaireScreen(),
       //

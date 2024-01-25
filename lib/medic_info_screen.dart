@@ -220,7 +220,7 @@ class _MedicInfoScreenState extends State<MedicInfoScreen> {
                   Row(
                     children: [
                       Image.asset(
-                        './assets/images/like.png',
+                        './assets/images/like_white.png',
                         fit: BoxFit.contain,
                         height: 12,
                         width: 12,
@@ -245,6 +245,7 @@ class _MedicInfoScreenState extends State<MedicInfoScreen> {
                     ],
                   ),
                   const Divider(color: Colors.black12, height: 2, thickness: 1),
+                  /*
                   Row(
                     children: [
                       Image.asset(
@@ -259,6 +260,7 @@ class _MedicInfoScreenState extends State<MedicInfoScreen> {
                     ],
                   ),
                   SizedBox(height: 15),
+                  */
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(

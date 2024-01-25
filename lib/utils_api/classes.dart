@@ -34,31 +34,6 @@ class ContClientMobile {
   }
 }
 
-enum EnumTipMoneda
-{
-    nedefinit(0),
-    lei(1),
-    euro(2);
-
-    const EnumTipMoneda(this.value);
-    final int value;
-
-}
-
-enum EnumStatusMedicMobile
-{
-    nedefinit(0),
-    activ(1),
-    indisponibil(2),
-    inConsultatie(3);
-
-    const EnumStatusMedicMobile(this.value);
-    final int value;
-
-}
-
-
-
 class MedicMobile {
   final int id;
   final String linkPozaProfil;
@@ -126,6 +101,7 @@ class MedicMobile {
 
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
         specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0);
+
     }
   }
 }
@@ -154,7 +130,98 @@ class RecenzieMobile {
       comentariu: json['Comentariu'] as String,
 
     );
+
   }
+}
+
+class ConversatieMobile {
+
+  final int id;
+  final String identitateDestinatar;
+  final int idDestinatar;
+  final int idExpeditor;
+  final String titulaturaDestinatar;
+  final String linkPozaProfil;
+  final String locDeMunca;
+  final String functia;
+  final String specializarea;
+
+  const ConversatieMobile({required this.id, required this.identitateDestinatar, required this.idDestinatar, required this.idExpeditor,
+    required this.titulaturaDestinatar, required this.linkPozaProfil, required this.locDeMunca, required this.functia, required this.specializarea,
+
+  });
+
+  factory ConversatieMobile.fromJson(Map<String, dynamic> json) {
+
+    print('ConversatieMobile.fromJson $json');
+
+    return ConversatieMobile(
+
+      id: json['ID'] as int,
+      identitateDestinatar: json['IdentitateDestinatar'] as String,
+      idDestinatar: json['IdDestinatar'] as int,
+      idExpeditor: json['IdExpeditor'] as int,
+      titulaturaDestinatar: json['TitulaturaDestinatar'] as String,
+      linkPozaProfil: json['LinkPozaProfil'] as String,
+      locDeMunca: json['LocDeMunca'] as String,
+      functia: json['Functia'] as String,
+      specializarea: json['Specializarea'] as String,
+
+    );
+  }
+}
+
+class MesajConversatieMobile {
+
+  final int id;
+  final DateTime dataMesaj;
+  final String comentariu;
+  final int idDestinatar;
+  final int idExpeditor;
+
+  const MesajConversatieMobile({required this.id, required this.dataMesaj, required this.comentariu, required this.idDestinatar, required this.idExpeditor,
+
+  });
+
+  factory MesajConversatieMobile.fromJson(Map<String, dynamic> json) {
+
+    print('MesajConversatieMobile.fromJson $json');
+
+    return MesajConversatieMobile(
+      
+      id: json['ID'] as int,
+      dataMesaj: DateTime.parse(json['DataMesaj'].toString()),
+      comentariu: json['Comentariu'] as String,
+      idDestinatar: json['IdDestinatar'] as int,
+      idExpeditor: json['IdExpeditor'] as int,
+
+    );
+
+  }
+}
+
+
+enum EnumTipMoneda
+{
+    nedefinit(0),
+    lei(1),
+    euro(2);
+
+    const EnumTipMoneda(this.value);
+    final int value;
+
+}
+
+enum EnumStatusMedicMobile
+{
+    nedefinit(0),
+    activ(1),
+    indisponibil(2),
+    inConsultatie(3);
+
+    const EnumStatusMedicMobile(this.value);
+    final int value;
+
 }
 
 ////////////////////////////////////////////////// old Andrei Bădescu
