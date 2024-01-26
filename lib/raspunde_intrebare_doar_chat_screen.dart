@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -18,6 +19,15 @@ import './utils/chat.dart' as chat;
 import './utils/chat_l10n.dart' as chat_l10n;
 import './utils/chat_theme.dart' as chat_theme;
 import './utils/typing_indicator.dart' as typing_indicator;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/utils_api/functions.dart';
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
+
+List<ConversatieMobile> listaConversatii = [];
 
 class RaspundeIntrebareDoarChatScreen extends StatefulWidget {
 
@@ -44,8 +54,10 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
   List<types.Message> _messages = [];
 
+  List<types.TextMessage> newMessages = [];
+
   final _user = const types.User(
-    id: '82091008-a484-4a89-ae75-a22bf8d6f3ac',
+    id: '1',
   );
 
   //final _user = const types.User(id: '12345', imageUrl: 'https://i.pravatar.cc/300', firstName: 'Test', lastName: 'Test');
@@ -57,7 +69,95 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     //textNume = '';
     //textIntrebare = '';
     //textRaspuns = '';
-    _loadMessages();
+    
+    //_loadMessages(); //old IGV
+
+    getListaConversatii();
+
+    Timer.periodic(new Duration(seconds: 1), (timer) {
+
+      _loadMessagesFromList();
+      if (_messages.length != newMessages.length)
+      {
+        setState(() {
+          _messages = newMessages;
+        });
+      }
+
+    });
+    /*Timer.periodic(Duration(milliseconds: 500), (Timer) {
+    _loadMessagesFromList();
+    */
+
+  }
+
+  void getListaConversatii() async
+  {
+
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
+
+        
+    //String user = prefs.getString('user')??'';
+    //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5('123456'));
+
+    //String? userPassMD5 = prefs.getString(pref_keys.userPassMD5);
+
+    String? user = 'george.iordache@gmail.com';
+
+    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+    
+    //SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    //String user = prefs.getString('user')??'';
+    //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+
+
+    listaConversatii = await apiCallFunctions.getListaConversatii(
+      pUser: user,
+      pParola: userPassMD5,
+    )?? [];
+
+    print('listaConversatii length: ${listaConversatii.length} ${listaConversatii[0].idDestinatar} ${listaConversatii[0].idExpeditor} ${listaConversatii[0].id.toString()}');
+
+  }
+
+  void _loadMessagesFromList() async {
+
+    print('_loadMessagesFromList Aici');
+    
+    List<MesajConversatieMobile> listaMesaje = [];
+
+    String? user = 'george.iordache@gmail.com';
+
+    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+
+    listaMesaje = await apiCallFunctions.getListaMesajePeConversatie(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdConversatie: listaConversatii[0].id.toString(),
+    )?? [];
+
+    
+    //final response = await rootBundle.loadString('./assets/messages.json');
+
+    //print('test');
+
+    
+    /*
+    final messages = listaMesaje
+        .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == _user.id.toString()?_user.id:e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
+        .toList();
+    */
+    newMessages = listaMesaje
+        .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == _user.id.toString()?_user.id:e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
+        .toList();
 
   }
 
@@ -242,6 +342,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
   }
 
+  /*
   void _loadMessages() async {
 
     final response = await rootBundle.loadString('./assets/messages.json');
@@ -256,6 +357,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
       _messages = messages;
     });
   }
+  */
 
   void callbackTextIntrebare(String newTextIntrebare) {
     setState(() {
@@ -289,26 +391,46 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
         title: const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
       ),
       body:
+
       //const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
-      chat.Chat(
-        messages: _messages,
-        onSendPressed: _handleSendPressed,
-        user: _user,
-        //onAttachmentPressed: _handleAttachmentPressed,
-        onMessageTap: _handleMessageTap,
-        onPreviewDataFetched: _handlePreviewDataFetched,
-        showUserAvatars: true,
-        showUserNames: true,
-        typingIndicatorOptions : const typing_indicator.TypingIndicatorOptions(),
-        //l10n: const ChatL10nRo().toChatL10n,
-        l10n: const chat_l10n.ChatL10nRo(),
-        theme: const chat_theme.DefaultChatTheme(
-          inputBackgroundColor: Color.fromRGBO(255, 255, 255, 1), // Color.fromRGBO(30, 214, 158, 1),
-          inputTextColor: Color.fromRGBO(103, 114, 148, 1), // Color.fromRGBO(30, 214, 158, 1),
-          //backgroundColor: Color.fromRGBO(14, 190, 127, 1), 
-          primaryColor: Color.fromRGBO(14, 190, 127, 1),
-                     
+      Column(
+        
+        children: [
+          ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+          ),
+          child: const Text('Apel mesaje'),
+          onPressed: () async 
+          {
+
+            _loadMessagesFromList();
+
+          },
         ),
+          Expanded(flex: 2, child:
+            chat.Chat(
+              messages: _messages,
+              onSendPressed: _handleSendPressed,
+              user: _user,
+              //onAttachmentPressed: _handleAttachmentPressed,
+              onMessageTap: _handleMessageTap,
+              onPreviewDataFetched: _handlePreviewDataFetched,
+              showUserAvatars: true,
+              showUserNames: true,
+              typingIndicatorOptions : const typing_indicator.TypingIndicatorOptions(),
+              //l10n: const ChatL10nRo().toChatL10n,
+              l10n: const chat_l10n.ChatL10nRo(),
+              theme: const chat_theme.DefaultChatTheme(
+                inputBackgroundColor: Color.fromRGBO(255, 255, 255, 1), // Color.fromRGBO(30, 214, 158, 1),
+                inputTextColor: Color.fromRGBO(103, 114, 148, 1), // Color.fromRGBO(30, 214, 158, 1),
+                //backgroundColor: Color.fromRGBO(14, 190, 127, 1), 
+                primaryColor: Color.fromRGBO(14, 190, 127, 1),
+                           
+              ),
+            ),
+          ),
+        ],
       ),
       //Column( 
       //  children: [

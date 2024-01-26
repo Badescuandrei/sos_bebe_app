@@ -193,7 +193,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                         );
 
 
-                        print('reset_password_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
+                        print('reset_password_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user} linkPozaProfil: ${resGetCont.linkPozaProfil}');
 
                         //if (resGetCont != null )
                         {

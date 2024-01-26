@@ -8,8 +8,9 @@ class ContClientMobile {
   final String email;
   final String telefon;
   final String user;
+  String? linkPozaProfil; 
 
-  const ContClientMobile({required this.id, required this.nume, required this.prenume, required this.email, required this.telefon, required this.user});
+  ContClientMobile({required this.id, required this.nume, required this.prenume, required this.email, required this.telefon, required this.user, linkPozaProfil});
 
   factory ContClientMobile.fromJson(Map<String, dynamic> json) {
     return switch (json) {
@@ -20,6 +21,7 @@ class ContClientMobile {
         'Email': String email,
         'Telefon': String telefon,
         'User': String user,
+        'LinkPozaProfil': String linkPozaProfil,
       } =>
         ContClientMobile(
           id: id,
@@ -28,6 +30,7 @@ class ContClientMobile {
           email: email,
           telefon: telefon,
           user: user,
+          linkPozaProfil: linkPozaProfil,
         ),
       _ => throw const FormatException('Nu s-a putut încărca contul de client mobile.'),
     };

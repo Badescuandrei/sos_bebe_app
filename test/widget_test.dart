@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:sos_bebe_app/main.dart';
+import 'package:sos_bebe_app/main_sos_bebe_igv_dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

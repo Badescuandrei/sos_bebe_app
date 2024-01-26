@@ -51,20 +51,26 @@ class _LoginScreenState extends State<LoginScreen> {
       pUser: mailTelefonUser,
       pParola: userPassMD5,
     );
+    
 
     if (resGetCont != null)
     {
       
+      print('login_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user} linkPozaProfil: ${resGetCont.linkPozaProfil}');
+
       textMesaj = 'Login realizat cu succes!';
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(pref_keys.userId, resGetCont.id.toString());
       prefs.setString(pref_keys.userEmail, resGetCont.email);
       prefs.setString(pref_keys.userTelefon, resGetCont.telefon);
       prefs.setString(pref_keys.user, resGetCont.user);
       //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
       prefs.setString(pref_keys.userPassMD5, userPassMD5);
+      prefs.setString(pref_keys.userNume, resGetCont.nume);
+      prefs.setString(pref_keys.userPrenume, resGetCont.prenume);
 
     }
     else
