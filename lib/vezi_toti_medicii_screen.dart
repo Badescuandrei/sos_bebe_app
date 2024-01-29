@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/initializare_medici_widget.dart';
-import 'package:sos_bebe_app/profil_screen.dart';
+import 'package:sos_bebe_app/profil_pacient_screen.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
@@ -16,6 +16,8 @@ import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 List<MedicMobile> listaMedici = [];
+
+MedicMobile? medicSelectat;
 
   List<MedicMobile> filterListByActiv()
   {
@@ -31,7 +33,8 @@ List<MedicMobile> listaMedici = [];
       }
     }
     print('filterListByActiv: listResult.length = ${listResult.length} ');
-    return listResult; 
+    return listResult;
+
   }
 
   List<MedicMobile> filterListByDisponibilitateScrieIntrebare()
@@ -87,6 +90,8 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
 
   //List<MedicMobile> listaFiltrata = [];
 
+  ContClientMobile? contInfo;
+
   List<MedicMobile> listaFiltrata = [];
 
   @override
@@ -125,7 +130,6 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     print('listaMedici: $listaMedici');
 
   }
-  
 
   void callbackFiltreazaLista(List<MedicMobile> newListaFiltrataActiv) {
 
@@ -274,7 +278,10 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
   //List<MedicMobile> listaFiltrata = [];
   
   List<MedicMobile> listaFiltrataRezultat = [];
+  
   bool isChecked = false;
+
+  ContClientMobile? contInfo;
 
   @override
   void initState() {
@@ -284,6 +291,25 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
   
   }
 
+  getInfoContProfil() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+        
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    //ContClientMobile? rezGetContClient= 
+    contInfo = await apiCallFunctions.getContClient(
+      pUser: user,
+      pParola: userPassMD5,
+      pDeviceToken: '',
+      pTipDispozitiv: '',
+    );
+
+    //return rezGetContClient;
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -291,24 +317,32 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
       children: [
         const SizedBox(width: 15),
         IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProfilScreen(),
-              )
-            );
+          onPressed: () async {
+            await getInfoContProfil();
+            if(context.mounted)
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilulMeuPacientScreen(contInfo:contInfo),
+                )
+              );
+            }
           },
           icon: Image.asset(widget.topIcon),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ProfilScreen(),
-              )
-            );
+          onPressed: () async {
+            await getInfoContProfil();
+            if(context.mounted)
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfilulMeuPacientScreen(contInfo:contInfo),
+                )
+              );
+            }
           },
           child:
           Text('Profilul meu',
@@ -316,7 +350,7 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
           ),
         ),
         TextButton(
-          
+
           onPressed: () {
 
             print('onPressed Aici');
@@ -457,11 +491,32 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
   static const indisponibil = EnumStatusMedicMobile.indisponibil;
   static const inConsultatie = EnumStatusMedicMobile.inConsultatie;
 
+  Future<MedicMobile?> getDetaliiMedic(int idMedic) async 
+  {
+   
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    medicSelectat = await apiCallFunctions.getDetaliiMedic(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: idMedic.toString(),
+    );
+
+    print('getDetaliiMedic: $medicSelectat');
+
+    return medicSelectat;
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
   return InkWell(
-      onTap: () {
+      onTap: () async {
         print("tapped on container medic");
         /*
         Navigator.push(
@@ -471,6 +526,21 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
           )
         );
         */
+        
+        medicSelectat = await getDetaliiMedic(widget.medicItem.id);
+
+        if (mounted)
+        {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilDoctorDisponibilitateServiciiScreen(medicDetalii: medicSelectat!,
+                ),
+              )
+            );
+        }
+        
+        /*
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -483,6 +553,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                             ),//MedicInfoScreen(),
           )
         );
+        */
 
       },                         
       child: 

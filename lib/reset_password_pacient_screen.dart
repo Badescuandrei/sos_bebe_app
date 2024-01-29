@@ -190,6 +190,8 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                         ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
                           pUser: controllerPhoneEmailUser.text,
                           pParola: userPassMD5 ?? '',
+                          pDeviceToken: '',
+                          pTipDispozitiv: '',
                         );
 
 

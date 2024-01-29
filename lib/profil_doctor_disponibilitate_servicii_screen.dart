@@ -1,3 +1,6 @@
+import 'package:intl/intl.dart';
+
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
@@ -9,10 +12,20 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 //import 'package:sos_bebe_app/profil_screen.dart';
 import 'package:sos_bebe_app/medic_info_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
+
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
 
-
+final MedicMobile medicDetalii;
+/*
   final bool eInConsultatie;
   final bool eDisponibil;
   final int likes;
@@ -33,12 +46,15 @@ class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
   final String textActivitateTimpDeRaspuns;
 
 
+
   const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.eInConsultatie, required this.eDisponibil, required this.likes,
     required this.iconPath, required this.rating, required this.textNume, required this.textSpital, required this.textTipMedic,
     required this.textTitluProfesional, required this.textTitluSpecializare, required this.textExperienta, required this.textLocDeMuncaNume,
     required this.textLocDeMuncaAdresa, required this.textActivitateUtilizatori, required this.textActivitateNumarPacientiAplicatie,
     required this.textActivitateNumarTestimoniale, required this.textActivitateTimpDeRaspuns});
+*/
 
+  const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.medicDetalii,});
   
 
   @override
@@ -47,15 +63,46 @@ class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
 
 class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctorDisponibilitateServiciiScreen> {
 
-  List<RecenzieItem> listaRecenzii = [];
+  List<RecenzieMobile>? listaRecenzii;
+
+  static const activ = EnumStatusMedicMobile.activ;
+  static const indisponibil = EnumStatusMedicMobile.indisponibil;
+  static const inConsultatie = EnumStatusMedicMobile.inConsultatie;
+
+  static const ron = EnumTipMoneda.lei;
+  static const euro = EnumTipMoneda.euro;
 
   @override
   void initState() {
 
-    listaRecenzii = InitializareRecenziiWidget().initList();
+    //listaRecenzii = InitializareRecenziiWidget().initList();
 
     // Do some other stuff
     super.initState();
+
+    //initializeDateFormatting("ro_RO");
+
+    getListaRecenziiByIdMedic();
+
+  }
+
+  getListaRecenziiByIdMedic() async 
+  {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+    
+    listaRecenzii = await apiCallFunctions.getListaRecenziiByIdMedic(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: widget.medicDetalii.id.toString(),
+      pNrMaxim: '10',
+    );
+
+    print('listaRecenzii: $listaRecenzii');
+
   }
 
   @override
@@ -71,18 +118,29 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
     //var length = listaMedici.length;
     //print('Size lista: $length');
 
-    List<RecenzieItem> listaFiltrata = listaRecenzii;
+    List<RecenzieMobile> listaFiltrata = listaRecenzii??[];
 
     //print('Lungime lista recenzii: ${listaFiltrata.length}');
 
+    initializeDateFormatting();
+
     for(int index = 0; index <listaFiltrata.length; index++){
+      //print('Aici');
       var item = listaFiltrata[index];
-      //if (index < listaFiltrata.length-1)
-      if (index < 2)
+      String dataRo = DateFormat("dd MMMM yyyy", "ro").format(item.dataRecenzie);
+      
+      String dataRoLuna = dataRo.substring(0,3) + 
+            dataRo.substring(3,4).toUpperCase() + 
+            dataRo.substring(4);
+      
+      //print('dataRoLuna: $dataRoLuna');
+
+      if (index < listaFiltrata.length-1)
+      //if (index < 2)
       {
         
         mywidgets.add(
-          RecenzieWidget( textNume: item.textNume, textData: item.textData, rating: item.rating,), 
+          RecenzieWidget( textNume: item.identitateClient, textData: dataRoLuna, rating: item.rating,), 
         );
         mywidgets.add(
           const SizedBox(height: 5),
@@ -92,12 +150,12 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
         );
 
       }
-      //else if (index == listaFiltrata.length-1)
-      else if (index == 2)
+      else if (index == listaFiltrata.length-1)
+      //else if (index == 2)
       {
         
         mywidgets.add(
-          RecenzieWidget( textNume: item.textNume, textData: item.textData, rating: item.rating,), 
+          RecenzieWidget(textNume: item.identitateClient, textData: dataRoLuna, rating: item.rating,), 
         );
         mywidgets.add(
           const SizedBox(height: 5),
@@ -125,16 +183,30 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
       SingleChildScrollView(
         child: Column(
           children: [
+          
+          /*
           IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: widget.eInConsultatie, eDisponibil: widget.eDisponibil, likes: widget.likes,
             rating: widget.rating,
             iconPath: widget.iconPath, textNume: widget.textNume, textSpital: widget.textSpital, textTipMedic: widget.textTipMedic,),
+          */
+
+          IconStatusNumeRatingSpitalLikesMedic(eInConsultatie: widget.medicDetalii.status == inConsultatie.value,
+            eDisponibil: widget.medicDetalii.status == activ.value, 
+            likes: widget.medicDetalii.nrLikeuri,
+            rating: widget.medicDetalii.medieReviewuri,
+            iconPath: widget.medicDetalii.linkPozaProfil, 
+            textNume: '${widget.medicDetalii.titulatura}. ${widget.medicDetalii.numeleComplet}', 
+            textSpital: widget.medicDetalii.locDeMunca, 
+            textTipMedic: '${widget.medicDetalii.functia}. ${widget.medicDetalii.specializarea}',),
+
             //const TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png'),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children:[
-                  
+
+                /*  
                 ButtonServiciiProfilDoctor(
                   pret: "49.9 ",
                   textServiciu: "Scrie o întrebare",
@@ -155,6 +227,31 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   textServiciu: "Primiți o recomandare și rețetă medicală",
                   iconLocation: './assets/images/reteta_profil_doctor_icon.png',
                   color: Color.fromRGBO(241, 201, 0, 1),
+                  tipConsultatieReteta: true,
+                ),
+                */
+                ButtonServiciiProfilDoctor(
+                  pret: '${widget.medicDetalii.pretIntrebare} ',
+                  moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == euro.value? 'EURO': 'RON',
+                  textServiciu: "Scrie o întrebare",
+                  iconLocation: './assets/images/chat_profil_doctor_icon.png',
+                  color: const Color.fromRGBO(30, 166, 219, 1),
+                  tipConsultatieReteta: false,
+                ),
+                ButtonServiciiProfilDoctor(
+                  pret: '${widget.medicDetalii.pretIntrebare} ',
+                  moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == ron.value? 'EURO': 'RON',
+                  textServiciu: "Sună acum",
+                  iconLocation: './assets/images/apel_video_profil_doctor_icon.png',
+                  color: const Color.fromRGBO(14, 190, 127, 1),
+                  tipConsultatieReteta: false,
+                ),
+                ButtonServiciiProfilDoctor(
+                  pret: '${widget.medicDetalii.pretIntrebare} ',
+                  moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == ron.value? 'EURO': 'RON',
+                  textServiciu: "Primiți o recomandare și rețetă medicală",
+                  iconLocation: './assets/images/reteta_profil_doctor_icon.png',
+                  color: const Color.fromRGBO(241, 201, 0, 1),
                   tipConsultatieReteta: true,
                 ),
               ],
@@ -194,7 +291,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 const SizedBox(width: 172),  
                 SizedBox( width: 80,
                   child:Text(
-                    widget.textTitluProfesional,
+                    //widget.textTitluProfesional, //old IGV
+                    widget.medicDetalii.functia,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 12,
@@ -226,7 +324,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 const SizedBox(width: 172),  
                 SizedBox( width: 80,
                   child:Text(
-                    widget.textTitluSpecializare,
+                    //widget.textTitluSpecializare, //old IGV
+                    widget.medicDetalii.specializarea,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 12,
@@ -258,7 +357,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 const SizedBox(width: 172),  
                 SizedBox( width: 80,
                   child:Text(
-                    widget.textExperienta,
+                    //widget.textExperienta, //old IGV
+                    widget.medicDetalii.experienta,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 12,
@@ -295,7 +395,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 Image.asset('./assets/images/spital_icon.png'),
                 const SizedBox(width: 5),
                 Text(
-                  widget.textSpital,
+                  //widget.textSpital, //old IGV
+                  widget.medicDetalii.locDeMunca,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -316,7 +417,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 Image.asset('./assets/images/adresa_icon.png'),
                 const SizedBox(width: 5),
                 Text(
-                  widget.textLocDeMuncaAdresa,
+                  //widget.textLocDeMuncaAdresa, //old IGV
+                  widget.medicDetalii.adresaLocDeMunca,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -362,7 +464,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   ),
                 ),
                 Text(
-                  widget.textActivitateUtilizatori,
+                  //widget.textActivitateUtilizatori, //old IGV
+                  '${widget.medicDetalii.procentRating}%', 
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -391,7 +494,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   ),
                 ),
                 Text(
-                  ' ${widget.textActivitateNumarPacientiAplicatie} pacienți ',
+                  //' ${widget.textActivitateNumarPacientiAplicatie} pacienți ', //old IGV
+                  ' ${widget.medicDetalii.totalClienti} pacienți ', 
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -420,7 +524,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 Image.asset('./assets/images/testimoniale_icon.png'),
                 const SizedBox(width: 5),
                 Text(
-                  '${widget.textActivitateNumarTestimoniale} ',
+                  //'${widget.textActivitateNumarTestimoniale} ', //old IGV
+                  '${widget.medicDetalii.totalTestimoniale} ',
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -511,10 +616,12 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
           //const RecenzieWidget( textNume: 'Irina Coman', textData: '26 Iulie 2023', rating: 5.0,),
 
-          Center(
-            child: Column(
-              children: 
-                mywidgets,
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: 
+                  mywidgets,
+              ),
             ),
           ),
 
@@ -604,7 +711,8 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                           const SizedBox(width: 15),
                           Stack(
                             children: [
-                              Image.asset(widget.iconPath),
+                              widget.iconPath.isNotEmpty? Image.network(widget.iconPath, height: 60, width:60)
+                              : Image.asset('./assets/images/user_fara_poza.png', height: 60, width:60),
                               Positioned(
                                 top: 0.0,
                                 right: 0.0,
@@ -762,6 +870,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
 class ButtonServiciiProfilDoctor extends StatelessWidget {
   final String textServiciu;
   final String pret;
+  final String moneda;
   final String iconLocation;
   final Color color;
   final bool tipConsultatieReteta;
@@ -770,6 +879,7 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
     super.key,
     required this.textServiciu,
     required this.pret,
+    required this.moneda,
     required this.iconLocation,
     required this.color,
     required this.tipConsultatieReteta,
@@ -840,8 +950,15 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
                       AutoSizeText.rich(
                         TextSpan(text: pret, style: GoogleFonts.rubik(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w400,), 
                           children: [
+                            /* //old IGV
                             TextSpan(
                               text: "RON",
+                              // style: GoogleFonts.rubik(fontSize: 16), old
+                              style: GoogleFonts.rubik(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w300,)
+                            ),
+                            */
+                            TextSpan(
+                              text: moneda,
                               // style: GoogleFonts.rubik(fontSize: 16), old
                               style: GoogleFonts.rubik(color: Colors.white, fontSize: 9, fontWeight: FontWeight.w300,)
                             ),
@@ -868,7 +985,6 @@ class RecenzieWidget extends StatelessWidget {
   final double rating;
 
   bool isInteger(num value) => (value % 1) == 0;
-
 
   const RecenzieWidget({
     super.key,

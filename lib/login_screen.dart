@@ -50,6 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
     ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
       pUser: mailTelefonUser,
       pParola: userPassMD5,
+      pDeviceToken: '',
+      pTipDispozitiv: '',
     );
     
 

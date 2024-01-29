@@ -5,9 +5,104 @@ import  'package:sos_bebe_app/register_screen.dart';
 
 import  'package:sos_bebe_app/factura_screen.dart';
 
+import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
-class ProfilScreen extends StatelessWidget {
-  const ProfilScreen({super.key});
+
+class EditareContScreen extends StatefulWidget {
+
+//final MedicMobile medicDetalii;
+/*
+  final bool eInConsultatie;
+  final bool eDisponibil;
+  final int likes;
+  final String iconPath;
+  //final String statusIconPath;
+  final double rating;
+  final String textNume;
+  final String textSpital;
+  final String textTipMedic;
+  final String textTitluProfesional;
+  final String textTitluSpecializare;
+  final String textExperienta;
+  final String textLocDeMuncaNume;
+  final String textLocDeMuncaAdresa;
+  final String textActivitateUtilizatori;
+  final String textActivitateNumarPacientiAplicatie;
+  final String textActivitateNumarTestimoniale;
+  final String textActivitateTimpDeRaspuns;
+
+
+
+  const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.eInConsultatie, required this.eDisponibil, required this.likes,
+    required this.iconPath, required this.rating, required this.textNume, required this.textSpital, required this.textTipMedic,
+    required this.textTitluProfesional, required this.textTitluSpecializare, required this.textExperienta, required this.textLocDeMuncaNume,
+    required this.textLocDeMuncaAdresa, required this.textActivitateUtilizatori, required this.textActivitateNumarPacientiAplicatie,
+    required this.textActivitateNumarTestimoniale, required this.textActivitateTimpDeRaspuns});
+*/
+
+  final ContClientMobile? contInfo;
+
+  const EditareContScreen({super.key, required this.contInfo});
+
+  @override
+  State<EditareContScreen> createState() => EditareContScreenState();
+
+}
+
+class EditareContScreenState extends State<EditareContScreen> {
+
+  final registerKey = GlobalKey<FormState>();
+  bool isHidden = true;
+  final controllerEmail = TextEditingController();
+  final controllerTelefon = TextEditingController();
+  final controllerUser = TextEditingController();
+  final controllerResetareParola = TextEditingController();
+
+  final FocusNode focusNodeEmail = FocusNode();
+  final FocusNode focusNodeTelefon = FocusNode();
+  final FocusNode focusNodePassword = FocusNode();
+  final FocusNode focusNodeNumeComplet = FocusNode();
+
+//ContClientMobile? contInfo;
+
+  @override
+  void initState() {
+
+    //listaRecenzii = InitializareRecenziiWidget().initList();
+
+    // Do some other stuff
+    super.initState();
+
+    //getInfoContProfil();
+
+    print('editare_cont_screen contInfo: ${widget.contInfo}');
+
+    //initializeDateFormatting("ro_RO");
+
+  }
+
+  /*
+  getInfoContProfil() async {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+        
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    //ContClientMobile? rezGetContClient= 
+    contInfo = await apiCallFunctions.getContClient(
+      pUser: user,
+      pParola: userPassMD5,
+      pDeviceToken: '',
+      pTipDispozitiv: '',
+    );
+
+    //return rezGetContClient;
+
+  }
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +118,7 @@ class ProfilScreen extends StatelessWidget {
             color: Colors.white,
           ),
           
-        title:Text('Profil',
+        title:Text('Profilul meu',
               style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 16, fontWeight: FontWeight.w500),
             ),
         centerTitle: true,
@@ -32,8 +127,12 @@ class ProfilScreen extends StatelessWidget {
       SingleChildScrollView(
         child: Column(
           children: [
+            /*
             const IconDateProfil(iconPathPacient: './assets/images/user_profil_icon.png', textNume: 'Cristina Mihalache', textAdresaEmail: 'cristina.24@gmail.com',
-              textNumarTelefon: '+40 0770 545 224',),  
+              textNumarTelefon: '+40 0770 545 224',),
+            */
+            IconDateProfil(iconPathPacient: widget.contInfo!.linkPozaProfil??'', textNume: '${widget.contInfo!.prenume} ${widget.contInfo!.nume}', 
+              textAdresaEmail: widget.contInfo!.email, textNumarTelefon: widget.contInfo!.telefon,),
             const SizedBox(height:35,),
             Container(
               decoration: const BoxDecoration(
@@ -151,28 +250,6 @@ class ProfilScreen extends StatelessWidget {
                   const SizedBox(height: 20),
                   customDividerProfil(),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.24),
-      
-                  /*Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
-                      const SizedBox(width: 120),
-                      SizedBox(width: 245,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                          children: [
-                            TextButton(
-                              onPressed: () {},
-                              child:Text(' ',
-                                style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),  
-                    ],
-                  ),
-                  
-                  */
                 ],
               ),  
             ),
@@ -209,7 +286,8 @@ class IconDateProfil extends StatelessWidget {
                   const SizedBox(width: 30),
                   IconButton(
                     onPressed: () {},
-                    icon: Image.asset(iconPathPacient),
+                    icon: iconPathPacient.isNotEmpty? Image.network(iconPathPacient, width:60, height:60):
+                      Image.asset('./assets/images/user_fara_poza.png', width:60, height:60 ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -61,7 +61,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         pNumeComplet: controllerNumeComplet.text,
         pUser: controllerEmail.text,
         pParola: controllerPass.text,
+        pDeviceToken: '',
+        pTipDispozitiv: '',
       );
+
+      print('adaugaContClient resAdaugaCont.body ${resAdaugaCont!.body}');
+
 
       if (int.parse(resAdaugaCont!.body) == 200)
       {
@@ -72,7 +77,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           showInainteButton = false;
 
         });
-
 
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString(pref_keys.userEmail, controllerEmail.text);

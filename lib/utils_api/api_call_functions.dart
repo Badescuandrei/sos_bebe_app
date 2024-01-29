@@ -83,6 +83,8 @@ class ApiCallFunctions {
     //required String pNumeComplet,
     required String pUser,
     required String pParola,
+    required String pDeviceToken,
+    required String pTipDispozitiv,
   }) async {
     //final String pParolaMD5 = generateMd5(pParola);
     final Map<String, String> parametriiApiCall = {
@@ -90,6 +92,8 @@ class ApiCallFunctions {
       'pUser': pUser, //IGV
       //'pUser': '0737862090',
       'pParolaMD5': pParola,
+      'pDeviceToken': pDeviceToken,
+      'pTipDispozitiv': pTipDispozitiv,
     };
 
     http.Response? resGetContClient;
@@ -102,7 +106,7 @@ class ApiCallFunctions {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
       return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
-    } 
+    }
     else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
@@ -197,7 +201,8 @@ class ApiCallFunctions {
       // then throw an exception.
       //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
-        specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0);
+        specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, 
+        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0);
     }
 
     //return resGetContClient;
@@ -209,6 +214,7 @@ class ApiCallFunctions {
     required String pUser,
     required String pParola,
     required String pIdMedic,
+    required String pNrMaxim,
   }) async
   {
 
@@ -219,6 +225,7 @@ class ApiCallFunctions {
       //'pUser': '0737862090',
       'pParolaMD5': pParola,
       'pIdMedic': pIdMedic,
+      'pNrMaxim': pNrMaxim,
     };
 
     http.Response? resGetListaRecenziiByIdMedic;
@@ -292,7 +299,7 @@ class ApiCallFunctions {
         return parsed.map<ConversatieMobile>((json) => ConversatieMobile.fromJson(json)).toList();
       }
 
-      print('resGetListaMedici rezultat parsat: ${parseConversatii(resGetListaConversatii.body)}');
+      print('resGetListaConversatii rezultat parsat: ${parseConversatii(resGetListaConversatii.body)}');
       return parseConversatii(resGetListaConversatii.body);
 
       //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
@@ -369,6 +376,8 @@ class ApiCallFunctions {
     required String pNumeComplet,
     required String pUser,
     required String pParola,
+    required String pDeviceToken,
+    required String pTipDispozitiv,
   }) async {
     final String pParolaMD5 = generateMd5(pParola);
     final Map<String, String> parametriiApiCall = {
@@ -376,6 +385,8 @@ class ApiCallFunctions {
       'pUser': pUser, //IGV
       //'pUser': '0737862090',
       'pParolaMD5': pParolaMD5,
+      'pDeviceToken': pDeviceToken,
+      'pTipDispozitiv': pTipDispozitiv,
     };
 
     http.Response? resAdaugaContClient;
@@ -424,6 +435,33 @@ class ApiCallFunctions {
 
     return resVerificaCodPin;
 
+  }
+
+  Future<http.Response?> updateDateClient({
+    required String pUser,
+    required String pParola,
+    required String pNumeleComplet,
+    required String pTelefonNou,
+    required String pAdresaEmailNoua,
+    required String pUserNou,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser,
+      'pParolaMD5': pParola,
+      'pNumeleComplet': pNumeleComplet,
+      'pTelefonNou': pTelefonNou,
+      'pAdresaEmailNoua': pAdresaEmailNoua,
+      'pUserNou': pUserNou,
+    };
+
+    http.Response? resUpdateDateClient;
+
+    resUpdateDateClient = await postApelFunctie(parametriiApiCall, 'UpdateDateClient');
+
+    print('updateDateClient rezultat: ${resUpdateDateClient!.statusCode} body rezultat: ${resUpdateDateClient.body}');
+
+    return resUpdateDateClient;
 
   }
 

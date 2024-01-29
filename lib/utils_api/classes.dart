@@ -59,13 +59,14 @@ class MedicMobile {
   final String adresaLocDeMunca;
   final int totalClienti;
   final int totalTestimoniale;
+  final double procentRating;
 
 
   const MedicMobile({required this.id, required this.linkPozaProfil, required this.titulatura, required this.numeleComplet, required this.locDeMunca, 
     required this.functia, required this.specializarea, required this.medieReviewuri, required this.nrLikeuri, required this.status, 
     required this.primesteIntrebari, required this.interpreteazaAnalize, required this.consultatieVideo, required this.monedaPreturi,
     required this.pretIntrebare, required this.pretConsultatieVideo, required this.pretInterpretareAnalize, required this.experienta,
-    required this.adresaLocDeMunca, required this.totalClienti, required this.totalTestimoniale, 
+    required this.adresaLocDeMunca, required this.totalClienti, required this.totalTestimoniale, required this.procentRating,
   });
 
   factory MedicMobile.fromJson(Map<String, dynamic> json) {
@@ -96,6 +97,7 @@ class MedicMobile {
         adresaLocDeMunca: json['AdresaLocDeMunca']??'',
         totalClienti: json['TotalClienti'] as int,
         totalTestimoniale: json['TotalTestimoniale'] as int,
+        procentRating: json['ProcentRating'] as double,
 
       );
     }
@@ -103,7 +105,8 @@ class MedicMobile {
     {
 
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
-        specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0);
+        specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, 
+        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0);
 
     }
   }
@@ -199,7 +202,58 @@ class MesajConversatieMobile {
       idExpeditor: json['IdExpeditor'] as int,
 
     );
+  }
+}
 
+class FacturaClientMobile {
+
+  final int id;
+  final String numar;
+  final String serie;
+  final DateTime dataEmitere;
+  final DateTime dataPlata;
+  final String denumireBeneficiar;
+  final String telefonBeneficiar;
+  final String emailBeneficiar;
+  final double valoareCuTVA;
+  final double valoareTVA;
+  final double valoareFaraTVA;
+  final int moneda;
+  final String denumireMedic;
+  final String serviciiFactura;
+  final String telefonEmitent;
+  final String emailEmitent;
+
+  const FacturaClientMobile({required this.id, required this.numar, required this.serie, required this.dataEmitere, required this.dataPlata,
+    required this.denumireBeneficiar, required this.telefonBeneficiar, required this.emailBeneficiar, required this.valoareCuTVA,
+    required this.valoareTVA, required this.valoareFaraTVA, required this.moneda, required this.denumireMedic, required this.serviciiFactura,
+    required this.telefonEmitent, required this.emailEmitent,
+  });
+
+  factory FacturaClientMobile.fromJson(Map<String, dynamic> json) {
+
+    print('FacturaClientMobile.fromJson $json');
+
+    return FacturaClientMobile(
+      
+      id: json['ID'] as int,
+      numar: json['Numar'] as String,
+      serie: json['Serie'] as String,
+      dataEmitere: DateTime.parse(json['DataEmitere'].toString()),
+      dataPlata: DateTime.parse(json['DataPlata'].toString()),
+      denumireBeneficiar: json['DenumireBeneficiar'] as String,
+      telefonBeneficiar: json['TelefonBeneficiar'] as String,
+      emailBeneficiar: json['EmailBeneficiar'] as String,
+      valoareCuTVA: json['ValoareCuTVA'] as double,
+      valoareTVA: json['ValoareTVA'] as double,
+      valoareFaraTVA: json['ValoareFaraTVA'] as double,
+      moneda: json['Moneda'] as int,
+      denumireMedic: json['DenumireMedic'] as String,
+      serviciiFactura: json['ServiciiFactura'] as String,
+      telefonEmitent: json['TelefonEmitent'] as String,
+      emailEmitent: json['EmailEmitent'] as String,
+
+    );
   }
 }
 

@@ -18,7 +18,7 @@ import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
 import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
-import  'package:sos_bebe_app/profil_screen.dart';
+import  'package:sos_bebe_app/profil_pacient_screen.dart';
 
 import  'package:sos_bebe_app/vezi_medici_disponibili_intro_screen.dart';
 
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      //home: const LoginScreen(),
+      home: const LoginScreen(),
          
       //home: const IntroScreen(),
 
@@ -80,11 +80,7 @@ class MyApp extends StatelessWidget {
 
       //------------------------------------------------------------------
 
-
       //home: const ConfirmareScreen(correctCard: true,),
-
-      
-   
 
       //home: const PaymentScreen(),
       
@@ -96,8 +92,6 @@ class MyApp extends StatelessWidget {
 
       //home: const IntroScreen(),
       //home: const MedicInfoScreen(),
-      
-      //home: const ProfilScreen(),
       
       //home: const VeziMediciDisponibiliIntroScreen(),
       
@@ -125,12 +119,12 @@ class MyApp extends StatelessWidget {
 
       //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
 
-      home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
+      //home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
 
       //home: const QuestionaireScreen(),
       //
 
-      //home: const ProfilScreen(),      
+      //home: const ProfilulMeuPacientScreen(),      
 
     );
 
