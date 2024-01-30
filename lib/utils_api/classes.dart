@@ -237,21 +237,21 @@ class FacturaClientMobile {
     return FacturaClientMobile(
       
       id: json['ID'] as int,
-      numar: json['Numar'] as String,
-      serie: json['Serie'] as String,
+      numar: json['Numar']??'',
+      serie: json['Serie']??'',
       dataEmitere: DateTime.parse(json['DataEmitere'].toString()),
       dataPlata: DateTime.parse(json['DataPlata'].toString()),
-      denumireBeneficiar: json['DenumireBeneficiar'] as String,
-      telefonBeneficiar: json['TelefonBeneficiar'] as String,
-      emailBeneficiar: json['EmailBeneficiar'] as String,
+      denumireBeneficiar: json['DenumireBeneficiar']??'',
+      telefonBeneficiar: json['TelefonBeneficiar']??'',
+      emailBeneficiar: json['EmailBeneficiar']??'',
       valoareCuTVA: json['ValoareCuTVA'] as double,
       valoareTVA: json['ValoareTVA'] as double,
       valoareFaraTVA: json['ValoareFaraTVA'] as double,
       moneda: json['Moneda'] as int,
-      denumireMedic: json['DenumireMedic'] as String,
-      serviciiFactura: json['ServiciiFactura'] as String,
-      telefonEmitent: json['TelefonEmitent'] as String,
-      emailEmitent: json['EmailEmitent'] as String,
+      denumireMedic: json['DenumireMedic']??'',
+      serviciiFactura: json['ServiciiFactura']??'',
+      telefonEmitent: json['TelefonEmitent']??'',
+      emailEmitent: json['EmailEmitent']??'',
 
     );
   }

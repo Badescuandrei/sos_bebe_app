@@ -7,6 +7,7 @@ const String userId = 'userId';
 const String user = 'user';
 const String userPassMD5 = 'userPassMD5';
 const String userIdInregistrare = 'userIdInregistrare';
+const String userNumeComplet = 'userNumeComplet';
 const String userNume = 'userNume';
 const String userPrenume = 'userPrenume';
 const String userIdPacientAsociat = 'userIdPacientAsociat';

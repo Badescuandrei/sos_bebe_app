@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sos_bebe_app/plati_screen.dart';
 import 'package:sos_bebe_app/termeni_si_conditii_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
-import  'package:sos_bebe_app/register_screen.dart';
+//import  'package:sos_bebe_app/register_screen.dart';
 
-import  'package:sos_bebe_app/factura_screen.dart';
+//import  'package:sos_bebe_app/factura_screen.dart';
 
 import  'package:sos_bebe_app/editare_cont_screen.dart';
+
+import  'package:sos_bebe_app/verifica_pin_sterge_cont_screen.dart';
+
 import 'package:flutter_switch/flutter_switch.dart';
 
 import 'package:sos_bebe_app/utils_api/classes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 
+import 'package:sos_bebe_app/utils_api/functions.dart';
+import 'package:http/http.dart' as http;
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class ProfilulMeuPacientScreen extends StatefulWidget {
 
@@ -57,6 +66,7 @@ class ProfilulMeuPacientScreen extends StatefulWidget {
 
 class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
+  List<FacturaClientMobile> listaFacturi = [];
 
   bool deconectareActivat = false;
 
@@ -82,6 +92,121 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
     });
   }
 
+  
+  getListaFacturi() async 
+  {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    listaFacturi = await apiCallFunctions.getListaFacturi(
+      pUser: user,
+      pParola: userPassMD5,
+    )?? [];
+
+    print('listaFacturi: $listaFacturi');
+
+  }
+
+  
+  Future<http.Response?> trimitePinPentruStergereContClient() async {
+      
+         
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    /*
+    http.Response? res = await apiCallFunctions.getContClient(
+      pUser: controllerEmail.text,
+      pParola: controllerPass.text,
+    );
+    */
+
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+
+    http.Response? resTrimitePinPentruStergere = await apiCallFunctions.trimitePinPentruStergereContClient(
+      pUser: user,
+      pParola: userPassMD5,
+    );
+
+    if (int.parse(resTrimitePinPentruStergere!.body) == 200)
+    {
+
+      //SharedPreferences prefs = await SharedPreferences.getInstance();
+      //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+      print('Cod trimis cu succes!');
+
+      textMessage = 'Cod trimis cu succes!';
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
+      
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere.body) == 400)
+    {
+
+      print('Apel invalid');
+
+      textMessage = 'Apel invalid!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere!.body) == 401)
+    {
+
+      //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+      print('Cont inexistent');
+
+      textMessage = 'Cont inexistent!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere!.body) == 405)
+    {
+
+      
+      print('Informatii insuficiente');
+      
+      textMessage = 'Cont existent dar clientul nu are date de contact!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere!.body) == 500)
+    {
+
+      print('A apărut o eroare la execuția metodei');
+
+      textMessage = 'A apărut o eroare la execuția metodei!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+
+      return resTrimitePinPentruStergere;
+
+    }
+  
+    return null;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -197,14 +322,26 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,    
                           children: [
                             TextButton(
-                              onPressed: () {
+                              onPressed: () async {
 
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
+                                await getListaFacturi();
+
+                                if (context.mounted)
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlatiScreen(listaFacturi: listaFacturi,),
+                                    )
+                                  );
+                                }
+                                /*Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
                                   => const FacturaScreen(tipPlata:'SOS', emailAddressPlata: 'info@sosromania.ro', phoneNumberPlata: '+40 000112112',
                                   textNumeSubiect: 'Istiak Ahmed', tutorId: '135248', emailSubiect: 'istiakahmed194@gmail.com', phoneNumberSubiect: '01521448905',
                                   dataPlatii: 'Iul. 02, 2023', dataPlatiiProcesata: 'Iul. 02, 2023', detaliiFacturaNume: 'Radu Timofte',
                                   detaliiFacturaServicii: 'Pediatrie', detaliiFacturaNumar: '7810',
                                 )));
+                                */
 
                               },
                               child: 
@@ -213,7 +350,19 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () async 
+                              {
+                                await getListaFacturi();
+                                if (context.mounted)
+                                {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PlatiScreen(listaFacturi: listaFacturi,),
+                                    )
+                                  );
+                                }
+                              },
                               icon: Image.asset('./assets/images/arrow_right_verde_icon.png'),
                             ),
                           ],
@@ -256,7 +405,36 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                     children: [
                       SizedBox(width: MediaQuery.of(context).size.width * 0.1),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+
+                          http.Response? resTrimitePinPentruStergereContClient;
+            
+                          resTrimitePinPentruStergereContClient = await trimitePinPentruStergereContClient();
+
+                          if (int.parse(resTrimitePinPentruStergereContClient!.body) == 200)
+                          {
+                            SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+                            String user = prefs.getString('user')??'';
+                            
+                            String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+                            
+                            print('profil_pacient_screen: resTrimitePinPentruStergereContClient!.statusCode: ${resTrimitePinPentruStergereContClient!.statusCode} resTrimitePinPentruStergereContClient!.body: ${resTrimitePinPentruStergereContClient.body}' );
+                            
+                            if(context.mounted)
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => VerificaPinStergeContScreen(user: user, userPassMD5: userPassMD5),
+                                  //builder: (context) => const ServiceSelectScreen(),
+                                  //builder: (context) => const TestimonialScreen(),
+                                ),
+                              );
+                            }
+                          }  
+
+                        },
                         child: Text('Dezactivare cont',
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                         ),

@@ -264,6 +264,106 @@ class ApiCallFunctions {
 
   }
 
+  
+
+  Future<List<FacturaClientMobile>?> getListaFacturi({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+    };
+
+    http.Response? resGetListaFacturi;
+
+    resGetListaFacturi = await getApelFunctie(parametriiApiCall, 'GetListaFacturi');
+
+    if (resGetListaFacturi!.statusCode == 200) 
+    {
+
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+
+      List<FacturaClientMobile> parseFacturiMobile(String responseBody) 
+      {
+        final parsed =
+            (jsonDecode(responseBody) as List).cast<Map<String, dynamic>>();
+
+        return parsed.map<FacturaClientMobile>((json) => FacturaClientMobile.fromJson(json)).toList();
+      }
+
+      print('resGetListaFacturi rezultat parsat: ${parseFacturiMobile(resGetListaFacturi.body)}');
+      return parseFacturiMobile(resGetListaFacturi.body);
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
+    }
+
+    //return resGetContClient;
+
+  }
+
+  
+
+  Future<FacturaClientMobile>? getDetaliiFactura({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    required String pIdFactura,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      'pIdFactura': pIdFactura,
+    };
+
+    http.Response? resGetDetaliiFactura;
+
+    resGetDetaliiFactura = await getApelFunctie(parametriiApiCall, 'GetDetaliiFactura');
+
+    
+    if (resGetDetaliiFactura!.statusCode == 200) {
+      
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return FacturaClientMobile.fromJson(jsonDecode(resGetDetaliiFactura.body) as Map<String, dynamic>);
+
+    }
+    else {
+      
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
+      DateTime dataNow = DateTime.now();
+      return FacturaClientMobile(id: -1, numar: '-1', serie: '-1', dataEmitere: dataNow, dataPlata: dataNow, denumireBeneficiar: '',
+        telefonBeneficiar: '', emailBeneficiar: '', valoareCuTVA: 0.0, valoareTVA: 0.0, valoareFaraTVA: 0.0, moneda:0, denumireMedic: '',
+        serviciiFactura:'', telefonEmitent:'', emailEmitent:'');
+
+    }
+
+    //return resGetContClient;
+
+  }
+
   Future<List<ConversatieMobile>?> getListaConversatii({
     //required String pNumeComplet,
     required String pUser,
@@ -462,6 +562,46 @@ class ApiCallFunctions {
     print('updateDateClient rezultat: ${resUpdateDateClient!.statusCode} body rezultat: ${resUpdateDateClient.body}');
 
     return resUpdateDateClient;
+
+  }
+
+  Future<http.Response?> trimitePinPentruStergereContClient({
+    required String pUser,
+    required String pParola,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+    };
+
+    http.Response? resTrimitePinStergere;
+
+    resTrimitePinStergere = await postApelFunctie(parametriiApiCall, 'TrimitePinPentruStergereContClient');
+
+    print('trimitePinPentruStergereContClient rezultat: ${resTrimitePinStergere!.statusCode} body rezultat: ${resTrimitePinStergere.body}');
+
+    return resTrimitePinStergere;
+
+  }
+
+  Future<http.Response?> stergeContClient({
+    required String pUser,
+    required String pParola,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+    };
+
+    http.Response? resStergeContClient;
+
+    resStergeContClient = await postApelFunctie(parametriiApiCall, 'StergeContClient');
+
+    print('trimitePinPentruStergereContClient rezultat: ${resStergeContClient!.statusCode} body rezultat: ${resStergeContClient.body}');
+
+    return resStergeContClient;
 
   }
 
