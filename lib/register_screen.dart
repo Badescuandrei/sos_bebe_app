@@ -43,195 +43,195 @@ class _RegisterScreenState extends State<RegisterScreen> {
   
   }
 
-    Future<http.Response?> adaugaContClient() async {
+  Future<http.Response?> adaugaContClient() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+    
+    /*
+    http.Response? res = await apiCallFunctions.getContClient(
+      pUser: controllerEmail.text,
+      pParola: controllerPass.text,
+    );
+    */
+
+    http.Response? resAdaugaCont = await apiCallFunctions.adaugaContClient(
+      pNumeComplet: controllerNumeComplet.text,
+      pUser: controllerEmail.text,
+      pParola: controllerPass.text,
+      pDeviceToken: '',
+      pTipDispozitiv: '',
+    );
+
+    print('adaugaContClient resAdaugaCont.body ${resAdaugaCont!.body}');
+
+
+    if (int.parse(resAdaugaCont!.body) == 200)
+    {
+
+      setState(() {
+
+        registerCorect = true;
+        showInainteButton = false;
+
+      });
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(pref_keys.userEmail, controllerEmail.text);
+      //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-      String textMessage = '';
-      Color backgroundColor = Colors.red;
-      Color textColor = Colors.black;
-      
+      prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+      print('Înregistrare finalizată cu succes!');
+
+      textMessage = 'Înregistrare finalizată cu succes!';
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
       /*
-      http.Response? res = await apiCallFunctions.getContClient(
-        pUser: controllerEmail.text,
-        pParola: controllerPass.text,
-      );
-      */
-
-      http.Response? resAdaugaCont = await apiCallFunctions.adaugaContClient(
-        pNumeComplet: controllerNumeComplet.text,
-        pUser: controllerEmail.text,
-        pParola: controllerPass.text,
-        pDeviceToken: '',
-        pTipDispozitiv: '',
-      );
-
-      print('adaugaContClient resAdaugaCont.body ${resAdaugaCont!.body}');
-
-
-      if (int.parse(resAdaugaCont!.body) == 200)
-      {
-
-        setState(() {
-
-          registerCorect = true;
-          showInainteButton = false;
-
-        });
-
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(pref_keys.userEmail, controllerEmail.text);
-        //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
-
-        prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
-
-        print('Înregistrare finalizată cu succes!');
-
-        textMessage = 'Înregistrare finalizată cu succes!';
-        backgroundColor = const Color.fromARGB(255, 14, 190, 127);
-        textColor = Colors.white;
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Înregistrare finalizată cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
-
-        }
-
-        return resAdaugaCont;
-        */
-
-      }
-      else if (int.parse(resAdaugaCont.body) == 400)
-      {
-
-        
-        setState(() {
-
-          registerCorect = false;
-          showInainteButton = true;
-
-        });
-
-        print('Apel invalid');
-
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
-
-        }
-
-        return resAdaugaCont;
-        */
-        textMessage = 'Apel invalid!';
-        backgroundColor = Colors.red;
-        textColor = Colors.black;
-
-      }
-      else if (int.parse(resAdaugaCont!.body) == 401)
-      {
-
-        prefs.setString(pref_keys.userEmail, controllerEmail.text);
-        prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
-        print('Cont deja existent');
-
-        
-        setState(() {
-
-          registerCorect = false;
-          showInainteButton = true;
-
-        });
-
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Cont deja existent!", Colors.red, Colors.black);
-
-        }
-
-        return resAdaugaCont;
-        */
-        
-        textMessage = 'Cont deja existent!';
-        backgroundColor = Colors.red;
-        textColor = Colors.black;
-
-      }
-      else if (int.parse(resAdaugaCont!.body) == 405)
-      {
-
-        
-        setState(() {
-
-          registerCorect = false;
-          showInainteButton = true;
-
-        });
-
-        print('Informatii insuficiente');
-        
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
-
-        }
-        
-        return resAdaugaCont;
-        */
-        
-        textMessage = 'Informatii insuficiente!';
-        backgroundColor = Colors.red;
-        textColor = Colors.black;
-
-      }
-      else if (int.parse(resAdaugaCont!.body) == 500)
-      {
-
-        
-        setState(() {
-
-          registerCorect = false;
-          showInainteButton = true;
-
-        });
-
-        print('A apărut o eroare la execuția metodei');
-        
-        
-        
-        textMessage = 'A apărut o eroare la execuția metodei!';
-        backgroundColor = Colors.red;
-        textColor = Colors.black;
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
-
-        }
-
-        return resAdaugaCont;
-        */
-
-      }
-
       if (context.mounted)
       {
 
-        showSnackbar(context, textMessage, backgroundColor, textColor);
+        showSnackbar(context, "Înregistrare finalizată cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
 
-        return resAdaugaCont;
+      }
+
+      return resAdaugaCont;
+      */
+
+    }
+    else if (int.parse(resAdaugaCont.body) == 400)
+    {
+
+      
+      setState(() {
+
+        registerCorect = false;
+        showInainteButton = true;
+
+      });
+
+      print('Apel invalid');
+
+      /*
+      if (context.mounted)
+      {
+
+        showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
+
+      }
+
+      return resAdaugaCont;
+      */
+      textMessage = 'Apel invalid!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resAdaugaCont!.body) == 401)
+    {
+
+      prefs.setString(pref_keys.userEmail, controllerEmail.text);
+      prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+      print('Cont deja existent');
+
+      
+      setState(() {
+
+        registerCorect = false;
+        showInainteButton = true;
+
+      });
+
+      /*
+      if (context.mounted)
+      {
+
+        showSnackbar(context, "Cont deja existent!", Colors.red, Colors.black);
+
+      }
+
+      return resAdaugaCont;
+      */
+      
+      textMessage = 'Cont deja existent!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resAdaugaCont!.body) == 405)
+    {
+
+      
+      setState(() {
+
+        registerCorect = false;
+        showInainteButton = true;
+
+      });
+
+      print('Informatii insuficiente');
+      
+      /*
+      if (context.mounted)
+      {
+
+        showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
 
       }
       
-      return null;
+      return resAdaugaCont;
+      */
+      
+      textMessage = 'Informatii insuficiente!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
 
     }
+    else if (int.parse(resAdaugaCont!.body) == 500)
+    {
+
+      
+      setState(() {
+
+        registerCorect = false;
+        showInainteButton = true;
+
+      });
+
+      print('A apărut o eroare la execuția metodei');
+      
+      
+      
+      textMessage = 'A apărut o eroare la execuția metodei!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+      /*
+      if (context.mounted)
+      {
+
+        showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
+
+      }
+
+      return resAdaugaCont;
+      */
+
+    }
+
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+
+      return resAdaugaCont;
+
+    }
+    
+    return null;
+
+  }
 
   @override
   Widget build(BuildContext context) {

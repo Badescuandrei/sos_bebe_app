@@ -227,7 +227,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                         if(context.mounted)
                         {
                           //if (int.parse(resTrimitePin!.body) == 200)
-
                           {
                             print('reset_password_pacient: user ${controllerPhoneEmailUser.text} resTrimitePin!.statusCode: ${resTrimitePin!.statusCode} resTrimitePin!.body: ${resTrimitePin.body}' );
                             Navigator.push(

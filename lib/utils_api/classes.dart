@@ -258,6 +258,19 @@ class FacturaClientMobile {
 }
 
 
+
+enum EnumStatusMedicMobile
+{
+    nedefinit(0),
+    activ(1),
+    indisponibil(2),
+    inConsultatie(3);
+
+    const EnumStatusMedicMobile(this.value);
+    final int value;
+
+}
+
 enum EnumTipMoneda
 {
     nedefinit(0),
@@ -269,14 +282,13 @@ enum EnumTipMoneda
 
 }
 
-enum EnumStatusMedicMobile
+enum EnumTipDispozitiv
 {
     nedefinit(0),
-    activ(1),
-    indisponibil(2),
-    inConsultatie(3);
+    android(1),
+    iOS(2);
 
-    const EnumStatusMedicMobile(this.value);
+    const EnumTipDispozitiv(this.value);
     final int value;
 
 }

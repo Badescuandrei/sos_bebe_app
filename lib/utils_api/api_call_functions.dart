@@ -45,7 +45,6 @@ class ApiCallFunctions {
 
   }
 
-
   Future<http.Response?> postApelFunctie(Map<String, String> parametriiApiCall, String numeMetoda) async {
     
     http.Response res;
@@ -579,7 +578,7 @@ class ApiCallFunctions {
 
     resTrimitePinStergere = await postApelFunctie(parametriiApiCall, 'TrimitePinPentruStergereContClient');
 
-    print('trimitePinPentruStergereContClient rezultat: ${resTrimitePinStergere!.statusCode} body rezultat: ${resTrimitePinStergere.body}');
+    print('parametriiApiCall: $parametriiApiCall trimitePinPentruStergereContClient rezultat: ${resTrimitePinStergere!.statusCode} body rezultat: ${resTrimitePinStergere.body}');
 
     return resTrimitePinStergere;
 
@@ -626,6 +625,35 @@ class ApiCallFunctions {
     return resReseteazaParola;
 
   }
+
+  
+
+  Future<http.Response?> adaugaFeedbackDinContClient({
+    required String pUser,
+    required String pParola,
+    required String pIdMedic,
+    required String pNota,
+    required String pComentariu,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pIdMedic': pIdMedic,
+      'pNota': pNota,
+      'pComentariu': pComentariu,
+    };
+
+    http.Response? resAdaugaFeedbackDinContClient;
+
+    resAdaugaFeedbackDinContClient = await postApelFunctie(parametriiApiCall, 'AdaugaFeedbackDinContClient');
+
+    print('adaugaContClient status rezultat: ${resAdaugaFeedbackDinContClient!.statusCode} body rezultat: ${resAdaugaFeedbackDinContClient!.body}');
+
+    return resAdaugaFeedbackDinContClient;
+
+  }
+
 }
 
 /*

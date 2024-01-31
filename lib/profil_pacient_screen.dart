@@ -411,6 +411,8 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
             
                           resTrimitePinPentruStergereContClient = await trimitePinPentruStergereContClient();
 
+                          print('profil_pacient_screen: resTrimitePinPentruStergereContClient!.statusCode: ${resTrimitePinPentruStergereContClient!.statusCode} resTrimitePinPentruStergereContClient!.body: ${resTrimitePinPentruStergereContClient.body}' );
+                          
                           if (int.parse(resTrimitePinPentruStergereContClient!.body) == 200)
                           {
                             SharedPreferences prefs = await SharedPreferences.getInstance(); 
@@ -432,8 +434,7 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                                 ),
                               );
                             }
-                          }  
-
+                          }
                         },
                         child: Text('Dezactivare cont',
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),

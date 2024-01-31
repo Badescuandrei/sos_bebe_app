@@ -495,7 +495,7 @@ class EditareContScreenState extends State<EditareContScreen> {
                               onFieldSubmitted: (String s) {
                                 focusNodeResetareParola.requestFocus();
                               },
-                              controller: controllerUser,
+                              controller: controllerNumeComplet,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
                                 prefixIcon: const Icon(

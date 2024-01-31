@@ -30,6 +30,10 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
   bool isHidden = true;
   final controllerCode = TextEditingController();
 
+  bool showButonVerificaSterge = true;
+  bool verificareReusita = false;
+  bool stergereReusita = false;
+
   final FocusNode focusNodePhone = FocusNode();
 
   @override
@@ -44,7 +48,7 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Verifică codul',
+                    'Verifică codul și șterge contul',
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         fontSize: 18,
@@ -155,14 +159,44 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                   ),
                 ),
                 const SizedBox(height: 115),
+                
+
+                //(showButonVerificaSterge && !verificareReusita && !stergereReusita)? 
+                (!showButonVerificaSterge && !verificareReusita)?
                 SizedBox(
                   width: 160,
+                  height: 44,
+                  child: Center(
+                    child:Text('Se verifică codul trimis', 
+                      style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontWeight: FontWeight.w300, fontSize: 14))
+                  ),
+                ):
+                (!showButonVerificaSterge && verificareReusita && !stergereReusita)?
+                SizedBox(
+                  width: 160,
+                  height: 44,
+                  child: Center(
+                    child:Text('Se sterge contul', 
+                      style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontWeight: FontWeight.w300, fontSize: 14))
+                  ),
+                ):
+                SizedBox(
+                  width: 230,
                   height: 44,
                   child: ElevatedButton(
                     onPressed: () async {
                       
                       final isValidForm = verificaCodulKey.currentState!.validate();
                       if (isValidForm) { 
+
+                        setState(() {
+                          
+                          verificareReusita = false;
+                          stergereReusita = false;
+                          showButonVerificaSterge = true;
+
+                        });
+
                         http.Response? resVerificaPinStergeCont;
 
                         resVerificaPinStergeCont = await verificaCodPinClient();
@@ -172,24 +206,30 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
                           print('verifica_pin_sterge_cont resVerificaPinStergeCont!.body: ${resVerificaPinStergeCont!.body}');
 
-                          if(context.mounted)
+                          http.Response? resStergeContClient;
+                          resStergeContClient = await stergeContClient();
+
+                          if (int.parse(resStergeContClient!.body) == 200)
                           {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                //builder: (context) => const ServiceSelectScreen(),
-                                builder: (context) => const LoginScreen(),
-                              )
-                            );
+                            if(context.mounted)
+                            {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  //builder: (context) => const ServiceSelectScreen(),
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            }
                           }
                         }
                       }
                       //Navigator.push(
-                          //context,
-                          //MaterialPageRoute(
-                            //builder: (context) => const ServiceSelectScreen(),
-                            //builder: (context) => const TestimonialScreen(),
-                          //));
+                      //context,
+                      //MaterialPageRoute(
+                        //builder: (context) => const ServiceSelectScreen(),
+                        //builder: (context) => const TestimonialScreen(),
+                      //));
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
@@ -197,10 +237,10 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Verifică',
+                    child: Text('Verifică pin și șterge cont',
                         style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
-                ),  
+                ),
                 //const SizedBox(height: 100),
               ],
             ),
@@ -231,6 +271,12 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
       if (int.parse(resVerificaCodPin!.body) == 200)
       {
 
+        setState(() {
+
+          verificareReusita = true;    
+
+        });
+        
         //SharedPreferences prefs = await SharedPreferences.getInstance();
         //prefs.setString(pref_keys.userEmail, controllerEmail.text);
 
@@ -257,6 +303,13 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         print('Apel invalid');
 
+        
+        setState(() {
+
+          verificareReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
         //if (context.mounted)
         //{
 
@@ -277,12 +330,20 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Eroare! Codul nu a putut fi verificat!');
 
+        
+        setState(() {
+
+          verificareReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
+
         //if (context.mounted)
         //{
 
-          textMessage = 'Eroare! Codul nu a putut fi verificat!';
-          backgroundColor = Colors.red;
-          textColor = Colors.black;
+        textMessage = 'Eroare! Codul nu a putut fi verificat!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
           //showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
 
         //}
@@ -294,6 +355,14 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
       {
 
         
+        
+        setState(() {
+
+          verificareReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
+
         print('Informatii insuficiente!');
 
         textMessage = 'Informatii insuficiente!';
@@ -304,6 +373,14 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
       else if (int.parse(resVerificaCodPin!.body) == 500)
       {
 
+        
+        setState(() {
+
+          verificareReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
+        
         print('A apărut o eroare la execuția metodei');
         
         textMessage = 'Informatii insuficiente!';
@@ -324,13 +401,6 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
   
   Future<http.Response?> stergeContClient() async {
 
-      /*
-      http.Response? res = await apiCallFunctions.getContClient(
-        pUser: controllerEmail.text,
-        pParola: controllerPass.text,
-      );
-      */
-
       String textMessage = '';
       Color backgroundColor = Colors.red;
       Color textColor = Colors.black;
@@ -343,6 +413,15 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
       if (int.parse(resStegeContClient!.body) == 200)
       {
 
+        
+        setState(() {
+
+          verificareReusita = true;
+          stergereReusita = true;
+          showButonVerificaSterge = false;    
+          
+        });
+
         //SharedPreferences prefs = await SharedPreferences.getInstance();
         //prefs.setString(pref_keys.userEmail, controllerEmail.text);
 
@@ -350,18 +429,10 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         print('Cont șters cu succes!');
 
-        
-        //if (context.mounted)
-        //{
-
-          textMessage = 'Cont șters cu succes!';
-          backgroundColor = const Color.fromARGB(255, 14, 190, 127);
-          textColor = Colors.white;
-          //showSnackbar(context, "Cod verificat cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
-
-        //}
-
-        //return resVerificaCodPin;
+        textMessage = 'Cont șters cu succes!';
+        backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+        textColor = Colors.white;
+          
 
       }
       else if (int.parse(resStegeContClient.body) == 400)
@@ -369,42 +440,49 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         print('Apel invalid');
 
-        //if (context.mounted)
-        //{
+        setState(() {
 
-          textMessage = 'Apel invalid!';
-          backgroundColor = Colors.red;
-          textColor = Colors.black;
-          //showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
+          verificareReusita = true;
+          stergereReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
 
-        //}
-
-        //return resVerificaCodPin;
+        textMessage = 'Apel invalid!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
 
       }
       else if (int.parse(resStegeContClient!.body) == 401)
       {
 
+        setState(() {
+
+          verificareReusita = true;
+          stergereReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
+
         //prefs.setString(pref_keys.userEmail, controllerEmail.text);
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Eroare! Contul nu a putut fi șters!');
 
-        //if (context.mounted)
-        //{
-
-          textMessage = 'Eroare! Codul nu a putut fi verificat!';
-          backgroundColor = Colors.red;
-          textColor = Colors.black;
-          //showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
-
-        //}
-
-        //return resVerificaCodPin;
+        textMessage = 'Eroare! Codul nu a putut fi verificat!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
 
       }
       else if (int.parse(resStegeContClient!.body) == 405)
       {
 
+        setState(() {
+
+          verificareReusita = true;
+          stergereReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
         
         print('Informatii insuficiente!');
 
@@ -415,6 +493,14 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
       }
       else if (int.parse(resStegeContClient!.body) == 500)
       {
+
+        setState(() {
+
+          verificareReusita = true;
+          stergereReusita = false;
+          showButonVerificaSterge = true;    
+          
+        });
 
         print('A apărut o eroare la execuția metodei');
         
