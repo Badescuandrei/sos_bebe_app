@@ -37,6 +37,8 @@ import  'package:sos_bebe_app/questionare_screen.dart';
 
 import 'package:sos_bebe_app/raspunde_intrebare_doar_chat_screen.dart';
 
+import  'package:sos_bebe_app/testimonial_screen.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -57,8 +59,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const LoginScreen(),
-         
+      //home: const LoginScreen(),
+
       //home: const IntroScreen(),
 
       /*home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
@@ -119,12 +121,15 @@ class MyApp extends StatelessWidget {
 
       //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
 
-      //home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
+      //home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '', idMedic: 1),
 
-      //home: const QuestionaireScreen(),
+      home: const QuestionaireScreen(),
+
       //
 
       //home: const ProfilulMeuPacientScreen(),      
+      
+      //home: const TestimonialScreen(idMedic:1),
 
     );
 

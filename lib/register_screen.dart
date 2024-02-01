@@ -374,7 +374,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  (!registerCorect && !showInainteButton)? Text('Se încearcă înregistrarea',
+                  (!showInainteButton)? Text('Se încearcă înregistrarea',
                     //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
                     style: GoogleFonts.rubik(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18))
                     :
@@ -410,6 +410,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   //builder: (context) => const TestimonialScreen(),
                                 ),
                               );
+                            }
+                            else
+                            {
+
+                              setState(() {
+
+                                registerCorect = false;
+                                showInainteButton = true;
+
+                              });
+
                             }
                           }
                         }    

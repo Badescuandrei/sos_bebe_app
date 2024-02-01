@@ -23,9 +23,11 @@ class RaspundeIntrebareMedicScreen extends StatefulWidget {
   final String textIntrebare;
   final String textRaspuns;
 
+  final int idMedic;
+
   const RaspundeIntrebareMedicScreen({
 
-    super.key, required this.textNume, required this.textIntrebare, required this.textRaspuns
+    super.key, required this.textNume, required this.textIntrebare, required this.textRaspuns, required this.idMedic,
 
   });
 
@@ -180,11 +182,11 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
         author: _user,
         createdAt: DateTime.now().millisecondsSinceEpoch,
         height: image.height.toDouble(),
+        width: image.width.toDouble(),
         id: const Uuid().v4(),
         name: result.name,
         size: bytes.length,
         uri: result.path,
-        width: image.width.toDouble(),
       );
 
       _addMessage(message);
@@ -219,8 +221,8 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
             final file = File(localPath);
             await file.writeAsBytes(bytes);
           }
-        } 
-        finally 
+        }
+        finally
         {
 
           final index =

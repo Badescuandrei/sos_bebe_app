@@ -636,6 +636,18 @@ class EditareContScreenState extends State<EditareContScreen> {
                                         //builder: (context) => const TestimonialScreen(),
                                       ),
                                     );
+                                    
+                                  }
+                                  else
+                                  {
+
+                                    setState(() {
+
+                                      editareContCorecta = false;
+                                      showButonSalvare = true;
+
+                                    });
+
                                   }
                                 }
                               }    

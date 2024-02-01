@@ -626,8 +626,6 @@ class ApiCallFunctions {
 
   }
 
-  
-
   Future<http.Response?> adaugaFeedbackDinContClient({
     required String pUser,
     required String pParola,
@@ -648,14 +646,62 @@ class ApiCallFunctions {
 
     resAdaugaFeedbackDinContClient = await postApelFunctie(parametriiApiCall, 'AdaugaFeedbackDinContClient');
 
-    print('adaugaContClient status rezultat: ${resAdaugaFeedbackDinContClient!.statusCode} body rezultat: ${resAdaugaFeedbackDinContClient!.body}');
+    print('adaugaFeedbackDinContClient status rezultat: ${resAdaugaFeedbackDinContClient!.statusCode} body rezultat: ${resAdaugaFeedbackDinContClient!.body}');
 
     return resAdaugaFeedbackDinContClient;
 
   }
 
+  Future<http.Response?> adaugaMesajDinContClient({
+    required String pUser,
+    required String pParola,
+    required String pIdMedic,
+    required String pMesaj,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pIdMedic': pIdMedic,
+      'pMesaj': pMesaj,
+    };
+
+    http.Response? resAdaugaMesajDinContClient;
+
+    resAdaugaMesajDinContClient = await postApelFunctie(parametriiApiCall, 'AdaugaMesajDinContClient');
+
+    print('adaugaMesajDinContClient status rezultat: ${resAdaugaMesajDinContClient!.statusCode} body rezultat: ${resAdaugaMesajDinContClient!.body}');
+
+    return resAdaugaMesajDinContClient;
+
+  }
+
+  Future<http.Response?> updateChestionarDinContClient({
+    required String pUser,
+    required String pParola,
+    required String pListaRaspunsuri,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser,
+      'pParolaMD5': pParola,
+      'pListaRaspunsuri': pListaRaspunsuri,
+    };
+
+    http.Response? resUpdateChestionarDinContClient;
+
+    resUpdateChestionarDinContClient = await postApelFunctie(parametriiApiCall, 'UpdateChestionarDinContClient');
+
+    print('updateChestionarDinContClient rezultat: ${resUpdateChestionarDinContClient!.statusCode} body rezultat: ${resUpdateChestionarDinContClient.body}');
+
+    return resUpdateChestionarDinContClient;
+
+  }
+
 }
 
+
+//////////////////////////////////////old
 /*
   Future<http.Response?> getContClient({
     //required String pNumeComplet,

@@ -34,10 +34,12 @@ class RaspundeIntrebareDoarChatScreen extends StatefulWidget {
   final String textNume;
   final String textIntrebare;
   final String textRaspuns;
+  
+  final int idMedic;
 
   const RaspundeIntrebareDoarChatScreen({
 
-    super.key, required this.textNume, required this.textIntrebare, required this.textRaspuns
+    super.key, required this.textNume, required this.textIntrebare, required this.textRaspuns, required this.idMedic
 
   });
 
@@ -48,6 +50,7 @@ class RaspundeIntrebareDoarChatScreen extends StatefulWidget {
 
 class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarChatScreen> {
 
+
   String textNume = '';
   String textIntrebare = '';
   String textRaspuns = '';
@@ -57,7 +60,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
   List<types.TextMessage> newMessages = [];
 
   final _user = const types.User(
-    id: '1',
+    id: '12',
   );
 
   //final _user = const types.User(id: '12345', imageUrl: 'https://i.pravatar.cc/300', firstName: 'Test', lastName: 'Test');
@@ -74,7 +77,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
     getListaConversatii();
 
-    Timer.periodic(new Duration(seconds: 1), (timer) {
+    Timer.periodic(new Duration(seconds: 5), (timer) {
 
       _loadMessagesFromList();
       if (_messages.length != newMessages.length)
@@ -94,15 +97,14 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
   void getListaConversatii() async
   {
 
-    
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
     //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-        
     //String user = prefs.getString('user')??'';
     //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
-    prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5('123456'));
+    //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5('123456')); //old IGV
 
     //String? userPassMD5 = prefs.getString(pref_keys.userPassMD5);
 
@@ -115,8 +117,6 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     
     //String user = prefs.getString('user')??'';
     //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
-
-
 
     listaConversatii = await apiCallFunctions.getListaConversatii(
       pUser: user,
@@ -271,7 +271,9 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
       var localPath = message.uri;
 
       if (message.uri.startsWith('http')) {
-        try {
+        try 
+        {
+          
           final index =
               _messages.indexWhere((element) => element.id == message.id);
           final updatedMessage =
@@ -293,7 +295,9 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
             final file = File(localPath);
             await file.writeAsBytes(bytes);
           }
-        } finally {
+        }
+        finally 
+        {
 
           final index =
               _messages.indexWhere((element) => element.id == message.id);
@@ -309,6 +313,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
       }
 
       await OpenFilex.open(localPath);
+
     }
   }
 
@@ -329,17 +334,26 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
   }
 
-  void _handleSendPressed(types.PartialText message) {
+  void _handleSendPressed(types.PartialText message) async {
     
-    final textMessage = types.TextMessage(
-      author: _user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: const Uuid().v4(),
-      text: message.text,
-    );
+    http.Response? resAdaugaFeedback;
 
-    _addMessage(textMessage);
+    resAdaugaFeedback = await adaugaMesajDinContClient(message.text);
+    
+    if(context.mounted)
+    {
+      if (int.parse(resAdaugaFeedback!.body) == 200)
+      {
+        final textMessage = types.TextMessage(
+          author: _user,
+          createdAt: DateTime.now().millisecondsSinceEpoch,
+          id: const Uuid().v4(),
+          text: message.text,
+        );
 
+        _addMessage(textMessage);
+      }
+    }
   }
 
   /*
@@ -378,6 +392,153 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
       //print('is checked alergic: ' + isAlergic.toString());
 
     });
+  }
+
+  
+
+  Future<http.Response?> adaugaMesajDinContClient(String mesaj) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        
+    /*
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+    */
+
+    
+    String? user = 'george.iordache@gmail.com';
+
+    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+    /*
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+    */
+    
+    http.Response? resAdaugaMesaj = await apiCallFunctions.adaugaMesajDinContClient(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: widget.idMedic.toString(),
+      pMesaj: mesaj,
+    );
+
+
+    print('adaugaFeedbackDinContClient resAdaugaCont.body ${resAdaugaMesaj!.body}');
+
+
+    if (int.parse(resAdaugaMesaj!.body) == 200)
+    {
+
+/*
+      setState(() {
+
+        feedbackCorect = true;
+        showButonTrimiteTestimonial = false;
+
+      });
+*/
+
+      print('Mesaj adăugat cu succes!');
+
+    }
+    else if (int.parse(resAdaugaMesaj.body) == 400)
+    {
+
+      /*
+      setState(() {
+
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
+
+      });
+      */
+
+      print('Apel invalid');
+
+      /*
+      textMessage = 'Apel invalid!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+      */
+
+    }
+    else if (int.parse(resAdaugaMesaj!.body) == 401)
+    {
+      
+      print('Eroare la adăugare mesaj!');
+      /*
+      setState(() {
+
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
+
+      });
+      
+      textMessage = 'Feedback-ul nu a fost trimis!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+      */
+
+    }
+    else if (int.parse(resAdaugaMesaj!.body) == 405)
+    {
+
+      print('Informatii insuficiente');
+
+      /*
+      setState(() {
+
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
+
+      });
+
+      print('Informatii insuficiente');
+    
+      
+      textMessage = 'Informatii insuficiente!';
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+      */
+
+    }
+    else if (int.parse(resAdaugaMesaj!.body) == 500)
+    {
+
+
+      print('A apărut o eroare la execuția metodei');
+
+      /*
+        setState(() {
+
+          feedbackCorect = false;
+          showButonTrimiteTestimonial = true;
+
+        });
+
+        print('A apărut o eroare la execuția metodei');
+        
+        textMessage = 'A apărut o eroare la execuția metodei!';
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+      */
+
+    }
+
+    /*
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+
+      return resAdaugaFeedback;
+
+    }
+    */
+    
+    return null;
+
   }
 
   @override

@@ -236,7 +236,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
                       dispose();
                       if (mounted){
                         await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
-                          => const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',)));
+                          => const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '', idMedic: 1)));
                       }
                     }, 
                     icon: Image.asset(

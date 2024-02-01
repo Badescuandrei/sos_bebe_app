@@ -140,7 +140,7 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 children: [
                   const SizedBox(height: 15),
                   SizedBox(width: 284,
-                    child: Text('Plată - SOS', 
+                    child: Text('Plată - SOS Bebe', 
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                   ),
@@ -546,7 +546,7 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       children: [
                         const SizedBox(height: 15),
                         SizedBox(width: 284,
-                          child: Text('Plată - SOS', 
+                          child: Text('Plată - SOS Bebe', 
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                           ),
                         ),
@@ -877,7 +877,7 @@ class _FacturaScreenState extends State<FacturaScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const TestimonialScreen(),
+                              builder: (context) => const TestimonialScreen(idMedic:1),
                             )
                           );
 

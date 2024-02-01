@@ -222,6 +222,26 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                               );
                             }
                           }
+                          else
+                          {
+                            setState(() {
+                          
+                              verificareReusita = true;
+                              stergereReusita = false;
+                              showButonVerificaSterge = true;
+
+                            });
+                          }
+                        }
+                        else
+                        {
+                          setState(() {
+                        
+                            verificareReusita = false;
+                            stergereReusita = false;
+                            showButonVerificaSterge = true;
+
+                          });
                         }
                       }
                       //Navigator.push(
@@ -273,7 +293,8 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         setState(() {
 
-          verificareReusita = true;    
+          verificareReusita = true;
+          showButonVerificaSterge = false; 
 
         });
         

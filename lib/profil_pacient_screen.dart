@@ -8,6 +8,7 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 //import  'package:sos_bebe_app/factura_screen.dart';
 
 import  'package:sos_bebe_app/editare_cont_screen.dart';
+import  'package:sos_bebe_app/login_screen.dart';
 
 import  'package:sos_bebe_app/verifica_pin_sterge_cont_screen.dart';
 
@@ -20,6 +21,7 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:http/http.dart' as http;
+
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
@@ -415,10 +417,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                           
                           if (int.parse(resTrimitePinPentruStergereContClient!.body) == 200)
                           {
-                            SharedPreferences prefs = await SharedPreferences.getInstance(); 
-    
-                            String user = prefs.getString('user')??'';
                             
+                            SharedPreferences prefs = await SharedPreferences.getInstance(); 
+                            String user = prefs.getString('user')??'';
                             String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
                             
                             print('profil_pacient_screen: resTrimitePinPentruStergereContClient!.statusCode: ${resTrimitePinPentruStergereContClient!.statusCode} resTrimitePinPentruStergereContClient!.body: ${resTrimitePinPentruStergereContClient.body}' );
@@ -518,7 +519,8 @@ class IconTextAndSwitchWidget extends StatefulWidget {
 
   final String text;
   final String iconPath;
-    bool isToggled;
+  bool isToggled;
+
   final Function(bool)? callback;
   IconTextAndSwitchWidget({super.key, required this.text, required this.iconPath, required this.isToggled, this.callback});
 
@@ -539,18 +541,61 @@ class _IconTextAndSwitchWidgetState extends State<IconTextAndSwitchWidget> {
           width: MediaQuery.of(context).size.width * 0.09,
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () async {
+
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+
+            prefs.setString(pref_keys.userId, '-1');
+            prefs.setString(pref_keys.userEmail, '');
+            prefs.setString(pref_keys.userTelefon, '');
+            prefs.setString(pref_keys.user, '');
+            prefs.setString(pref_keys.userPassMD5, '');
+            
+            if (context.mounted)
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            }
+          },
           icon: Image.asset(widget.iconPath),
         ),
         SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.4,
-          child:
-            Text(widget.text, style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400)),
+        GestureDetector(
+          onTap:() async
+          {
+            
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+
+            prefs.setString(pref_keys.userId, '-1');
+            prefs.setString(pref_keys.userEmail, '');
+            prefs.setString(pref_keys.userTelefon, '');
+            prefs.setString(pref_keys.user, '');
+            prefs.setString(pref_keys.userPassMD5, '');
+            
+            if (context.mounted)
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            }
+          },
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child:
+              Text(widget.text, style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400)),
+          ),
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width * 0.1,
         ),
+        /*
         FlutterSwitch(
           value: widget.isToggled,
           height: 20,
@@ -563,11 +608,13 @@ class _IconTextAndSwitchWidgetState extends State<IconTextAndSwitchWidget> {
           
           inactiveColor: Colors.grey[200]!,
           onToggle: (value) {
-            if (widget.callback != null) {
+            if (widget.callback != null) 
+            {
               setState(() {
                 widget.callback!(value);
               });
-            } else {
+            } else 
+            {
               setState(() {
                 widget.isToggled = value;
                 // ignore: avoid_print
@@ -576,6 +623,7 @@ class _IconTextAndSwitchWidgetState extends State<IconTextAndSwitchWidget> {
             }
           },
         ),
+        */
       ],
     );
   }

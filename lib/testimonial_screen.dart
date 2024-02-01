@@ -4,15 +4,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/login_screen.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 //import 'package:sos_bebe_app/testimonial_screen.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class TestimonialScreen extends StatefulWidget {
-  const TestimonialScreen({super.key});
+
+  final int idMedic;
+
+  const TestimonialScreen({super.key, required this.idMedic});
 
   @override
   State<TestimonialScreen> createState() => _TestimonialScreenState();
@@ -21,182 +26,132 @@ class TestimonialScreen extends StatefulWidget {
 class _TestimonialScreenState extends State<TestimonialScreen> {
   final registerKey = GlobalKey<FormState>();
 
-  /*
-  Future<http.Response?> adaugaContClient() async {
+  
+  double? _ratingValue = 1.0;
+  bool feedbackCorect = false;
+  bool showButonTrimiteTestimonial = true;
+
+  final controllerTestimonialText = TextEditingController();
+
+  
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+
+    controllerTestimonialText.dispose();
+
+    super.dispose();
+  }
+
+
+  Future<http.Response?> adaugaFeedbackDinContClient() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
     String textMessage = '';
     Color backgroundColor = Colors.red;
     Color textColor = Colors.black;
     
     
-    http.Response? res = await apiCallFunctions.getContClient(
-      pUser: controllerEmail.text,
-      pParola: controllerPass.text,
-    );
-    */
-
-    /*
-    http.Response? resAdaugaCont = await apiCallFunctions.adaugaContClient(
-      pNumeComplet: controllerNumeComplet.text,
-      pUser: controllerEmail.text,
-      pParola: controllerPass.text,
-      pDeviceToken: '',
-      pTipDispozitiv: '',
+    http.Response? resAdaugaFeedback = await apiCallFunctions.adaugaFeedbackDinContClient(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: widget.idMedic.toString(),
+      pNota: _ratingValue.toString(),
+      pComentariu: controllerTestimonialText.toString(),
     );
 
-    print('adaugaContClient resAdaugaCont.body ${resAdaugaCont!.body}');
+
+    print('adaugaFeedbackDinContClient resAdaugaCont.body ${resAdaugaFeedback!.body}');
 
 
-    if (int.parse(resAdaugaCont!.body) == 200)
+    if (int.parse(resAdaugaFeedback!.body) == 200)
     {
 
       setState(() {
 
-        registerCorect = true;
-        showInainteButton = false;
+        feedbackCorect = true;
+        showButonTrimiteTestimonial = false;
 
       });
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString(pref_keys.userEmail, controllerEmail.text);
-      //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
+      print('Feedback trimis cu succes!');
 
-      prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
-
-      print('Înregistrare finalizată cu succes!');
-
-      textMessage = 'Înregistrare finalizată cu succes!';
+      textMessage = 'Feedback trimis cu succes!';
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Înregistrare finalizată cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
-
-      }
-
-      return resAdaugaCont;
-      */
 
     }
-    else if (int.parse(resAdaugaCont.body) == 400)
+    else if (int.parse(resAdaugaFeedback.body) == 400)
     {
 
       
       setState(() {
 
-        registerCorect = false;
-        showInainteButton = true;
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
 
       });
 
       print('Apel invalid');
 
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
-
-      }
-
-      return resAdaugaCont;
-      */
       textMessage = 'Apel invalid!';
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
     }
-    else if (int.parse(resAdaugaCont!.body) == 401)
+    else if (int.parse(resAdaugaFeedback!.body) == 401)
     {
-
-      prefs.setString(pref_keys.userEmail, controllerEmail.text);
-      prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
-      print('Cont deja existent');
-
       
       setState(() {
 
-        registerCorect = false;
-        showInainteButton = true;
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
 
       });
-
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Cont deja existent!", Colors.red, Colors.black);
-
-      }
-
-      return resAdaugaCont;
-      */
       
-      textMessage = 'Cont deja existent!';
+      textMessage = 'Feedback-ul nu a fost trimis!';
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
     }
-    else if (int.parse(resAdaugaCont!.body) == 405)
+    else if (int.parse(resAdaugaFeedback!.body) == 405)
     {
 
-      
       setState(() {
 
-        registerCorect = false;
-        showInainteButton = true;
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
 
       });
 
       print('Informatii insuficiente');
-      
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
-
-      }
-      
-      return resAdaugaCont;
-      */
+    
       
       textMessage = 'Informatii insuficiente!';
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
     }
-    else if (int.parse(resAdaugaCont!.body) == 500)
+    else if (int.parse(resAdaugaFeedback!.body) == 500)
     {
 
-      
+
       setState(() {
 
-        registerCorect = false;
-        showInainteButton = true;
+        feedbackCorect = false;
+        showButonTrimiteTestimonial = true;
 
       });
 
       print('A apărut o eroare la execuția metodei');
       
-      
-      
       textMessage = 'A apărut o eroare la execuția metodei!';
       backgroundColor = Colors.red;
       textColor = Colors.black;
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
-
-      }
-
-      return resAdaugaCont;
-      */
 
     }
 
@@ -205,14 +160,13 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
       showSnackbar(context, textMessage, backgroundColor, textColor);
 
-      return resAdaugaCont;
+      return resAdaugaFeedback;
 
     }
     
     return null;
 
   }
-  */
 
   @override
   Widget build(BuildContext context) {
@@ -242,8 +196,53 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
               const SizedBox(height: 30),
               Image.asset('./assets/images/testimonial_icon.png'),
               const SizedBox(height: 110),
+              Padding(
+                padding: const EdgeInsets.only(left:25),
+                child: Column(
+                  children: [
+                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text('Rating',
+                          style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 16, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        RatingBar(
+                            //ignoreGestures: true,
+                            initialRating: 0.0,
+                            minRating: 1.0,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 40,
+                            itemPadding: const EdgeInsets.symmetric(horizontal: 0.5, vertical: 5.0),
+                            ratingWidget: RatingWidget(
+                              full: const Icon(Icons.star, color: Color.fromRGBO(195, 161, 110, 1)),
+                              half: const Icon(
+                                Icons.star_half,
+                                color: Color.fromRGBO(252, 220, 85, 1),
+                              ),
+                              empty: const Icon(
+                                Icons.star_outline,
+                                color: Color.fromRGBO(195, 161, 110, 1),
+                              )),
+                            onRatingUpdate: (value) {
+                              setState(() {
+                                _ratingValue = value;
+                              });
+                            }),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               Container(
-                margin: const EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.only(left: 25),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -262,23 +261,71 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                   color: const Color.fromARGB(255, 240, 240, 240),
                 ),
                 height: 130,
-                child: const TextField(
-                  style: TextStyle(color: Color.fromRGBO(103, 114, 148, 1)), //added by George Valentin Iordache
+                child: TextField(
+                  keyboardType: TextInputType.streetAddress,
+                  textCapitalization: TextCapitalization.words,
+                  controller: controllerTestimonialText,
+                  style: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1)), //added by George Valentin Iordache
                   //decoration: InputDecoration(border: InputBorder.none, hintText: 'Doctorul a raspuns rapid...'),
-                  decoration: InputDecoration(border: InputBorder.none, 
+                  decoration: const InputDecoration(border: InputBorder.none, 
                     hintText: 'Doctorul a raspuns rapid...',
                     hintStyle: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache 
                   ),
-                  maxLines: 2,
-                )
+                  maxLines: 4,
+                ),
               ),
               const SizedBox(height: 15),
-              InkWell(
-                onTap: () => Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return const TestimonialScreen();
-                  },
-                )),
+              
+              (!showButonTrimiteTestimonial)? Text('Se încearcă trimiterea feedback-ului!',
+                      style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 16, fontWeight: FontWeight.w500),)
+              :
+              GestureDetector(
+                onTap: () async { 
+
+                  setState(() {
+
+                    feedbackCorect = false;
+                    showButonTrimiteTestimonial = false;
+
+                  });
+                  
+                  http.Response? resAdaugaFeedback;
+    
+                  resAdaugaFeedback = await adaugaFeedbackDinContClient();
+                  
+                  if(context.mounted)
+                  {
+                    if (int.parse(resAdaugaFeedback!.body) == 200)
+                    {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    }
+                    else
+                    {
+
+                      setState(() {
+
+                        feedbackCorect = false;
+                        showButonTrimiteTestimonial = true;
+
+                      });
+
+                    }
+                  }
+
+                  /*
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        
+                        return const TestimonialScreen(idMedic: 1,);
+                      },
+                    ));
+                  */
+                },
                 child: Container(
                   margin: const EdgeInsets.fromLTRB(25, 0, 25, 5),
                   decoration: BoxDecoration(

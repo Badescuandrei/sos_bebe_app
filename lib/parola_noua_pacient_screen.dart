@@ -401,7 +401,7 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                   width: 160,
                   height: 44,
                   child: 
-                    (!resetCorect && !showSendCodeButton)? Text('Se încearcă trimiterea codului',
+                    (!showSendCodeButton)? Text('Se încearcă trimiterea codului',
                     //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
                     style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)):
                     ElevatedButton(
@@ -457,6 +457,14 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                               ) 
                             );
                           }
+
+                          setState(() {
+
+                            resetCorect = false;
+                            showSendCodeButton = true;
+
+                          });
+
                         }
                       }
                       //Navigator.push(
