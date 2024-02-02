@@ -10,6 +10,8 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import  'package:sos_bebe_app/editare_cont_screen.dart';
 import  'package:sos_bebe_app/login_screen.dart';
 
+import 'package:sos_bebe_app/vezi_medici_salvati_screen.dart';
+
 import  'package:sos_bebe_app/verifica_pin_sterge_cont_screen.dart';
 
 import 'package:flutter_switch/flutter_switch.dart';
@@ -292,22 +294,42 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                     children:[
                       const SizedBox(width: 45),
                       IconButton(
-                      onPressed: () {},
+                        onPressed: () {
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const VeziMediciSalvatiScreen(),
+                            ));
+
+                        },
                         icon: Image.asset('./assets/images/doctori_salvati_icon.png'),
                       ),
                       const SizedBox(width: 25),
-                      SizedBox(width: 240,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,    
-                          children: [
-                            Text('Doctori Salvati',
-                              style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Image.asset('./assets/images/arrow_right_verde_icon.png'),
-                            ),
-                          ],
+                      GestureDetector(
+                        onTap: ()
+                        {
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const VeziMediciSalvatiScreen(),
+                            ));
+
+                        },
+                        child: SizedBox(width: 240,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,    
+                            children: [
+                              Text('Doctori Salvati',
+                                style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: Image.asset('./assets/images/arrow_right_verde_icon.png'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),  
                     ],
@@ -328,15 +350,24 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
                                 await getListaFacturi();
 
-                                if (context.mounted)
-                                {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PlatiScreen(listaFacturi: listaFacturi,),
-                                    )
-                                  );
+                                if (context.mounted) {
+                                  if (listaFacturi.isNotEmpty)
+                                  {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PlatiScreen(listaFacturi: listaFacturi,),
+                                      )
+                                    );
+                                  }
+                                  else
+                                  {
+
+                                    showSnackbar(context, 'Nu există facturi de afișat!', Colors.red, Colors.black,);
+
+                                  }
                                 }
+
                                 /*Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
                                   => const FacturaScreen(tipPlata:'SOS', emailAddressPlata: 'info@sosromania.ro', phoneNumberPlata: '+40 000112112',
                                   textNumeSubiect: 'Istiak Ahmed', tutorId: '135248', emailSubiect: 'istiakahmed194@gmail.com', phoneNumberSubiect: '01521448905',
@@ -355,14 +386,22 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                               onPressed: () async 
                               {
                                 await getListaFacturi();
-                                if (context.mounted)
-                                {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PlatiScreen(listaFacturi: listaFacturi,),
-                                    )
-                                  );
+                                if (context.mounted) {
+                                  if (listaFacturi.isNotEmpty)
+                                  {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => PlatiScreen(listaFacturi: listaFacturi,),
+                                      )
+                                    );
+                                  }
+                                  else
+                                  {
+
+                                    showSnackbar(context, 'Nu există facturi de afișat!', Colors.red, Colors.black,);
+
+                                  }
                                 }
                               },
                               icon: Image.asset('./assets/images/arrow_right_verde_icon.png'),

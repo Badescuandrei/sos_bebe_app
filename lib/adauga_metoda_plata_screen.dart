@@ -10,6 +10,8 @@ import '../components/card_input_formatter.dart';
 import '../components/card_month_input_formatter.dart';
 import '../components/master_card.dart';
 import '../components/my_painter.dart';
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
 //import '../constants.dart';
 
 
@@ -35,9 +37,16 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+  
+    //print('Test adauga metoda ${LocalizationsApp.of(context)}');
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        //title: const Text('Înapoi'), //old IGV
+        title: Text(l.universalInapoi),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -69,16 +78,20 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                     front: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: buildCreditCard(
+                        context: context,
                         //color: kDarkBlue,
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         cardExpiration: cardExpiryDateController.text.isEmpty
-                            ? "08/2022"
+                            //? "08/2022" //old IGV
+                            ? l.adaugaMetodaPlataExpiryDate
                             : cardExpiryDateController.text,
                         cardHolder: cardHolderNameController.text.isEmpty
-                            ? "Card Holder"
+                            //? "Card Holder"
+                            ? l.adaugaMetodaPlataCardHolderHint
                             : cardHolderNameController.text.toUpperCase(),
                         cardNumber: cardNumberController.text.isEmpty
-                            ? "XXXX XXXX XXXX XXXX"
+                            //? "XXXX XXXX XXXX XXXX"
+                            ? l.adaugaMetodaPlataCardNumberHint
                             : cardNumberController.text,
                       ),
                     ),
@@ -100,9 +113,10 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(height: 0),
-                              const Text(
-                                'https://www.paypal.com',
-                                style: TextStyle(
+                              Text(
+                                //'https://www.paypal.com', //old IGV
+                                l.adaugaMetodaPlataAdresaWeb,
+                                style: const TextStyle(
                                   color: Colors.white54,
                                   fontSize: 11,
                                 ),
@@ -126,7 +140,8 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
                                         cardCvvController.text.isEmpty
-                                            ? "322"
+                                            //? "322" //old IGV
+                                            ? l.adaugaMetodaPlataCVV
                                             : cardCvvController.text,
                                         style: const TextStyle(
                                           color: Colors.black,
@@ -155,7 +170,9 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                 Row(
                   children:[
                     const SizedBox(width: 30,),
-                    Text('Card Number', 
+                    Text(
+                      //'Card Number', //old IGV
+                      l.adaugaMetodaPlataCardNumberTitle,
                       style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                     ),
                   ],
@@ -178,7 +195,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                   child: TextFormField(
                     controller: cardNumberController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       border: InputBorder.none,
                       /*border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10.0),
@@ -187,13 +204,14 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                       ),
                       */
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      hintText: '1453 2436 1198 4452',
-                      hintStyle: TextStyle(
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      //hintText: '1453 2436 1198 4452', //old IGV
+                      hintText: l.adaugaMetodaPlataCardNumberHint,
+                      hintStyle: const TextStyle(
                         color: Color.fromRGBO(206, 209, 229, 1),
                         fontSize: 14,
                       ),
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.credit_card,
                         color: Colors.grey,
                       ),
@@ -217,11 +235,13 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                     validator: (value) {
                       if (value?.isEmpty?? true)
                       {
-                        return 'Necompletat';
+                        //return 'Necompletat'; //old IGV
+                        return l.adaugaMetodaPlataNecompletat;
                       }
                       else if ((value?.length ?? 16) < 16)
                       {
-                        return 'Incorect';
+                        //return 'Incorect'; //old IGV
+                        return l.adaugaMetodaPlataIncorect;
                       }  
                       return null;
                     }
@@ -231,7 +251,9 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                 Row(
                   children:[
                     const SizedBox(width: 30,),
-                    Text('Nume', 
+                    Text(
+                      //'Nume', //old IGV
+                      l.adaugaMetodaPlataNume, 
                       style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                     ),
                   ],
@@ -254,7 +276,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                   child: TextFormField(
                     controller: cardHolderNameController,
                     keyboardType: TextInputType.name,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       border: InputBorder.none,
                       /*
                       border: OutlineInputBorder(
@@ -264,13 +286,14 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                       ),
                       */
                       contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                      hintText: 'Popescu',
-                      hintStyle: TextStyle(
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      //hintText: 'Popescu', //old IGV
+                      hintText: l.adaugaMetodaPlataCardHolderNameHint,
+                      hintStyle: const TextStyle(
                         color: Color.fromRGBO(206, 209, 229, 1),
                         fontSize: 14,
                       ),
-                      prefixIcon: Icon(
+                      prefixIcon: const Icon(
                         Icons.person,
                         color: Colors.grey,
                       ),
@@ -297,7 +320,9 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                         Row(
                           children:[
                             const SizedBox(width: 5,),
-                            Text('CVV', 
+                            Text(
+                              //'CVV', //old IGV
+                              l.adaugaMetodaPlataCVVTitle,
                               style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                             ),
                           ],
@@ -320,16 +345,17 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                           child: TextFormField(
                             controller: cardCvvController,
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                              hintText: '● ● ●',
-                              hintStyle: TextStyle(
+                                  const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                              // hintText: '● ● ●', //old IGV
+                              hintText: l.adaugaMetodaPlataCardCVV,
+                              hintStyle: const TextStyle(
                                 color: Color.fromRGBO(206, 209, 229, 1),
                                 fontSize: 16,
                               ),
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.lock,
                                 color: Colors.grey,
                               ),
@@ -359,11 +385,17 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                             validator: (value) {
                               if (value?.isEmpty?? true)
                               {
-                                return 'Necompletat';
+                                
+                                //return 'Necompletat'; //old IGV
+                                return l.adaugaMetodaPlataNecompletat;
+
                               }
                               else if ((value?.length ?? 3) < 3)
                               {
-                                return 'Incorect';
+                                
+                                //return 'Incorect'; //old IGV
+                                return l.adaugaMetodaPlataIncorect;
+
                               }  
                               return null;
                             }
@@ -378,7 +410,9 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                         Row(
                           children:[
                             const SizedBox(width: 5),
-                            Text('Expired Date', 
+                            Text(
+                              //'Expired Date', //old IGV
+                              l.adaugaMetodaPlataExpiredDate,
                               style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),
                             ),
                           ],
@@ -401,16 +435,17 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                           child: TextFormField(
                             controller: cardExpiryDateController,
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
                               contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                              hintText: '01/28',
-                              hintStyle: TextStyle(
+                                  const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                              //hintText: '08/29', //old IGV
+                              hintText: l.adaugaMetodaPlataExpiryDateHint,
+                              hintStyle: const TextStyle(
                                 color: Color.fromRGBO(206, 209, 229, 1),
                                 fontSize: 16,
                               ),
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.calendar_today,
                                 color: Colors.grey,
                               ),
@@ -433,7 +468,10 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                             },
                             validator: (value) {
                               if (value?.isEmpty ?? true) {
-                                return "Necompletată";
+
+                                //return "Necompletată"; //old IGV
+                                return l.adaugaMetodaPlataNecompletata;
+
                               }
                               final DateTime now = DateTime.now();
                               final List<String> date = value!.split(RegExp(r'/'));
@@ -449,7 +487,10 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                                   DateTime(year, month, lastDayOfMonth, 23, 59, 59, 999);
 
                               if (cardDate.isBefore(now) || month > 12 || month == 0) {
-                                return "Incorectă";
+                                
+                                //return "Incorectă"; //old IGV
+                                return l.adaugaMetodaPlataIncorecta;
+
                               }
 
                               return null;
@@ -493,9 +534,10 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                       */
                     });
                   },
-                  child: const Text(
-                    'PLATĂ / ADAUGĂ',
-                    style: TextStyle(
+                  child: Text(
+                    //'PLATĂ / ADAUGĂ', //IGV
+                    l.adaugaMetodaPlataPlataAdauga,
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),

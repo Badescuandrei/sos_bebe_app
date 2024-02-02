@@ -419,7 +419,6 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
     }
 
-  
   Future<http.Response?> stergeContClient() async {
 
       String textMessage = '';
@@ -489,7 +488,7 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Eroare! Contul nu a putut fi șters!');
 
-        textMessage = 'Eroare! Codul nu a putut fi verificat!';
+        textMessage = 'Eroare! Contul nu a putut fi șters!';
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -523,9 +522,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
           
         });
 
-        print('A apărut o eroare la execuția metodei');
+        print('A apărut o eroare la execuția metodei!');
         
-        textMessage = 'Informatii insuficiente!';
+        textMessage = 'A apărut o eroare la execuția metodei!';
         backgroundColor = Colors.red;
         textColor = Colors.black;
 

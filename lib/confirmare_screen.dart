@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:sos_bebe_app/register.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 
 class ConfirmareScreen extends StatelessWidget {
 
@@ -12,9 +14,13 @@ class ConfirmareScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        //title: const Text('Înapoi'), //IGV
+        title: Text(l.universalInapoi),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -33,7 +39,9 @@ class ConfirmareScreen extends StatelessWidget {
               Row(
                 children: [
                   const SizedBox(width: 15),
-                  Text('Confirmare',
+                  Text(
+                    //'Confirmare', //old IGV
+                    l.confirmareTitlu,
                     style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18,
                     ),
                   ),
@@ -50,8 +58,13 @@ class ConfirmareScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        Text('Master Card', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
-                        Text('● ● ● ●  ● ● ● ●  ● ● ● ● 4455', style: GoogleFonts.rubik(color:const Color.fromRGBO(205, 211, 223, 1), fontWeight: FontWeight.w400, fontSize: 11,),),
+                        //Text('Master Card', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),), //old IGV
+                        Text(l.confirmareMasterCard, style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
+
+                        Text(
+                          //'● ● ● ●  ● ● ● ●  ● ● ● ● 4455', //old IGV
+                          l.confirmareCardNumber,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(205, 211, 223, 1), fontWeight: FontWeight.w400, fontSize: 11,),),
                       ],
                     ),
                   ),
@@ -74,8 +87,16 @@ class ConfirmareScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        Text('Paypal', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
-                        Text('radutimofte@gmail.com', style: GoogleFonts.rubik(color:const Color.fromRGBO(205, 211, 223, 1), fontWeight: FontWeight.w400, fontSize: 12,),),
+                        //Text('Paypal', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
+                        Text(
+                          //'Paypal', //old IGV
+                          l.confirmareTipPlata,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
+
+                        Text(
+                          //'radutimofte@gmail.com', //old IGV
+                          l.confirmareUser,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(205, 211, 223, 1), fontWeight: FontWeight.w400, fontSize: 12,),),
                       ],
                     ),
                   ),
@@ -92,8 +113,14 @@ class ConfirmareScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        Text('Bank', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
-                        Text('Stripe', style: GoogleFonts.rubik(color:const Color.fromRGBO(205, 211, 223, 1), fontWeight: FontWeight.w400, fontSize: 12,),),
+                        Text(
+                          //'Bank', //old IGV
+                          l.confirmareBanca,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
+                        Text(
+                          //'Stripe', //old IGV
+                          l.confirmareStripe,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(205, 211, 223, 1), fontWeight: FontWeight.w400, fontSize: 12,),),
                       ],
                     ),
                   ),
@@ -117,7 +144,10 @@ class ConfirmareScreen extends StatelessWidget {
                     onPressed: () {},
                   ),
                   const SizedBox(width:15),
-                  Text('ADAUGĂ METODĂ DE PLATĂ', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
+                  Text(
+                    //'ADAUGĂ METODĂ DE PLATĂ', //old IGV
+                    l.confirmareAdaugaMetodaDePlata,
+                    style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 15,),),
                 ],
               ),
               const SizedBox(height: 30),

@@ -164,8 +164,6 @@ class ApiCallFunctions {
       //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
     }
 
-    //return resGetContClient;
-
   }
 
   Future<MedicMobile>? getDetaliiMedic({

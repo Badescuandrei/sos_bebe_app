@@ -204,7 +204,6 @@ class EditareContScreenState extends State<EditareContScreen> {
       prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerResetareParola.text));
       print('Datele nu au putut fi actualizate!');
 
-      
       setState(() {
 
         editareContCorecta = false;
@@ -220,7 +219,6 @@ class EditareContScreenState extends State<EditareContScreen> {
     else if (int.parse(resUpdateDateClient!.body) == 405)
     {
 
-      
       setState(() {
 
         editareContCorecta = false;

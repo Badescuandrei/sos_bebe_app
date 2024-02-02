@@ -167,8 +167,8 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
 
                         if(context.mounted)
                         {
-                          //if (int.parse(resVerificaPin!.body) == 200)
-                          //{
+                          if (int.parse(resVerificaPin!.body) == 200)
+                          {
 
                             print('verifica_codul_pacient resVerificaPin!.body: ${resVerificaPin!.body}');
 
@@ -180,7 +180,7 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                               )
                             );
 
-                          //}
+                          }
                         }
                       }
                       //Navigator.push(

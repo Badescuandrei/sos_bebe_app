@@ -186,7 +186,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
                         print('userPassMD5 : $userPassMD5');
                         
-                        
                         ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
                           pUser: controllerPhoneEmailUser.text,
                           pParola: userPassMD5 ?? '',
@@ -226,7 +225,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
                         if(context.mounted)
                         {
-                          //if (int.parse(resTrimitePin!.body) == 200)
+                          if (int.parse(resTrimitePin!.body) == 200)
                           {
                             print('reset_password_pacient: user ${controllerPhoneEmailUser.text} resTrimitePin!.statusCode: ${resTrimitePin!.statusCode} resTrimitePin!.body: ${resTrimitePin.body}' );
                             Navigator.push(
@@ -273,13 +272,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
   Future<http.Response?> trimitePinPentruResetareParolaClient() async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      /*
-      http.Response? res = await apiCallFunctions.getContClient(
-        pUser: controllerEmail.text,
-        pParola: controllerPass.text,
-      );
-      */
-
       String textMessage = '';
       Color backgroundColor = Colors.red;
       Color textColor = Colors.black;
@@ -312,16 +304,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         textMessage = 'Apel invalid!';
         backgroundColor = Colors.red;
         textColor = Colors.black;
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
-
-        }
-
-        return resTrimitePin;
-        */
 
       }
       else if (int.parse(resTrimitePin!.body) == 401)
@@ -335,17 +317,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Cont inexistent!", Colors.red, Colors.black);
-
-        }
-
-        return resTrimitePin;
-        */
-
       }
       else if (int.parse(resTrimitePin!.body) == 405)
       {
@@ -356,16 +327,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         textMessage = 'Cont existent dar clientul nu are date de contact!';
         backgroundColor = Colors.red;
         textColor = Colors.black;
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "Cont existent dar clientul nu are date de contact!", Colors.red, Colors.black);
-
-        }
-        
-        return resTrimitePin;
-        */
 
       }
       else if (int.parse(resTrimitePin!.body) == 500)
@@ -376,17 +337,6 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         textMessage = 'A apărut o eroare la execuția metodei!';
         backgroundColor = Colors.red;
         textColor = Colors.black;
-        
-        /*
-        if (context.mounted)
-        {
-
-          showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
-
-        }
-
-        return resTrimitePin;
-        */
 
       }
 

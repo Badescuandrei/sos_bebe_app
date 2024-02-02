@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 Card buildCreditCard({
   required Color color,
   required String cardNumber,
   required String cardHolder,
   required String cardExpiration,
+  required BuildContext context,
+
 }) {
+
+  
+  LocalizationsApp l = LocalizationsApp.of(context)!;
+
   return Card(
     elevation: 4.0,
     color: color,
@@ -24,7 +33,8 @@ Card buildCreditCard({
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Introduceti datele cardului',
+                //'Introduceti datele cardului',
+                l.adaugaMetodaPlataIntroducetiDateleCardului,
                 style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18),
               ),
               Image.asset(
@@ -62,10 +72,14 @@ Card buildCreditCard({
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               buildDetailsBlock(
-                label: 'CARDHOLDER',
+                //label: 'CARDHOLDER',
+                label: l.adaugaMetodaPlataCardHolderTitle,
                 value: cardHolder,
               ),
-              buildDetailsBlock(label: 'VALID THRU', value: cardExpiration),
+              buildDetailsBlock(
+                //label: 'VALID THRU',
+                label: l.adaugaMetodaPlataValidThruTitle,
+                value: cardExpiration),
             ],
           ),
         ],

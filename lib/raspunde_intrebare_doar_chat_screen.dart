@@ -137,19 +137,19 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
     String? userPassMD5 = apiCallFunctions.generateMd5('123456');
 
+    listaConversatii.retainWhere((element) => element.idDestinatar == widget.idMedic);
+
 
     listaMesaje = await apiCallFunctions.getListaMesajePeConversatie(
       pUser: user,
       pParola: userPassMD5,
       pIdConversatie: listaConversatii[0].id.toString(),
     )?? [];
-
     
     //final response = await rootBundle.loadString('./assets/messages.json');
 
     //print('test');
 
-    
     /*
     final messages = listaMesaje
         .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == _user.id.toString()?_user.id:e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
@@ -394,8 +394,6 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     });
   }
 
-  
-
   Future<http.Response?> adaugaMesajDinContClient(String mesaj) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -424,7 +422,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     );
 
 
-    print('adaugaFeedbackDinContClient resAdaugaCont.body ${resAdaugaMesaj!.body}');
+    print('adaugaMesajDinContClient resAdaugaMesaj.body ${resAdaugaMesaj!.body}');
 
 
     if (int.parse(resAdaugaMesaj!.body) == 200)

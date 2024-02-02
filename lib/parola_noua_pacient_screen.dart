@@ -72,7 +72,6 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
     Color backgroundColor = Colors.red;
     Color textColor = Colors.black;
 
-
     http.Response? resReseteazaParola = await apiCallFunctions.reseteazaParolaClient(
       pUser: widget.user,
       pNouaParola: controllerParolaNoua.text,
@@ -95,22 +94,10 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
       //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
 
       print('Parolă resetată cu succes!');
-
       
       textMessage = 'Parolă resetată cu succes!';
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
-
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Parolă resetată cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
-
-      }
-
-      return resReseteazaParola;
-      */
 
     }
     else if (int.parse(resReseteazaParola.body) == 400)
@@ -125,21 +112,9 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       print('Apel invalid');
 
-      
       textMessage = 'Apel invalid!';
       backgroundColor = Colors.red;
       textColor = Colors.black;
-
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
-
-      }
-
-      return resReseteazaParola;
-      */
 
     }
     else if (int.parse(resReseteazaParola.body) == 401)
@@ -155,18 +130,6 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
         showSendCodeButton = true;
 
       });
-
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Eroare la resetare parolă!", Colors.red, Colors.black);
-
-      }
-
-      return resReseteazaParola;
-      */
-
       
       textMessage = 'Eroare la resetare parolă!';
       backgroundColor = Colors.red;
@@ -185,17 +148,6 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
       });
 
       print('Informatii insuficiente');
-
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
-
-      }
-      
-      return resReseteazaParola;
-      */
       
       textMessage = 'Informatii insuficiente!';
       backgroundColor = Colors.red;
@@ -214,18 +166,6 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
       });
 
       print('A apărut o eroare la execuția metodei');
-
-      /*
-      if (context.mounted)
-      {
-
-        showSnackbar(context, "A apărut o eroare la execuția metodei!", Colors.red, Colors.black);
-
-      }
-
-      return resReseteazaParola;
-      */
-
       
       textMessage = 'A apărut o eroare la execuția metodei!';
       backgroundColor = Colors.red;
@@ -420,7 +360,7 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
           
                         resReseteazaParola = await reseteazaParolaClient();
 
-                        if(context.mounted)
+                        if(context.mounted && int.parse(resReseteazaParola!.body) == 200)
                         {
                           //if (int.parse(resVerificaPin!.body) == 200)
                           //{

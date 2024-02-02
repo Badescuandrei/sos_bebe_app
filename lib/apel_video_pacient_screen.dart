@@ -11,6 +11,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:sos_bebe_app/raspunde_intrebare_medic_screen.dart';
 import 'package:agora_token_service/agora_token_service.dart';
 
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 const appId = "da37c68ec4f64cd1af4093c758f20869";
       //appId: 'a6810f83c0c549aab473207134b69489',
 const channel =  "TestIGV_1";
@@ -173,6 +176,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   // Create UI with local view and remote view
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         //title: const Text('Agora Video Call'),
@@ -265,6 +269,9 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
 
   // Display remote user's video
   Widget _remoteVideo() {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     if (_remoteUid != null) {
       _start();
       return AgoraVideoView(
@@ -275,8 +282,9 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
         ),
       );
     } else {
-      return const Text(
-        'Vă rugăm așteptați după doctor să intre!',
+      return Text(
+        //'Vă rugăm așteptați după doctor să intre!', //old IGV
+        l.apelVideoPacientVaRugamAsteptati,
         textAlign: TextAlign.center,
       );
     }

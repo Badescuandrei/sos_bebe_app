@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 import 'package:sos_bebe_app/intro_screen.dart';
 
 import  'package:sos_bebe_app/confirmare_servicii_screen.dart';
@@ -39,6 +43,9 @@ import 'package:sos_bebe_app/raspunde_intrebare_doar_chat_screen.dart';
 
 import  'package:sos_bebe_app/testimonial_screen.dart';
 
+import  'package:sos_bebe_app/confirmare_screen.dart';
+
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Stripe.publishableKey =
@@ -54,6 +61,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      locale: const Locale('ro', 'RO'),
+      localizationsDelegates: const [
+        LocalizationsApp.delegate,
+        //LocalizationsCupertino.delegate, //old Adrian Murgu
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('ro', 'RO'), // Romanian
+        //Locale('en', 'US'), // English
+        //Locale('it', 'IT'), // Italian
+        //Locale('fr', 'FR') // French
+      ],
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -72,7 +93,7 @@ class MyApp extends StatelessWidget {
       ),
       */
 
-      //home: const ConfirmareServiciiScreen(),
+      home: const ConfirmareServiciiScreen(pret:'9'),
 
       //home: const AdaugaMetodaPlataScreen(),
 
@@ -123,7 +144,7 @@ class MyApp extends StatelessWidget {
 
       //home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '', idMedic: 1),
 
-      home: const QuestionaireScreen(),
+      //home: const QuestionaireScreen(),
 
       //
 

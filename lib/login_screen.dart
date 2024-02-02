@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
+
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -28,6 +30,51 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodePassword = FocusNode();
+
+  
+  Locale _locale = const Locale('ro', 'RO');
+  onLocaleChange(Locale l) {
+    setState(() {
+      _locale = l;
+    });
+  }
+
+  
+
+  @override
+  void initState() {
+    super.initState();
+    loadLocale();
+  }
+
+  loadLocale() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //String? lang = prefs.getString(prefKeys.preferredLanguage); //old Adrian Murgu
+
+    String lang = 'ro';
+    // lang = 'en';
+    switch (lang) {
+      case 'ro':
+        _locale = const Locale('ro', 'RO');
+        break;
+      case 'it':
+        _locale = const Locale('it', 'IT');
+        break;
+      case 'fr':
+        _locale = const Locale('fr', 'FR');
+        break;
+      case 'en':
+        _locale = const Locale('en', 'US');
+        break;
+      default:
+        _locale = const Locale('ro', 'RO');
+    }
+
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
   void passVisibiltyToggle() {
     setState(() {

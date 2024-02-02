@@ -88,7 +88,7 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
   getListaRecenziiByIdMedic() async 
   {
-   
+
     SharedPreferences prefs = await SharedPreferences.getInstance(); 
     
     String user = prefs.getString('user')??'';

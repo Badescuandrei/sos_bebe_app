@@ -4,6 +4,8 @@ import 'package:sos_bebe_app/register_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class ConfirmareServiciiScreen extends StatelessWidget {
 
   final String pret;
@@ -15,10 +17,18 @@ class ConfirmareServiciiScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+    debugPrint('$l');
+
     return Scaffold(
       //begin added by George Valentin Iordache
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        //title: const Text('Înapoi'), //old IGV
+        title: Text(
+          //'Înapoi'
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -35,7 +45,10 @@ class ConfirmareServiciiScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 55),
-              Text('Confirma plata', 
+              Text(
+                'Confirmă plata', //old IGV
+                //l.confirmareServiciiTitlu,
+
                 style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18,
                 ),
               ),
@@ -65,11 +78,16 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height:15),
-                            Text('Servicii Pediatrie', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w700, fontSize: 14,),),
+                            Text(
+                              'Servicii Pediatrie', //old IGV
+                              //l.confirmareServiciiServiciiPediatrie,
+                              style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w700, fontSize: 14,),),
                             const SizedBox(height:10),
                             SizedBox(
                               width: 222,
-                              child: Text('Primiți o recomandare și rețetă medicală', 
+                              child: Text(
+                                'Primiți o recomandare și rețetă medicală', //old IGV
+                                //l.confirmareServiciiPrimitiRecomandareReteta,
                                 maxLines: 2,
                                 style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w300, fontSize: 13,),
                               ),
@@ -85,7 +103,9 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                               width: 69,
                               height: 38,
                               child: 
-                              Text(pret,
+                              Text(
+                                pret,
+                                //'9.9',
                                 style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w400, fontSize: 32,),
                               ),
                             ),
@@ -93,7 +113,10 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children:[
                                 const SizedBox(width: 40),
-                                Text('RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w300, fontSize: 9,),),
+                                Text(
+                                  'RON', //old IGV 
+                                  //l.confirmareServiciiRON,
+                                  style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w300, fontSize: 9,),),
                               ],
                             ),
                           ],
@@ -114,8 +137,14 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        Text('Subtotal', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
-                        Text('$pret RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300, fontSize: 14,),),
+                        Text(
+                          'Subtotal', //old IGV
+                          //l.confirmareServiciiSubtotal,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
+                        Text(
+                          '$pret RON', //old IGV
+                          //'$pret ${l.confirmareServiciiRON}', 
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300, fontSize: 14,),),
                       ],
                     ),
                   ),  
@@ -134,8 +163,14 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
-                        Text('Total', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
-                        Text('$pret RON', style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 18,),),
+                        Text(
+                          'Total',  //old IGV
+                          //l.confirmareServiciiTotal,
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
+                        Text(
+                          '$pret RON', //old IGV
+                          //'$pret ${l.confirmareServiciiRON}', 
+                          style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 18,),),
                       ],
                     ),
                   ),
@@ -159,8 +194,10 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
-                child: Text('CONFIRMĂ PLATA',
-                    style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16,)),
+                child: Text(
+                  'CONFIRMĂ PLATA', //old IGV
+                  //l.confirmareServiciiConfirmaPlataButon,
+                  style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16,)),
               ),
             ],
           ),
