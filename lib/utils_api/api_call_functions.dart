@@ -469,6 +469,100 @@ class ApiCallFunctions {
 
   }
 
+
+
+  Future<ChestionarClientMobile?> getUltimulChestionarCompletatByContClient({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    //required String pIdMedic,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      //'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resGetUltimulChestionarCompletatByContClient;
+
+    resGetUltimulChestionarCompletatByContClient = await getApelFunctie(parametriiApiCall, 'GetUltimulChestionarCompletatByContClient');
+
+    if (resGetUltimulChestionarCompletatByContClient!.statusCode == 200) 
+    {
+
+      // If the server did return a 200 response,
+      // then parse the JSON.
+
+      ChestionarClientMobile chestionar = ChestionarClientMobile.fromJson(jsonDecode(resGetUltimulChestionarCompletatByContClient.body) as Map<String, dynamic>);
+
+      return chestionar;
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
+    }
+
+    //return resGetContClient;
+
+  }
+
+  Future<String?> getSirBitiFacturaContClient({
+    //required String pNumeComplet,
+    required String pUser,
+    required String pParola,
+    required String pIdFactura,
+  }) async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      //'pNumeComplet': pNumeComplet,
+      'pUser': pUser, //IGV
+      //'pUser': '0737862090',
+      'pParolaMD5': pParola,
+      'pIdFactura': pIdFactura,
+    };
+
+    http.Response? resGetUltimulChestionarCompletatByContClient;
+
+    resGetUltimulChestionarCompletatByContClient = await getApelFunctie(parametriiApiCall, 'GetSirBitiFacturaContClient');
+
+    if (resGetUltimulChestionarCompletatByContClient!.statusCode == 200) 
+    {
+
+      // If the server did return a 200 response,
+      // then parse the JSON.
+
+      String data = resGetUltimulChestionarCompletatByContClient.body;
+
+      return data;
+
+      //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);
+
+    }
+    else 
+    {
+      return null;
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect lista de medici din Json-ul rezultat.');
+    }
+
+    //return resGetContClient;
+
+  }
+
   Future<http.Response?> adaugaContClient({
     required String pNumeComplet,
     required String pUser,
@@ -677,12 +771,18 @@ class ApiCallFunctions {
   Future<http.Response?> updateChestionarDinContClient({
     required String pUser,
     required String pParola,
+    required String pNumeleComplet,
+    required String pDataNastereDDMMYYYY,
+    required String pGreutate,
     required String pListaRaspunsuri,
   }) async {
     //final String pParolaMD5 = generateMd5(pParola);
     final Map<String, String> parametriiApiCall = {
       'pUser': pUser,
       'pParolaMD5': pParola,
+      'pNumeleComplet': pNumeleComplet,
+      'pDataNastereDDMMYYYY': pDataNastereDDMMYYYY,
+      'pGreutate': pGreutate,
       'pListaRaspunsuri': pListaRaspunsuri,
     };
 

@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'medic_info_screen.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class DoctorSelectionScreen extends StatefulWidget {
   const DoctorSelectionScreen({super.key});
 
@@ -14,6 +16,9 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
   final searchController = SearchController();
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 243, 240, 240),
       body: SafeArea(
@@ -48,7 +53,9 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                         });
                       },
                     ),
-                    hintText: "Medic primar pediatrie",
+                    //hintText: "Medic primar pediatrie", //old IGV
+                    hintText: l.doctorSelectionSearchHint,
+
                   )),
             ),
             const SizedBox(height: 20),
@@ -60,6 +67,9 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
   }
 
   GestureDetector containerDoctorProfile() {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
@@ -99,19 +109,26 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                   const SizedBox(height: 10),
                   Row(
                     children: [
-                      Text('Dr. Daniela Pretoeasa',
-                          style: GoogleFonts.rubik(color: Colors.green, fontSize: 16, fontWeight: FontWeight.w500))
+                      Text(
+                        //'Dr. Daniela Pretoeasa', //old IGV
+                        l.doctorSelectionDoctorTitle,
+                        style: GoogleFonts.rubik(color: Colors.green, fontSize: 16, fontWeight: FontWeight.w500))
                     ],
                   ),
                   Row(
                     children: [
-                      Text('AIS Clinic & Hospital Bucharest',
+                      Text(
+                          //'AIS Clinic & Hospital Bucharest', //old IGV
+                          l.doctorSelectionDoctorSpital,
                           style: GoogleFonts.rubik(fontSize: 12, fontWeight: FontWeight.w500))
                     ],
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [Text('Pediatrie, doctor primar')],
+                    children: [Text(
+                      //'Pediatrie, doctor primar', //old IGV
+                      l.doctorSelectionDoctorSpecialitateFunctie,
+                      )],
                   ),
                   const SizedBox(height: 10),
                   Row(
@@ -123,10 +140,13 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                         width: 18,
                       ),
                       const SizedBox(width: 10),
-                      Text('Bucuresti', style: GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: 15)),
+                      Text(
+                        //'Bucuresti', 
+                        l.doctorSelectionDoctorLocalitate,
+                        style: GoogleFonts.rubik(fontWeight: FontWeight.w400, fontSize: 15)),
                     ],
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Row(
                     children: [
                       Image.asset(
@@ -139,7 +159,8 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        '100%(254)',
+                        //'100%(254)', //old IGV
+                        l.doctorSelectionProcentUseriMultumiti,
                         style: GoogleFonts.rubik(fontSize: 12),
                       ),
                       const SizedBox(width: 20),
@@ -152,7 +173,8 @@ class _DoctorSelectionScreenState extends State<DoctorSelectionScreen> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        '< 2 Ore',
+                        //'< 2 Ore', //old IGV
+                        l.doctorSelectionPerioada,
                         style: GoogleFonts.rubik(fontSize: 12),
                       ),
                     ],

@@ -19,7 +19,7 @@ class ConfirmareServiciiScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     LocalizationsApp l = LocalizationsApp.of(context)!;
-    debugPrint('$l');
+    //print('l.confirmareServiciiTitlu ${l.confirmareServiciiTitlu}');
 
     return Scaffold(
       //begin added by George Valentin Iordache
@@ -46,10 +46,10 @@ class ConfirmareServiciiScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 55),
               Text(
-                'Confirmă plata', //old IGV
-                //l.confirmareServiciiTitlu,
+                //'Confirmă plata', //old IGV
+                l.confirmareServiciiTitlu,
 
-                style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18,
+                style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18, 
                 ),
               ),
               const SizedBox(height: 40),
@@ -79,15 +79,15 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                           children: [
                             const SizedBox(height:15),
                             Text(
-                              'Servicii Pediatrie', //old IGV
-                              //l.confirmareServiciiServiciiPediatrie,
+                              //'Servicii Pediatrie', //old IGV
+                              l.confirmareServiciiServiciiPediatrie,
                               style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w700, fontSize: 14,),),
                             const SizedBox(height:10),
                             SizedBox(
                               width: 222,
                               child: Text(
-                                'Primiți o recomandare și rețetă medicală', //old IGV
-                                //l.confirmareServiciiPrimitiRecomandareReteta,
+                                //'Primiți o recomandare și rețetă medicală', //old IGV
+                                l.confirmareServiciiPrimitiRecomandareReteta,
                                 maxLines: 2,
                                 style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w300, fontSize: 13,),
                               ),
@@ -114,8 +114,8 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                               children:[
                                 const SizedBox(width: 40),
                                 Text(
-                                  'RON', //old IGV 
-                                  //l.confirmareServiciiRON,
+                                  //'RON', //old IGV 
+                                  l.confirmareServiciiRON,
                                   style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontWeight: FontWeight.w300, fontSize: 9,),),
                               ],
                             ),
@@ -138,12 +138,12 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
                         Text(
-                          'Subtotal', //old IGV
-                          //l.confirmareServiciiSubtotal,
+                          //'Subtotal', //old IGV
+                          l.confirmareServiciiSubtotal,
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
                         Text(
-                          '$pret RON', //old IGV
-                          //'$pret ${l.confirmareServiciiRON}', 
+                          //'$pret RON', //old IGV
+                          '$pret ${l.confirmareServiciiRON}', 
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300, fontSize: 14,),),
                       ],
                     ),
@@ -164,12 +164,12 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children:[
                         Text(
-                          'Total',  //old IGV
-                          //l.confirmareServiciiTotal,
+                          //'Total',  //old IGV
+                          l.confirmareServiciiTotal,
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 16,),),
                         Text(
-                          '$pret RON', //old IGV
-                          //'$pret ${l.confirmareServiciiRON}', 
+                          //'$pret RON', //old IGV
+                          '$pret ${l.confirmareServiciiRON}', 
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 18,),),
                       ],
                     ),
@@ -195,8 +195,8 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                     )),
                 child: Text(
-                  'CONFIRMĂ PLATA', //old IGV
-                  //l.confirmareServiciiConfirmaPlataButon,
+                  //'CONFIRMĂ PLATA', //old IGV
+                  l.confirmareServiciiConfirmaPlataButon,
                   style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16,)),
               ),
             ],

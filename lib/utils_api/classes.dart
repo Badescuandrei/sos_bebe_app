@@ -258,6 +258,62 @@ class FacturaClientMobile {
 }
 
 
+class ChestionarClientMobile {
+
+  final String numeCompletat;
+  final String prenumeCompletat;
+  final DateTime dataNastereCompletata;
+  final String greutateCompletata;
+  final List<RaspunsIntrebareChestionarClientMobile> listaRaspunsuri;
+  
+
+  const ChestionarClientMobile({required this.numeCompletat, required this.prenumeCompletat, required this.dataNastereCompletata,
+    required this.greutateCompletata, required this.listaRaspunsuri, 
+  });
+
+  factory ChestionarClientMobile.fromJson(Map<String, dynamic> json) {
+
+    print('ChestionarClientMobile.fromJson $json');
+
+    return ChestionarClientMobile(
+      
+      numeCompletat: json['NumeCompletat']??'',
+      prenumeCompletat: json['PrenumeCompletat']??'',
+      dataNastereCompletata: DateTime.parse(json['DataNastereCompletata'].toString()),
+      greutateCompletata: json['GreutateCompletata']??'',
+      listaRaspunsuri: List<dynamic>.from(json['ListaRaspunsuri']).map((i) => RaspunsIntrebareChestionarClientMobile.fromJson(i)).toList(),
+
+    );
+  }
+}
+
+
+
+class RaspunsIntrebareChestionarClientMobile {
+
+  final int idIntrebare;
+  final String raspunsIntrebare;
+  final String informatiiComplementare;
+
+  const RaspunsIntrebareChestionarClientMobile({required this.idIntrebare, required this.raspunsIntrebare, required this.informatiiComplementare,
+
+  });
+
+  factory RaspunsIntrebareChestionarClientMobile.fromJson(Map<String, dynamic> json) {
+
+    print('MesajConversatieMobile.fromJson $json');
+
+    return RaspunsIntrebareChestionarClientMobile(
+      
+      idIntrebare: json['IdIntrebare'] as int,
+      raspunsIntrebare: json['RaspunsIntrebare'] as String,
+      informatiiComplementare: json['InformatiiComplementare'] as String,
+
+    );
+  }
+}
+
+
 
 enum EnumStatusMedicMobile
 {

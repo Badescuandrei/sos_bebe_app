@@ -63,6 +63,58 @@ Map<String, dynamic> values = {
     'confirma_plata_buton':'CONFIRMĂ PLATA',
     
     },
+    
+  'doctor_selection': {
+
+    'search_hint': 'Medic primar pediatrie',
+    'doctor_title': 'Dr. Daniela Pretoeasa',
+    'doctor_spital': 'AIS Clinic & Hospital Bucharest',
+    'doctor_specialitate_functie': 'Pediatrie, doctor primar',
+    'doctor_localitate': 'București',
+    'procent_useri_multumiti': '100%(254)',
+    'perioada': '< 2 Ore',
+        
+    },
+    
+  'editare_cont': {
+
+    'actualizare_finalizata_cu_succes': 'Actualizare date finalizată cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'datele_nu_au_putut_fi_actualizate': 'Datele nu au putut fi actualizate!',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+    'eroare_la_executia_metodei': 'A apărut o eroare la execuția metodei!',
+    'profilul_meu_titlu': 'Profilul meu',
+    'email_hint': 'Email',
+    'introduceti_email_valid': 'Introduceți un email valid!',
+    'telefon_hint': 'Telefon',
+    'introduceti_telefon_valid': 'Introduceți un număr de telefon valid!',
+    'user_hint': 'User',
+    'introduceti_utilizator': 'Introduceți un utilizator!',
+    'numele_complet_hint': 'Numele complet',
+    'introduceti_numele_complet': 'Introduceți numele complet!',
+    'resetare_parola_hint': 'Resetare parolă',
+    'va_rugam_introduceti_parola': 'Vă rugăm introduceți o parolă!',
+    'parola_trebuie_sa_contina': 'Parola trebuie să aibă cel puțin 6 caractere!',
+    'salvare_date': 'Salvare date',
+
+        
+    },
+    
+  'error_pacient': {
+
+    'oops_text': 'Oops!',
+    'detalii_text': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'go_home': 'Go home',
+        
+    },
+    
+  'factura': {
+
+    'widget_screen_date_format': 'MMM dd. yyyy',
+    'widget_screen_limba': 'ro',
+    'widget_screen_factura_titlu': 'Factură',
+        
+    },
 
 
 /////////////////////////////////////////////////////////////////////////////////

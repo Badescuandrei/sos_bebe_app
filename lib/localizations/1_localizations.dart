@@ -165,32 +165,171 @@ class LocalizationsApp {
   // confirmare_servicii
 
   String get confirmareServiciiTitlu {
-    return _localizedValues[locale.languageCode]!['confirmare']['confirma_plata'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['confirma_plata'];
   }
 
   String get confirmareServiciiServiciiPediatrie {
-    return _localizedValues[locale.languageCode]!['confirmare']['servicii_pediatrie'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['servicii_pediatrie'];
   }
 
   String get confirmareServiciiPrimitiRecomandareReteta {
-    return _localizedValues[locale.languageCode]!['confirmare']['primiti_recomandare_reteta'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['primiti_recomandare_reteta'];
   }
 
   String get confirmareServiciiRON {
-    return _localizedValues[locale.languageCode]!['confirmare']['ron'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['ron'];
   }
 
   String get confirmareServiciiSubtotal {
-    return _localizedValues[locale.languageCode]!['confirmare']['subtotal'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['subtotal'];
   }
 
   String get confirmareServiciiTotal {
-    return _localizedValues[locale.languageCode]!['confirmare']['total'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['total'];
   }
 
   String get confirmareServiciiConfirmaPlataButon {
-    return _localizedValues[locale.languageCode]!['confirmare']['confirma_plata_buton'];
+    return _localizedValues[locale.languageCode]!['confirmare_servicii']['confirma_plata_buton'];
   }
+
+
+  // doctor_selection
+
+  String get doctorSelectionSearchHint {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['search_hint'];
+  }
+
+  String get doctorSelectionDoctorTitle {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['doctor_title'];
+  }
+
+  String get doctorSelectionDoctorSpital {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['doctor_spital'];
+  }
+
+  String get doctorSelectionDoctorSpecialitateFunctie {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['doctor_specialitate_functie'];
+  }
+
+  String get doctorSelectionDoctorLocalitate {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['doctor_localitate'];
+  }
+
+  String get doctorSelectionProcentUseriMultumiti {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['procent_useri_multumiti'];
+  }
+
+  String get doctorSelectionPerioada {
+    return _localizedValues[locale.languageCode]!['doctor_selection']['perioada'];
+  }
+
+
+  // editare_cont
+
+  String get editareContActualizareFinalizataCuSucces {
+    return _localizedValues[locale.languageCode]!['editare_cont']['actualizare_finalizata_cu_succes'];
+  }
+
+  String get editareContApelInvalid {
+    return _localizedValues[locale.languageCode]!['editare_cont']['apel_invalid'];
+  }
+
+  String get editareContDateleNuAuPututFiActualizate {
+    return _localizedValues[locale.languageCode]!['editare_cont']['datele_nu_au_putut_fi_actualizate'];
+  }
+
+  String get editareContInformatiiInsuficiente {
+    return _localizedValues[locale.languageCode]!['editare_cont']['informatii_insuficiente'];
+  }
+
+  String get editareContEroareLaExecutiaMetodei {
+    return _localizedValues[locale.languageCode]!['editare_cont']['eroare_la_executia_metodei'];
+  }
+
+  String get editareContProfilulMeuTitlu {
+    return _localizedValues[locale.languageCode]!['editare_cont']['profilul_meu_titlu'];
+  }
+
+  String get editareContEmailHint {
+    return _localizedValues[locale.languageCode]!['editare_cont']['email_hint'];
+  }
+
+  String get editareContIntroducetiEmailValid {
+    return _localizedValues[locale.languageCode]!['editare_cont']['introduceti_email_valid'];
+  }
+
+  String get editareContTelefonHint {
+    return _localizedValues[locale.languageCode]!['editare_cont']['telefon_hint'];
+  }
+
+  String get editareContIntroducetiTelefonValid {
+    return _localizedValues[locale.languageCode]!['editare_cont']['introduceti_telefon_valid'];
+  }
+
+  String get editareContUserHint {
+    return _localizedValues[locale.languageCode]!['editare_cont']['user_hint'];
+  }
+
+  String get editareContIntroducetiUtilizator {
+    return _localizedValues[locale.languageCode]!['editare_cont']['introduceti_utilizator'];
+  }
+
+  String get editareContNumeleCompletHint {
+    return _localizedValues[locale.languageCode]!['editare_cont']['numele_complet_hint'];
+  }
+
+  String get editareContIntroducetiNumeleComplet {
+    return _localizedValues[locale.languageCode]!['editare_cont']['introduceti_numele_complet'];
+  }
+
+  String get editareContResetareParolaHint {
+    return _localizedValues[locale.languageCode]!['editare_cont']['resetare_parola_hint'];
+  }
+
+  String get editareContVaRugamIntroducetiParola {
+    return _localizedValues[locale.languageCode]!['editare_cont']['va_rugam_introduceti_parola'];
+  }
+
+  String get editareContParolaTrebuieSaContina {
+    return _localizedValues[locale.languageCode]!['editare_cont']['parola_trebuie_sa_contina'];
+  }
+
+  String get editareContSalvareDate {
+    return _localizedValues[locale.languageCode]!['editare_cont']['salvare_date'];
+  }
+
+
+  // error_pacient
+
+  String get errorPacientOopsText {
+    return _localizedValues[locale.languageCode]!['error_pacient']['oops_text'];
+  }
+
+  String get errorPacientDetaliiText {
+    return _localizedValues[locale.languageCode]!['error_pacient']['detalii_text'];
+  }
+
+  String get errorPacientGoHome {
+    return _localizedValues[locale.languageCode]!['error_pacient']['go_home'];
+  }
+
+
+  // factura
+
+  String get facturaWidgetScreenDateFormat {
+    return _localizedValues[locale.languageCode]!['factura']['widget_screen_date_format'];
+  }
+
+  String get facturaWidgetScreenLimba {
+    return _localizedValues[locale.languageCode]!['factura']['widget_screen_limba'];
+  }
+
+  String get facturaWidgetScreenFacturaTitlu {
+    return _localizedValues[locale.languageCode]!['factura']['widget_screen_factura_titlu'];
+  }
+
+
+
 
 
 

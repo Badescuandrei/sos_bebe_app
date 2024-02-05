@@ -6,6 +6,8 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/payment_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
+
 import 'package:sos_bebe_app/raspunde_intrebare_doar_chat_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,8 +15,11 @@ import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 import 'package:http/http.dart' as http;
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
+import 'package:intl/intl.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
+
+ChestionarClientMobile? chestionarInitial;
 
 class QuestionaireScreen extends StatefulWidget {
   const QuestionaireScreen({super.key});
@@ -150,13 +155,141 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   bool isToggledIritatiiPiele = false;
   bool isToggledNasInfundat = false;
   bool isToggledRinoree = false;
+
+  DateTime dataNastere = DateTime.now();
+
+  bool dateChosen = true;
+  String hintDataNastere = '';
+
+  String dataDeNastereVeche = '';
+
+  final questionaireKey = GlobalKey<FormState>();
   
   final controllerAlergicLaMedicamentText = TextEditingController();
+
+  TextEditingController controllerNumeComplet = TextEditingController();
+  TextEditingController controllerDataNastere = TextEditingController();
+  TextEditingController controllerGreutate = TextEditingController();
+
+  final FocusNode focusNodeNumeComplet = FocusNode();
+  final FocusNode focusNodeDataNastere = FocusNode();
+  final FocusNode focusNodeGreutate = FocusNode();
 
     
   bool chestionarTrimis = false;
   bool showButonTrimite = true;
 
+
+
+  @override
+  void initState() {
+    
+    // Do some other stuff
+    super.initState();
+
+    getUltimulChestionarCompletatByContClient();
+
+    setState(() {
+
+      if (chestionarInitial!.numeCompletat.isNotEmpty)
+      {
+       
+        controllerNumeComplet.text = chestionarInitial!.numeCompletat;
+
+      }
+
+      if (chestionarInitial!.dataNastereCompletata.toString().isNotEmpty)
+      {
+        controllerDataNastere.text = chestionarInitial!.dataNastereCompletata.toString();
+
+      }
+      
+      if (chestionarInitial!.greutateCompletata.isNotEmpty)
+      {
+        controllerGreutate.text = chestionarInitial!.greutateCompletata;
+      }
+
+      isVisibleAlergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? true : false;
+
+      
+      
+      if (chestionarInitial!.listaRaspunsuri[0].informatiiComplementare.isNotEmpty)
+      {
+        
+        alergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? chestionarInitial!.listaRaspunsuri[0].informatiiComplementare : '';
+
+        print('alergicLaMedicament $alergicLaMedicament');
+        
+
+        controllerAlergicLaMedicamentText.text = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? chestionarInitial!.listaRaspunsuri[0].informatiiComplementare : '';
+      }
+      
+      isToggledFebra = (chestionarInitial!.listaRaspunsuri[1].raspunsIntrebare == '1')? true : false;
+      
+      isToggledTuse = (chestionarInitial!.listaRaspunsuri[2].raspunsIntrebare == '1')? true : false;
+      
+      isToggledDificultatiRespiratorii = (chestionarInitial!.listaRaspunsuri[3].raspunsIntrebare == '1')? true : false;
+      
+      isToggledAstenie = (chestionarInitial!.listaRaspunsuri[4].raspunsIntrebare == '1')? true : false;
+      
+      isToggledCefalee = (chestionarInitial!.listaRaspunsuri[5].raspunsIntrebare == '1')? true : false;
+      
+      isToggledDureriInGat = (chestionarInitial!.listaRaspunsuri[6].raspunsIntrebare == '1')? true : false;
+      
+      isToggledGreturiVarsaturi = (chestionarInitial!.listaRaspunsuri[7].raspunsIntrebare == '1')? true : false;
+      
+      isToggledDiareeConstipatie = (chestionarInitial!.listaRaspunsuri[8].raspunsIntrebare == '1')? true : false;
+      
+      isToggledRefuzulAlimentatie = (chestionarInitial!.listaRaspunsuri[9].raspunsIntrebare == '1')? true : false;
+      
+      isToggledIritatiiPiele = (chestionarInitial!.listaRaspunsuri[10].raspunsIntrebare == '1')? true : false;
+      
+      isToggledNasInfundat = (chestionarInitial!.listaRaspunsuri[11].raspunsIntrebare == '1')? true : false;
+      
+      isToggledRinoree = (chestionarInitial!.listaRaspunsuri[12].raspunsIntrebare == '1')? true : false;
+
+    });
+
+/*
+    setState(() {
+
+      listaFiltrata = listaMedici;
+
+    });
+*/
+
+  }
+
+  Future<ChestionarClientMobile?> getUltimulChestionarCompletatByContClient() async 
+  {
+   
+    
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    //String user = prefs.getString('user')??'';
+    //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    String? user = 'george.iordache@gmail.com';
+
+    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+    chestionarInitial = await apiCallFunctions.getUltimulChestionarCompletatByContClient(
+      pUser: user,
+      pParola: userPassMD5,
+    );
+
+    print('getUltimulChestionarCompletatByContClient: $chestionarInitial ${chestionarInitial!.numeCompletat} ${chestionarInitial!.dataNastereCompletata} ${chestionarInitial!.greutateCompletata}');
+    
+    for (int i = 0; i < chestionarInitial!.listaRaspunsuri.length; i++)
+    {
+      
+      print('${chestionarInitial!.listaRaspunsuri[i].idIntrebare} ${chestionarInitial!.listaRaspunsuri[i].raspunsIntrebare} ${chestionarInitial!.listaRaspunsuri[i].informatiiComplementare}');
+
+    }
+
+    return chestionarInitial;
+
+  }
   
   @override
   void dispose() {
@@ -185,6 +318,12 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     );
     */
 
+    String pNumeleComplet = controllerNumeComplet.text;
+
+    String pDataNastereDDMMYYYY = controllerDataNastere.text;
+
+    String pGreutate = controllerGreutate.text;
+
     String pListaRaspunsuri = '';
 
     pListaRaspunsuri = '${pListaRaspunsuri}1\$-\$${(isVisibleAlergicLaMedicament? '1' : '2')}\$-\$${(isVisibleAlergicLaMedicament? controllerAlergicLaMedicamentText.text : '')}*\$*';
@@ -201,11 +340,13 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     pListaRaspunsuri = '${pListaRaspunsuri}12\$-\$${(isToggledNasInfundat? '1' : '2')}\$-\$\$-\$*\$*';
     pListaRaspunsuri = '${pListaRaspunsuri}13\$-\$${(isToggledRinoree? '1' : '2')}\$-\$\$-\$*\$*';
 
-
     http.Response? resUpdateChestionarDinContClient = await apiCallFunctions.updateChestionarDinContClient(
 
       pUser: user,
       pParola: userPassMD5,
+      pNumeleComplet: pNumeleComplet,
+      pDataNastereDDMMYYYY: pDataNastereDDMMYYYY,
+      pGreutate: pGreutate,
       pListaRaspunsuri: pListaRaspunsuri,
 
     );
@@ -334,79 +475,162 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Form(
+            key: questionaireKey,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                    //Text('Chestionar', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500)) old
+
+                    //adăugat de George Valentin Iordache
+                      Text('Chestionar', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
+
+                    ],
+                  ),
+                  const SizedBox(height: 15),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                    children: [
+                      //Text('Nume si prenume pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
+                      //Text('Laura Popescu', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
+
+                      //adăugat de George Valentin Iordache
+
+
+                      Text('Nume si prenume pacient', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                      SizedBox(
+                        width: 150.0,
+                        child: TextFormField(
+                          controller: controllerNumeComplet,
+                          focusNode: focusNodeNumeComplet,
+                          autocorrect: false,
+                          readOnly: false,
+                          style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.right,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Nume copil',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Introduceti numele și prenumele pacientului!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    //Text('Laura Popescu', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+                    ],
+                  ),
+                  customDivider(),
+                  const SizedBox(height: 5),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                    children: [
+                      //Text('Varsta', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
+                      //Text('1 an si 8 luni', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
+
+                      //adăugat de George Valentin Iordache
+                      Text('Data naștere', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                      //Text('1 an si 8 luni', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+                      SizedBox(
+                        width: 150.0,
+                        child: TextFormField(
+
+                          onTap: () async {
+                            DateTime? date = await showDatePicker(
+                              context: context, 
+                              locale : const Locale("ro","RO"),
+                              initialDate: DateTime.now(), firstDate: DateTime(1960), lastDate: DateTime(2050),
+                              builder: (context, child) {
+                              return Theme(
+
+                                data: Theme.of(context).copyWith(
+                                  splashColor: const Color.fromARGB(255,200,200,200), //Colors.red,
+                                  colorScheme: const ColorScheme.light(
+                                    surface: Colors.white,
+                                    primary: Color.fromARGB(255, 14, 190, 127), // // <-- SEE HERE
+                                    //onSurface: Colors.white, // <-- SEE HERE
+                                  ),
+                                  textButtonTheme: TextButtonThemeData(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: Colors.black, // button text color
+                                    ),
+                                  ),
+                                ),
+                                child: child!,
+                                );
+                              },
+                            );
+
+                            setState(() {
+                              
+                              controllerDataNastere.text = DateFormat('ddMMyyyy').format(date!).toString();
+                              dataNastere = date;
+                              dateChosen = true;
+                              hintDataNastere = controllerDataNastere.text;
+
+                            });
+
+                          },
+                          controller: controllerDataNastere,
+                          focusNode: focusNodeDataNastere,
+                          style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.right,
+                          decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              //hintText: 'Număr ani și număr luni', //old IGV
+                              hintText: 'Data naștere',
+                          ),
+                          validator: (value) {
+                            value = controllerDataNastere.text;
+                            if ((dataDeNastereVeche.isEmpty) && value.isEmpty) {
+                              //return "Enter a valid Email Address or Password"; //old Andrei Bădescu
+                              return "Introduceți o dată de naștere!"; //old Andrei Bădescu
+                            }
+                            return null;
+                          }
+                        ),
+                      ),
+                    ],
+                  ),
+                  customDivider(),
+                  const SizedBox(height: 5),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                    children: [
+                      // Text('Greutate', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
+                      // Text('10 kg', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
+
+                      //adăugat de George Valentin Iordache
+                      Text('Greutate', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                      //Text('10 kg', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300))
+                                        SizedBox(
+                        width: 150.0,
+                        child: TextFormField(
+                          style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.right,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Număr kilograme',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Introduceti numărul de kilograme';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(
               children: [
-                Row(children: [
-                  //Text('Chestionar', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500)) old
-
-                  //adăugat de George Valentin Iordache
-                  Text('Chestionar', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
-
-                ]),
-                const SizedBox(height: 15),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  //Text('Nume si prenume pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
-                  //Text('Laura Popescu', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
-
-                  //adăugat de George Valentin Iordache
-
-
-                  Text('Nume si prenume pacient', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
-                  SizedBox(
-                    width: 150.0,
-                    child: TextField(
-                      style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.right,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Nume copil',
-                        ),
-                      ),
-                  ),
-                  //Text('Laura Popescu', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
-                ]),
-                customDivider(),
-                const SizedBox(height: 5),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  //Text('Varsta', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
-                  //Text('1 an si 8 luni', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
-
-                  //adăugat de George Valentin Iordache
-                  Text('Varsta', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
-                  //Text('1 an si 8 luni', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
-                  SizedBox(
-                    width: 150.0,
-                    child: TextField(
-                      style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.right,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Număr ani și număr luni',
-                        ),
-                      ),
-                  ),
-                ]),
-                customDivider(),
-                const SizedBox(height: 5),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                  // Text('Greutate', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)),
-                  // Text('10 kg', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
-
-                  //adăugat de George Valentin Iordache
-                  Text('Greutate', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
-                  //Text('10 kg', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300))
-                                    SizedBox(
-                    width: 150.0,
-                    child: TextField(
-                      style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.right,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Număr kilograme',
-                        ),
-                      ),
-                  ),
-                ]),
+                
                 customDivider(),
                 const SizedBox(height: 10),
                 TextAndSwitchWidget(isToggled: isVisibleAlergicLaMedicament, disease: "Alergic la vreun medicament?", callback: callbackVisibleAlergicLaMedicament),
@@ -506,45 +730,49 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
           GestureDetector(
             onTap: () async { 
               
-              setState(() {
-
-                chestionarTrimis = false;
-                showButonTrimite = false;
-
-              });
-
-              http.Response? resUpdateChestionarDinContClient;
-
-              resUpdateChestionarDinContClient = await updateChestionarDinContClient();
-              
-              if(context.mounted)
+              final isValidForm = questionaireKey.currentState!.validate();
+              if (isValidForm)
               {
-                if (int.parse(resUpdateChestionarDinContClient!.body) == 200)
+                setState(() {
+
+                  chestionarTrimis = false;
+                  showButonTrimite = false;
+
+                });
+
+                http.Response? resUpdateChestionarDinContClient;
+
+                resUpdateChestionarDinContClient = await updateChestionarDinContClient();
+                
+                if(context.mounted)
                 {
-                  
-                  print('Chestionar trimis cu succes');
-                  /*
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                      //builder: (context) => const ServiceSelectScreen(),
-                      //builder: (context) => const TestimonialScreen(),
-                    ),
-                  );
-                  */
-                  
-                }
-                else
-                {
+                  if (int.parse(resUpdateChestionarDinContClient!.body) == 200)
+                  {
+                    
+                    print('Chestionar trimis cu succes');
+                    /*
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                        //builder: (context) => const ServiceSelectScreen(),
+                        //builder: (context) => const TestimonialScreen(),
+                      ),
+                    );
+                    */
+                    
+                  }
+                  else
+                  {
 
-                  setState(() {
+                    setState(() {
 
-                    chestionarTrimis = false;
-                    showButonTrimite = true;
+                      chestionarTrimis = false;
+                      showButonTrimite = true;
 
-                  });
+                    });
 
+                  }
                 }
               }
 

@@ -72,7 +72,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   void _start() {
     // Timer.periodic() will call the callback function every 100 milliseconds
     
-    _timer = Timer.periodic(const Duration(milliseconds: 100), (Timer t) {
+    _timer = Timer.periodic(const Duration(milliseconds: 500), (Timer t) {
       // Update the UI
       setState(() {
         // result in hh:mm:ss format

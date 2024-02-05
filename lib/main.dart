@@ -6,6 +6,8 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 import 'package:sos_bebe_app/intro_screen.dart';
 
+//import 'package:sos_bebe_app/error_pacient_screen.dart';
+
 import  'package:sos_bebe_app/confirmare_servicii_screen.dart';
 //import  'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 //import  'package:sos_bebe_app/confirmare_screen.dart';
@@ -45,6 +47,8 @@ import  'package:sos_bebe_app/testimonial_screen.dart';
 
 import  'package:sos_bebe_app/confirmare_screen.dart';
 
+import  'package:sos_bebe_app/doctor_selection_screen.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -80,7 +84,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      //home: const LoginScreen(),
+      home: const LoginScreen(),
+
+      //home: const ErrorPacientScreen(),
+
+      //home: const DoctorSelectionScreen(),
 
       //home: const IntroScreen(),
 
@@ -93,7 +101,7 @@ class MyApp extends StatelessWidget {
       ),
       */
 
-      home: const ConfirmareServiciiScreen(pret:'9'),
+      //home: const ConfirmareServiciiScreen(pret:'9'),
 
       //home: const AdaugaMetodaPlataScreen(),
 

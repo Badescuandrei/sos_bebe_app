@@ -2,11 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class ErrorPacientScreen extends StatelessWidget {
   const ErrorPacientScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -17,7 +23,8 @@ class ErrorPacientScreen extends StatelessWidget {
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Oops!',
+                    //'Oops!', //old IGV
+                    l.errorPacientOopsText,
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(242, 63, 87, 1),
                         fontSize: 18,
@@ -35,8 +42,11 @@ class ErrorPacientScreen extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w300,
                       ),
-                      children: const <TextSpan>[
-                        TextSpan(text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                          text: l.errorPacientDetaliiText,
+                          ),
                       ],
                     ),
                     maxLines: 2,
@@ -70,7 +80,9 @@ class ErrorPacientScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Go home',
+                    child: Text(
+                        //'Go home', //old IGV
+                        l.errorPacientGoHome,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),

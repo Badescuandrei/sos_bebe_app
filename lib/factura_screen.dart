@@ -2,7 +2,14 @@
 import 'dart:math';
 import 'dart:io';
 import 'dart:typed_data';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+
+import 'package:path/path.dart' as p;
+
+import 'package:open_filex/open_filex.dart';
+
+import 'package:permission_handler/permission_handler.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +34,11 @@ import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
 import 'package:flutter_to_pdf/flutter_to_pdf.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 
 class FacturaScreen extends StatefulWidget {
@@ -68,8 +80,6 @@ class _FacturaScreenState extends State<FacturaScreen> {
 
   final ScreenshotController _screenshotController = ScreenshotController();
 
-    
-
     String dataEmitereRo = '';
 
     String dataPlataRo = '';
@@ -89,6 +99,91 @@ class _FacturaScreenState extends State<FacturaScreen> {
     //initializeDateFormatting("ro_RO");
 
   }
+
+  Future<Uint8List?> getSirBitiFacturaContClient() async {
+    
+    String? user = 'george.iordache@gmail.com';
+
+    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+    String? data = await apiCallFunctions.getSirBitiFacturaContClient(
+        pUser: user,
+        pParola: userPassMD5,
+        pIdFactura: widget.facturaDetalii.id.toString(),
+    );
+
+
+    if (data == null) 
+    {
+      
+      return null;
+
+    }
+    try 
+    {
+      
+      print('getSirBitiFacturaContClient data $data');
+
+      //base64Decode(widget.base64String.replaceAll('\n', ''));
+      Uint8List image = base64.decode(data);
+
+      return image;
+
+    } 
+    catch (e)
+    {
+      
+      return null;
+
+    }
+  }
+
+  Future<String?> descarca() async {
+    Uint8List? sirBitiFile = await getSirBitiFacturaContClient();
+
+    print('Descarca: sirBitiFile : $sirBitiFile pIdFactura: ${widget.facturaDetalii.id}');
+
+
+    if (sirBitiFile != null) {
+      try {
+        PermissionStatus status = await Permission.storage.request();
+        if (!status.isGranted) 
+        {
+          return null;
+        }
+
+        print('descarcă .pdf');
+
+        String fileName = '${widget.facturaDetalii.id.toString()}.pdf'; // Adaugă extensia la nume
+
+        Directory? directory = await getDownloadsDirectory();
+
+        if (directory != null) 
+        {
+          final downloadDir = directory.path;
+          final filePath = p.join(downloadDir, fileName);
+
+          File file = File(filePath);
+
+          file.writeAsBytes(sirBitiFile);
+
+          // await sirBitiFile.copy(filePath);
+
+          await OpenFilex.open(filePath);
+
+        } 
+        else 
+        {
+          print('Directorul de descărcare nu a fost găsit');
+          return null;
+        }
+      } catch (e) {
+        print('A apărut o eroare: $e');
+        return null;
+      }
+    }
+    return null;
+  }
   
   String _getRandomString(int length) {
     const chars =
@@ -102,11 +197,15 @@ class _FacturaScreenState extends State<FacturaScreen> {
   Widget _widgetScreen() {
 
     
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+    
     initializeDateFormatting();
 
-    String dataEmitereRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
+    //String dataEmitereRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataEmitere).capitalizeFirst(); //old IGV
+    String dataEmitereRo = DateFormat(l.facturaWidgetScreenDateFormat, l.facturaWidgetScreenLimba).format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
 
-    String dataPlataRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataPlata).capitalizeFirst();
+    //String dataPlataRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataPlata).capitalizeFirst(); //old IGV
+    String dataPlataRo = DateFormat(l.facturaWidgetScreenDateFormat, l.facturaWidgetScreenLimba).format(widget.facturaDetalii.dataPlata).capitalizeFirst();
     //dataPlata = widget.facturaDetalii.dataEmitere;
     return 
       Column(
@@ -118,7 +217,8 @@ class _FacturaScreenState extends State<FacturaScreen> {
         Padding(
           padding: const EdgeInsets.only(left: 30),
           child: Text(
-            'Factură',
+            //'Factură', //old IGV
+            l.facturaWidgetScreenFacturaTitlu,
             style: GoogleFonts.rubik(
               color: const Color.fromRGBO(103, 114, 148, 1),
               fontSize: 18,
@@ -864,7 +964,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                           //Navigator.of(context).popUntil((route) => route.isFirst);
                         
                           
-                          _takeScreenshot(context);
+                          //_takeScreenshot(context);
+
+                          descarca();
 
                           print("pressed on button CONECTARE");
                           /*Navigator.push(
@@ -874,12 +976,14 @@ class _FacturaScreenState extends State<FacturaScreen> {
                             )
                           );
                           */
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const TestimonialScreen(idMedic:1),
                             )
                           );
+                          */
 
                         },
                         style: ElevatedButton.styleFrom(

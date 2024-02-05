@@ -14,6 +14,9 @@ import 'package:http/http.dart' as http;
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class EditareContScreen extends StatefulWidget {
@@ -124,6 +127,8 @@ class EditareContScreenState extends State<EditareContScreen> {
 
   
   Future<http.Response?> updateDateClient() async {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
     
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -175,7 +180,9 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       print('Actualizare date finalizată cu succes!');
 
-      textMessage = 'Actualizare date finalizată cu succes!';
+      //textMessage = 'Actualizare date finalizată cu succes!';  //old IGV
+      textMessage = l.editareContActualizareFinalizataCuSucces;
+
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
 
@@ -192,7 +199,9 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       print('Apel invalid');
 
-      textMessage = 'Apel invalid!';
+      //textMessage = 'Apel invalid!'; //old IGV
+      textMessage = l.editareContApelInvalid;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -202,7 +211,6 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       prefs.setString(pref_keys.userEmail, controllerEmail.text);
       prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerResetareParola.text));
-      print('Datele nu au putut fi actualizate!');
 
       setState(() {
 
@@ -210,8 +218,11 @@ class EditareContScreenState extends State<EditareContScreen> {
         showButonSalvare = true;
 
       });
+
+            print('Datele nu au putut fi actualizate!');
       
-      textMessage = 'Datele nu au putut fi actualizate!';
+      //textMessage = 'Datele nu au putut fi actualizate!'; //old IGV
+      textMessage = l.editareContDateleNuAuPututFiActualizate;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -226,9 +237,10 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       });
 
-      print('Informatii insuficiente');
+      print('Informatii insuficiente!');
       
-      textMessage = 'Informatii insuficiente!';
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+      textMessage = l.editareContInformatiiInsuficiente;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -245,7 +257,8 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       print('A apărut o eroare la execuția metodei');
       
-      textMessage = 'A apărut o eroare la execuția metodei!';
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+      textMessage = l.editareContEroareLaExecutiaMetodei;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -266,6 +279,9 @@ class EditareContScreenState extends State<EditareContScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor:const Color.fromRGBO(30, 214, 158, 1),
@@ -278,7 +294,9 @@ class EditareContScreenState extends State<EditareContScreen> {
             color: Colors.white,
           ),
           
-        title:Text('Profilul meu',
+        title:Text(
+            //'Profilul meu',
+              l.editareContProfilulMeuTitlu,
               style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 16, fontWeight: FontWeight.w500),
             ),
         centerTitle: true,
@@ -350,7 +368,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 */
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: "Email",
+                                //hintText: "Email", //old IGV
+                                hintText: l.editareContEmailHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -365,7 +384,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 if (value!.isEmpty || !(emailRegExp.hasMatch(value)))
                                 // || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) 
                                 {
-                                  return "Introduceți un email valabil!";
+                                  //return "Introduceți un email valid!"; //old IGV
+                                  return l.editareContIntroducetiEmailValid; 
                                 } 
                                 else 
                                 {
@@ -406,7 +426,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 */
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: "Telefon",
+                                //hintText: "Telefon", //old IGV
+                                hintText: l.editareContTelefonHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -422,7 +443,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 // || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) 
                                 if (value!.isEmpty || !(phoneRegExp.hasMatch(value)))
                                 {
-                                  return "Introduceți un număr de telefon valabil!";
+                                  //return "Introduceți un număr de telefon valid!";
+                                  return l.editareContIntroducetiTelefonValid;
                                 }
                                 else 
                                 {
@@ -463,7 +485,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 */
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: "User",
+                                //hintText: "User", //old IGV
+                                hintText: l.editareContUserHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -478,7 +501,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 if (value!.isEmpty)
                                 // || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) 
                                 {
-                                  return "Introduceți un utilizator!";
+                                  //return "Introduceți un utilizator!";
+                                  return l.editareContIntroducetiUtilizator;
                                 } 
                                 else 
                                 {
@@ -519,7 +543,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 */
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: "Numele complet",
+                                //hintText: "Numele complet", //old IGV
+                                hintText: l.editareContNumeleCompletHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -534,9 +559,10 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 if (value!.isEmpty)
                                 // || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) 
                                 {
-                                  return "Introduceți numele complet!";
+                                  //return "Introduceți numele complet!"; //old IGV
+                                  return l.editareContIntroducetiNumeleComplet;
                                 } 
-                                else 
+                                else
                                 {
                                   return null;
                                 }
@@ -559,7 +585,8 @@ class EditareContScreenState extends State<EditareContScreen> {
                                     onPressed: passVisibiltyToggle,
                                     icon: isHidden ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)),
                                 //hintText: "Parola noua", old
-                                hintText: "Resetare parolă",
+                                //hintText: "Resetare parolă", //old IGV
+                                hintText: l.editareContResetareParolaHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
@@ -580,9 +607,13 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 fillColor: Colors.white),
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return "Vă rugăm introduceți o parolă!";
+                                  
+                                  //return "Vă rugăm introduceți o parolă!"; //old IGV
+                                  return l.editareContVaRugamIntroducetiParola;
+
                                 } else if (value.length < 6) {
-                                  return "Parola trebuie să aibă cel puțin 6 caractere!";
+                                  //return "Parola trebuie să aibă cel puțin 6 caractere!"; //old IGV
+                                  return l.editareContParolaTrebuieSaContina;
                                 } else {
                                   return null;
                                 }
@@ -680,7 +711,9 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 borderRadius: BorderRadius.circular(5),
                               )),
                           child: 
-                          Text('Salvare date',
+                          Text(
+                            //'Salvare date', //old IGV
+                            l.editareContSalvareDate,
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
                       ),
