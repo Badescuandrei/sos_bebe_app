@@ -7,6 +7,8 @@ import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 //import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 //import 'package:pin_code_fields/pin_code_fields.dart';
 //import 'package:flutter_pin_code_widget/flutter_pin_code_widget.dart';
@@ -59,6 +61,10 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
   }
 
   Future<http.Response?> reseteazaParolaClient() async {
+
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     //SharedPreferences prefs = await SharedPreferences.getInstance();
 
     /*
@@ -95,7 +101,9 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       print('Parolă resetată cu succes!');
       
-      textMessage = 'Parolă resetată cu succes!';
+      //textMessage = 'Parolă resetată cu succes!'; //old IGV
+      textMessage = l.parolaNouaPacientMesajParolaResetataCuSucces;
+
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
 
@@ -112,7 +120,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       print('Apel invalid');
 
-      textMessage = 'Apel invalid!';
+      //textMessage = 'Apel invalid!'; //old IGV
+      textMessage = l.parolaNouaPacientApelInvalid;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -131,7 +140,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       });
       
-      textMessage = 'Eroare la resetare parolă!';
+      //textMessage = 'Eroare la resetare parolă!'; //old IGV
+      textMessage = l.parolaNouaPacientEroareResetareParola;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -149,7 +159,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       print('Informatii insuficiente');
       
-      textMessage = 'Informatii insuficiente!';
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+      textMessage = l.parolaNouaPacientInformatiiInsuficiente;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -167,7 +178,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       print('A apărut o eroare la execuția metodei');
       
-      textMessage = 'A apărut o eroare la execuția metodei!';
+      //textMessage = 'A apărut o eroare la execuția metodei!';
+      textMessage = l.parolaNouaPacientAAparutOEroare;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -187,6 +199,9 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -197,7 +212,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Parola nouă',
+                    //'Parola nouă', //old IGV
+                    l.parolaNouaPacientParolaNoua,
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         fontSize: 18,
@@ -219,8 +235,11 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
-                            children: const <TextSpan>[
-                              TextSpan(text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'
+                                text:l.parolaNouaPacientReseteazaParolaText,
+                              ),
                             ],
                           ),
                           maxLines: 1,
@@ -251,7 +270,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                                                   ),
                               ),
                             //hintText: "Parola noua", old
-                            hintText: "Parolă",
+                            //hintText: "Parolă", //old IGV
+                            hintText: l.parolaNouaPacientParolaHint,
                             hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
@@ -269,12 +289,24 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                             filled: true,
                             fillColor: Colors.white),
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Vă rugăm introduceți o parolă nouă";
-                          } else if (value.length < 6) {
-                            return "Parola trebuie să aibă cel puțin 6 caractere";
-                          } else if ((controllerParolaNoua.value.text).compareTo(controllerParolaNouaRepetata.value.text) != 0) {
-                            return "Parola trebuie să fie aceeași în ambele câmpuri";      
+                          if (value!.isEmpty) 
+                          {
+                            
+                            //return "Vă rugăm introduceți o parolă nouă"; //old IGV
+                            return l.parolaNouaPacientIntroducetiParolaNoua;
+
+                          } else if (value.length < 6) 
+                          {
+                            
+                            //return "Parola trebuie să aibă cel puțin 6 caractere"; //old IGV
+                            return l.parolaNouaPacientParolaCelPutin;
+
+                          } else if ((controllerParolaNoua.value.text).compareTo(controllerParolaNouaRepetata.value.text) != 0) 
+                          {
+                            
+                            //return "Parola trebuie să fie aceeași în ambele câmpuri"; //old IGV
+                            return l.parolaNouaPacientParolaAceeasi;
+
                           }
                           else {
                             return null;
@@ -304,7 +336,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                                                   ),
                               ),
                             //hintText: "Parola noua", old
-                            hintText: "Repetă noua parolă",
+                            //hintText: "Repetă noua parolă", //old IGV
+                            hintText: l.parolaNouaPacientRepetaNouaParola,
                             hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -322,12 +355,26 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                             filled: true,
                             fillColor: Colors.white),
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Vă rugăm introduceți o parolă nouă";
-                          } else if (value.length < 6) {
-                            return "Parola trebuie să aibă cel puțin 6 caractere";
-                          } else if ((controllerParolaNoua.value.text).compareTo(controllerParolaNouaRepetata.value.text) != 0) {
-                            return "Parola trebuie să fie aceeași în ambele câmpuri";      
+                          if (value!.isEmpty) 
+                          {
+                            
+                            //return "Vă rugăm introduceți o parolă nouă"; //old IGV
+                            return l.parolaNouaPacientIntroducetiParolaNoua;
+
+                          } 
+                          else if (value.length < 6) 
+                          {
+                            
+                            //return "Parola trebuie să aibă cel puțin 6 caractere"; //old IGV
+                            return l.parolaNouaPacientParolaCelPutin;
+
+                          } 
+                          else if ((controllerParolaNoua.value.text).compareTo(controllerParolaNouaRepetata.value.text) != 0) 
+                          {
+                            
+                            //return "Parola trebuie să fie aceeași în ambele câmpuri"; //old IGV
+                            return l.parolaNouaPacientParolaAceeasi;
+
                           } else {
                             return null;
                           }
@@ -341,9 +388,11 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                   width: 160,
                   height: 44,
                   child: 
-                    (!showSendCodeButton)? Text('Se încearcă trimiterea codului',
-                    //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
-                    style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)):
+                    (!showSendCodeButton)? Text(
+                      //'Se încearcă trimiterea codului', //old IGV
+                      l.parolaNouaPacientSeIncearcaTrimitereaCodului,
+                      //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
+                      style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)):
                     ElevatedButton(
                     onPressed: () async {
                       final isValidForm = parolaNouaKey.currentState!.validate();
@@ -420,8 +469,10 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Confirmă',
-                        style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
+                    child: Text(
+                      //'Confirmă', //old IGV
+                      l.parolaNouaPacientConfirma,
+                      style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),
                 //const SizedBox(height: 100),

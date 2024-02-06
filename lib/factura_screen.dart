@@ -202,10 +202,10 @@ class _FacturaScreenState extends State<FacturaScreen> {
     initializeDateFormatting();
 
     //String dataEmitereRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataEmitere).capitalizeFirst(); //old IGV
-    String dataEmitereRo = DateFormat(l.facturaWidgetScreenDateFormat, l.facturaWidgetScreenLimba).format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
+    String dataEmitereRo = DateFormat(l.facturaDateFormat, l.facturaLimba).format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
 
     //String dataPlataRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataPlata).capitalizeFirst(); //old IGV
-    String dataPlataRo = DateFormat(l.facturaWidgetScreenDateFormat, l.facturaWidgetScreenLimba).format(widget.facturaDetalii.dataPlata).capitalizeFirst();
+    String dataPlataRo = DateFormat(l.facturaDateFormat, l.facturaLimba).format(widget.facturaDetalii.dataPlata).capitalizeFirst();
     //dataPlata = widget.facturaDetalii.dataEmitere;
     return 
       Column(
@@ -218,7 +218,7 @@ class _FacturaScreenState extends State<FacturaScreen> {
           padding: const EdgeInsets.only(left: 30),
           child: Text(
             //'Factură', //old IGV
-            l.facturaWidgetScreenFacturaTitlu,
+            l.facturaFacturaTitlu,
             style: GoogleFonts.rubik(
               color: const Color.fromRGBO(103, 114, 148, 1),
               fontSize: 18,
@@ -240,7 +240,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 children: [
                   const SizedBox(height: 15),
                   SizedBox(width: 284,
-                    child: Text('Plată - SOS Bebe', 
+                    child: Text(
+                      //'Plată - SOS Bebe',  //IGV
+                      l.facturaNumeFactura,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                   ),
@@ -253,12 +255,16 @@ class _FacturaScreenState extends State<FacturaScreen> {
                   ),
                   */
                   SizedBox(width: 284,
-                    child: Text('Email : ${widget.facturaDetalii.emailEmitent}', 
+                    child: Text(
+                      //'Email : ${widget.facturaDetalii.emailEmitent}',  //old IGV
+                      '${l.facturaEmailEmitent} ${widget.facturaDetalii.emailEmitent}',
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                   ),
                   SizedBox(width: 284,
-                    child: Text('Telefon : ${widget.facturaDetalii.telefonEmitent}', 
+                    child: Text(
+                      //'Telefon : ${widget.facturaDetalii.telefonEmitent}',  //old IGV
+                      '${l.facturaTelefonEmitent} ${widget.facturaDetalii.telefonEmitent}',
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                   ),
@@ -274,7 +280,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('Factură pentru:', 
+                child: Text(
+                  //'Factură pentru:',  //old IGV
+                  l.facturaTitluPentruBeneficiar,
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w400),
                 ),
               ),
@@ -313,7 +321,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('User Id: ${widget.user}', 
+                child: Text(
+                  //'User Id: ${widget.user}',  //old IGV
+                  '${l.facturaUserId} ${widget.user}',
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                 ),
               ),
@@ -329,7 +339,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('Email: ${widget.facturaDetalii.emailBeneficiar}', 
+                child: Text(
+                  //'Email: ${widget.facturaDetalii.emailBeneficiar}',  //old IGV
+                  '${l.facturaEmailBeneficiar} ${widget.facturaDetalii.emailBeneficiar}', 
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                 ),
               ),
@@ -345,7 +357,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('Telefon: ${widget.facturaDetalii.telefonBeneficiar}', 
+                child: Text(
+                  //'Telefon: ${widget.facturaDetalii.telefonBeneficiar}', 
+                  '${l.facturaTelefonBeneficiar} ${widget.facturaDetalii.telefonBeneficiar}',
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                 ),
               ),
@@ -361,7 +375,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('Data plății', 
+                child: Text(
+                  //'Data plății', //old IGV
+                  l.facturaDataPlatiiTitlu,
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w400),
                 ),
               ),
@@ -379,7 +395,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Data plații', 
+                  Text(
+                    //'Data plății', //old IGV
+                    l.facturaDataPlatiiNume,
                     style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                   ),
                   Text(dataPlataRo, 
@@ -393,7 +411,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Procesată', 
+                  Text(
+                      //'Procesată', //old IGV
+                      l.facturaProcesata,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                     Text(dataEmitereRo, 
@@ -413,7 +433,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('Detalii factură', 
+                child: Text(
+                  //'Detalii factură', //old IGV
+                  l.facturaDetaliiFactura,
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w400),
                 ),
               ),
@@ -445,7 +467,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 width: 55,
               ),
               SizedBox(width: 284,
-                child: Text('Servicii: ${widget.facturaDetalii.serviciiFactura}', 
+                child: Text(
+                  //'Servicii: ${widget.facturaDetalii.serviciiFactura}', //old IGV
+                  '${l.facturaServicii} ${widget.facturaDetalii.serviciiFactura}',
                   style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                 ),
               ),
@@ -461,12 +485,16 @@ class _FacturaScreenState extends State<FacturaScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(width: 100,
-                  child: Text('Număr: ${widget.facturaDetalii.numar}', 
+                  child: Text(
+                    //'Număr: ${widget.facturaDetalii.numar}', //old IGV
+                    '${l.facturaNumar} ${widget.facturaDetalii.numar}', 
                     style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                   ),
                 ),
                 SizedBox(width: 100,
-                  child: Text('Serie: ${widget.facturaDetalii.serie}', 
+                  child: Text(
+                    //'Serie: ${widget.facturaDetalii.serie}', //old IGV
+                    '${l.facturaSerie} ${widget.facturaDetalii.serie}',
                     style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                   ),
                 ),
@@ -485,7 +513,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Valoare cu TVA', 
+                  Text(
+                    //'Valoare cu TVA', //IGV
+                    l.facturaValoareCuTVA,
                     style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                   ),
                   /*
@@ -504,7 +534,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Valoare TVA', 
+                  Text(
+                    //'Valoare TVA', //old IGV
+                    l.facturaValoareTVA,
                     style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                   ),
                   /*
@@ -523,7 +555,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Valoare fără TVA', 
+                  Text(
+                      //'Valoare fără TVA', //old IGV
+                      l.facturaValoareFaraTVA,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                   /*
@@ -598,13 +632,20 @@ class _FacturaScreenState extends State<FacturaScreen> {
     
     initializeDateFormatting();
 
-    String dataEmitereRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
+    LocalizationsApp l = LocalizationsApp.of(context)!;
 
-    String dataPlataRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataPlata).capitalizeFirst();
+    //String dataEmitereRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
+    String dataEmitereRo = DateFormat(l.facturaDateFormat, l.facturaLimba).format(widget.facturaDetalii.dataEmitere).capitalizeFirst();
+
+    //String dataPlataRo = DateFormat("MMM dd. yyyy", "ro").format(widget.facturaDetalii.dataPlata).capitalizeFirst();
+    String dataPlataRo = DateFormat(l.facturaDateFormat, l.facturaLimba).format(widget.facturaDetalii.dataPlata).capitalizeFirst();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        title: Text(
+          //'Înapoi'
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -624,7 +665,8 @@ class _FacturaScreenState extends State<FacturaScreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 30),
                   child: Text(
-                    'Factură',
+                    //'Factură', //old IGV
+                    l.facturaFacturaTitlu,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 18,
@@ -646,7 +688,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       children: [
                         const SizedBox(height: 15),
                         SizedBox(width: 284,
-                          child: Text('Plată - SOS Bebe', 
+                          child: Text(
+                            //'Plată - SOS Bebe',  //old IGV
+                            l.facturaNumeFactura,
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                           ),
                         ),
@@ -659,12 +703,16 @@ class _FacturaScreenState extends State<FacturaScreen> {
                         ),
                         */
                         SizedBox(width: 284,
-                          child: Text('Email : ${widget.facturaDetalii.emailEmitent}', 
+                          child: Text(
+                            //'Email : ${widget.facturaDetalii.emailEmitent}', //old IGV
+                            '${l.facturaEmailEmitent} ${widget.facturaDetalii.emailEmitent}',
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                           ),
                         ),
                         SizedBox(width: 284,
-                          child: Text('Telefon : ${widget.facturaDetalii.telefonEmitent}', 
+                          child: Text(
+                            //'Telefon : ${widget.facturaDetalii.telefonEmitent}', //old IGV
+                            '${l.facturaTelefonEmitent} ${widget.facturaDetalii.telefonEmitent}',
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                           ),
                         ),
@@ -680,7 +728,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('Factură pentru:', 
+                      child: Text(
+                        //'Factură pentru:', //old IGV
+                        l.facturaTitluPentruBeneficiar,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -719,7 +769,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('User Id: ${widget.user}', 
+                      child: Text(
+                        //'User Id: ${widget.user}',  //old IGV
+                        '${l.facturaUserId} ${widget.user}',
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                       ),
                     ),
@@ -735,7 +787,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('Email: ${widget.facturaDetalii.emailBeneficiar}', 
+                      child: Text(
+                        //'Email: ${widget.facturaDetalii.emailBeneficiar}', //old IGV 
+                        '${l.facturaEmailBeneficiar} ${widget.facturaDetalii.emailBeneficiar}', 
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                       ),
                     ),
@@ -751,7 +805,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('Telefon: ${widget.facturaDetalii.telefonBeneficiar}', 
+                      child: Text(
+                        //'Telefon: ${widget.facturaDetalii.telefonBeneficiar}',  //old IGV
+                        '${l.facturaTelefonBeneficiar} ${widget.facturaDetalii.telefonBeneficiar}',
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                       ),
                     ),
@@ -767,7 +823,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('Data plății', 
+                      child: Text(
+                        //'Data plății', //old IGV
+                        l.facturaDataPlatiiTitlu,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -785,7 +843,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Data plații', 
+                        Text(
+                          //'Data plății', //old IGV
+                          l.facturaDataPlatiiNume,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                         Text(dataPlataRo, 
@@ -799,7 +859,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Procesată', 
+                        Text(
+                            //'Procesată',  //old IGV
+                            l.facturaProcesata,
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                           ),
                           Text(dataEmitereRo, 
@@ -819,7 +881,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('Detalii factură', 
+                      child: Text(
+                        //'Detalii factură', //old IGV
+                        l.facturaDetaliiFactura,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w400),
                       ),
                     ),
@@ -851,7 +915,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                       width: 55,
                     ),
                     SizedBox(width: 284,
-                      child: Text('Servicii: ${widget.facturaDetalii.serviciiFactura}', 
+                      child: Text(
+                        //'Servicii: ${widget.facturaDetalii.serviciiFactura}', //old IGV
+                        '${l.facturaServicii} ${widget.facturaDetalii.serviciiFactura}',
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                       ),
                     ),
@@ -867,12 +933,16 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(width: 100,
-                        child: Text('Număr: ${widget.facturaDetalii.numar}', 
+                        child: Text(
+                          //'Număr: ${widget.facturaDetalii.numar}', //old IGV
+                          '${l.facturaNumar} ${widget.facturaDetalii.numar}',
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                       ),
                       SizedBox(width: 100,
-                        child: Text('Serie: ${widget.facturaDetalii.serie}', 
+                        child: Text(
+                          //'Serie: ${widget.facturaDetalii.serie}', //old IGV
+                          '${l.facturaSerie} ${widget.facturaDetalii.serie}',
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                       ),
@@ -891,7 +961,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Valoare cu TVA', 
+                        Text(
+                          //'Valoare cu TVA', //old IGV
+                          l.facturaValoareCuTVA,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                         /*
@@ -910,7 +982,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Valoare TVA', 
+                        Text(
+                          //'Valoare TVA', //old IGV
+                          l.facturaValoareTVA,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                         ),
                         /*
@@ -929,7 +1003,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Valoare fără TVA', 
+                        Text(
+                            //'Valoare fără TVA', //old IGV
+                            l.facturaValoareFaraTVA,
                             style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300),
                           ),
                         /*
@@ -999,7 +1075,9 @@ class _FacturaScreenState extends State<FacturaScreen> {
                             const SizedBox(
                               width:10
                             ),
-                            Text('Download PDF',
+                            Text(
+                                //'Download PDF',
+                                l.facturaButonDownloadPdf,
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 14, fontWeight: FontWeight.w400)),
                           ],
                         ),

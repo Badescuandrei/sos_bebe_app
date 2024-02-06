@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'medic_info_screen.dart';
+import 'medic_info_screen_old_dart';
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 

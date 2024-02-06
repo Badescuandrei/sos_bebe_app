@@ -110,10 +110,176 @@ Map<String, dynamic> values = {
     
   'factura': {
 
-    'widget_screen_date_format': 'MMM dd. yyyy',
-    'widget_screen_limba': 'ro',
-    'widget_screen_factura_titlu': 'Factură',
+    'date_format': 'MMM dd. yyyy',
+    'limba': 'ro',
+    'factura_titlu': 'Factură',
+    'nume_factura': 'Plată - SOS Bebe',
+    'email_emitent': 'Email :',
+    'telefon_emitent': 'Telefon :',
+    'titlu_pentru_beneficiar': 'Factură pentru:',
+    'user_id': 'User Id:',
+    'email_beneficiar': 'Email:',
+    'telefon_beneficiar': 'Telefon:',
+    'data_platii_titlu': 'Data plății',
+    'data_platii_nume': 'Data plății',
+    'procesata': 'Procesată',
+    'detalii_factura': 'Detalii factură',
+    'servicii': 'Servicii:',
+    'numar': 'Număr:',
+    'serie': 'Serie:',
+    'valoare_cu_tva': 'Valoare cu TVA',
+    'valoare_tva': 'Valoare TVA',
+    'valoare_fara_tva': 'Valoare fără TVA',
+    'buton_download_pdf': 'Download PDF',
+
+    },
+    
+    
+  'intro': {
+
+    'gaseste_doctor_pediatru': 'Găsește cel mai bun Doctor Pediatru!',
+    'gasiti_medici_specialisti': 'Găsiți cei mai buni medici specialiști pentru copilul dvs.',
+    'continua':'CONTINUĂ',
         
+    },
+    
+    
+  'login': {
+
+    'login_cu_succes': 'Login realizat cu succes!',
+    'eroare_reintroduceti_user_parola': 'Eroare! Reintroduceți user-ul și parola!',
+    'telefon_email_utilizator_hint':'Telefon, e-mail sau utilizator',
+    'mesaj_introduceti_utilizator_email_telefon':'Introduceți un utilizator/email/numar de telefon valabil!',
+    'parola': 'Parolă',
+    'mesaj_introduceti_parola_noua': 'Vă rugăm introduceți o parolă nouă',
+    'mesaj_parola_cel_putin': 'Parola trebuie să aibă cel puțin 6 caractere',
+    'ai_uitat_parola': 'Ai uitat parola?',
+    'conectare':'CONECTARE',
+    'or':'OR',
+    'conectare_cu_facebook':'CONECTARE CU FACEBOOK',
+    'conectare_cu_google':'CONECTARE CU GOOGLE',
+    'nu_ai_cont':'NU AI CONT?',
+    'inscrie_te':' INSCRIE-TE!',
+  
+    
+    },
+    
+    
+  'main': {
+
+    'titlu': 'SOS Bebe',
+        
+    },
+    
+    
+  'parola_noua_pacient': {
+
+    'mesaj_parola_resetata_cu_succes': 'Parolă resetată cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'eroare_resetare_parola': 'Eroare la resetare parolă!',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+    'a_aparut_o_eroare':'A apărut o eroare la execuția metodei!',
+    'parola_noua':'Parola nouă',
+    'reseteaza_parola_text':'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'parola_hint':'Parolă',
+    'introduceti_parola_noua':'Vă rugăm introduceți o parolă nouă',
+    'parola_cel_putin':'Parola trebuie să aibă cel puțin 6 caractere',
+    'parola_aceeasi':'Parola trebuie să fie aceeași în ambele câmpuri',
+    'repeta_noua_parola':'Repetă noua parolă',
+    'se_incearca_trimiterea_codului':'Se încearcă trimiterea codului',
+    'confirma':'Confirmă',
+        
+    },
+    
+    
+  'plata_esuata': {
+
+    'plata_esuata_titlu':'Plată eșuată',
+    'fonduri_insuficiente':'S-ar putea să nu aveți suficiente fonduri în cont pentru a plăti. Verificați soldul contului sau contactați-vă banca. Card de credit sau de debit neeligibil.',
+    'continua':'CONTINUĂ',
+
+    },
+    
+    
+  'plata_succes': {
+
+    'plata_succes_titlu':'Plată realizată cu succes',
+    'va_multumim_detalii':'Vă mulțumim! Detaliile dvs. de plată vor fi trimise la adresa dvs. de e-mail.',
+    'va_multumim_simplu':'Vă mulțumim! ',
+    'vei_fi_redirectionat':'Vei fi redirectionat ...',
+
+    },
+    
+    
+  'plati': {
+
+    
+    'date_format': 'dd MMMM yyyy',
+    'limba': 'ro',
+    'titlu': 'Plăți',
+    'data_platii_titlu': 'Data plății',
+    'suma_platii_titlu': 'Suma plății',
+
+    },
+    
+    
+  'profil_doctor_disponibilitate_servicii': {
+
+    
+    'date_format': 'dd MMMM yyyy',
+    'limba': 'ro',
+    'moneda_ron': 'RON',
+    'moneda_euro': 'EURO',
+    'scrie_intrebare': 'Scrie o întrebare',
+    'suna_acum': 'Sună acum',
+    'primiti_recomandare': 'Primiți o recomandare și rețetă medicală',
+    'sumar_titlu': 'Sumar',
+    'titlu_profestional': 'Titlu profesional',
+    'specializare': 'Specializare',
+    'experienta': 'Experiență',
+    'loc_de_munca': 'Loc de muncă',
+    'activitate': 'Activitate',
+    'utilizatori_multumiti': 'Utilizatori mulțumiți: ',
+    'am_ajutat': 'Am ajutat',
+    'pacienti': 'pacienți',
+    'ai_aplicatiei': ' ai aplicației',
+    'testimoniale': 'Testimoniale',
+    'recenzii': 'Recenzii',
+    'in_consultatie':' în consultație',
+    'rating':'Rating',
+
+    },
+    
+    
+  'profil_pacient': {
+
+    'cod_trimis_cu_succes': 'Cod trimis cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'cont_inexistent': 'Cont inexistent!',
+    'cont_existent_fara_date_contact': 'Cont existent dar clientul nu are date de contact!',
+    'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+    'profilul_meu_titlu': 'Profilul meu',
+    'editare_cont': 'Editare cont',
+    'doctori_salvati': 'Doctori Salvati',
+    'nu_exista_facturi_de_afisat': 'Nu există facturi de afișat!',
+    'vezi_plati': 'Vezi Plăti',
+    'GDPR': 'GDPR',
+    'dezactivare_cont': 'Dezactivare cont',
+    'deconectare': 'Deconectare',
+    'termeni_si_conditii': 'Termeni și Condiții',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+
+    },
+    
+    
+  'questionare': {
+
+    'date_chestionar_trimise_cu_succes': 'Date chestionar trimise cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'datele_nu_au_putut_fi_trimise': 'Datele nu au putut fi trimise!',
+    'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+    'chestionar': 'Chestionar',
+    
     },
 
 

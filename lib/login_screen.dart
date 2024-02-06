@@ -10,6 +10,8 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 import 'package:http/http.dart' as http;
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 
@@ -84,6 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   login(BuildContext context) async 
   {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
     
     String textMesaj = '';
     Color backgroundColor = Colors.red;
@@ -107,7 +111,9 @@ class _LoginScreenState extends State<LoginScreen> {
       
       print('login_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user} linkPozaProfil: ${resGetCont.linkPozaProfil}');
 
-      textMesaj = 'Login realizat cu succes!';
+      //textMesaj = 'Login realizat cu succes!'; //old IGV
+      textMesaj = l.loginLoginCuSucces;
+      
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
 
@@ -125,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
     else
     {
       
-      textMesaj = 'Eroare! Reintroduceți user-ul și parola!';
+      //textMesaj = 'Eroare! Reintroduceți user-ul și parola!'; //old IGV
+      textMesaj = l.loginEroareReintroducetiUserParola;
       backgroundColor = Colors.red;
       textColor = Colors.black;
       print('Eroare');
@@ -149,10 +156,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+    
     return Scaffold(
       //begin added by George Valentin Iordache
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        title: Text(
+          //'Înapoi'
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -218,7 +231,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: "Telefon, e-mail sau utilizator",
+                        //hintText: "Telefon, e-mail sau utilizator", //old IGV
+                        hintText: l.loginTelefonEmailUtilizatorHint,
                         hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                       ),
                       validator: (value) {
@@ -233,7 +247,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         RegExp nameRegExp = RegExp(userNamePattern);
                         //RegExp nameRegExp = RegExp(namePattern);
                         if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
-                          return "Introduceți un utilizator/email/numar de telefon valabil!";
+                          //return "Introduceți un utilizator/email/numar de telefon valabil!"; //old IGV
+                          return l.loginMesajIntroducetiUtilizatorEmailTelefon;
                         } else {
                           return null;
                         }
@@ -246,10 +261,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: isHidden,
                       decoration: InputDecoration(
                           suffixIcon: IconButton(
-                              onPressed: passVisibiltyToggle,
-                              icon: isHidden ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)),
-                          //hintText: "Parola noua", old
-                          hintText: "Parolă",
+                            onPressed: passVisibiltyToggle,
+                            icon: isHidden ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)),
+                          //hintText: "Parolă", //old IGV
+                          hintText: l.loginParola,
                           hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
 
                           focusedBorder: OutlineInputBorder(
@@ -272,10 +287,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           //return "Please Enter New Password"; old
-                          return "Vă rugăm introduceți o parolă nouă";
+                          //return "Vă rugăm introduceți o parolă nouă"; //old IGV
+                          return l.loginMesajIntroducetiParolaNoua;
+
                         } else if (value.length < 6) {
                           //return "Password must be at least 6 characters long"; old
-                          return "Parola trebuie să aibă cel puțin 6 caractere";
+                          //return "Parola trebuie să aibă cel puțin 6 caractere"; //old IGV
+                          return l.loginMesajParolaCelPutin;
                         } else {
                           return null;
                         }
@@ -293,15 +311,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     {
 
                       Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const ResetPasswordPacientScreen();
-                            //return const PlataEsuataScreen();
-                          },
-                        ));
+                        builder: (context) {
+                          return const ResetPasswordPacientScreen();
+                          //return const PlataEsuataScreen();
+                        },
+                      ));
 
                     },
                     child: 
-                    const Text('Ai uitat parola?', style: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300))
+                    Text(
+                      //'Ai uitat parola?', //old IGV
+                      l.loginAiUitatParola,
+                      style: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300))
                   ),
                 ],
               ),
@@ -335,13 +356,18 @@ class _LoginScreenState extends State<LoginScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     )),
-                child: Text('CONECTARE',
+                child: Text(
+                    //'CONECTARE', //old IGV
+                    l.loginConectare,
                     //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 20)), old
                     style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 18)), //George Valentin Iordache
               ),
               const SizedBox(height: 100),
               // Text("OR", style: GoogleFonts.rubik(color: Colors.black45, fontWeight: FontWeight.w500)), old
-              Text("OR", style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 14)),
+              Text(
+                //"OR", //old IGV
+                l.loginOr,
+                style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 14)),
               const SizedBox(height: 10),
               OutlinedButton(
                 onPressed: () {},
@@ -359,7 +385,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Image.asset('./assets/images/facebook_icon.png'),
                     const SizedBox(width: 15),
                     Text(
-                      "CONECTARE CU FACEBOOK",
+                      //"CONECTARE CU FACEBOOK", //old IGV
+                      l.loginConectareCuFacebook,
                       style: GoogleFonts.rubik(color: Colors.blue, fontWeight: FontWeight.w400, fontSize: 16),
                     ),
                   ],
@@ -382,7 +409,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Image.asset('./assets/images/google_icon.png'),
                     const SizedBox(width: 15),
                     Text(
-                      "CONECTARE CU GOOGLE",
+                      //"CONECTARE CU GOOGLE", //old IGV
+                      l.loginConectareCuGoogle,
                       style: GoogleFonts.rubik(color: Colors.red, fontWeight: FontWeight.w400, fontSize: 16),
                     ),
                   ],
@@ -401,7 +429,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     backgroundColor: Colors.white,
                     minimumSize: const Size.fromHeight(50), // NEW
                     side: const BorderSide( color: Color.fromRGBO(14, 190, 127, 1),
-                      //color: Colors.green, old value
                       width: 1.5),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -414,19 +441,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       width:45,
                     ),
                     Text(
-                      "NU AI CONT?",
+                      //"NU AI CONT?", //old IGV
+                      l.loginNuAiCont,
                       style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
-                        //color: Colors.green, old value
                         fontWeight: FontWeight.w300, fontSize: 16),
                     ),
                     Text(
-                      " INSCRIE-TE!",
+                      //" INSCRIE-TE!", //old IGV
+                      l.loginInscrieTe,
                       style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
-                        //color: Colors.green, old value
                         fontWeight: FontWeight.w400, fontSize: 16),
-                    ),                  ],
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(

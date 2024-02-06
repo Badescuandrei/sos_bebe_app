@@ -24,6 +24,8 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:http/http.dart' as http;
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
@@ -116,7 +118,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
   
   Future<http.Response?> trimitePinPentruStergereContClient() async {
-      
+
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!;  
          
     SharedPreferences prefs = await SharedPreferences.getInstance(); 
     
@@ -149,7 +153,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
       print('Cod trimis cu succes!');
 
-      textMessage = 'Cod trimis cu succes!';
+      //textMessage = 'Cod trimis cu succes!';// old IGV
+      textMessage = l.profilPacientCodTrimisCuSucces;
+
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
       
@@ -160,7 +166,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
       print('Apel invalid');
 
-      textMessage = 'Apel invalid!';
+      //textMessage = 'Apel invalid!'; //old IGV
+      textMessage = l.profilPacientApelInvalid;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -172,7 +180,8 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
       //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
       print('Cont inexistent');
 
-      textMessage = 'Cont inexistent!';
+      //textMessage = 'Cont inexistent!'; //old IGV
+      textMessage = l.profilPacientContInexistent;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -181,9 +190,11 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
     {
 
       
-      print('Informatii insuficiente');
+      print('Cont existent dar clientul nu are date de contact!');
       
-      textMessage = 'Cont existent dar clientul nu are date de contact!';
+      //textMessage = 'Cont existent dar clientul nu are date de contact!'; //old IGV
+
+      textMessage = l.profilPacientContExistentFaraDateContact;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -191,9 +202,11 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
     else if (int.parse(resTrimitePinPentruStergere!.body) == 500)
     {
 
-      print('A apărut o eroare la execuția metodei');
+      print('A apărut o eroare la execuția metodei!');
 
-      textMessage = 'A apărut o eroare la execuția metodei!';
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+      textMessage = l.profilPacientAAparutOEroare;
+      
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -214,6 +227,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor:const Color.fromRGBO(30, 214, 158, 1),
@@ -225,7 +241,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
           const BackButton(
             color: Colors.white,
           ),
-        title:Text('Profilul meu',
+        title:Text(
+          //'Profilul meu',
+            l.profilPacientProfilulMeuTitlu,
             style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 16, fontWeight: FontWeight.w500),
           ),
         centerTitle: true,
@@ -268,7 +286,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                                 );
                               },
                               child: 
-                              Text('Editare cont',
+                              Text(
+                                //'Editare cont', //old IGV
+                                l.profilPacientEditareCont,
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                             ),
@@ -321,7 +341,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,    
                             children: [
-                              Text('Doctori Salvati',
+                              Text(
+                                //'Doctori Salvati', //old IGV
+                                l.profilPacientDoctoriSalvati,
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               IconButton(
@@ -363,7 +385,8 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                                   else
                                   {
 
-                                    showSnackbar(context, 'Nu există facturi de afișat!', Colors.red, Colors.black,);
+                                    //showSnackbar(context, 'Nu există facturi de afișat!', Colors.red, Colors.black,);
+                                    showSnackbar(context, l.profilPacientNuExistaFacturiDeAfisat, Colors.red, Colors.black,);
 
                                   }
                                 }
@@ -378,7 +401,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
                               },
                               child: 
-                              Text('Vezi Plăti',
+                              Text(
+                                //'Vezi Plăti', //old IGV
+                                l.profilPacientVeziPlati,
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                             ),
@@ -399,7 +424,7 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                                   else
                                   {
 
-                                    showSnackbar(context, 'Nu există facturi de afișat!', Colors.red, Colors.black,);
+                                    showSnackbar(context, l.profilPacientNuExistaFacturiDeAfisat, Colors.red, Colors.black,);
 
                                   }
                                 }
@@ -424,7 +449,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                           children: [
                             TextButton(
                               onPressed: () {},
-                              child: Text('GDPR',
+                              child: Text(
+                                //'GDPR', //old IGV
+                                l.profilPacientGDPR,
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                             ),
@@ -476,7 +503,9 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                             }
                           }
                         },
-                        child: Text('Dezactivare cont',
+                        child: Text(
+                          //'Dezactivare cont', //old IGV
+                          l.profilPacientDezactivareCont,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                       ),
@@ -486,7 +515,8 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                   customDividerProfil(),
                   const SizedBox(height: 20),
 
-                  IconTextAndSwitchWidget(iconPath:'./assets/images/deconectare_icon.png', text: "Deconectare", callback: callbackDeconectare, isToggled: deconectareActivat),
+                  //IconTextAndSwitchWidget(iconPath:'./assets/images/deconectare_icon.png', text: "Deconectare", callback: callbackDeconectare, isToggled: deconectareActivat), //old IGV
+                  IconTextAndSwitchWidget(iconPath:'./assets/images/deconectare_icon.png', text: l.profilPacientDeconectare, callback: callbackDeconectare, isToggled: deconectareActivat),
                   /*
                   const SizedBox(height: 20),
                   customDividerProfil(),
@@ -516,7 +546,8 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                   customDividerProfil(),
                   const SizedBox(height: 20),
 
-                  const IconAndText(iconPath: './assets/images/termeni_si_conditii_icon.png', termeniSiConditii:'Termeni și Condiții'),
+                  //const IconAndText(iconPath: './assets/images/termeni_si_conditii_icon.png', termeniSiConditii:'Termeni și Condiții'), //old IGV
+                  IconAndText(iconPath: './assets/images/termeni_si_conditii_icon.png', termeniSiConditii: l.profilPacientTermeniSiConditii),
                   
                   const SizedBox(height: 20),
                   customDividerProfil(),

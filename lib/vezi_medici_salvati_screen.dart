@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
-import 'package:sos_bebe_app/initializare_medici_widget.dart';
+//import 'package:sos_bebe_app/initializare_medici_widget_old_dart';
 import 'package:sos_bebe_app/profil_pacient_screen.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';

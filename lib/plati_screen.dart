@@ -6,11 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/confirmare_servicii_screen.dart';
-import 'package:sos_bebe_app/initializare_recenzii.dart';
+import 'package:sos_bebe_app/initializare_recenzii_old_dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 //import 'package:sos_bebe_app/initializare_medici_widget.dart';
 //import 'package:sos_bebe_app/profil_screen.dart';
-import 'package:sos_bebe_app/medic_info_screen.dart';
+//import 'package:sos_bebe_app/medic_info_screen_old_dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
 
@@ -19,6 +19,8 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 import 'package:sos_bebe_app/factura_screen.dart';
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 
 FacturaClientMobile? facturaSelectata;
@@ -85,6 +87,8 @@ class _PlatiScreenState extends State<PlatiScreen> {
   @override
   Widget build(BuildContext context) {
 
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     List<Widget> mywidgets = [];
     //List<NumarPacientiItem> listaFiltrata = filterListByLowerDurata(25);
     //List<NumarPacientiItem> listaFiltrata = filterListByLowerData(DateTime.utc(2023, 2, 1));
@@ -97,8 +101,6 @@ class _PlatiScreenState extends State<PlatiScreen> {
 
     List<FacturaClientMobile> listaFiltrata;
 
-    
-
     //print('Lungime lista recenzii: ${listaFiltrata.length}');
 
     initializeDateFormatting();
@@ -106,7 +108,8 @@ class _PlatiScreenState extends State<PlatiScreen> {
     for(int index = 0; index <widget.listaFacturi!.length; index++){
       //print('Aici');
       var item = widget.listaFacturi![index];
-      String dataRo = DateFormat("dd MMMM yyyy", "ro").format(item.dataPlata);
+      //String dataRo = DateFormat("dd MMMM yyyy", "ro").format(item.dataPlata); //old IGV
+      String dataRo = DateFormat(l.platiTitlu, l.platiLimba).format(item.dataPlata);
       
       String dataRoLuna = dataRo.substring(0,3) + 
             dataRo.substring(3,4).toUpperCase() + 
@@ -150,7 +153,10 @@ class _PlatiScreenState extends State<PlatiScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        title: Text(
+          //'Înapoi', //old IGV
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -170,7 +176,8 @@ class _PlatiScreenState extends State<PlatiScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[
                   Text(
-                    'Plăți',
+                    //'Plăți', //old IGV
+                    l.platiTitlu,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 20,
@@ -181,7 +188,8 @@ class _PlatiScreenState extends State<PlatiScreen> {
               ),
             ),
 
-            const HeaderPlatiWidget( titluDataPlatii: 'Data plății', titluSumaPlatii: 'Suma plății',),
+            //const HeaderPlatiWidget( titluDataPlatii: 'Data plății', titluSumaPlatii: 'Suma plății',), //old IGV
+            HeaderPlatiWidget( titluDataPlatii: l.platiDataPlatiiTitlu, titluSumaPlatii: l.platiSumaPlatiiTitlu,),
 
             SingleChildScrollView(
               child: Center(
@@ -278,62 +286,61 @@ class PlatiWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      GestureDetector(
-        onTap: () async
+    return GestureDetector(
+      onTap: () async
+      {
+                
+        facturaSelectata = await getDetaliiFactura(id);
+
+        SharedPreferences prefs = await SharedPreferences.getInstance(); 
+
+        String user = prefs.getString('user')??'';
+
+        if (context.mounted)
         {
-                 
-          facturaSelectata = await getDetaliiFactura(id);
-
-          SharedPreferences prefs = await SharedPreferences.getInstance(); 
-
-          String user = prefs.getString('user')??'';
-
-          if (context.mounted)
-          {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FacturaScreen(user: user, facturaDetalii: facturaSelectata!,
-                ),
-              )
-            );
-          }
-
-        },
-        child: Container(
-          padding: const EdgeInsets.only(left:25, top:15, right: 20),
-          child:Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(         
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    textData,
-                    style: GoogleFonts.rubik(
-                      color: const Color.fromRGBO(103, 114, 148, 1),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        suma.toString(),
-                        style: GoogleFonts.rubik(
-                          color: const Color.fromRGBO(103, 114, 148, 1),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FacturaScreen(user: user, facturaDetalii: facturaSelectata!,
               ),
-            ],
-          ),            
+            )
+          );
+        }
+
+      },
+      child: Container(
+        padding: const EdgeInsets.only(left:25, top:15, right: 20),
+        child:Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(         
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  textData,
+                  style: GoogleFonts.rubik(
+                    color: const Color.fromRGBO(103, 114, 148, 1),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      suma.toString(),
+                      style: GoogleFonts.rubik(
+                        color: const Color.fromRGBO(103, 114, 148, 1),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-      );
+          ],
+        ),            
+      ),
+    );
   }
 }

@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sos_bebe_app/payment_screen.dart';
+import 'package:sos_bebe_app/payment_screen_old_dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
 
@@ -16,6 +16,8 @@ import 'package:http/http.dart' as http;
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:intl/intl.dart';
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
@@ -301,6 +303,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   }
 
   Future<http.Response?> updateChestionarDinContClient() async {
+
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -368,7 +374,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       print('Date chestionar trimise cu succes!');
 
-      textMessage = 'Date chestionar trimise cu succes!';
+      //textMessage = 'Date chestionar trimise cu succes!'; //old IGV
+      textMessage = l.questionareDateChestionarTrimiseCuSucces;
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
 
@@ -385,7 +392,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       print('Apel invalid');
 
-      textMessage = 'Apel invalid!';
+      //textMessage = 'Apel invalid!'; //old IGV
+
+      textMessage = l.questionareApelInvalid;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -406,7 +415,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       });
       
-      textMessage = 'Datele nu au putut fi trimise!';
+      //textMessage = 'Datele nu au putut fi trimise!'; //old IGV
+      textMessage = l.questionareDateleNuAuPututFiTrimise;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -424,7 +434,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       print('Informatii insuficiente!');
       
-      textMessage = 'Informatii insuficiente!';
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+      textMessage = l.questionareInformatiiInsuficiente;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -441,7 +452,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       print('A apărut o eroare la execuția metodei!');
       
-      textMessage = 'A apărut o eroare la execuția metodei!';
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+      textMessage = l.questionareAAparutOEroare;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -462,6 +474,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Column(
@@ -484,7 +499,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                     //Text('Chestionar', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500)) old
 
                     //adăugat de George Valentin Iordache
-                      Text('Chestionar', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
+                      Text(
+                        //'Chestionar', //old IGV
+                        l.questionareChestionar,
+                        style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
 
                     ],
                   ),

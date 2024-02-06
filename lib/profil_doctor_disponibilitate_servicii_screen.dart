@@ -6,11 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/confirmare_servicii_screen.dart';
-import 'package:sos_bebe_app/initializare_recenzii.dart';
+import 'package:sos_bebe_app/initializare_recenzii_old_dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
+
 //import 'package:sos_bebe_app/initializare_medici_widget.dart';
 //import 'package:sos_bebe_app/profil_screen.dart';
-import 'package:sos_bebe_app/medic_info_screen.dart';
+//import 'package:sos_bebe_app/medic_info_screen_old_dart';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
 
@@ -18,6 +20,9 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
@@ -107,6 +112,9 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
   @override
   Widget build(BuildContext context) {
+    
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
 
     List<Widget> mywidgets = [];
     //List<NumarPacientiItem> listaFiltrata = filterListByLowerDurata(25);
@@ -127,7 +135,9 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
     for(int index = 0; index <listaFiltrata.length; index++){
       //print('Aici');
       var item = listaFiltrata[index];
-      String dataRo = DateFormat("dd MMMM yyyy", "ro").format(item.dataRecenzie);
+      //String dataRo = DateFormat("dd MMMM yyyy", "ro").format(item.dataRecenzie); //old IGV
+
+      String dataRo = DateFormat(l.profilDoctorDisponibilitateServiciiDateFormat, l.profilDoctorDisponibilitateServiciiLimba).format(item.dataRecenzie);
       
       String dataRoLuna = dataRo.substring(0,3) + 
             dataRo.substring(3,4).toUpperCase() + 
@@ -171,7 +181,10 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        title: Text(
+          //'Înapoi', //old IGV
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -232,24 +245,28 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 */
                 ButtonServiciiProfilDoctor(
                   pret: '${widget.medicDetalii.pretIntrebare} ',
-                  moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == euro.value? 'EURO': 'RON',
-                  textServiciu: "Scrie o întrebare",
+                  //moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == euro.value? 'EURO': 'RON', //old IGV
+                  moneda: widget.medicDetalii.monedaPreturi == ron.value? l.profilDoctorDisponibilitateServiciiMonedaRon: widget.medicDetalii.monedaPreturi == euro.value? l.profilDoctorDisponibilitateServiciiMonedaEuro: l.profilDoctorDisponibilitateServiciiMonedaRon,
+                  //textServiciu: "Scrie o întrebare", //old IGV
+                  textServiciu: l.profilDoctorDisponibilitateServiciiScrieIntrebare,
                   iconLocation: './assets/images/chat_profil_doctor_icon.png',
                   color: const Color.fromRGBO(30, 166, 219, 1),
                   tipConsultatieReteta: false,
                 ),
                 ButtonServiciiProfilDoctor(
                   pret: '${widget.medicDetalii.pretIntrebare} ',
-                  moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == ron.value? 'EURO': 'RON',
-                  textServiciu: "Sună acum",
+                  moneda: widget.medicDetalii.monedaPreturi == ron.value? l.profilDoctorDisponibilitateServiciiMonedaRon: widget.medicDetalii.monedaPreturi == euro.value? l.profilDoctorDisponibilitateServiciiMonedaEuro: l.profilDoctorDisponibilitateServiciiMonedaRon,
+                  //textServiciu: "Sună acum", //old IGV
+                  textServiciu: l.profilDoctorDisponibilitateServiciiSunaAcum, 
                   iconLocation: './assets/images/apel_video_profil_doctor_icon.png',
                   color: const Color.fromRGBO(14, 190, 127, 1),
                   tipConsultatieReteta: false,
                 ),
                 ButtonServiciiProfilDoctor(
                   pret: '${widget.medicDetalii.pretIntrebare} ',
-                  moneda: widget.medicDetalii.monedaPreturi == ron.value? 'RON': widget.medicDetalii.monedaPreturi == ron.value? 'EURO': 'RON',
-                  textServiciu: "Primiți o recomandare și rețetă medicală",
+                  moneda: widget.medicDetalii.monedaPreturi == ron.value? l.profilDoctorDisponibilitateServiciiMonedaRon: widget.medicDetalii.monedaPreturi == euro.value? l.profilDoctorDisponibilitateServiciiMonedaEuro: l.profilDoctorDisponibilitateServiciiMonedaRon,
+                  //textServiciu: "Primiți o recomandare și rețetă medicală", //old IGV
+                  textServiciu: l.profilDoctorDisponibilitateServiciiPrimitiRecomandare,
                   iconLocation: './assets/images/reteta_profil_doctor_icon.png',
                   color: const Color.fromRGBO(241, 201, 0, 1),
                   tipConsultatieReteta: true,
@@ -263,7 +280,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               mainAxisAlignment: MainAxisAlignment.start,
               children:[
                 Text(
-                  'Sumar',
+                  //'Sumar', //old IGV
+                  l.profilDoctorDisponibilitateServiciiSumarTitlu,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -280,7 +298,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               children:[
                 SizedBox( width: 100,
                   child:Text(
-                    'Titlu profesional',
+                    //'Titlu profesional', //old IGV
+                    l.profilDoctorDisponibilitateServiciiTitluProfestional,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 12,
@@ -313,7 +332,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               children:[
                 SizedBox( width: 100,
                   child:Text(
-                    'Specializare',
+                    //'Specializare', //old IGV
+                    l.profilDoctorDisponibilitateServiciiSpecializare,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 12,
@@ -346,7 +366,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               children:[
                 SizedBox( width: 100,
                   child:Text(
-                    'Experiență',
+                    //'Experiență', //old IGV
+                    l.profilDoctorDisponibilitateServiciiExperienta,
                     style: GoogleFonts.rubik(
                       color: const Color.fromRGBO(103, 114, 148, 1),
                       fontSize: 12,
@@ -376,7 +397,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               mainAxisAlignment: MainAxisAlignment.start,
               children:[
                 Text(
-                  'Loc de muncă',
+                  //'Loc de muncă', //old IGV
+                  l.profilDoctorDisponibilitateServiciiLocDeMunca,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -437,7 +459,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               mainAxisAlignment: MainAxisAlignment.start,
               children:[
                 Text(
-                  'Activitate',
+                  //'Activitate', //old IGV
+                  l.profilDoctorDisponibilitateServiciiActivitate,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -456,7 +479,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 Image.asset('./assets/images/utilizatori_multumiti_icon.png'),
                 const SizedBox(width: 5),
                 Text(
-                  'Utilizatori mulțumiți: ',
+                  //'Utilizatori mulțumiți: ', //old IGV
+                  l.profilDoctorDisponibilitateServiciiUtilizatoriMultumiti,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -486,7 +510,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 Image.asset('./assets/images/numar_pacienti_ajutati_icon.png'),
                 const SizedBox(width: 5),
                 Text(
-                  'Am ajutat',
+                  //'Am ajutat', //old IGV
+                  l.profilDoctorDisponibilitateServiciiAmAjutat,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -494,8 +519,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   ),
                 ),
                 Text(
-                  //' ${widget.textActivitateNumarPacientiAplicatie} pacienți ', //old IGV
-                  ' ${widget.medicDetalii.totalClienti} pacienți ', 
+                  //' ${widget.medicDetalii.totalClienti} pacienți ', //old IGV
+                  ' ${widget.medicDetalii.totalClienti} ${l.profilDoctorDisponibilitateServiciiPacienti} ', 
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -503,7 +528,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   ),
                 ),
                 Text(
-                  ' ai aplicației',
+                  //' ai aplicației', //old IGV
+                  l.profilDoctorDisponibilitateServiciiAiAplicatiei,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -533,7 +559,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   ),
                 ),
                 Text(
-                  'Testimoniale',
+                  //'Testimoniale', //old IGV
+                  l.profilDoctorDisponibilitateServiciiTestimoniale,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -603,7 +630,8 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
               mainAxisAlignment: MainAxisAlignment.start,
               children:[
                 Text(
-                  'Recenzii',
+                  //'Recenzii', //old IGV
+                  l.profilDoctorDisponibilitateServiciiRecenzii,
                   style: GoogleFonts.rubik(
                     color: const Color.fromRGBO(103, 114, 148, 1),
                     fontSize: 12,
@@ -667,6 +695,9 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
 
   @override
   Widget build(BuildContext context) {
+
+
+  LocalizationsApp l = LocalizationsApp.of(context)!;
 
   return 
     
@@ -745,7 +776,11 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                               borderRadius: BorderRadius.circular(3.0),
                               color: const Color.fromRGBO(255, 0, 0, 1),
                             ),
-                              child: Text(' în consultație', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)),
+                              //child: Text(' în consultație', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)), //old IGV
+                              child: Text(
+                                //' în consultație', //old IGV
+                                l.profilDoctorDisponibilitateServiciiInConsultatie,
+                                style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)),
                             ) : const SizedBox(width:0, height:0),
                             RatingBar(
                               ignoreGestures: true,
@@ -995,6 +1030,9 @@ class RecenzieWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return 
       Container(
         padding: const EdgeInsets.only(left:25, top:15, right: 20),
@@ -1031,7 +1069,8 @@ class RecenzieWidget extends StatelessWidget {
                     const SizedBox(width:5),
                     isInteger(rating)?
                     Text(
-                      'Rating ${rating.toInt()}/5',
+                      //'Rating ${rating.toInt()}/5', //old IGV
+                      '${l.profilDoctorDisponibilitateServiciiRating} ${rating.toInt()}/5',
                       style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(103, 114, 148, 1),
                         fontSize: 9,
@@ -1039,7 +1078,8 @@ class RecenzieWidget extends StatelessWidget {
                       ),
                     ):
                     Text(
-                      'Rating $rating/5',
+                      //'Rating $rating/5', //old IGV
+                      '${l.profilDoctorDisponibilitateServiciiRating} $rating/5',
                       style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(103, 114, 148, 1),
                         fontSize: 9,

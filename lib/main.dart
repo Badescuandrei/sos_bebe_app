@@ -47,7 +47,7 @@ import  'package:sos_bebe_app/testimonial_screen.dart';
 
 import  'package:sos_bebe_app/confirmare_screen.dart';
 
-import  'package:sos_bebe_app/doctor_selection_screen.dart';
+//import  'package:sos_bebe_app/doctor_selection_screen_old_dart'; //old Andrei Bădescu
 
 
 void main() {
@@ -63,8 +63,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return MaterialApp(
-      title: 'Flutter Demo',
+      //title: 'Flutter Demo',
+      //title: 'SOS Bebe', //old IGV
+      title: l.mainTitlu,
       locale: const Locale('ro', 'RO'),
       localizationsDelegates: const [
         LocalizationsApp.delegate,

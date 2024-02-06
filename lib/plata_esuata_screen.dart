@@ -2,14 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class PlataEsuataScreen extends StatelessWidget {
   const PlataEsuataScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        title: Text(
+          //'Înapoi' //old IGV
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -28,7 +36,9 @@ class PlataEsuataScreen extends StatelessWidget {
                   Row( 
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                    Text('Plată eșuată', 
+                    Text(
+                      //'Plată eșuată', //old IGV
+                      l.plataEsuataTitlu,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 18, fontWeight: FontWeight.w500),
                     ),
                   ],
@@ -49,8 +59,11 @@ class PlataEsuataScreen extends StatelessWidget {
                           fontSize: 16,
                           fontWeight: FontWeight.w300,
                         ),
-                        children: const <TextSpan>[
-                          TextSpan(text: 'S-ar putea să nu aveți suficiente fonduri în cont pentru a plăti. Verificați soldul contului sau contactați-vă banca. Card de credit sau de debit neeligibil.'),
+                        children: <TextSpan>[
+                          TextSpan(
+                            //text: 'S-ar putea să nu aveți suficiente fonduri în cont pentru a plăti. Verificați soldul contului sau contactați-vă banca. Card de credit sau de debit neeligibil.' //old IGV 
+                            text: l.plataEsuataFonduriInsuficiente,
+                            ),
                         ],
                       ),
                       maxLines: 4,
@@ -83,7 +96,8 @@ class PlataEsuataScreen extends StatelessWidget {
                       Text(
                         //' TRIMITE CHESTIONARUL', old
                         // style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18), old
-                        'CONTINUĂ',
+                        //'CONTINUĂ', //old IGV
+                        l.plataEsuataContinua,
                         style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ],

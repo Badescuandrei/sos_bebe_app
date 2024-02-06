@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sos_bebe_app/doctor_selection_screen.dart';
+//import 'package:sos_bebe_app/doctor_selection_screen_old_dart';
 import 'package:auto_size_text/auto_size_text.dart'; //George Valentin Iordache
 
 class ServiceSelectScreen extends StatelessWidget {
@@ -89,11 +89,13 @@ class ServiceSelectScreen extends StatelessWidget {
               const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
+                  /*
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
                       return const DoctorSelectionScreen();
                     },
                   ));
+                  */
                 },
                 child: Container(
                   decoration: BoxDecoration(

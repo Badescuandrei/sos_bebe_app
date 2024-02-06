@@ -4,11 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:sos_bebe_app/login_screen.dart';
 import 'package:sos_bebe_app/vezi_medici_disponibili_intro_screen.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class IntroScreen extends StatelessWidget {
   const IntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: 
@@ -50,7 +56,8 @@ class IntroScreen extends StatelessWidget {
                           Expanded(
                             child: AutoSizeText.rich(// old value RichText(
                               TextSpan(
-                                text: "Găsește cel mai bun Doctor Pediatru!",
+                                //text: "Găsește cel mai bun Doctor Pediatru!", //old IGV
+                                text: l.introGasesteDoctorPediatru,
                                 style: GoogleFonts.rubik(
                                   //color: const Color.fromRGBO(14, 210, 62, 1), old
                                   color: const Color.fromRGBO(14, 190, 127, 1),
@@ -72,7 +79,8 @@ class IntroScreen extends StatelessWidget {
                           Expanded(
                             child:AutoSizeText.rich( 
                               TextSpan(
-                                text: "Găsiți cei mai buni medici specialiști pentru copilul dvs.",
+                                //text: "Găsiți cei mai buni medici specialiști pentru copilul dvs.", //old IGV
+                                text: l.introGasitiMediciSpecialisti,
                                 style: GoogleFonts.rubik(
                                   color: Colors.black,
                                   //fontSize: 18, old
@@ -124,7 +132,8 @@ class IntroScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(width: 20), // give the width that you desire
                                       Text(
-                                        "CONTINUĂ",
+                                        //"CONTINUĂ", //old IGV
+                                        l.introContinua,
                                         style: GoogleFonts.rubik(
                                           color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
                                           //color: Colors.white, fontWeight: FontWeight.w500, fontSize: 24), old cu mesajul RIGHT OVERFLOW BY 3 PIXELS

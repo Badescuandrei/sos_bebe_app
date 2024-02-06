@@ -316,20 +316,459 @@ class LocalizationsApp {
 
   // factura
 
-  String get facturaWidgetScreenDateFormat {
-    return _localizedValues[locale.languageCode]!['factura']['widget_screen_date_format'];
+  String get facturaDateFormat {
+    return _localizedValues[locale.languageCode]!['factura']['date_format'];
   }
 
-  String get facturaWidgetScreenLimba {
-    return _localizedValues[locale.languageCode]!['factura']['widget_screen_limba'];
+  String get facturaLimba {
+    return _localizedValues[locale.languageCode]!['factura']['limba'];
   }
 
-  String get facturaWidgetScreenFacturaTitlu {
-    return _localizedValues[locale.languageCode]!['factura']['widget_screen_factura_titlu'];
+  String get facturaFacturaTitlu {
+    return _localizedValues[locale.languageCode]!['factura']['factura_titlu'];
+  }
+
+  String get facturaNumeFactura {
+    return _localizedValues[locale.languageCode]!['factura']['nume_factura'];
+  }
+
+  String get facturaEmailEmitent {
+    return _localizedValues[locale.languageCode]!['factura']['email_emitent'];
+  }
+
+  String get facturaTelefonEmitent {
+    return _localizedValues[locale.languageCode]!['factura']['telefon_emitent'];
+  }
+
+  String get facturaTitluPentruBeneficiar {
+    return _localizedValues[locale.languageCode]!['factura']['titlu_pentru_beneficiar'];
+  }
+
+  String get facturaUserId {
+    return _localizedValues[locale.languageCode]!['factura']['user_id'];
+  }
+
+  String get facturaEmailBeneficiar {
+    return _localizedValues[locale.languageCode]!['factura']['email_beneficiar'];
+  }
+
+  String get facturaTelefonBeneficiar {
+    return _localizedValues[locale.languageCode]!['factura']['telefon_beneficiar'];
+  }
+
+  String get facturaDataPlatiiTitlu {
+    return _localizedValues[locale.languageCode]!['factura']['data_platii_titlu'];
+  }
+
+  String get facturaDataPlatiiNume {
+    return _localizedValues[locale.languageCode]!['factura']['data_platii_nume'];
+  }
+
+  String get facturaProcesata {
+    return _localizedValues[locale.languageCode]!['factura']['procesata'];
+  }
+
+  String get facturaDetaliiFactura {
+    return _localizedValues[locale.languageCode]!['factura']['detalii_factura'];
+  }
+
+  String get facturaServicii {
+    return _localizedValues[locale.languageCode]!['factura']['servicii'];
+  }
+
+  String get facturaNumar {
+    return _localizedValues[locale.languageCode]!['factura']['numar'];
+  }
+
+  String get facturaSerie {
+    return _localizedValues[locale.languageCode]!['factura']['serie'];
+  }
+
+  String get facturaValoareCuTVA {
+    return _localizedValues[locale.languageCode]!['factura']['valoare_cu_tva'];
+  }
+
+  String get facturaValoareTVA {
+    return _localizedValues[locale.languageCode]!['factura']['valoare_tva'];
+  }
+
+  String get facturaValoareFaraTVA {
+    return _localizedValues[locale.languageCode]!['factura']['valoare_fara_tva'];
+  }
+
+  String get facturaButonDownloadPdf {
+    return _localizedValues[locale.languageCode]!['factura']['buton_download_pdf'];
   }
 
 
+  // intro
 
+  String get introGasesteDoctorPediatru {
+    return _localizedValues[locale.languageCode]!['intro']['gaseste_doctor_pediatru'];
+  }
+
+  String get introGasitiMediciSpecialisti {
+    return _localizedValues[locale.languageCode]!['intro']['gasiti_medici_specialisti'];
+  }
+
+  String get introContinua {
+    return _localizedValues[locale.languageCode]!['intro']['continua'];
+  }
+
+
+  // login
+
+  String get loginLoginCuSucces {
+    return _localizedValues[locale.languageCode]!['login']['login_cu_succes'];
+  }
+
+  String get loginEroareReintroducetiUserParola {
+    return _localizedValues[locale.languageCode]!['login']['eroare_reintroduceti_user_parola'];
+  }
+
+  String get loginTelefonEmailUtilizatorHint {
+    return _localizedValues[locale.languageCode]!['login']['telefon_email_utilizator_hint'];
+  }
+
+  String get loginMesajIntroducetiUtilizatorEmailTelefon {
+    return _localizedValues[locale.languageCode]!['login']['mesaj_introduceti_utilizator_email_telefon'];
+  }
+
+  String get loginParola {
+    return _localizedValues[locale.languageCode]!['login']['parola'];
+  }
+
+  String get loginMesajIntroducetiParolaNoua {
+    return _localizedValues[locale.languageCode]!['login']['mesaj_introduceti_parola_noua'];
+  }
+
+  String get loginMesajParolaCelPutin {
+    return _localizedValues[locale.languageCode]!['login']['mesaj_parola_cel_putin'];
+  }
+
+  String get loginAiUitatParola {
+    return _localizedValues[locale.languageCode]!['login']['ai_uitat_parola'];
+  }
+
+  String get loginConectare {
+    return _localizedValues[locale.languageCode]!['login']['conectare'];
+  }
+
+  String get loginOr {
+    return _localizedValues[locale.languageCode]!['login']['or'];
+  }
+
+  String get loginConectareCuFacebook {
+    return _localizedValues[locale.languageCode]!['login']['conectare_cu_facebook'];
+  }
+
+  String get loginConectareCuGoogle {
+    return _localizedValues[locale.languageCode]!['login']['conectare_cu_google'];
+  }
+
+  String get loginNuAiCont {
+    return _localizedValues[locale.languageCode]!['login']['nu_ai_cont'];
+  }
+
+  String get loginInscrieTe {
+    return _localizedValues[locale.languageCode]!['login']['inscrie_te'];
+  }
+
+
+  // main
+
+  String get mainTitlu {
+    return _localizedValues[locale.languageCode]!['main']['titlu'];
+  }
+
+
+  // parola_noua_pacient
+
+  String get parolaNouaPacientMesajParolaResetataCuSucces {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['mesaj_parola_resetata_cu_succes'];
+  }
+
+  String get parolaNouaPacientApelInvalid {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['apel_invalid'];
+  }
+
+  String get parolaNouaPacientEroareResetareParola {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['eroare_resetare_parola'];
+  }
+
+  String get parolaNouaPacientInformatiiInsuficiente {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['informatii_insuficiente'];
+  }
+
+  String get parolaNouaPacientAAparutOEroare {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['a_aparut_o_eroare'];
+  }
+
+  String get parolaNouaPacientParolaNoua {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['parola_noua'];
+  }
+
+  String get parolaNouaPacientReseteazaParolaText {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['reseteaza_parola_text'];
+  }
+
+  String get parolaNouaPacientParolaHint {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['parola_hint'];
+  }
+
+  String get parolaNouaPacientIntroducetiParolaNoua {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['introduceti_parola_noua'];
+  }
+
+  String get parolaNouaPacientParolaCelPutin {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['parola_cel_putin'];
+  }
+
+  String get parolaNouaPacientParolaAceeasi {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['parola_aceeasi'];
+  }
+
+  String get parolaNouaPacientRepetaNouaParola {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['repeta_noua_parola'];
+  }
+
+  String get parolaNouaPacientSeIncearcaTrimitereaCodului {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['se_incearca_trimiterea_codului'];
+  }
+
+  String get parolaNouaPacientConfirma {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['confirma'];
+  }
+
+
+  // plata_esuata
+
+  String get plataEsuataTitlu {
+    return _localizedValues[locale.languageCode]!['plata_esuata']['plata_esuata_titlu'];
+  }
+
+  String get plataEsuataFonduriInsuficiente {
+    return _localizedValues[locale.languageCode]!['plata_esuata']['fonduri_insuficiente'];
+  }
+
+  String get plataEsuataContinua {
+    return _localizedValues[locale.languageCode]!['plata_esuata']['continua'];
+  }
+
+
+  // plata_succes
+
+  String get plataSuccesTitlu {
+    return _localizedValues[locale.languageCode]!['plata_succes']['plata_succes_titlu'];
+  }
+
+  String get plataSuccesVaMultumimDetalii {
+    return _localizedValues[locale.languageCode]!['plata_succes']['va_multumim_detalii'];
+  }
+
+  String get plataSuccesVaMultumimSimplu {
+    return _localizedValues[locale.languageCode]!['plata_succes']['va_multumim_simplu'];
+  }
+
+  String get plataSuccesVeiFiRedirectionat {
+    return _localizedValues[locale.languageCode]!['plata_succes']['vei_fi_redirectionat'];
+  }
+
+
+  // plati
+
+  String get platiDateFormat {
+    return _localizedValues[locale.languageCode]!['plati']['date_format'];
+  }
+
+  String get platiLimba {
+    return _localizedValues[locale.languageCode]!['plati']['limba'];
+  }
+
+  String get platiTitlu {
+    return _localizedValues[locale.languageCode]!['plati']['titlu'];
+  }
+
+  String get platiDataPlatiiTitlu {
+    return _localizedValues[locale.languageCode]!['plati']['data_platii_titlu'];
+  }
+
+  String get platiSumaPlatiiTitlu {
+    return _localizedValues[locale.languageCode]!['plati']['suma_platii_titlu'];
+  }
+
+
+  // profil_doctor_disponibilitate_servicii
+
+  String get profilDoctorDisponibilitateServiciiDateFormat {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['date_format'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiLimba {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['limba'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiMonedaRon {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['moneda_ron'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiMonedaEuro {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['moneda_euro'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiScrieIntrebare {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['scrie_intrebare'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiSunaAcum {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['suna_acum'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiPrimitiRecomandare {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['primiti_recomandare'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiSumarTitlu {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['sumar_titlu'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiTitluProfestional {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['titlu_profestional'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiSpecializare {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['specializare'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiExperienta {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['experienta'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiLocDeMunca {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['loc_de_munca'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiActivitate {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['activitate'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiUtilizatoriMultumiti {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['utilizatori_multumiti'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiAmAjutat {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['am_ajutat'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiPacienti {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['pacienti'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiAiAplicatiei {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['ai_aplicatiei'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiTestimoniale {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['testimoniale'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiRecenzii {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['recenzii'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiInConsultatie {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['in_consultatie'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiRating {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['rating'];
+  }
+
+
+  // profil_pacient
+
+  String get profilPacientCodTrimisCuSucces {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['cod_trimis_cu_succes'];
+  }
+
+  String get profilPacientApelInvalid {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['apel_invalid'];
+  }
+
+  String get profilPacientContInexistent {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['cont_inexistent'];
+  }
+
+  String get profilPacientContExistentFaraDateContact {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['cont_existent_fara_date_contact'];
+  }
+
+  String get profilPacientAAparutOEroare {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['a_aparut_o_eroare'];
+  }
+
+  String get profilPacientProfilulMeuTitlu {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['profilul_meu_titlu'];
+  }
+
+  String get profilPacientEditareCont {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['editare_cont'];
+  }
+
+  String get profilPacientDoctoriSalvati {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['doctori_salvati'];
+  }
+
+  String get profilPacientNuExistaFacturiDeAfisat {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['nu_exista_facturi_de_afisat'];
+  }
+
+  String get profilPacientVeziPlati {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['vezi_plati'];
+  }
+
+  String get profilPacientGDPR {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['GDPR'];
+  }
+
+  String get profilPacientDezactivareCont {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['dezactivare_cont'];
+  }
+
+  String get profilPacientDeconectare {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['deconectare'];
+  }
+
+  String get profilPacientTermeniSiConditii {
+    return _localizedValues[locale.languageCode]!['profil_pacient']['termeni_si_conditii'];
+  }
+
+
+  // questionare
+
+  String get questionareDateChestionarTrimiseCuSucces {
+    return _localizedValues[locale.languageCode]!['questionare']['date_chestionar_trimise_cu_succes'];
+  }
+
+  String get questionareApelInvalid {
+    return _localizedValues[locale.languageCode]!['questionare']['apel_invalid'];
+  }
+
+  String get questionareDateleNuAuPututFiTrimise {
+    return _localizedValues[locale.languageCode]!['questionare']['datele_nu_au_putut_fi_trimise'];
+  }
+
+  String get questionareInformatiiInsuficiente {
+    return _localizedValues[locale.languageCode]!['questionare']['informatii_insuficiente'];
+  }
+
+  String get questionareAAparutOEroare {
+    return _localizedValues[locale.languageCode]!['questionare']['a_aparut_o_eroare'];
+  }
+
+  String get questionareChestionar {
+    return _localizedValues[locale.languageCode]!['questionare']['chestionar'];
+  }
 
 
 
@@ -730,10 +1169,13 @@ class LocalizationsApp {
     return _localizedValues[locale.languageCode]!['home']['hp'];
   }
 
-
+/*
+  
   String get platiTitlu {
     return _localizedValues[locale.languageCode]!['plati']['title'];
   }
+
+*/
 
   String get platiNeplatite {
     return _localizedValues[locale.languageCode]!['plati']['neplatite'];
