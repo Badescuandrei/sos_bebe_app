@@ -9,6 +9,8 @@ import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class ResetPasswordPacientScreen extends StatefulWidget {
@@ -37,6 +39,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -47,7 +52,8 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Resetează parola',
+                    //'Resetează parola', //old IGV
+                    l.resetPasswordPacientReseteazaParolaTitlu,
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         fontSize: 18,
@@ -69,8 +75,11 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
-                            children: const <TextSpan>[
-                              TextSpan(text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                                text: l.resetPasswordPacientReseteazaParolaTextMijloc,
+                              ),
                             ],
                           ),
                           maxLines: 1,
@@ -101,7 +110,8 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                           ),
                           filled: true,
                           fillColor: Colors.white,
-                          hintText: "Telefon, e-mail sau utilizator",
+                          //hintText: "Telefon, e-mail sau utilizator", //old IGV
+                          hintText: l.resetPasswordPacientTelefonEmailUtilizatorHint,
                           hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                           /*
                           prefixIcon: const Padding(
@@ -121,8 +131,12 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                           //String namePattern = r'^[a-z A-Z,.\-]+$';
                           String userNamePattern = r'^(?=[a-zA-Z][a-zA-Z0-9._]{7,29}$)(?!.*[_.]{2})[^_.].*[^_.]$';
                           RegExp nameRegExp = RegExp(userNamePattern);
-                          if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
-                            return "Introduceți un utilizator/email/numar de telefon valabil!";
+                          if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) 
+                          {
+                            
+                            //return "Introduceți un utilizator/email/numar de telefon valid!"; //old IGV
+                            return l.resetPasswordPacientIntroducetiUtilizatorEmailTelefon;
+
                           } else {
                             return null;
                           }
@@ -205,7 +219,10 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
                             if(context.mounted)
                             {
-                              showSnackbar(context, "Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe", Colors.red, Colors.black);
+                              
+                              //showSnackbar(context, "Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe", Colors.red, Colors.black);
+                              showSnackbar(context, l.resetPasswordPacientContulDumneavostra, Colors.red, Colors.black);
+
                             }
                             //return;
 
@@ -256,7 +273,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Send code',
+                    child: Text(
+                        //'Send code', //old IGV
+                        l.resetPasswordPacientSendCode,
                         style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),  
@@ -270,6 +289,10 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
   }
 
   Future<http.Response?> trimitePinPentruResetareParolaClient() async {
+
+      
+      LocalizationsApp l = LocalizationsApp.of(context)!;
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       String textMessage = '';
@@ -290,7 +313,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
         print('Cod trimis cu succes!');
 
-        textMessage = 'Cod trimis cu succes!';
+        //textMessage = 'Cod trimis cu succes!'; //old IGV
+        textMessage = l.resetPasswordPacientCodTrimisCuSucces;
+
         backgroundColor = const Color.fromARGB(255, 14, 190, 127);
         textColor = Colors.white;
         
@@ -301,7 +326,8 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
         print('Apel invalid');
 
-        textMessage = 'Apel invalid!';
+        //textMessage = 'Apel invalid!'; //old IGV
+        textMessage = l.resetPasswordPacientApelInvalid;
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -313,7 +339,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Cont inexistent');
 
-        textMessage = 'Cont inexistent!';
+        //textMessage = 'Cont inexistent!'; //old IGV
+
+        textMessage = l.resetPasswordPacientContInexistent;
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -324,7 +352,10 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
         
         print('Informatii insuficiente');
         
-        textMessage = 'Cont existent dar clientul nu are date de contact!';
+        //textMessage = 'Cont existent dar clientul nu are date de contact!'; //old IGV
+
+        textMessage = l.resetPasswordPacientContExistentFaraDate; //old IGV
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -334,7 +365,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
         print('A apărut o eroare la execuția metodei');
 
-        textMessage = 'A apărut o eroare la execuția metodei!';
+        //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+        
+        textMessage = l.resetPasswordPacientAAparutOEroare;
         backgroundColor = Colors.red;
         textColor = Colors.black;
 

@@ -25,6 +25,9 @@ import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 List<ConversatieMobile> listaConversatii = [];
@@ -542,12 +545,16 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
   @override
   Widget build(BuildContext context) {
 
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!; 
+
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         toolbarHeight: 75,
-        title: const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
+        //title: const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
+        title: RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: l.raspundeIntrebareDoarChatNumePacient,),
       ),
       body:
 
@@ -559,7 +566,10 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.green,
           ),
-          child: const Text('Apel mesaje'),
+          child: Text(
+            //'Apel mesaje' //old IGV
+            l.raspundeIntrebareDoarChatApelMesaje,
+          ),
           onPressed: () async 
           {
 
@@ -579,7 +589,22 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
               showUserNames: true,
               typingIndicatorOptions : const typing_indicator.TypingIndicatorOptions(),
               //l10n: const ChatL10nRo().toChatL10n,
-              l10n: const chat_l10n.ChatL10nRo(),
+              
+              //l10n: const chat_l10n.ChatL10nRo(),// old IGV
+              l10n: chat_l10n.ChatL10nEn(
+                // attachmentButtonAccessibilityLabel : 'Trimite media', //old IGV
+                attachmentButtonAccessibilityLabel : l.raspundeIntrebareDoarChatTrimiteMedia,
+                //emptyChatPlaceholder : 'Nu aveți nici un mesaj încă', //old IGV
+                emptyChatPlaceholder : l.raspundeIntrebareDoarChatNuAvetiNiciUnMesaj,
+                //fileButtonAccessibilityLabel : 'Fișier', //old IGV
+                fileButtonAccessibilityLabel : l.raspundeIntrebareDoarChatFisierMesajChat,
+                //inputPlaceholder : 'Scrie un mesaj...', //old IGV
+                inputPlaceholder : l.raspundeIntrebareDoarChatScrieMesaj,
+                //sendButtonAccessibilityLabel : 'Trimite', //old IGV
+                sendButtonAccessibilityLabel : l.raspundeIntrebareDoarChatTrimite,
+                //unreadMessagesLabel : 'Mesaje necitite', //old IGV
+                unreadMessagesLabel : l.raspundeIntrebareDoarChatMesajeNecitite,
+              ),
               theme: const chat_theme.DefaultChatTheme(
                 inputBackgroundColor: Color.fromRGBO(255, 255, 255, 1), // Color.fromRGBO(30, 214, 158, 1),
                 inputTextColor: Color.fromRGBO(103, 114, 148, 1), // Color.fromRGBO(30, 214, 158, 1),

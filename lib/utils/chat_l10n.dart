@@ -81,6 +81,23 @@ class ChatL10nEn extends ChatL10n {
   });
 }
 
+
+/// English l10n which extends [ChatL10n].
+@immutable
+class ChatL10nUniv extends ChatL10n {
+  /// Creates English l10n. Use this constructor if you want to
+  /// override only a couple of properties, otherwise create a new class
+  /// which extends [ChatL10n].
+  const ChatL10nUniv({
+    super.attachmentButtonAccessibilityLabel = 'Trimite media',
+    super.emptyChatPlaceholder = 'Nu aveți nici un mesaj încă',
+    super.fileButtonAccessibilityLabel = 'Fișier',
+    super.inputPlaceholder = 'Scrie un mesaj...',
+    super.sendButtonAccessibilityLabel = 'Trimite',
+    super.unreadMessagesLabel = 'Mesaje necitite',
+  });
+}
+
 /// English l10n which extends [ChatL10n].
 @immutable
 class ChatL10nRo extends ChatL10n {

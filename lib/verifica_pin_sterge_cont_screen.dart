@@ -11,6 +11,9 @@ import 'package:http/http.dart' as http;
 //import 'package:flutter_pin_code_widget/flutter_pin_code_widget.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class VerificaPinStergeContScreen extends StatefulWidget {
@@ -38,6 +41,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -48,7 +54,8 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Verifică codul și șterge contul',
+                    //'Verifică codul și șterge contul', //old IGV
+                    l.verificaPinStergeContVerificaCodulStergeContTitlu,
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         fontSize: 18,
@@ -70,8 +77,11 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
-                            children: const <TextSpan>[
-                              TextSpan(text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                                text: l.verificaPinStergeContTextMijloc,
+                              ),
                             ],
                           ),
                           maxLines: 1,
@@ -150,7 +160,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                           },
                           child:
                           Center(
-                            child:Text('Timite din nou codul', 
+                            child:Text(
+                              //'Trimite din nou codul', //old IGV
+                              l.verificaPinStergeContTrimiteDinNouCodul,
                               style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontWeight: FontWeight.w300, fontSize: 14))
                           ),
                         ),  
@@ -167,7 +179,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                   width: 160,
                   height: 44,
                   child: Center(
-                    child:Text('Se verifică codul trimis', 
+                    child:Text(
+                      //'Se verifică codul trimis', //old IGV
+                      l.verificaPinStergeContSeVerificaCodulTrimis,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontWeight: FontWeight.w300, fontSize: 14))
                   ),
                 ):
@@ -176,7 +190,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                   width: 160,
                   height: 44,
                   child: Center(
-                    child:Text('Se sterge contul', 
+                    child:Text(
+                      //'Se sterge contul', //old IGV
+                      l.verificaPinStergeContSeStergeContul,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontWeight: FontWeight.w300, fontSize: 14))
                   ),
                 ):
@@ -257,8 +273,10 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Verifică pin și șterge cont',
-                        style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
+                    child: Text(
+                      //'Verifică pin și șterge cont', //old IGV
+                      l.verificaPinStergeContVerificaPinStergeContButon,
+                      style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),
                 //const SizedBox(height: 100),
@@ -271,6 +289,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
   }
 
   Future<http.Response?> verificaCodPinClient() async {
+
+
+      LocalizationsApp l = LocalizationsApp.of(context)!;
 
       /*
       http.Response? res = await apiCallFunctions.getContClient(
@@ -309,7 +330,10 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         //if (context.mounted)
         //{
 
-          textMessage = 'Cod verificat cu succes!';
+          //textMessage = 'Cod verificat cu succes!'; //old IGV
+
+          textMessage = l.verificaPinStergeContCodVerificatCuSucces;
+
           backgroundColor = const Color.fromARGB(255, 14, 190, 127);
           textColor = Colors.white;
           //showSnackbar(context, "Cod verificat cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
@@ -334,7 +358,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         //if (context.mounted)
         //{
 
-          textMessage = 'Apel invalid!';
+          //textMessage = 'Apel invalid!'; //old IGV
+          textMessage = l.verificaPinStergeContApelInvalid;
+
           backgroundColor = Colors.red;
           textColor = Colors.black;
           //showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
@@ -362,7 +388,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         //if (context.mounted)
         //{
 
-        textMessage = 'Eroare! Codul nu a putut fi verificat!';
+        //textMessage = 'Eroare! Codul nu a putut fi verificat!'; //old IGV
+        textMessage = l.verificaPinStergeContEroareCodNeverificat;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
           //showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
@@ -386,7 +414,10 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         print('Informatii insuficiente!');
 
-        textMessage = 'Informatii insuficiente!';
+        //textMessage = 'Informatii insuficiente!'; //old IGV
+
+        textMessage = l.verificaPinStergeContInformatiiInsuficiente;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -404,7 +435,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         
         print('A apărut o eroare la execuția metodei');
         
-        textMessage = 'Informatii insuficiente!';
+        //textMessage = 'A apărut o eroare la execuția metodei!'; // old IGV
+
+        textMessage = l.verificaPinStergeContAAparutOEroare;
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -420,6 +453,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
     }
 
   Future<http.Response?> stergeContClient() async {
+
+    
+      LocalizationsApp l = LocalizationsApp.of(context)!;
 
       String textMessage = '';
       Color backgroundColor = Colors.red;
@@ -449,7 +485,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         print('Cont șters cu succes!');
 
-        textMessage = 'Cont șters cu succes!';
+        //textMessage = 'Cont șters cu succes!'; //old IGV
+        textMessage = l.verificaPinStergeContContStersCuSucces;
+
         backgroundColor = const Color.fromARGB(255, 14, 190, 127);
         textColor = Colors.white;
           
@@ -468,7 +506,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
           
         });
 
-        textMessage = 'Apel invalid!';
+        //textMessage = 'Apel invalid!'; //old IGV
+        textMessage = l.verificaPinStergeContApelInvalidStergeCont;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -488,7 +528,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
         print('Eroare! Contul nu a putut fi șters!');
 
-        textMessage = 'Eroare! Contul nu a putut fi șters!';
+        //textMessage = 'Eroare! Contul nu a putut fi șters!'; //old IGV
+        textMessage = l.verificaPinStergeContEroareContNesters;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -506,7 +548,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
         
         print('Informatii insuficiente!');
 
-        textMessage = 'Informatii insuficiente!';
+        //textMessage = 'Informatii insuficiente!'; //old IGV
+        textMessage = l.verificaPinStergeContInformatiiInsuficienteStergeCont;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
 
@@ -524,7 +568,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
 
         print('A apărut o eroare la execuția metodei!');
         
-        textMessage = 'A apărut o eroare la execuția metodei!';
+        //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+        textMessage = l.verificaPinStergeContAAparutOEroareStergeCont;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
 

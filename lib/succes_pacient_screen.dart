@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class SuccesPacientScreen extends StatelessWidget {
   const SuccesPacientScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -17,7 +22,8 @@ class SuccesPacientScreen extends StatelessWidget {
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Felicitări!',
+                    //'Felicitări!', //old IGV
+                    l.succesPacientFelicitari,
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         fontSize: 18,
@@ -35,8 +41,11 @@ class SuccesPacientScreen extends StatelessWidget {
                         fontSize: 12,
                         fontWeight: FontWeight.w300,
                       ),
-                      children: const <TextSpan>[
-                        TextSpan(text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'),
+                      children: <TextSpan>[
+                        TextSpan(
+                          //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                          text: l.succesPacientTextMijloc,
+                        ),
                       ],
                     ),
                     maxLines: 2,
@@ -68,7 +77,9 @@ class SuccesPacientScreen extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Go home',
+                    child: Text(
+                        //'Go home', //old IGV
+                        l.succesPacientGoHome,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),

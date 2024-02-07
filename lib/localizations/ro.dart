@@ -279,8 +279,189 @@ Map<String, dynamic> values = {
     'datele_nu_au_putut_fi_trimise': 'Datele nu au putut fi trimise!',
     'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
     'chestionar': 'Chestionar',
+    'nume_prenume_pacient': 'Nume și prenume pacient',
+    'nume_copil_hint': 'Nume copil',
+    'introduceti_nume_prenume_pacient': 'Introduceti numele și prenumele pacientului!',
+    'data_nastere': 'Data naștere',
+    'date_format': 'ddMMyyyy',
+    'data_nastere_hint': 'Data naștere',
+    'introduceti_data_nastere': 'Introduceți o dată de naștere!',
+    'greutate': 'Greutate',
+    'numar_kilograme': 'Număr kilograme',
+    'introduceti_numar_kilograme': 'Introduceti numărul de kilograme',
+    'alergic_la_medicament': 'Alergic la vreun medicament?',
+    'la_ce_medicament_este_alergic': 'La ce medicament este alergic?',
+    'alergic_la_paracetamol': 'Alergic la paracetamol...',
+    'simptome_pacient': 'Simptome pacient',
+    'febra': 'Febră',
+    'tuse': 'Tuse',
+    'dificultati_respiratorii': 'Dificultăți respiratorii',
+    'astenie': 'Astenie',
+    'cefalee': 'Cefalee',
+    'dureri_in_gat': 'Dureri în gât',
+    'greturi_varsaturi': 'Grețuri/Vărsături',
+    'diaree_constipatie': 'Diaree/Constipație',
+    'refuzul_alimentatie': 'Refuzul alimentație',
+    'iritatii_piele': 'Iritații piele',
+    'nas_infundat': 'Nas înfundat',
+    'rinoree': 'Rinoree',
+    'trimite_chestionarul': 'TRIMITE CHESTIONARUL',
     
     },
+    
+    
+  'raspunde_intrebare_doar_chat': {
+
+    
+    'apel_mesaje': 'Apel mesaje',
+    'nume_pacient': 'Nume pacient',
+    'trimite_media': 'Trimite media',
+    'nu_aveti_nici_un_mesaj': 'Nu aveți nici un mesaj încă',
+    'fisier_mesaj_chat' : 'Fișier',
+    'scrie_mesaj': 'Scrie un mesaj...',
+    'trimite': 'Trimite',
+    'mesaje_necitite': 'Mesaje necitite',
+
+    },
+    
+    
+  'raspunde_intrebare_medic': {
+
+    
+    'imagine': 'Imagine',
+    'fisier': 'Fișier',
+    'anuleaza': 'Anulează',
+    'nume_pacient': 'Nume pacient',
+    'trimite_media': 'Trimite media',
+    'nu_aveti_nici_un_mesaj': 'Nu aveți nici un mesaj încă',
+    'fisier_mesaj_chat' : 'Fișier',
+    'scrie_mesaj': 'Scrie un mesaj...',
+    'trimite': 'Trimite',
+    'marcheaza_mesajul_ca_necitit': 'Marchează mesajul ca necitit',
+
+    },
+    
+    
+  'register': {
+
+    'inregistrare_cu_succes': 'Înregistrare finalizată cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'cont_deja_existent': 'Cont deja existent!',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+    'a_aparut_eroare': 'A apărut o eroare la execuția metodei!',
+    'telefon_email_utilizator_hint': 'Telefon, e-mail sau utilizator',
+    'introduceti_utilizator_email_telefon_valid': 'Introduceți un utilizator/email/numar de telefon valid!',
+    'nume_complet_hint': 'Nume Complet',
+    'introduceti_numele_complet': 'Vă rugăm introduceți numele complet!',
+    'parola': 'Parolă',
+    'introduceti_parola': 'Vă rugăm introduceți o parolă!',
+    'parola_cel_putin': 'Parola trebuie să aibă cel puțin 6 caractere!',
+    'se_incearca_inregistrarea':'Se încearcă înregistrarea',
+    'inainte': 'ÎNAINTE',
+    'daca_te_inscrii': 'Dacă te înscrii, îți exprimi acordul cu ',
+    'conditii_utilizare': 'Condițiile de utilizare.',
+    'din': 'Din ',
+    'politica_de_confidentialitate':'Politica de confidențialitate',
+    'poti_afla_cum_colectam': ' poți afla cum colectăm, folosim și distribuim datele tale, iar din ',
+    'politica_de_utilizare': 'Politica de utilizare a modulelor cookie',
+    'poti_afla_cum_utilizam': ' poți afla cum utilizăm modulele cookie și tehnologii similare. ',
+    'ai_un_cont': 'Ai un cont? ',
+    'conecteaza_te': 'Conectează-te',
+
+    },
+    
+    
+  'reset_password_pacient': {
+
+    'reseteaza_parola_titlu': 'Resetează parola',
+    'reseteaza_parola_text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'telefon_email_utilizator_hint': 'Telefon, e-mail sau utilizator',
+    'introduceti_utilizator_email_telefon': 'Introduceți un utilizator/email/numar de telefon valid!',
+    'contul_dumneavostra':'Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe',
+    'send_code': 'Send code',
+    'cod_trimis_cu_succes': 'Cod trimis cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'cont_inexistent': 'Cont inexistent!',
+    'cont_existent_fara_date': 'Cont existent dar clientul nu are date de contact!',
+    'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+    
+
+    },
+    
+    
+  'succes_pacient': {
+
+    'felicitari': 'Felicitări!',
+    'text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..    ',
+    'go_home': 'Go home',
+
+
+    },
+    
+    
+  'termeni_si_conditii': {
+
+    'termeni_si_conditii_titlu': 'Termeni și condiții',
+    'termeni_si_conditii_text': 'Termeni și condiții text',
+    'go_home': 'Go home',
+
+    },
+    
+    
+  'testimonial': {
+
+    'feedback_trimis_cu_succes': 'Feedback trimis cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'feedback_netrimis': 'Feedback-ul nu a fost trimis!',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+    'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+    'va_multumim': 'Vă mulțumim!',
+    'rating': 'Rating',
+    'te_rugam_sa_lasi_un_testimonial': 'Te rugăm să ne lași si un testimonial!',
+    'doctorul_a_raspuns_hint': 'Doctorul a raspuns rapid...',
+    'se_incearca_trimiterea': 'Se încearcă trimiterea feedback-ului!',
+    'trimite_testimonialul': 'TRIMITE TESTIMONIALUL',
+
+    },
+
+
+  'verifica_codul_pacient': {
+
+    'verifica_codul': 'Verifică codul',
+    'text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'trimite_din_nou_codul': 'Timite din nou codul',
+    'verifica': 'Verifică',
+    'cod_verificat_cu_succes': 'Cod verificat cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'eroare_cod_neverificat': 'Eroare! Codul nu a putut fi verificat!',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+    'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+
+    },
+
+
+  'verifica_pin_sterge_cont': {
+
+    'verifica_codul_sterge_cont_titlu': 'Verifică codul și șterge contul',
+    'text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'trimite_din_nou_codul': 'Timite din nou codul',
+    'se_verifica_codul_trimis': 'Se verifică codul trimis',
+    'se_sterge_contul': 'Se sterge contul',
+    'verifica_pin_sterge_cont_buton': 'Verifică pin și șterge cont',
+    'cod_verificat_cu_succes': 'Cod verificat cu succes!',
+    'apel_invalid': 'Apel invalid!',
+    'eroare_cod_neverificat': 'Eroare! Codul nu a putut fi verificat!',
+    'informatii_insuficiente': 'Informatii insuficiente!',
+    'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+    'cont_sters_cu_succes': 'Cont șters cu succes!',
+    'apel_invalid_sterge_cont': 'Apel invalid!',
+    'eroare_cont_nesters': 'Eroare! Contul nu a putut fi șters!',
+    'informatii_insuficiente_sterge_cont': 'Informatii insuficiente!',
+    'a_aparut_o_eroare_sterge_cont': 'A apărut o eroare la execuția metodei!',
+
+    },
+
+
 
 
 /////////////////////////////////////////////////////////////////////////////////

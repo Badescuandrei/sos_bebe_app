@@ -10,6 +10,9 @@ import 'package:sos_bebe_app/utils_api/classes.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 //import 'package:sos_bebe_app/testimonial_screen.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
@@ -44,6 +47,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<http.Response?> adaugaContClient() async {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String textMessage = '';
@@ -67,7 +73,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     print('adaugaContClient resAdaugaCont.body ${resAdaugaCont!.body}');
 
-
     if (int.parse(resAdaugaCont!.body) == 200)
     {
 
@@ -86,7 +91,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       print('Înregistrare finalizată cu succes!');
 
-      textMessage = 'Înregistrare finalizată cu succes!';
+      //textMessage = 'Înregistrare finalizată cu succes!'; //old IGV
+      textMessage = l.registerInregistrareCuSucces;
+
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
       /*
@@ -124,7 +131,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
       return resAdaugaCont;
       */
-      textMessage = 'Apel invalid!';
+      
+      //textMessage = 'Apel invalid!'; //old IGV
+
+      textMessage = l.registerApelInvalid;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -155,7 +166,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return resAdaugaCont;
       */
       
-      textMessage = 'Cont deja existent!';
+      //textMessage = 'Cont deja existent!'; //old IGV
+
+      textMessage = l.registerContDejaExistent;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -184,7 +198,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       return resAdaugaCont;
       */
       
-      textMessage = 'Informatii insuficiente!';
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+      textMessage = l.registerInformatiiInsuficiente;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -204,7 +220,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       
       
       
-      textMessage = 'A apărut o eroare la execuția metodei!';
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+
+      textMessage = l.registerAAparutEroare; //old IGV
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
       /*
@@ -235,6 +254,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
@@ -282,7 +304,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: "Telefon, e-mail sau utilizator",
+                            //hintText: "Telefon, e-mail sau utilizator", //old IGV
+                            hintText: l.registerTelefonEmailUtilizatorHint,
                             hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                           ),
                           validator: (value) {
@@ -294,8 +317,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //String namePattern = r'^[a-z A-Z,.\-]+$';
                             String userNamePattern = r'^(?=[a-zA-Z][a-zA-Z0-9._]{7,29}$)(?!.*[_.]{2})[^_.].*[^_.]$';
                             RegExp nameRegExp = RegExp(userNamePattern);
-                            if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) {
-                              return "Introduceți un utilizator/email/numar de telefon valabil!";
+                            if (value!.isEmpty || !(emailRegExp.hasMatch(value) || phoneRegExp.hasMatch(value) || nameRegExp.hasMatch(value))) 
+                            {
+                              
+                              //return "Introduceți un utilizator/email/numar de telefon valid!"; //old IGV
+                              return l.registerIntroducetiUtilizatorEmailTelefonValid;
+
                             } else {
                               return null;
                             }
@@ -324,12 +351,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             filled: true,
                             fillColor: Colors.white,
-                            hintText: "Nume Complet",
+                            //hintText: "Nume Complet", //old IGV
+                            hintText: l.registerNumeCompletHint,
                             hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Vă rugăm introduceți numele complet!";
+                              
+                              //return "Vă rugăm introduceți numele complet!"; //old IGV
+                              return l.registerIntroducetiNumeleComplet;
+
                             }
                           },
                         ),
@@ -343,7 +374,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   onPressed: passVisibiltyToggle,
                                   icon: isHidden ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)),
                               //hintText: "Parola noua", old
-                              hintText: "Parolă",
+                              //hintText: "Parolă", //old IGV
+                              hintText: l.registerParola,
                               hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
@@ -361,10 +393,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               filled: true,
                               fillColor: Colors.white),
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return "Vă rugăm introduceți o parolă!";
-                            } else if (value.length < 6) {
-                              return "Parola trebuie să aibă cel puțin 6 caractere!";
+                            if (value!.isEmpty) 
+                            {
+                              
+                              //return "Vă rugăm introduceți o parolă!";
+                              return l.registerIntroducetiParola;
+
+                            } else if (value.length < 6) 
+                            {
+                              //return "Parola trebuie să aibă cel puțin 6 caractere!"; //old IGV
+                              return l.registerParolaCelPutin;
+
                             } else {
                               return null;
                             }
@@ -374,7 +413,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  (!showInainteButton)? Text('Se încearcă înregistrarea',
+                  (!showInainteButton)? Text(
+                      //'Se încearcă înregistrarea',//old IGV
+                      l.registerSeIncearcaInregistrarea,
                     //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
                     style: GoogleFonts.rubik(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 18))
                     :
@@ -431,7 +472,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           )),
-                      child: Text('ÎNAINTE',
+                      child: Text(
+                          // 'ÎNAINTE', //old IGV
+                          l.registerInainte,
                           //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
                           style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)),
                     ),
@@ -444,14 +487,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: const Color.fromRGBO(103, 114, 148, 1),
                         fontSize: 12,
                       ),
-                      children: const <TextSpan>[
-                        TextSpan(text: 'Dacă te înscrii, îți exprimi acordul cu '),
-                        TextSpan(text: 'Condițiile de utilizare.', style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: 'Din '),
-                        TextSpan(text: 'Politica de confidențialitate', style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' poți afla cum colectăm, folosim și distribuim datele tale, iar din '),
-                        TextSpan(text: 'Politica de utilizare a modulelor cookie', style: TextStyle(fontWeight: FontWeight.bold)),
-                        TextSpan(text: ' poți afla cum utilizăm modulele cookie și tehnologii similare. '),
+                      children: <TextSpan>[
+                        //TextSpan(text: 'Dacă te înscrii, îți exprimi acordul cu '), //old IGV
+                        TextSpan(text: l.registerDacaTeInscrii),
+                        //TextSpan(text: 'Condițiile de utilizare.', style: TextStyle(fontWeight: FontWeight.bold)), //old IGV
+                        TextSpan(text: l.registerConditiiUtilizare, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        //TextSpan(text: 'Din '), //old IGV
+                        TextSpan(text: l.registerDin),
+                        //TextSpan(text: 'Politica de confidențialitate', style: TextStyle(fontWeight: FontWeight.bold)), //old IGV
+                        TextSpan(text: l.registerPoliticaDeConfidentialitate, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        //TextSpan(text: ' poți afla cum colectăm, folosim și distribuim datele tale, iar din '), //old IGV
+                        TextSpan(text: l.registerPotiAflaCumColectam),
+                        //TextSpan(text: 'Politica de utilizare a modulelor cookie', style: TextStyle(fontWeight: FontWeight.bold)), //old IGV
+                        TextSpan(text: l.registerPoliticaDeUtilizare, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        //TextSpan(text: ' poți afla cum utilizăm modulele cookie și tehnologii similare. '), //old IGV
+                        TextSpan(text: l.registerPotiAflaCumUtilizam),
                       ],
                     ),
                     maxLines: 6,
@@ -488,10 +538,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("Ai un cont? ",
+                        Text(
+                          //"Ai un cont? ", //old IGV
+                          l.registerAiUnCont,
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w300, fontSize: 14)
                         ),
-                        Text("Conectează-te",
+                        Text(
+                          //"Conectează-te", //old IGV
+                          l.registerConecteazaTe,
                           style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 14)
                         ),
                       ],

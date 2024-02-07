@@ -182,7 +182,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
   bool showButonTrimite = true;
 
 
-
   @override
   void initState() {
     
@@ -213,8 +212,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       isVisibleAlergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? true : false;
 
-      
-      
+
       if (chestionarInitial!.listaRaspunsuri[0].informatiiComplementare.isNotEmpty)
       {
         
@@ -515,7 +513,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                       //adăugat de George Valentin Iordache
 
 
-                      Text('Nume si prenume pacient', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                      Text(
+                        //'Nume și prenume pacient', //old IGV
+                        l.questionareNumePrenumePacient,
+                        style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
                       SizedBox(
                         width: 150.0,
                         child: TextFormField(
@@ -525,13 +526,15 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                           readOnly: false,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
                           textAlign: TextAlign.right,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Nume copil',
+                            //hintText: 'Nume copil', //old IGV
+                            hintText: l.questionareNumeCopilHint,
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Introduceti numele și prenumele pacientului!';
+                              //return 'Introduceti numele și prenumele pacientului!'; //old IGV
+                              return l.questionareIntroducetiNumePrenumePacient;
                             }
                             return null;
                           },
@@ -548,7 +551,10 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                       //Text('1 an si 8 luni', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400)) old
 
                       //adăugat de George Valentin Iordache
-                      Text('Data naștere', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                      Text(
+                        //'Data naștere',  //old IGV
+                        l.questionareDataNastere,
+                        style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
                       //Text('1 an si 8 luni', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
                       SizedBox(
                         width: 150.0,
@@ -582,7 +588,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
                             setState(() {
                               
-                              controllerDataNastere.text = DateFormat('ddMMyyyy').format(date!).toString();
+                              //controllerDataNastere.text = DateFormat('ddMMyyyy').format(date!).toString(); //old IGV
+                              controllerDataNastere.text = DateFormat(l.questionareDateFormat).format(date!).toString();
                               dataNastere = date;
                               dateChosen = true;
                               hintDataNastere = controllerDataNastere.text;
@@ -594,16 +601,20 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                           focusNode: focusNodeDataNastere,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
                           textAlign: TextAlign.right,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                               border: InputBorder.none,
                               //hintText: 'Număr ani și număr luni', //old IGV
-                              hintText: 'Data naștere',
+                              //hintText: 'Data naștere', //old IGV
+                              hintText: l.questionareDataNastereHint,
                           ),
                           validator: (value) {
                             value = controllerDataNastere.text;
                             if ((dataDeNastereVeche.isEmpty) && value.isEmpty) {
                               //return "Enter a valid Email Address or Password"; //old Andrei Bădescu
-                              return "Introduceți o dată de naștere!"; //old Andrei Bădescu
+                              
+                              //return "Introduceți o dată de naștere!"; //old IGV
+                              return l.questionareIntroducetiDataNastere;
+
                             }
                             return null;
                           }
@@ -619,20 +630,28 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                       // Text('10 kg', style: GoogleFonts.rubik(fontSize: 14, fontWeight: FontWeight.w400))
 
                       //adăugat de George Valentin Iordache
-                      Text('Greutate', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
+                      Text(
+                        //'Greutate', //IGV
+                        l.questionareGreutate,
+                        style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
                       //Text('10 kg', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300))
                                         SizedBox(
                         width: 150.0,
                         child: TextFormField(
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
                           textAlign: TextAlign.right,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Număr kilograme',
+                            //hintText: 'Număr kilograme', //old IGV
+                            hintText: l.questionareNumarKilograme,
                           ),
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Introduceti numărul de kilograme';
+                            if (value!.isEmpty) 
+                            {
+                              
+                              //return 'Introduceti numărul de kilograme';
+                              return l.questionareIntroducetiNumarKilograme;
+
                             }
                             return null;
                           },
@@ -651,7 +670,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                 
                 customDivider(),
                 const SizedBox(height: 10),
-                TextAndSwitchWidget(isToggled: isVisibleAlergicLaMedicament, disease: "Alergic la vreun medicament?", callback: callbackVisibleAlergicLaMedicament),
+                //TextAndSwitchWidget(isToggled: isVisibleAlergicLaMedicament, disease: "Alergic la vreun medicament?", callback: callbackVisibleAlergicLaMedicament), //old IGV
+                TextAndSwitchWidget(isToggled: isVisibleAlergicLaMedicament, disease: l.questionareAlergicLaMedicament, callback: callbackVisibleAlergicLaMedicament),
 
                 // Column(
                 //   children: [
@@ -688,7 +708,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                     children: [
                       Row(
                         children: [
-                          Text('La ce medicament este alergic?',
+                          Text(
+                            //'La ce medicament este alergic?', //old IGV
+                            l.questionareLaCeMedicamentEsteAlergic,
 
                             //style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w400)), old
                             
@@ -709,10 +731,11 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                           textCapitalization: TextCapitalization.words,
                           controller: controllerAlergicLaMedicamentText,
                           decoration:
-                            const InputDecoration(border: InputBorder.none, 
-                              hintText: 'Alergic la paracetamol...',
+                            InputDecoration(border: InputBorder.none, 
+                              //hintText: 'Alergic la paracetamol...', //old IGV
+                              hintText: l.questionareAlergicLaParacetamol,
                                 //added by George Valentin Iordache
-                              hintStyle: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
+                              hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),
                             ),
                           maxLines: 2,
                         ),
@@ -725,22 +748,50 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                   //Text('Simptome pacient', style: GoogleFonts.rubik(fontSize: 16, fontWeight: FontWeight.w500)) old
 
                   //adăugat de George Valentin Iordache
-                  Text('Simptome pacient', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
+                  Text(
+                    //'Simptome pacient', //old IGV
+                    l.questionareSimptomePacient,
+                    style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w500)),
 
                 ]),
                 const SizedBox(height: 15),
-                TextAndSwitchWidget(isToggled: isToggledFebra, disease: "Febră", callback: callbackFebra,),
-                TextAndSwitchWidget(isToggled: isToggledTuse, disease: "Tuse", callback: callbackTuse,),
-                TextAndSwitchWidget(isToggled: isToggledDificultatiRespiratorii, disease: "Dificultăți respiratorii",callback: callbackDificultatiRespiratorii,),
-                TextAndSwitchWidget(isToggled: isToggledAstenie, disease: "Astenie", callback: callbackAstenie),
-                TextAndSwitchWidget(isToggled: isToggledCefalee, disease: "Cefalee", callback: callbackCefalee),
-                TextAndSwitchWidget(isToggled: isToggledDureriInGat, disease: "Dureri în gât", callback: callbackDureriInGat),
-                TextAndSwitchWidget(isToggled: isToggledGreturiVarsaturi, disease: "Grețuri/Vărsături", callback: callbackGreturiVarsaturi),
-                TextAndSwitchWidget(isToggled: isToggledDiareeConstipatie, disease: "Diaree/Constipație", callback: callbackDiareeConstipatie),
-                TextAndSwitchWidget(isToggled: isToggledRefuzulAlimentatie, disease: "Refuzul alimentație", callback: callbackRefuzulAlimentatie),
-                TextAndSwitchWidget(isToggled: isToggledIritatiiPiele, disease: "Iritații piele", callback: callbackIritatiiPiele),
-                TextAndSwitchWidget(isToggled: isToggledNasInfundat, disease: "Nas înfundat", callback: callbackNasInfundat),
-                TextAndSwitchWidget(isToggled: isToggledRinoree, disease: "Rinoree", callback: callbackRinoree),
+                
+                //TextAndSwitchWidget(isToggled: isToggledFebra, disease: "Febră", callback: callbackFebra,), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledFebra, disease: l.questionareFebra, callback: callbackFebra,),
+                
+                //TextAndSwitchWidget(isToggled: isToggledTuse, disease: "Tuse", callback: callbackTuse,), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledTuse, disease: l.questionareTuse, callback: callbackTuse,),
+
+                //TextAndSwitchWidget(isToggled: isToggledDificultatiRespiratorii, disease: "Dificultăți respiratorii",callback: callbackDificultatiRespiratorii,), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledDificultatiRespiratorii, disease: l.questionareDificultatiRespiratorii, callback: callbackDificultatiRespiratorii,),
+
+                //TextAndSwitchWidget(isToggled: isToggledAstenie, disease: "Astenie", callback: callbackAstenie), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledAstenie, disease: l.questionareAstenie, callback: callbackAstenie),
+                
+                //TextAndSwitchWidget(isToggled: isToggledCefalee, disease: "Cefalee", callback: callbackCefalee),
+                TextAndSwitchWidget(isToggled: isToggledCefalee, disease: l.questionareCefalee, callback: callbackCefalee),
+
+                //TextAndSwitchWidget(isToggled: isToggledDureriInGat, disease: "Dureri în gât", callback: callbackDureriInGat), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledDureriInGat, disease: l.questionareDureriInGat, callback: callbackDureriInGat),
+
+                //TextAndSwitchWidget(isToggled: isToggledGreturiVarsaturi, disease: "Grețuri/Vărsături", callback: callbackGreturiVarsaturi), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledGreturiVarsaturi, disease: l.questionareGreturiVarsaturi, callback: callbackGreturiVarsaturi),
+
+                //TextAndSwitchWidget(isToggled: isToggledDiareeConstipatie, disease: "Diaree/Constipație", callback: callbackDiareeConstipatie), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledDiareeConstipatie, disease: l.questionareDiareeConstipatie, callback: callbackDiareeConstipatie),
+
+                //TextAndSwitchWidget(isToggled: isToggledRefuzulAlimentatie, disease: "Refuzul alimentație", callback: callbackRefuzulAlimentatie), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledRefuzulAlimentatie, disease: l.questionareRefuzulAlimentatie, callback: callbackRefuzulAlimentatie),
+
+                //TextAndSwitchWidget(isToggled: isToggledIritatiiPiele, disease: "Iritații piele", callback: callbackIritatiiPiele), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledIritatiiPiele, disease: l.questionareIritatiiPiele, callback: callbackIritatiiPiele),
+
+                //TextAndSwitchWidget(isToggled: isToggledNasInfundat, disease: "Nas înfundat", callback: callbackNasInfundat), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledNasInfundat, disease: l.questionareNasInfundat, callback: callbackNasInfundat),
+
+                //TextAndSwitchWidget(isToggled: isToggledRinoree, disease: "Rinoree", callback: callbackRinoree), //old IGV
+                TextAndSwitchWidget(isToggled: isToggledRinoree, disease: l.questionareRinoree, callback: callbackRinoree),
+
               ],
             ),
           ),
@@ -818,7 +869,8 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    ' TRIMITE CHESTIONARUL',
+                    //'TRIMITE CHESTIONARUL', //old IGV
+                    l.questionareTrimiteChestionarul,
                     style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18),
                   ),
                 ],

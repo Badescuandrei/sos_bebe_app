@@ -17,6 +17,8 @@ import './utils/chat_l10n.dart' as chat_l10n;
 import './utils/chat_theme.dart' as chat_theme;
 import './utils/typing_indicator.dart' as typing_indicator;
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class RaspundeIntrebareMedicScreen extends StatefulWidget {
 
   final String textNume;
@@ -70,6 +72,9 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
   }
 
   void _handleAttachmentPressed() {
+
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!; 
     
     showModalBottomSheet<void>(
       context: context,
@@ -84,9 +89,12 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
                   Navigator.pop(context);
                   _handleImageSelection();
                 },
-                child: const Align(
+                child: Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: Text('Imagine'),
+                  child: Text(
+                    //'Imagine', //IGV
+                    l.raspundeIntrebareMedicImagine,
+                  ),
                 ),
               ),
               TextButton(
@@ -94,16 +102,22 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
                   Navigator.pop(context);
                   _handleFileSelection();
                 },
-                child: const Align(
+                child: Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: Text('Fișier'),
+                  child: Text(
+                    //'Fișier' //old IGV
+                    l.raspundeIntrebareMedicFisier,
+                  ),
                 ),
               ),
               TextButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Align(
+                child: Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: Text('Anulează'),
+                  child: Text(
+                    //'Anulează' //old IGV
+                    l.raspundeIntrebareMedicAnuleaza,
+                  ),
                 ),
               ),
             ],
@@ -313,11 +327,14 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
   @override
   Widget build(BuildContext context) {
 
+    LocalizationsApp l = LocalizationsApp.of(context)!; 
+
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 75,
-        title: const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
+        //title: const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',), //old IGV
+        title: RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: l.raspundeIntrebareMedicNumePacient,),
       ),
       body:
       //const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
@@ -331,13 +348,19 @@ class _RaspundeIntrebareMedicScreenState extends State<RaspundeIntrebareMedicScr
         showUserAvatars: true,
         showUserNames: true,
         //l10n: const ChatL10nRo().toChatL10n,
-        l10n: const chat_l10n.ChatL10nEn(
-          attachmentButtonAccessibilityLabel : 'Trimite media',
-          emptyChatPlaceholder : 'Nu aveți nici un mesaj încă',
-          fileButtonAccessibilityLabel : 'Fișier',
-          inputPlaceholder : 'Scrie un mesaj...',
-          sendButtonAccessibilityLabel : 'Trimite',
-          unreadMessagesLabel : 'Marchează mesajul ca necitit',
+        l10n: chat_l10n.ChatL10nEn(
+          // attachmentButtonAccessibilityLabel : 'Trimite media', //old IGV
+          attachmentButtonAccessibilityLabel : l.raspundeIntrebareMedicTrimiteMedia,
+          //emptyChatPlaceholder : 'Nu aveți nici un mesaj încă', //old IGV
+          emptyChatPlaceholder : l.raspundeIntrebareMedicNuAvetiNiciUnMesaj,
+          //fileButtonAccessibilityLabel : 'Fișier', //old IGV
+          fileButtonAccessibilityLabel : l.raspundeIntrebareMedicFisierMesajChat,
+          //inputPlaceholder : 'Scrie un mesaj...', //old IGV
+          inputPlaceholder : l.raspundeIntrebareMedicScrieMesaj,
+          //sendButtonAccessibilityLabel : 'Trimite', //old IGV
+          sendButtonAccessibilityLabel : l.raspundeIntrebareMedicTrimite,
+          //unreadMessagesLabel : 'Marchează mesajul ca necitit', //old IGV
+          unreadMessagesLabel : l.raspundeIntrebareMedicMarcheazaMesajulCaNecitit,
         ),
         typingIndicatorOptions : const typing_indicator.TypingIndicatorOptions(),
         theme: const chat_theme.DefaultChatTheme(

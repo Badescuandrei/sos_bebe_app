@@ -10,6 +10,9 @@ import 'package:http/http.dart' as http;
 //import 'package:flutter_pin_code_widget/flutter_pin_code_widget.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 
+
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class VerificaCodulPacientScreen extends StatefulWidget {
@@ -32,6 +35,9 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -42,7 +48,8 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                 const SizedBox(height: 125),
                 Center(
                   child: Text(
-                    'Verifică codul',
+                    //'Verifică codul', //old IGV
+                    l.verificaCodulPacientVerificaCodul,
                     style: GoogleFonts.rubik(
                         color: const Color.fromRGBO(14, 190, 127, 1),
                         fontSize: 18,
@@ -64,8 +71,10 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
-                            children: const <TextSpan>[
-                              TextSpan(text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'), //old IGV
+                                text: l.verificaCodulPacientTextMijloc),
                             ],
                           ),
                           maxLines: 1,
@@ -112,7 +121,8 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                                 onCompleted: (v) {
                                   print("Completed");
                                 },
-                                onChanged: (value) {
+                                onChanged: (value) 
+                                {
                                   
                                   setState(() {
                                     currentPIN = value;
@@ -121,7 +131,8 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                                   print('pinValue: $value currentPIN: $currentPIN');
 
                                 },
-                                beforeTextPaste: (text) {
+                                beforeTextPaste: (text) 
+                                {
                                   print("Allowing to paste $text");
                                   //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
                                   //but you can show anything you want here, like your pop up saying wrong paste format or etc
@@ -133,7 +144,6 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                         ),   
                       ),  
                       const SizedBox(height: 45),
-                      
                       SizedBox(
                         width:250,
                         child:
@@ -144,7 +154,9 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                           },
                           child:
                           Center(
-                            child:Text('Timite din nou codul', 
+                            child:Text(
+                              //'Trimite din nou codul', //old IGV
+                              l.verificaCodulPacientTrimiteDinNouCodul,
                               style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontWeight: FontWeight.w300, fontSize: 14))
                           ),
                         ),  
@@ -160,7 +172,8 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                     onPressed: () async {
                       
                       final isValidForm = verificaCodulKey.currentState!.validate();
-                      if (isValidForm) { 
+                      if (isValidForm) 
+                      { 
                         http.Response? resVerificaPin;
 
                         resVerificaPin = await verificaCodPinClient();
@@ -196,7 +209,9 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         )),
-                    child: Text('Verifică',
+                    child: Text(
+                        //'Verifică', //old IGV
+                        l.verificaCodulPacientVerifica,
                         style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),  
@@ -211,6 +226,8 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
 
   
   Future<http.Response?> verificaCodPinClient() async {
+
+      LocalizationsApp l = LocalizationsApp.of(context)!;
 
       /*
       http.Response? res = await apiCallFunctions.getContClient(
@@ -242,7 +259,9 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         //if (context.mounted)
         //{
 
-          textMessage = 'Cod verificat cu succes!';
+          //textMessage = 'Cod verificat cu succes!'; //old IGV
+          textMessage = l.verificaCodulPacientCodVerificatCuSucces;
+
           backgroundColor = const Color.fromARGB(255, 14, 190, 127);
           textColor = Colors.white;
           //showSnackbar(context, "Cod verificat cu succes!",const Color.fromARGB(255, 14, 190, 127), Colors.white);
@@ -255,12 +274,14 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
       else if (int.parse(resVerificaCodPin.body) == 400)
       {
 
-        print('Apel invalid');
+        print('Apel invalid!');
 
         //if (context.mounted)
         //{
 
-          textMessage = 'Apel invalid!';
+          //textMessage = 'Apel invalid!'; //old IGV
+
+          textMessage = l.verificaCodulPacientApelInvalid;
           backgroundColor = Colors.red;
           textColor = Colors.black;
           //showSnackbar(context, "Apel invalid!", Colors.red, Colors.black);
@@ -280,7 +301,9 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         //if (context.mounted)
         //{
 
-          textMessage = 'Eroare! Codul nu a putut fi verificat!';
+          //textMessage = 'Eroare! Codul nu a putut fi verificat!'; //old IGV
+
+          textMessage = l.verificaCodulPacientEroareCodNeverificat;
           backgroundColor = Colors.red;
           textColor = Colors.black;
           //showSnackbar(context, "Eroare! Codul nu a putut fi verificat!", Colors.red, Colors.black);
@@ -296,7 +319,10 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         
         print('Informatii insuficiente!');
 
-        textMessage = 'Informatii insuficiente!';
+        //textMessage = 'Informatii insuficiente!'; //old IGV
+
+        textMessage = l.verificaCodulPacientInformatiiInsuficiente;
+
         backgroundColor = Colors.red;
         textColor = Colors.black;
         //if (context.mounted)
@@ -313,9 +339,10 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
       else if (int.parse(resVerificaCodPin!.body) == 500)
       {
 
-        print('A apărut o eroare la execuția metodei');
+        print('A apărut o eroare la execuția metodei!');
         
-        textMessage = 'Informatii insuficiente!';
+        //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+        textMessage = l.verificaCodulPacientAAparutOEroare;
         backgroundColor = Colors.red;
         textColor = Colors.black;
         /*

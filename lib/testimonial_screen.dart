@@ -9,6 +9,8 @@ import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 //import 'package:sos_bebe_app/testimonial_screen.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
@@ -45,6 +47,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
 
   Future<http.Response?> adaugaFeedbackDinContClient() async {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
         
@@ -80,7 +85,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
       print('Feedback trimis cu succes!');
 
-      textMessage = 'Feedback trimis cu succes!';
+      //textMessage = 'Feedback trimis cu succes!'; //old IGV
+      textMessage = l.testimonialFeedbackTrimisCuSucces;
+
       backgroundColor = const Color.fromARGB(255, 14, 190, 127);
       textColor = Colors.white;
 
@@ -98,7 +105,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
       print('Apel invalid');
 
-      textMessage = 'Apel invalid!';
+      //textMessage = 'Apel invalid!'; //old IGV
+
+      textMessage = l.testimonialApelInvalid;
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -113,7 +122,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
       });
       
-      textMessage = 'Feedback-ul nu a fost trimis!';
+      //textMessage = 'Feedback-ul nu a fost trimis!'; //old IGV
+      textMessage = l.testimonialFeedbackNetrimis;
+      
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -131,7 +142,10 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
       print('Informatii insuficiente');
     
       
-      textMessage = 'Informatii insuficiente!';
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+
+      textMessage = l.testimonialInformatiiInsuficiente;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -149,7 +163,10 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
       print('A apărut o eroare la execuția metodei');
       
-      textMessage = 'A apărut o eroare la execuția metodei!';
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+
+      textMessage = l.testimonialAAparutOEroare;
+
       backgroundColor = Colors.red;
       textColor = Colors.black;
 
@@ -170,6 +187,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -188,7 +208,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 //children: [Text('Vă mulțumim!', style: GoogleFonts.rubik(color: Colors.black87, fontSize: 28))], old
                 children: [
-                  Text('Vă mulțumim!', 
+                  Text(
+                    //'Vă mulțumim!', //old IGV
+                    l.testimonialVaMultumim,
                     style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 26,),
                   ),
                 ],
@@ -204,7 +226,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text('Rating',
+                        Text(
+                          //'Rating', //old IGV
+                          l.testimonialRating,
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -246,7 +270,9 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('Te rugăm să ne lași si un testimonial!',
+                    Text(
+                      //'Te rugăm să ne lași si un testimonial!', //old IGV
+                      l.testimonialTeRugamSaLasiUnTestimonial,
                       style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ],
@@ -267,17 +293,20 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                   controller: controllerTestimonialText,
                   style: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1)), //added by George Valentin Iordache
                   //decoration: InputDecoration(border: InputBorder.none, hintText: 'Doctorul a raspuns rapid...'),
-                  decoration: const InputDecoration(border: InputBorder.none, 
-                    hintText: 'Doctorul a raspuns rapid...',
-                    hintStyle: TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache 
+                  decoration: InputDecoration(border: InputBorder.none, 
+                    //hintText: 'Doctorul a raspuns rapid...', //old IGV
+                    hintText: l.testimonialDoctorulARaspunsHint,
+                    hintStyle: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w300), //added by George Valentin Iordache 
                   ),
                   maxLines: 4,
                 ),
               ),
               const SizedBox(height: 15),
               
-              (!showButonTrimiteTestimonial)? Text('Se încearcă trimiterea feedback-ului!',
-                      style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 16, fontWeight: FontWeight.w500),)
+              (!showButonTrimiteTestimonial)? Text(
+                //'Se încearcă trimiterea feedback-ului!', //old IGV
+                l.testimonialSeIncearcaTrimiterea,
+                style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 16, fontWeight: FontWeight.w500),)
               :
               GestureDetector(
                 onTap: () async { 
@@ -340,7 +369,8 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
                       Text(
                         //' TRIMITE CHESTIONARUL', old
                         // style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18), old
-                        'TRIMITE TESTIMONIALUL',
+                        //'TRIMITE TESTIMONIALUL', //old IGV
+                        l.testimonialTrimiteTestimonialul,
                         style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
                       ),
                     ],
