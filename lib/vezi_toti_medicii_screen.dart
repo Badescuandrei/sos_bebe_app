@@ -13,6 +13,8 @@ import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart'
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 List<MedicMobile> listaMedici = [];
@@ -190,6 +192,8 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!;
 
     List<Widget> mywidgets = [];
     //List<NumarPacientiItem> listaFiltrata = filterListByLowerDurata(25);
@@ -229,7 +233,10 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        //title: const Text('Înapoi'), //old IGV
+        title: Text(
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -312,6 +319,9 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -345,7 +355,9 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
             }
           },
           child:
-          Text('Profilul meu',
+          Text(
+            //'Profilul meu', //old IGV
+            l.veziTotiMediciiProfilulMeu,
             style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
           ),
         ),
@@ -373,7 +385,9 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
           ),
           child:
           //Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
-          Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 214, 158, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+          
+          //Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 214, 158, 1), fontSize: 12, fontWeight: FontWeight.w300)), //old IGV
+          Text(l.veziTotiMediciiMediciOnline, style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 214, 158, 1), fontSize: 12, fontWeight: FontWeight.w300)),
         ),
         
         const SizedBox(width: 5),
@@ -407,7 +421,9 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
           ),
           child:
           //Text('Medici online', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300)),
-          Text('Toți medicii', style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 166, 219, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+          
+          //Text('Toți medicii', style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 166, 219, 1), fontSize: 12, fontWeight: FontWeight.w300)), //old IGV
+          Text(l.veziTotiMediciiTotiMedicii, style: GoogleFonts.rubik(color: const Color.fromRGBO(30, 166, 219, 1), fontSize: 12, fontWeight: FontWeight.w300)),
         ),
         
         /*
@@ -456,17 +472,26 @@ class ButoaneAlegeOptiunea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         
-        ButonAlegeServiciu(textServiciu: 'Scrie o întrebare', iconLocation: './assets/images/intrebare_icon.png', colorBackground: const Color.fromRGBO(241, 248, 251, 1), 
-          colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMedici, onPressed: callbackScrieIntrebare, tipServiciu: 1,),
+        //ButonAlegeServiciu(textServiciu: 'Scrie o întrebare', iconLocation: './assets/images/intrebare_icon.png', colorBackground: const Color.fromRGBO(241, 248, 251, 1), //old IGV
+        //  colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMedici, onPressed: callbackScrieIntrebare, tipServiciu: 1,), //old IGV
+        ButonAlegeServiciu(textServiciu: l.veziTotiMediciiScrieOIntrebare, iconLocation: './assets/images/intrebare_icon.png', colorBackground: const Color.fromRGBO(241, 248, 251, 1), //old IGV
+          colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMedici, onPressed: callbackScrieIntrebare, tipServiciu: 1,), //old IGV
 
-        ButonAlegeServiciu(textServiciu: 'Consultație video', iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: const Color.fromRGBO(236, 251, 247, 1),
+        //ButonAlegeServiciu(textServiciu: 'Consultație video', iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: const Color.fromRGBO(236, 251, 247, 1), //old IGV
+        //  colorScris: const Color.fromRGBO(30, 214, 158, 1), widthScris: 70, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 2,), //old IGV
+        ButonAlegeServiciu(textServiciu: l.veziTotiMediciiConsultatieVideo, iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: const Color.fromRGBO(236, 251, 247, 1),
           colorScris: const Color.fromRGBO(30, 214, 158, 1), widthScris: 70, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 2,),
         
-        ButonAlegeServiciu(textServiciu: 'Interpretare analize', iconLocation: './assets/images/analize_icon.png', colorBackground: const Color.fromRGBO(253, 250, 234, 1), 
+        //ButonAlegeServiciu(textServiciu: 'Interpretare analize', iconLocation: './assets/images/analize_icon.png', colorBackground: const Color.fromRGBO(253, 250, 234, 1), //old IGV
+        //  colorScris: const Color.fromRGBO(241, 201, 0, 1), widthScris: 73, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 3,), //old IGV
+        ButonAlegeServiciu(textServiciu: l.veziTotiMediciiInterpretareAnalize, iconLocation: './assets/images/analize_icon.png', colorBackground: const Color.fromRGBO(253, 250, 234, 1),
           colorScris: const Color.fromRGBO(241, 201, 0, 1), widthScris: 73, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 3,),
       ],
     );
@@ -514,6 +539,8 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
 
   @override
   Widget build(BuildContext context) {
+
+  LocalizationsApp l = LocalizationsApp.of(context)!;
 
   return InkWell(
       onTap: () async {
@@ -628,7 +655,8 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
                         borderRadius: BorderRadius.circular(3.0),
                         color: const Color.fromRGBO(255, 0, 0, 1),
                       ),
-                        child: Text(' în consultație', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)),
+                        //child: Text(' în consultație', style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)), //old IGV
+                        child: Text(l.veziTotiMediciiInConsultatie, style: GoogleFonts.rubik(color:const Color.fromRGBO(255, 255, 255, 1), fontSize: 9, fontWeight: FontWeight.w500)),
                       ) : const SizedBox(width:0, height:0),
                       RatingBar(
                         ignoreGestures: true,

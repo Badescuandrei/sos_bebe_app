@@ -24,7 +24,7 @@ const appCertificate = '69b34ac5d15044a7906063342cc15471';
 */
 //const username = "pacient1";
 //const uid = 10;
-const token = '007eJxTYDi2f1+vAhsDV53PrI2FssuXScx8HqkslLBlxeYt5ZYbTmQoMKQkGpsnm1mkJpukmZkkpxgmppkYWBonm5tapBkZWJhZemRZpzYEMjKIpKkzMEIhiM/JEJJaXOLpHhZvyMAAAHnwHpU=';
+const token = '007eJxTYNjEWLn2xZZnXDv2ON9yF7NNF5oRcX7WwSVmC2fZ127pVu1XYEhJNDZPNrNITTZJMzNJTjFMTDMxsDRONje1SDMysDCzdF1xJLUhkJEhWVCBgREKQXxOhpDU4hJP97B4QwYGAAa3IGo=';
 
 /*
 const role = RtcRole.publisher;

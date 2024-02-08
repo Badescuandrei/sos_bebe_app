@@ -159,7 +159,7 @@ Map<String, dynamic> values = {
     'conectare_cu_facebook':'CONECTARE CU FACEBOOK',
     'conectare_cu_google':'CONECTARE CU GOOGLE',
     'nu_ai_cont':'NU AI CONT?',
-    'inscrie_te':' INSCRIE-TE!',
+    'inscrie_te':' ÎNSCRIE-TE!',
   
     
     },
@@ -283,7 +283,7 @@ Map<String, dynamic> values = {
     'nume_copil_hint': 'Nume copil',
     'introduceti_nume_prenume_pacient': 'Introduceti numele și prenumele pacientului!',
     'data_nastere': 'Data naștere',
-    'date_format': 'ddMMyyyy',
+    'date_format': 'dd.MM.yyyy',
     'data_nastere_hint': 'Data naștere',
     'introduceti_data_nastere': 'Introduceți o dată de naștere!',
     'greutate': 'Greutate',
@@ -460,6 +460,42 @@ Map<String, dynamic> values = {
     'a_aparut_o_eroare_sterge_cont': 'A apărut o eroare la execuția metodei!',
 
     },
+    
+    
+  'vezi_medici_disponibili_intro': {
+
+    'vezi_medici_disponibili_titlu': 'Vezi medici disponibili',
+    'aceasta_aplicatie_text': 'Acestă aplicație dorește să vină în sprijinul părinților oferind sfaturi medicale profesioniste, la orice oră din zi sau din noapte.',
+    'medicii_nostri_text': 'Medicii noștri acordă asistență pediatrică de prima intervenție cu scopul de a liniști temerile părinților și a ameliora simptome copiilor până la un consult în persoană cu medicul pediatru sau de familie.',
+    'atentie_text': 'Atenție! În cazul în care viața copilului este în pericol, vă rugăm să apelați numărul unic de urgențe 112 sau să vă adresați Unităților de Primire Urgențe.',
+
+    },
+    
+    
+  'vezi_medici_salvati': {
+
+    'profilul_meu': 'Profilul meu',
+    'medici_online': 'Medici online',
+    'toti_medicii': 'Toți medicii',
+    'scrie_o_intrebare': 'Scrie o întrebare',
+    'consultatie_video': 'Consultație video',
+    'interpretare_analize': 'Interpretare analize',
+    'in_consultatie': ' în consultație',
+    
+    },
+    
+    
+  'vezi_toti_medicii': {
+
+    'profilul_meu': 'Profilul meu',
+    'medici_online': 'Medici online',
+    'toti_medicii': 'Toți medicii',
+    'scrie_o_intrebare': 'Scrie o întrebare',
+    'consultatie_video': 'Consultație video',
+    'interpretare_analize': 'Interpretare analize',    
+    'in_consultatie': ' în consultație',
+    
+    },
 
 
 
@@ -621,11 +657,8 @@ Map<String, dynamic> values = {
   },
   'termeni_conditii': {'title': 'Termeni și condiții'},
   'politica_conf': {'title': 'Politica de Confidențialitate'},
-  'plati': {
-    'title': 'Plăți',
-    'neplatite':'Neplătite',
-    'toate':'Toate',
-  },
+
+
   'home': {
     'hp':'Plăți',
     'h11': 'Momentan nu au fost gasite plati neefectuate în dosarul dumneavoastra electronic',

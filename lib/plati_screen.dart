@@ -25,6 +25,7 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 FacturaClientMobile? facturaSelectata;
 
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class PlatiScreen extends StatefulWidget {
@@ -109,7 +110,7 @@ class _PlatiScreenState extends State<PlatiScreen> {
       //print('Aici');
       var item = widget.listaFacturi![index];
       //String dataRo = DateFormat("dd MMMM yyyy", "ro").format(item.dataPlata); //old IGV
-      String dataRo = DateFormat(l.platiTitlu, l.platiLimba).format(item.dataPlata);
+      String dataRo = DateFormat(l.platiDateFormat, l.platiLimba).format(item.dataPlata);
       
       String dataRoLuna = dataRo.substring(0,3) + 
             dataRo.substring(3,4).toUpperCase() + 
@@ -306,7 +307,6 @@ class PlatiWidget extends StatelessWidget {
             )
           );
         }
-
       },
       child: Container(
         padding: const EdgeInsets.only(left:25, top:15, right: 20),

@@ -192,61 +192,66 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
     setState(() {
 
-      if (chestionarInitial!.numeCompletat.isNotEmpty)
-      {
-       
-        controllerNumeComplet.text = chestionarInitial!.numeCompletat;
-
-      }
-
-      if (chestionarInitial!.dataNastereCompletata.toString().isNotEmpty)
-      {
-        controllerDataNastere.text = chestionarInitial!.dataNastereCompletata.toString();
-
-      }
-      
-      if (chestionarInitial!.greutateCompletata.isNotEmpty)
-      {
-        controllerGreutate.text = chestionarInitial!.greutateCompletata;
-      }
-
-      isVisibleAlergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? true : false;
-
-
-      if (chestionarInitial!.listaRaspunsuri[0].informatiiComplementare.isNotEmpty)
-      {
+      if (chestionarInitial != null)
+      {  
         
-        alergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? chestionarInitial!.listaRaspunsuri[0].informatiiComplementare : '';
-
-        print('alergicLaMedicament $alergicLaMedicament');
+        if (chestionarInitial!.numeCompletat.isNotEmpty)
+        {
         
+          controllerNumeComplet.text = chestionarInitial!.numeCompletat;
 
-        controllerAlergicLaMedicamentText.text = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? chestionarInitial!.listaRaspunsuri[0].informatiiComplementare : '';
-      }
-      
-      isToggledFebra = (chestionarInitial!.listaRaspunsuri[1].raspunsIntrebare == '1')? true : false;
-      
-      isToggledTuse = (chestionarInitial!.listaRaspunsuri[2].raspunsIntrebare == '1')? true : false;
-      
-      isToggledDificultatiRespiratorii = (chestionarInitial!.listaRaspunsuri[3].raspunsIntrebare == '1')? true : false;
-      
-      isToggledAstenie = (chestionarInitial!.listaRaspunsuri[4].raspunsIntrebare == '1')? true : false;
-      
-      isToggledCefalee = (chestionarInitial!.listaRaspunsuri[5].raspunsIntrebare == '1')? true : false;
-      
-      isToggledDureriInGat = (chestionarInitial!.listaRaspunsuri[6].raspunsIntrebare == '1')? true : false;
-      
-      isToggledGreturiVarsaturi = (chestionarInitial!.listaRaspunsuri[7].raspunsIntrebare == '1')? true : false;
-      
-      isToggledDiareeConstipatie = (chestionarInitial!.listaRaspunsuri[8].raspunsIntrebare == '1')? true : false;
-      
-      isToggledRefuzulAlimentatie = (chestionarInitial!.listaRaspunsuri[9].raspunsIntrebare == '1')? true : false;
-      
-      isToggledIritatiiPiele = (chestionarInitial!.listaRaspunsuri[10].raspunsIntrebare == '1')? true : false;
-      
-      isToggledNasInfundat = (chestionarInitial!.listaRaspunsuri[11].raspunsIntrebare == '1')? true : false;
-      
-      isToggledRinoree = (chestionarInitial!.listaRaspunsuri[12].raspunsIntrebare == '1')? true : false;
+        }
+
+        if (chestionarInitial!.dataNastereCompletata.toString().isNotEmpty)
+        {
+          controllerDataNastere.text = chestionarInitial!.dataNastereCompletata.toString();
+
+        }
+        
+        if (chestionarInitial!.greutateCompletata.isNotEmpty)
+        {
+          controllerGreutate.text = chestionarInitial!.greutateCompletata;
+        }
+
+        isVisibleAlergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? true : false;
+
+
+        if (chestionarInitial!.listaRaspunsuri[0].informatiiComplementare.isNotEmpty)
+        {
+          
+          alergicLaMedicament = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? chestionarInitial!.listaRaspunsuri[0].informatiiComplementare : '';
+
+          print('alergicLaMedicament $alergicLaMedicament');
+          
+
+          controllerAlergicLaMedicamentText.text = (chestionarInitial!.listaRaspunsuri[0].raspunsIntrebare == '1')? chestionarInitial!.listaRaspunsuri[0].informatiiComplementare : '';
+        }
+        
+        isToggledFebra = (chestionarInitial!.listaRaspunsuri[1].raspunsIntrebare == '1')? true : false;
+        
+        isToggledTuse = (chestionarInitial!.listaRaspunsuri[2].raspunsIntrebare == '1')? true : false;
+        
+        isToggledDificultatiRespiratorii = (chestionarInitial!.listaRaspunsuri[3].raspunsIntrebare == '1')? true : false;
+        
+        isToggledAstenie = (chestionarInitial!.listaRaspunsuri[4].raspunsIntrebare == '1')? true : false;
+        
+        isToggledCefalee = (chestionarInitial!.listaRaspunsuri[5].raspunsIntrebare == '1')? true : false;
+        
+        isToggledDureriInGat = (chestionarInitial!.listaRaspunsuri[6].raspunsIntrebare == '1')? true : false;
+        
+        isToggledGreturiVarsaturi = (chestionarInitial!.listaRaspunsuri[7].raspunsIntrebare == '1')? true : false;
+        
+        isToggledDiareeConstipatie = (chestionarInitial!.listaRaspunsuri[8].raspunsIntrebare == '1')? true : false;
+        
+        isToggledRefuzulAlimentatie = (chestionarInitial!.listaRaspunsuri[9].raspunsIntrebare == '1')? true : false;
+        
+        isToggledIritatiiPiele = (chestionarInitial!.listaRaspunsuri[10].raspunsIntrebare == '1')? true : false;
+        
+        isToggledNasInfundat = (chestionarInitial!.listaRaspunsuri[11].raspunsIntrebare == '1')? true : false;
+        
+        isToggledRinoree = (chestionarInitial!.listaRaspunsuri[12].raspunsIntrebare == '1')? true : false;
+
+    }
 
     });
 
@@ -324,7 +329,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
     String pNumeleComplet = controllerNumeComplet.text;
 
-    String pDataNastereDDMMYYYY = controllerDataNastere.text;
+    DateFormat dateFormat = DateFormat('dd.MM.yyyy');
+    DateTime parsedDate = dateFormat.parse(controllerDataNastere.text);
+    String pDataNastereDDMMYYYY = DateFormat('ddMMyyyy').format(parsedDate).toString();
 
     String pGreutate = controllerGreutate.text;
 
@@ -512,7 +519,6 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
                       //adăugat de George Valentin Iordache
 
-
                       Text(
                         //'Nume și prenume pacient', //old IGV
                         l.questionareNumePrenumePacient,
@@ -635,7 +641,7 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                         l.questionareGreutate,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w400)),
                       //Text('10 kg', style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300))
-                                        SizedBox(
+                      SizedBox(
                         width: 150.0,
                         child: TextFormField(
                           style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontSize: 12, fontWeight: FontWeight.w300),

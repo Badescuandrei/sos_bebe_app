@@ -123,7 +123,7 @@ class LocalizationsApp {
   // apel_video_pacient_screen
 
   String get apelVideoPacientVaRugamAsteptati {
-    return _localizedValues[locale.languageCode]!['adauga_metoda_plata']['va_rugam_asteptati'];
+    return _localizedValues[locale.languageCode]!['apel_video_pacient']['va_rugam_asteptati'];
   }
 
 
@@ -1487,6 +1487,128 @@ class LocalizationsApp {
     return _localizedValues[locale.languageCode]!['verifica_pin_sterge_cont']['a_aparut_o_eroare_sterge_cont'];
 
   }
+
+
+
+  // vezi_medici_disponibili_intro
+
+  String get veziMediciDisponibiliIntroVeziMediciDisponibiliTitlu {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_disponibili_intro']['vezi_medici_disponibili_titlu'];
+
+  }
+
+  String get veziMediciDisponibiliIntroAceastaAplicatieText {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_disponibili_intro']['aceasta_aplicatie_text'];
+
+  }
+
+  String get veziMediciDisponibiliIntroMediciiNostriText {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_disponibili_intro']['medicii_nostri_text'];
+
+  }
+
+  String get veziMediciDisponibiliIntroAtentieText {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_disponibili_intro']['atentie_text'];
+
+  }
+
+
+
+  // vezi_medici_salvati
+
+  String get veziMediciSalvatiProfilulMeu {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['profilul_meu'];
+
+  }
+
+  String get veziMediciSalvatiMediciOnline {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['medici_online'];
+
+  }
+
+  String get veziMediciSalvatiTotiMedicii {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['toti_medicii'];
+
+  }
+
+  String get veziMediciSalvatiScrieOIntrebare {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['scrie_o_intrebare'];
+
+  }
+
+  String get veziMediciSalvatiConsultatieVideo {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['consultatie_video'];
+
+  }
+
+  String get veziMediciSalvatiInterpretareAnalize {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['interpretare_analize'];
+
+  }
+
+  String get veziMediciSalvatiInConsultatie {
+
+    return _localizedValues[locale.languageCode]!['vezi_medici_salvati']['in_consultatie'];
+
+  }
+
+
+
+  // vezi_toti_medicii
+
+  String get veziTotiMediciiProfilulMeu {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['profilul_meu'];
+
+  }
+
+  String get veziTotiMediciiMediciOnline {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['medici_online'];
+
+  }
+
+  String get veziTotiMediciiTotiMedicii {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['toti_medicii'];
+
+  }
+
+  String get veziTotiMediciiScrieOIntrebare {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['scrie_o_intrebare'];
+
+  }
+
+  String get veziTotiMediciiConsultatieVideo {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['consultatie_video'];
+
+  }
+
+  String get veziTotiMediciiInterpretareAnalize {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['interpretare_analize'];
+
+  }
+
+  String get veziTotiMediciiInConsultatie {
+
+    return _localizedValues[locale.languageCode]!['vezi_toti_medicii']['in_consultatie'];
+
+  }
+
+
 
 
 

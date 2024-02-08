@@ -30,7 +30,7 @@ import  'package:sos_bebe_app/vezi_medici_disponibili_intro_screen.dart';
 
 import  'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart';
 
-//import  'package:sos_bebe_app/raspunde_intrebare_medic_screen.dart';
+import  'package:sos_bebe_app/raspunde_intrebare_medic_screen.dart';
 
 
 import  'package:sos_bebe_app/factura_screen.dart';
@@ -46,6 +46,22 @@ import 'package:sos_bebe_app/raspunde_intrebare_doar_chat_screen.dart';
 import  'package:sos_bebe_app/testimonial_screen.dart';
 
 import  'package:sos_bebe_app/confirmare_screen.dart';
+
+import 'package:sos_bebe_app/error_pacient_screen.dart';
+
+import 'package:sos_bebe_app/parola_noua_pacient_screen.dart';
+
+import 'package:sos_bebe_app/reset_password_pacient_screen.dart';
+
+import 'package:sos_bebe_app/succes_pacient_screen.dart';
+
+//import 'package:sos_bebe_app/termeni_si_conditii_screen.dart';
+
+import 'package:sos_bebe_app/testimonial_screen.dart';
+
+import 'package:sos_bebe_app/verifica_codul_pacient_screen.dart';
+
+
 
 //import  'package:sos_bebe_app/doctor_selection_screen_old_dart'; //old Andrei Bădescu
 
@@ -64,12 +80,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    LocalizationsApp l = LocalizationsApp.of(context)!;
+    //LocalizationsApp l = LocalizationsApp.of(context)!;
 
     return MaterialApp(
       //title: 'Flutter Demo',
-      //title: 'SOS Bebe', //old IGV
-      title: l.mainTitlu,
+      title: 'SOS Bebe', //old IGV
+      //title: l.mainTitlu,
       locale: const Locale('ro', 'RO'),
       localizationsDelegates: const [
         LocalizationsApp.delegate,
@@ -89,7 +105,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const LoginScreen(),
+      //home: const LoginScreen(),
+
+      //home: const ParolaNouaPacientScreen(user: 'george.iordache@gmail.com'),
+
 
       //home: const ErrorPacientScreen(),
 
@@ -97,7 +116,8 @@ class MyApp extends StatelessWidget {
 
       //home: const IntroScreen(),
 
-      /*home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
+      /*
+        home: const ProfilDoctorDisponibilitateServiciiScreen(eInConsultatie: false, eDisponibil:true, 
         likes: 330, iconPath: './assets/images/profil_doctor_image.png', rating:4.9, textNume: 'Dr. Daniela Preoteasa', textSpital: 'AIS Clinics & Hospital București', 
         textTipMedic: 'Pediatrie, Medic Primar', textTitluProfesional: 'Medic Primar', textTitluSpecializare: 'Pediatrie', textExperienta: '45 ani', 
         textLocDeMuncaNume: 'AIS Clinics & Hospital București', textLocDeMuncaAdresa: 'Șos. Alexandriei 144, București 051523', 
@@ -121,7 +141,9 @@ class MyApp extends StatelessWidget {
       //home: const PaymentScreen(),
       
       //home: const RegisterScreen(),
+      
       //home: const ApelVideoPacientScreen(),
+      
       //home: const AdaugaMetodaPlataScreen(),
 
       //home: const VeziTotiMediciiScreen(),
@@ -149,11 +171,10 @@ class MyApp extends StatelessWidget {
       ),
       */
 
-
       //required this.tutorId, required this.emailSubiect, required this.phoneNumberSubiect, required this.dataPlatii, required this.dataPlatiiProcesata,
       //required this.detaliiFacturaNume, required this.detaliiFacturaServicii, required this.detaliiFacturaNumar,
 
-      //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '',),
+      //home: const RaspundeIntrebareMedicScreen(textNume: '', textIntrebare: '', textRaspuns: '', idMedic: 1),
 
       //home: const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '', idMedic: 1),
 
@@ -161,9 +182,20 @@ class MyApp extends StatelessWidget {
 
       //
 
+      //home: SuccesPacientScreen(),
+
+      //home: TermeniSiConditiiScreen(),
+
+      //home: const TestimonialScreen(idMedic:1),
+
       //home: const ProfilulMeuPacientScreen(),      
       
       //home: const TestimonialScreen(idMedic:1),
+
+      //home: const ResetPasswordPacientScreen(),
+
+      home: const VerificaCodulPacientScreen(user:'george.iordache@gmail.com'),
+    
 
     );
 

@@ -6,15 +6,23 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
+import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
 class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
   const VeziMediciDisponibiliIntroScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
     return Scaffold(
       //begin added by George Valentin Iordache
       appBar: AppBar(
-        title: const Text('Înapoi'),
+        //title: const Text('Înapoi'), //old IGV
+        title: Text(
+          l.universalInapoi,
+        ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
         leading: const BackButton(
@@ -95,7 +103,9 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Vezi medici disponibili',
+                                Text(
+                                    //'Vezi medici disponibili', //old IGV
+                                    l.veziMediciDisponibiliIntroVeziMediciDisponibiliTitlu,
                                     style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w300, fontSize: 14,)),
                                 Image.asset('./assets/images/medici_disponibili_buton_icon.png'),
                               ],
@@ -113,8 +123,11 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
-                            children: const <TextSpan>[
-                              TextSpan(text: 'Acesta aplicatie doreste sa vina in sprijinul parintilor oferind sfaturi medicale profesioniste, la orice ora din zi sau din noapte.'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                //text: 'Acesta aplicatie doreste sa vina in sprijinul parintilor oferind sfaturi medicale profesioniste, la orice ora din zi sau din noapte.'), //old IGV
+                                //'Acestă aplicație dorește să vină în sprijinul părinților oferind sfaturi medicale profesioniste, la orice oră din zi sau din noapte.' //text cu diacritice IGV
+                                text: l.veziMediciDisponibiliIntroAceastaAplicatieText),
                             ],
                           ),
                           maxLines: 4,
@@ -132,8 +145,11 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w300,
                             ),
-                            children: const <TextSpan>[
-                              TextSpan(text: 'Medicii nostri acorda asistenta pediatrica de prima interventie cu scopul de a linisti temerile parintilor si a ameliora sintmomele copiilor pana la un consult in persoana cu medicul pediatru sau de familie.'),
+                            children: <TextSpan>[
+                              TextSpan(
+                                //text: 'Medicii nostri acorda asistenta pediatrica de prima interventie cu scopul de a linisti temerile parintilor si a ameliora sintmomele copiilor pana la un consult in persoana cu medicul pediatru sau de familie.'), //old IGV
+                                //'Medicii noștri acordă asistență pediatrică de prima intervenție cu scopul de a liniști temerile părinților și a ameliora simptome copiilor până la un consult în persoană cu medicul pediatru sau de familie.' //text cu diacritice IGV
+                                text: l.veziMediciDisponibiliIntroMediciiNostriText),
                             ],
                           ),
                           maxLines: 4,
@@ -161,8 +177,10 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                                 fontSize: 12,
                                 fontWeight: FontWeight.w300,
                               ),
-                              children: const <TextSpan>[
-                                TextSpan(text: 'Atentie! In cazul in care viata copilului este in pericol, va rugam sa apelati numarul unic de urgente 112 sau sa va adresati Unitatilor de Primire Urgente.'),
+                              children: <TextSpan>[
+                                //TextSpan(text: 'Atentie! In cazul in care viata copilului este in pericol, va rugam sa apelati numarul unic de urgente 112 sau sa va adresati Unitatilor de Primire Urgente.'), //old IGV
+                                //'Atenție! În cazul în care viața copilului este în pericol, vă rugăm să apelați numărul unic de urgențe 112 sau să vă adresați Unităților de Primire Urgențe.' //text cu diacritice IGV
+                                TextSpan(text: l.veziMediciDisponibiliIntroAtentieText), 
                               ],
                             ),
                             maxLines: 4,
@@ -173,10 +191,10 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],    
+                ],
               ),
             ],
-          ),    
+          ),
           ),
         ),
       ),

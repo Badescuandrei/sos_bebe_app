@@ -15,7 +15,6 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
