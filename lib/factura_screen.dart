@@ -1,4 +1,3 @@
-
 import 'dart:math';
 import 'dart:io';
 import 'dart:typed_data';
@@ -77,7 +76,6 @@ class _FacturaScreenState extends State<FacturaScreen> {
 
 //class FacturaScreen extends StatelessWidget {
 
-
   final ScreenshotController _screenshotController = ScreenshotController();
 
     String dataEmitereRo = '';
@@ -125,14 +123,16 @@ class _FacturaScreenState extends State<FacturaScreen> {
       print('getSirBitiFacturaContClient data $data');
 
       //base64Decode(widget.base64String.replaceAll('\n', ''));
-      Uint8List image = base64.decode(data);
+      Uint8List image = base64Decode(data);
+
+      print('getSirBitiFacturaContClient image $image');
 
       return image;
 
     } 
     catch (e)
     {
-      
+      print('Aici');
       return null;
 
     }

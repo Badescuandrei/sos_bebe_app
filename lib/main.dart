@@ -61,6 +61,8 @@ import 'package:sos_bebe_app/testimonial_screen.dart';
 
 import 'package:sos_bebe_app/verifica_codul_pacient_screen.dart';
 
+import 'package:sos_bebe_app/verifica_pin_sterge_cont_screen.dart';
+
 
 
 //import  'package:sos_bebe_app/doctor_selection_screen_old_dart'; //old Andrei Bădescu
@@ -105,10 +107,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      //home: const LoginScreen(),
+      home: const LoginScreen(),
 
       //home: const ParolaNouaPacientScreen(user: 'george.iordache@gmail.com'),
-
 
       //home: const ErrorPacientScreen(),
 
@@ -194,10 +195,10 @@ class MyApp extends StatelessWidget {
 
       //home: const ResetPasswordPacientScreen(),
 
-      home: const VerificaCodulPacientScreen(user:'george.iordache@gmail.com'),
+      //home: const VerificaCodulPacientScreen(user:'george.iordache@gmail.com'),
     
+      //home: const VerificaPinStergeContScreen(user:'george.iordache@gmail.com', userPassMD5:'123456'),
 
     );
-
   }
 }
