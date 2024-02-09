@@ -684,6 +684,47 @@ class LocalizationsApp {
     return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['rating'];
   }
 
+  String get profilDoctorDisponibilitateServiciiMedicAdaugatCuSucces {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_adaugat_cu_succes'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiMedicAdaugatApelInvalid {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_adaugat_apel_invalid'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiMedicNeadaugat {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_neadaugat'];
+  }
+
+  String get profilDoctorDisponibilitateServiciiMedicAdaugatInformatiiInsuficiente {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_adaugat_informatii_insuficiente'];
+  }
+  
+  String get profilDoctorDisponibilitateServiciiMedicAdaugatAAparutOEroare {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_adaugat_a_aparut_o_eroare'];
+  }
+  
+  String get profilDoctorDisponibilitateServiciiMedicScosCuSucces {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_scos_cu_succes'];
+  }
+  
+  String get profilDoctorDisponibilitateServiciiMedicScosApelInvalid {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_scos_apel_invalid'];
+  }
+  
+  String get profilDoctorDisponibilitateServiciiMedicNescos {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_nescos'];
+  }
+  
+  String get profilDoctorDisponibilitateServiciiMedicScosInformatiiInsuficiente {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_scos_informatii_insuficiente'];
+  }
+  
+  String get profilDoctorDisponibilitateServiciiMedicScosAAparutOEroare {
+    return _localizedValues[locale.languageCode]!['profil_doctor_disponibilitate_servicii']['medic_scos_a_aparut_o_eroare'];
+  }
+
+
 
   // profil_pacient
 

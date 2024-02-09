@@ -17,7 +17,7 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
-List<MedicMobile> listaMedici = [];
+//List<MedicMobile> listaMedici = [];
 
 MedicMobile? medicSelectat;
 
@@ -82,7 +82,9 @@ MedicMobile? medicSelectat;
 
 class VeziTotiMediciiScreen extends StatefulWidget {
   
-  const VeziTotiMediciiScreen({super.key});
+  final List<MedicMobile> listaMedici;
+
+  const VeziTotiMediciiScreen({super.key, required this.listaMedici});
 
   @override
   State<VeziTotiMediciiScreen> createState() => _VeziTotiMediciiScreenState();
@@ -106,7 +108,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
 
     setState(() {
 
-      listaFiltrata = listaMedici;
+      listaFiltrata = widget.listaMedici;
 
     });
     
@@ -248,7 +250,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
       SingleChildScrollView(
         child: Column(
           children: [
-            TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png', callbackFiltreaza: callbackFiltreazaLista, listaMedici:listaMedici),
+            TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png', callbackFiltreaza: callbackFiltreazaLista, listaMedici:widget.listaMedici),
             ButoaneAlegeOptiunea(listaMedici: listaFiltrata, callbackScrieIntrebare: callbackScrieIntrebare, callbackConsultatieVideo: callbackConsultatieVideo,
               callbackInterpretareAnalize: callbackInterpretareAnalize,),
             const SizedBox(height:25),
@@ -786,7 +788,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
             Column(
               children: [
                 const SizedBox(height: 17),
-                Image.asset('./assets/images/love_icon.png'),
+                widget.medicItem.esteFavorit? Image.asset('./assets/images/love_red.png'): Image.asset('./assets/images/love_icon.png'),
               ],
             ),
           ],

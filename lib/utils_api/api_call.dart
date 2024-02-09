@@ -38,6 +38,8 @@ class ApiCall {
       parametriiJson.addAll({key:value});
     });
 
+    
+
     /*
     pParametrii.forEach((key, value) {
       parametrii = '$parametrii, $key:$value';

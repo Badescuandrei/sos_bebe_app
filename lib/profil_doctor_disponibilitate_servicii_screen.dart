@@ -15,12 +15,14 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
+import 'package:sos_bebe_app/utils_api/functions.dart';
 
 import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 
+import 'package:http/http.dart' as http;
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
@@ -210,7 +212,9 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
             iconPath: widget.medicDetalii.linkPozaProfil, 
             textNume: '${widget.medicDetalii.titulatura}. ${widget.medicDetalii.numeleComplet}', 
             textSpital: widget.medicDetalii.locDeMunca, 
-            textTipMedic: '${widget.medicDetalii.functia}. ${widget.medicDetalii.specializarea}',),
+            textTipMedic: '${widget.medicDetalii.functia}. ${widget.medicDetalii.specializarea}',
+            idMedic: widget.medicDetalii.id,
+            medicFavorit: widget.medicDetalii.esteFavorit,),
 
             //const TopIconFiltreazaWidget(topIcon: './assets/images/pacient_medici_icon.png'),
           Container(
@@ -680,10 +684,12 @@ class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
   final String textNume;
   final String textSpital;
   final String textTipMedic;
+  final int idMedic;
+  final bool medicFavorit;
 
   const IconStatusNumeRatingSpitalLikesMedic({super.key, required this.eInConsultatie, required this.eDisponibil, required this.likes,
     required this.rating, required this.iconPath, //required this.statusIconPath,
-    required this.textNume, required this.textSpital, required this.textTipMedic,});
+    required this.textNume, required this.textSpital, required this.textTipMedic, required this.idMedic, required this.medicFavorit});
 
   @override
   State<IconStatusNumeRatingSpitalLikesMedic> createState() => _IconStatusNumeRatingSpitalLikesMedic();
@@ -692,6 +698,320 @@ class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
 class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSpitalLikesMedic> {
   
   final double _ratingValue = 4.9;
+
+  bool medicAdaugatCuSucces = false;
+  bool medicScosCuSucces = false;
+
+  bool medicFavorit = false;
+
+  
+
+  @override
+  void initState() {
+
+    //listaRecenzii = InitializareRecenziiWidget().initList();
+
+    // Do some other stuff
+    super.initState();
+
+    medicFavorit = widget.medicFavorit;
+
+    print('editare_cont_screen contInfo: ${widget.medicFavorit}');
+
+  }
+
+  Future<http.Response?> adaugaMedicLaFavorit() async {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+    
+    
+    http.Response? resAdaugaMedicLaFavorit = await apiCallFunctions.adaugaMedicLaFavorit(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: widget.idMedic.toString(),
+    );
+
+
+    print('adaugaMedicLaFavorit resAdaugaMedicLaFavorit.body ${resAdaugaMedicLaFavorit!.body}');
+
+
+    if (int.parse(resAdaugaMedicLaFavorit!.body) == 200)
+    {
+
+      setState(() {
+
+        medicAdaugatCuSucces = true;
+        medicScosCuSucces = false;
+
+        medicFavorit = true;
+
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Medic adăugat cu succes!');
+
+      //textMessage = 'Medic adăugat cu succes!'; //old IGV
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicAdaugatCuSucces;
+
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
+
+    }
+    else if (int.parse(resAdaugaMedicLaFavorit.body) == 400)
+    {
+      
+      setState(() {
+
+        medicAdaugatCuSucces = false;
+        //medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Apel invalid');
+
+      //textMessage = 'Apel invalid!'; //old IGV
+
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicAdaugatApelInvalid;
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resAdaugaMedicLaFavorit!.body) == 401)
+    {
+      
+      
+      setState(() {
+
+        medicAdaugatCuSucces = false;
+        //medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Medicul nu a fost adăugat la favorite!');
+      
+      //textMessage = 'Medicul nu a fost adăugat la favorite!'; //old IGV
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicNeadaugat;
+      
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resAdaugaMedicLaFavorit!.body) == 405)
+    {
+
+      
+      setState(() {
+
+        medicAdaugatCuSucces = false;
+        //medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Informatii insuficiente');
+    
+      
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicAdaugatInformatiiInsuficiente;
+
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resAdaugaMedicLaFavorit!.body) == 500)
+    {
+
+      
+      setState(() {
+
+        medicAdaugatCuSucces = false;
+        //medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('A apărut o eroare la execuția metodei');
+      
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicAdaugatAAparutOEroare;
+
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+
+      return resAdaugaMedicLaFavorit;
+
+    }
+    
+    return null;
+
+  }
+
+  Future<http.Response?> scoateMedicDeLaFavorit() async {
+
+    LocalizationsApp l = LocalizationsApp.of(context)!;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+        
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+    
+    
+    http.Response? resScoateMedicDeLaFavorit = await apiCallFunctions.scoateMedicDeLaFavorit(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: widget.idMedic.toString(),
+    );
+
+
+    print('scoateMedicDeLaFavorit resScoateMedicDeLaFavorit.body ${resScoateMedicDeLaFavorit!.body}');
+
+
+    if (int.parse(resScoateMedicDeLaFavorit!.body) == 200)
+    {
+
+      
+      setState(() {
+
+        medicAdaugatCuSucces = false;
+        medicScosCuSucces = true;
+        //showButonTrimiteTestimonial = false;
+
+        medicFavorit = false;
+
+      });
+
+      print('Medic scos cu succes!');
+
+      //textMessage = 'Medic scos cu succes!'; //old IGV
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicScosCuSucces;
+
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
+
+    }
+    else if (int.parse(resScoateMedicDeLaFavorit.body) == 400)
+    {
+      
+      setState(() {
+
+        //medicAdaugatCuSucces = false;
+        medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Apel invalid');
+
+      //textMessage = 'Apel invalid!'; //old IGV
+
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicScosApelInvalid;
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resScoateMedicDeLaFavorit!.body) == 401)
+    {
+      
+      setState(() {
+
+        //medicAdaugatCuSucces = false;
+        medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Medicul nu a fost scos de la favorite!');
+      
+      //textMessage = 'Medicul nu a fost scos de la favorite!'; //old IGV
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicNescos;
+      
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resScoateMedicDeLaFavorit!.body) == 405)
+    {
+      
+      setState(() {
+
+        //medicAdaugatCuSucces = false;
+        medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('Informatii insuficiente');
+    
+      
+      //textMessage = 'Informatii insuficiente!'; //old IGV
+
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicScosInformatiiInsuficiente;
+
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resScoateMedicDeLaFavorit!.body) == 500)
+    {
+
+      setState(() {
+
+        //medicAdaugatCuSucces = false;
+        medicScosCuSucces = false;
+        //showButonTrimiteTestimonial = false;
+
+      });
+
+      print('A apărut o eroare la execuția metodei');
+      
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+
+      textMessage = l.profilDoctorDisponibilitateServiciiMedicScosAAparutOEroare;
+
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+
+      return resScoateMedicDeLaFavorit;
+
+    }
+    
+    return null;
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -891,8 +1211,23 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
             children: [
               const SizedBox(height: 17),
               GestureDetector(
-                child: Image.asset('./assets/images/love_icon.png'),
-                onTap: () {},
+                child: medicFavorit? Image.asset('./assets/images/love_red.png'): Image.asset('./assets/images/love_icon.png'),
+                onTap: () {
+
+                  if (!medicFavorit)
+                  {
+                    
+                    adaugaMedicLaFavorit();
+                    
+                  }
+                  else
+                  {
+
+                    scoateMedicDeLaFavorit();
+
+                  }
+
+                },
               ),
             ],
           ),

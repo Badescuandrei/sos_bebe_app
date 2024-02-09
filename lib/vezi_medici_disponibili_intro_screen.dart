@@ -6,11 +6,40 @@ import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
 import  'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
 
+
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
+
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
+
+import 'package:sos_bebe_app/utils_api/classes.dart';
+
+
+ApiCallFunctions apiCallFunctions = ApiCallFunctions();
+
+List<MedicMobile> listaMedici = [];
 
 class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
   const VeziMediciDisponibiliIntroScreen({super.key});
 
+  getListaMedici() async 
+  {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    listaMedici = await apiCallFunctions.getListaMedici(
+      pUser: user,
+      pParola: userPassMD5,
+    )?? [];
+
+    print('listaMedici: $listaMedici');
+
+  }
+  
   @override
   Widget build(BuildContext context) {
 
@@ -84,12 +113,18 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              
+                              await getListaMedici();
+
+                              if (context.mounted)
+                              {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const VeziTotiMediciiScreen(),
+                                    builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici,),
                                   ));
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color.fromRGBO(14, 190, 127, 1),

@@ -29,6 +29,8 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
+List<MedicMobile> listaMedici = [];
+
 class ProfilulMeuPacientScreen extends StatefulWidget {
 
   final ContClientMobile? contInfo;
@@ -225,6 +227,23 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
 
   }
 
+  getListaMedici() async 
+  {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    listaMedici = await apiCallFunctions.getListaMedici(
+      pUser: user,
+      pParola: userPassMD5,
+    )?? [];
+
+    print('listaMedici: $listaMedici');
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -314,28 +333,39 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                     children:[
                       const SizedBox(width: 45),
                       IconButton(
-                        onPressed: () {
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const VeziMediciSalvatiScreen(),
-                            ));
+                        onPressed: () async {
+                          
+                          await getListaMedici();
+                          
+                          if (context.mounted)
+                          {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VeziMediciSalvatiScreen(listaMedici: listaMedici),
+                              ));
+                          }
 
                         },
                         icon: Image.asset('./assets/images/doctori_salvati_icon.png'),
                       ),
                       const SizedBox(width: 25),
                       GestureDetector(
-                        onTap: ()
+                        onTap: () async
                         {
 
+                          await getListaMedici();
+                          
+                          if (context.mounted)
+                          {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const VeziMediciSalvatiScreen(),
+                              builder: (context) => VeziMediciSalvatiScreen(listaMedici: listaMedici,),
                             ));
 
+                          }
+                          
                         },
                         child: SizedBox(width: 240,
                           child: Row(

@@ -199,7 +199,7 @@ class ApiCallFunctions {
       //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
         specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, 
-        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0);
+        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0, esteFavorit: false);
     }
 
     //return resGetContClient;
@@ -793,6 +793,52 @@ class ApiCallFunctions {
     print('updateChestionarDinContClient rezultat: ${resUpdateChestionarDinContClient!.statusCode} body rezultat: ${resUpdateChestionarDinContClient.body}');
 
     return resUpdateChestionarDinContClient;
+
+  }
+
+
+  Future<http.Response?> adaugaMedicLaFavorit({
+    required String pUser,
+    required String pParola,
+    required String pIdMedic,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resAdaugaMedicLaFavorit;
+
+    resAdaugaMedicLaFavorit = await postApelFunctie(parametriiApiCall, 'AdaugaMedicLaFavorit');
+
+    print('adaugaMedicLaFavorit status rezultat: ${resAdaugaMedicLaFavorit!.statusCode} body rezultat: ${resAdaugaMedicLaFavorit!.body}');
+
+    return resAdaugaMedicLaFavorit;
+
+  }
+
+
+  Future<http.Response?> scoateMedicDeLaFavorit({
+    required String pUser,
+    required String pParola,
+    required String pIdMedic,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pIdMedic': pIdMedic,
+    };
+
+    http.Response? resScoateMedicDeLaFavorit;
+
+    resScoateMedicDeLaFavorit = await postApelFunctie(parametriiApiCall, 'ScoateMedicDeLaFavorit');
+
+    print('scoateMedicDeLaFavorit status rezultat: ${resScoateMedicDeLaFavorit!.statusCode} body rezultat: ${resScoateMedicDeLaFavorit!.body}');
+
+    return resScoateMedicDeLaFavorit;
 
   }
 

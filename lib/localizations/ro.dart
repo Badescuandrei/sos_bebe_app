@@ -247,6 +247,18 @@ Map<String, dynamic> values = {
     'recenzii': 'Recenzii',
     'in_consultatie':' în consultație',
     'rating':'Rating',
+    'medic_adaugat_cu_succes': 'Medic adăugat cu succes!',
+    'medic_adaugat_apel_invalid': 'Apel invalid!',
+    'medic_neadaugat': 'Medicul nu a fost adăugat la favorite!',
+    'medic_adaugat_informatii_insuficiente': 'Informatii insuficiente!',
+    'medic_adaugat_a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+    'medic_scos_cu_succes': 'Medic scos cu succes!',
+    'medic_scos_apel_invalid': 'Apel invalid!',
+    'medic_nescos': 'Medicul nu a fost scos de la favorite!',
+    'medic_scos_informatii_insuficiente': 'Informatii insuficiente!',
+    'medic_scos_a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
+
+
 
     },
     

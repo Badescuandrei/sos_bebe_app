@@ -60,6 +60,7 @@ class MedicMobile {
   final int totalClienti;
   final int totalTestimoniale;
   final double procentRating;
+  final bool esteFavorit;
 
 
   const MedicMobile({required this.id, required this.linkPozaProfil, required this.titulatura, required this.numeleComplet, required this.locDeMunca, 
@@ -67,6 +68,7 @@ class MedicMobile {
     required this.primesteIntrebari, required this.interpreteazaAnalize, required this.consultatieVideo, required this.monedaPreturi,
     required this.pretIntrebare, required this.pretConsultatieVideo, required this.pretInterpretareAnalize, required this.experienta,
     required this.adresaLocDeMunca, required this.totalClienti, required this.totalTestimoniale, required this.procentRating,
+     required this.esteFavorit,
   });
 
   factory MedicMobile.fromJson(Map<String, dynamic> json) {
@@ -98,6 +100,7 @@ class MedicMobile {
         totalClienti: json['TotalClienti'] as int,
         totalTestimoniale: json['TotalTestimoniale'] as int,
         procentRating: json['ProcentRating'] as double,
+        esteFavorit: json['EsteFavorit'] as bool,
 
       );
     }
@@ -106,7 +109,7 @@ class MedicMobile {
 
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
         specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, 
-        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0);
+        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0, esteFavorit: false);
 
     }
   }
