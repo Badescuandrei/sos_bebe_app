@@ -221,7 +221,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                             {
                               
                               //showSnackbar(context, "Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe", Colors.red, Colors.black);
-                              showSnackbar(context, l.resetPasswordPacientContulDumneavostra, Colors.red, Colors.black);
+                              showSnackbar(context, l.resetPasswordPacientContulDumneavoastra, Colors.red, Colors.black);
 
                             }
                             //return;
@@ -350,7 +350,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
       {
 
         
-        print('Informatii insuficiente');
+        print('Cont existent dar clientul nu are date de contact!');
         
         //textMessage = 'Cont existent dar clientul nu are date de contact!'; //old IGV
 

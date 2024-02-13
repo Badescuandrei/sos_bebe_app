@@ -17,7 +17,7 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
-//List<MedicMobile> listaMedici = [];
+List<MedicMobile> listaMedici = [];
 
 MedicMobile? medicSelectat;
 
@@ -104,11 +104,12 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     // Do some other stuff
     super.initState();
 
-    getListaMedici();
+    //getListaMedici();
 
     setState(() {
 
       listaFiltrata = widget.listaMedici;
+      //listaFiltrata = listaMedici;
 
     });
     

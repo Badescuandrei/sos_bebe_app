@@ -6,6 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/confirmare_servicii_screen.dart';
+
+import 'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
+
 import 'package:sos_bebe_app/initializare_recenzii_old_dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 
@@ -28,6 +31,8 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
+
+List<MedicMobile> listaMedici = [];
 
 class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
 
@@ -112,6 +117,23 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
   }
 
+  getListaMedici() async 
+            {
+  
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    listaMedici = await apiCallFunctions.getListaMedici(
+      pUser: user,
+      pParola: userPassMD5,
+    )?? [];
+
+    print('listaMedici: $listaMedici');
+
+  }
+
   @override
   Widget build(BuildContext context) {
     
@@ -189,7 +211,20 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
         ),
         backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
         foregroundColor: Colors.white,
-        leading: const BackButton(
+        leading: BackButton(
+          onPressed: () async {
+                            
+            await getListaMedici();
+
+            if (context.mounted)
+            {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici,),
+                ));
+            }
+          },
           color: Colors.white,
         ),
       ),

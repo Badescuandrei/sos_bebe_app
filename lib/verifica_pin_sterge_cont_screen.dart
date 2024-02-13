@@ -14,6 +14,10 @@ import 'package:http/http.dart' as http;
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
+
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 class VerificaPinStergeContScreen extends StatefulWidget {
@@ -154,9 +158,43 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                         width:250,
                         child:
                         GestureDetector(
-                          onTap: () 
+                          onTap: () async
                           {                               
                             
+                            http.Response? resTrimitePinPentruStergereContClient;
+            
+                            resTrimitePinPentruStergereContClient = await trimitePinPentruStergereContClient();
+
+                            print('profil_pacient_screen: resTrimitePinPentruStergereContClient!.statusCode: ${resTrimitePinPentruStergereContClient!.statusCode} resTrimitePinPentruStergereContClient!.body: ${resTrimitePinPentruStergereContClient.body}' );
+
+                            
+                            /*
+                            if (int.parse(resTrimitePinPentruStergereContClient!.body) == 200)
+                            {
+
+                              String textMessage = l.profilPacientCodTrimisCuSucces;
+                              Color backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+                              Color textColor = Colors.white;
+                              if (context.mounted)
+                              {
+                                showSnackbar(context, textMessage, backgroundColor, textColor);
+                              }
+
+                            }
+                            else 
+                            {
+
+                              String textMessage = l.profilPacientAAparutOEroare;
+                              Color backgroundColor = Colors.red;
+                              Color textColor = Colors.black;
+                              if (context.mounted)
+                              {
+                                showSnackbar(context, textMessage, backgroundColor, textColor);
+                              }
+
+                            }
+                            */
+
                           },
                           child:
                           Center(
@@ -584,5 +622,117 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
       return null;
 
     }
+
+    
+
+  
+  Future<http.Response?> trimitePinPentruStergereContClient() async {
+
+    
+    LocalizationsApp l = LocalizationsApp.of(context)!;  
+         
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+
+    /*
+    http.Response? res = await apiCallFunctions.getContClient(
+      pUser: controllerEmail.text,
+      pParola: controllerPass.text,
+    );
+    */
+
+    String textMessage = '';
+    Color backgroundColor = Colors.red;
+    Color textColor = Colors.black;
+
+    http.Response? resTrimitePinPentruStergere = await apiCallFunctions.trimitePinPentruStergereContClient(
+      pUser: user,
+      pParola: userPassMD5,
+    );
+
+    if (int.parse(resTrimitePinPentruStergere!.body) == 200)
+    {
+
+      //SharedPreferences prefs = await SharedPreferences.getInstance();
+      //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+      print('Cod trimis cu succes!');
+
+      //textMessage = 'Cod trimis cu succes!';// old IGV
+      textMessage = l.profilPacientCodTrimisCuSucces;
+
+      backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+      textColor = Colors.white;
+      
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere.body) == 400)
+    {
+
+      print('Apel invalid');
+
+      //textMessage = 'Apel invalid!'; //old IGV
+      textMessage = l.profilPacientApelInvalid;
+
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere!.body) == 401)
+    {
+
+      //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+      print('Cont inexistent');
+
+      //textMessage = 'Cont inexistent!'; //old IGV
+      textMessage = l.profilPacientContInexistent;
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere!.body) == 405)
+    {
+
+      
+      print('Cont existent dar clientul nu are date de contact!');
+      
+      //textMessage = 'Cont existent dar clientul nu are date de contact!'; //old IGV
+
+      textMessage = l.profilPacientContExistentFaraDateContact;
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+    else if (int.parse(resTrimitePinPentruStergere!.body) == 500)
+    {
+
+      print('A apărut o eroare la execuția metodei!');
+
+      //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+      textMessage = l.profilPacientAAparutOEroare;
+      
+      backgroundColor = Colors.red;
+      textColor = Colors.black;
+
+    }
+
+    if (context.mounted)
+    {
+
+      showSnackbar(context, textMessage, backgroundColor, textColor);
+
+      return resTrimitePinPentruStergere;
+
+    }
+  
+    return null;
+
+  }
+
 
 }

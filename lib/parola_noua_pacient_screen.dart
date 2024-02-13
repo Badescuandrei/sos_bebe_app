@@ -389,8 +389,8 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                   height: 44,
                   child: 
                     (!showSendCodeButton)? Text(
-                      //'Se încearcă trimiterea codului', //old IGV
-                      l.parolaNouaPacientSeIncearcaTrimitereaCodului,
+                      //'Se încearcă resetarea parolei', //old IGV
+                      l.parolaNouaPacientSeIncearcaResetareaParolei,
                       //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20)), old
                       style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 18)):
                     ElevatedButton(

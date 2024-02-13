@@ -186,7 +186,7 @@ Map<String, dynamic> values = {
     'parola_cel_putin':'Parola trebuie să aibă cel puțin 6 caractere',
     'parola_aceeasi':'Parola trebuie să fie aceeași în ambele câmpuri',
     'repeta_noua_parola':'Repetă noua parolă',
-    'se_incearca_trimiterea_codului':'Se încearcă trimiterea codului',
+    'se_incearca_resetarea_parolei':'Se încearcă resetarea parolei',
     'confirma':'Confirmă',
         
     },
@@ -389,7 +389,7 @@ Map<String, dynamic> values = {
     'reseteaza_parola_text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
     'telefon_email_utilizator_hint': 'Telefon, e-mail sau utilizator',
     'introduceti_utilizator_email_telefon': 'Introduceți un utilizator/email/numar de telefon valid!',
-    'contul_dumneavostra':'Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe',
+    'contul_dumneavoastra':'Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe',
     'send_code': 'Send code',
     'cod_trimis_cu_succes': 'Cod trimis cu succes!',
     'apel_invalid': 'Apel invalid!',

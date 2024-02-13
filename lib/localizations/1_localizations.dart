@@ -532,8 +532,8 @@ class LocalizationsApp {
     return _localizedValues[locale.languageCode]!['parola_noua_pacient']['repeta_noua_parola'];
   }
 
-  String get parolaNouaPacientSeIncearcaTrimitereaCodului {
-    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['se_incearca_trimiterea_codului'];
+  String get parolaNouaPacientSeIncearcaResetareaParolei {
+    return _localizedValues[locale.languageCode]!['parola_noua_pacient']['se_incearca_resetarea_parolei'];
   }
 
   String get parolaNouaPacientConfirma {
@@ -1204,9 +1204,9 @@ class LocalizationsApp {
 
   }
 
-  String get resetPasswordPacientContulDumneavostra {
+  String get resetPasswordPacientContulDumneavoastra {
 
-    return _localizedValues[locale.languageCode]!['reset_password_pacient']['contul_dumneavostra'];
+    return _localizedValues[locale.languageCode]!['reset_password_pacient']['contul_dumneavoastra'];
 
   }
 

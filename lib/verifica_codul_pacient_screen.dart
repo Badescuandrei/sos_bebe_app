@@ -148,9 +148,30 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                         width:250,
                         child:
                         GestureDetector(
-                          onTap: () 
+                          onTap: () async
                           {                               
-                            
+                              http.Response? resTrimitePin;
+                              resTrimitePin = await trimitePinPentruResetareParolaClient();
+                              
+                              /*
+                              if(context.mounted)
+                              {
+                                if (int.parse(resTrimitePin!.body) == 200)
+                                {
+                                  Color backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+                                  Color textColor = Colors.white;
+                                  showSnackbar(context, l.profilPacientCodTrimisCuSucces,backgroundColor, textColor);
+                                }
+                                else 
+                                {
+
+                                  Color backgroundColor = Colors.red;
+                                  Color textColor = Colors.black;
+                                  showSnackbar(context, l.resetPasswordPacientAAparutOEroare,backgroundColor, textColor);
+
+                                }
+                              }
+                              */
                           },
                           child:
                           Center(
@@ -363,6 +384,102 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         showSnackbar(context, textMessage, backgroundColor, textColor);
         return resVerificaCodPin;
       }
+      return null;
+
+    }
+
+
+  Future<http.Response?> trimitePinPentruResetareParolaClient() async {
+
+      LocalizationsApp l = LocalizationsApp.of(context)!;
+
+      String textMessage = '';
+      Color backgroundColor = Colors.red;
+      Color textColor = Colors.black;
+
+      http.Response? resTrimitePin = await apiCallFunctions.trimitePinPentruResetareParolaClient(
+        pUser: widget.user,
+      );
+
+      if (int.parse(resTrimitePin!.body) == 200)
+      {
+
+        //SharedPreferences prefs = await SharedPreferences.getInstance();
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+        print('Cod trimis cu succes!');
+
+        //textMessage = 'Cod trimis cu succes!'; //old IGV
+        textMessage = l.resetPasswordPacientCodTrimisCuSucces;
+
+        backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+        textColor = Colors.white;
+        
+
+      }
+      else if (int.parse(resTrimitePin.body) == 400)
+      {
+
+        print('Apel invalid');
+
+        //textMessage = 'Apel invalid!'; //old IGV
+        textMessage = l.resetPasswordPacientApelInvalid;
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+      else if (int.parse(resTrimitePin!.body) == 401)
+      {
+
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+        print('Cont inexistent');
+
+        //textMessage = 'Cont inexistent!'; //old IGV
+
+        textMessage = l.resetPasswordPacientContInexistent;
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+      else if (int.parse(resTrimitePin!.body) == 405)
+      {
+
+        
+        print('Informatii insuficiente');
+        
+        //textMessage = 'Cont existent dar clientul nu are date de contact!'; //old IGV
+
+        textMessage = l.resetPasswordPacientContExistentFaraDate; //old IGV
+
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+      else if (int.parse(resTrimitePin!.body) == 500)
+      {
+
+        print('A apărut o eroare la execuția metodei');
+
+        //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+        
+        textMessage = l.resetPasswordPacientAAparutOEroare;
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+
+      if (context.mounted)
+      {
+
+        showSnackbar(context, textMessage, backgroundColor, textColor);
+
+        return resTrimitePin;
+
+      }
+    
       return null;
 
     }

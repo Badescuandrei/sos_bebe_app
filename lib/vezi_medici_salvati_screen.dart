@@ -18,7 +18,7 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
-//List<MedicMobile> listaMedici = [];
+List<MedicMobile> listaMedici = [];
 
 MedicMobile? medicSelectat;
 
@@ -66,7 +66,7 @@ MedicMobile? medicSelectat;
       {
         listResult.add(listaMediciDeFiltrat[index]);
       }
-    }  
+    }
     return listResult; 
   }
 
