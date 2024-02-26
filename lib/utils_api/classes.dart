@@ -122,8 +122,10 @@ class RecenzieMobile {
   final String identitateClient;
   final DateTime dataRecenzie;
   final String comentariu;
+  final String linkPozaProfil;
 
   const RecenzieMobile({required this.rating, required this.identitateClient, required this.dataRecenzie, required this.comentariu, 
+    required this.linkPozaProfil,
 
   });
 
@@ -137,6 +139,7 @@ class RecenzieMobile {
       //dataRecenzie: json['DataRecenzie'] as DateTime,
       dataRecenzie: DateTime.parse(json['DataRecenzie'].toString()),
       comentariu: json['Comentariu'] as String,
+      linkPozaProfil: json['LinkPozaProfil'] as String,
 
     );
 

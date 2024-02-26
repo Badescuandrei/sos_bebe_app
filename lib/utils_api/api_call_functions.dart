@@ -243,7 +243,7 @@ class ApiCallFunctions {
         return parsed.map<RecenzieMobile>((json) => RecenzieMobile.fromJson(json)).toList();
       }
 
-      print('resGetListaMedici rezultat parsat: ${parseRecenzii(resGetListaRecenziiByIdMedic.body)}');
+      print('resGetListaRecenziiByIdMedic rezultat parsat: ${parseRecenzii(resGetListaRecenziiByIdMedic.body)}');
       return parseRecenzii(resGetListaRecenziiByIdMedic.body);
 
       //return ContClientMobile.fromJson(jsonDecode(resGetContClient.body) as Map<String, dynamic>);

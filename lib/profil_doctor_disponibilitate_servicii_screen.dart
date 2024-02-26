@@ -8,6 +8,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:sos_bebe_app/confirmare_servicii_screen.dart';
 
 import 'package:sos_bebe_app/vezi_toti_medicii_screen.dart';
+import 'package:sos_bebe_app/vezi_medici_salvati_screen.dart';
 
 import 'package:sos_bebe_app/initializare_recenzii_old_dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
@@ -33,10 +34,13 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
 List<MedicMobile> listaMedici = [];
+//List<RecenzieMobile>? listaRecenziiAfisata = [];
 
 class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
 
 final MedicMobile medicDetalii;
+final List<RecenzieMobile>? listaRecenzii;
+final bool ecranTotiMedicii;
 /*
   final bool eInConsultatie;
   final bool eDisponibil;
@@ -66,7 +70,7 @@ final MedicMobile medicDetalii;
     required this.textActivitateNumarTestimoniale, required this.textActivitateTimpDeRaspuns});
 */
 
-  const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.medicDetalii,});
+  const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.medicDetalii, this.listaRecenzii, required this.ecranTotiMedicii});
   
 
   @override
@@ -75,7 +79,7 @@ final MedicMobile medicDetalii;
 
 class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctorDisponibilitateServiciiScreen> {
 
-  List<RecenzieMobile>? listaRecenzii;
+  //List<RecenzieMobile>? listaRecenzii;
 
   static const activ = EnumStatusMedicMobile.activ;
   static const indisponibil = EnumStatusMedicMobile.indisponibil;
@@ -94,10 +98,11 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
     //initializeDateFormatting("ro_RO");
 
-    getListaRecenziiByIdMedic();
+    //getListaRecenziiByIdMedic();
 
   }
 
+/* //old IGV
   getListaRecenziiByIdMedic() async 
   {
 
@@ -106,19 +111,20 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
     String user = prefs.getString('user')??'';
     String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
     
-    listaRecenzii = await apiCallFunctions.getListaRecenziiByIdMedic(
+    listaRecenziiAfisata = await apiCallFunctions.getListaRecenziiByIdMedic(
       pUser: user,
       pParola: userPassMD5,
       pIdMedic: widget.medicDetalii.id.toString(),
       pNrMaxim: '10',
     );
 
-    print('listaRecenzii: $listaRecenzii');
+    print('listaRecenziiAfisata: $listaRecenziiAfisata');
 
   }
+*/
 
   getListaMedici() async 
-            {
+  {
   
     SharedPreferences prefs = await SharedPreferences.getInstance(); 
     
@@ -150,7 +156,7 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
     //var length = listaMedici.length;
     //print('Size lista: $length');
 
-    List<RecenzieMobile> listaFiltrata = listaRecenzii??[];
+    List<RecenzieMobile> listaFiltrata = widget.listaRecenzii??[];
 
     //print('Lungime lista recenzii: ${listaFiltrata.length}');
 
@@ -167,7 +173,7 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
             dataRo.substring(3,4).toUpperCase() + 
             dataRo.substring(4);
       
-      //print('dataRoLuna: $dataRoLuna');
+      print('dataRoLuna: $dataRoLuna ,  item.identitateClient:  ${item.identitateClient}');
 
       if (index < listaFiltrata.length-1)
       //if (index < 2)
@@ -218,11 +224,22 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
             if (context.mounted)
             {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici,),
-                ));
+              if (widget.ecranTotiMedicii)
+              {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici,),
+                  ));
+              }
+              else
+              {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VeziMediciSalvatiScreen(listaMedici: listaMedici,),
+                  ));
+              }
             }
           },
           color: Colors.white,

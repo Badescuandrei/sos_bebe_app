@@ -23,6 +23,9 @@ List<MedicMobile> listaMedici = [];
 MedicMobile? medicSelectat;
 
 
+List<RecenzieMobile>? listaRecenziiMedicSelectat = [];
+
+
   List<MedicMobile> filterListByFavorite(listaMediciDeFiltrat)
   {
 
@@ -573,6 +576,28 @@ class _IconStatusNumeRatingSpitalLikesMediciSalvati extends State<IconStatusNume
 
   }
 
+
+  getListaRecenziiByIdMedic(int idMedic) async 
+  {
+
+    SharedPreferences prefs = await SharedPreferences.getInstance(); 
+    
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+    
+    listaRecenziiMedicSelectat = await apiCallFunctions.getListaRecenziiByIdMedic(
+      pUser: user,
+      pParola: userPassMD5,
+      pIdMedic: idMedic.toString(),
+      pNrMaxim: '10',
+    );
+
+    print('listaRecenziiAfisata: $listaRecenziiMedicSelectat');
+
+    return listaRecenziiMedicSelectat;
+
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -591,13 +616,14 @@ class _IconStatusNumeRatingSpitalLikesMediciSalvati extends State<IconStatusNume
         */
         
         medicSelectat = await getDetaliiMedic(widget.medicItem.id);
+        listaRecenziiMedicSelectat = await getListaRecenziiByIdMedic(widget.medicItem.id);
 
         if (mounted)
         {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProfilDoctorDisponibilitateServiciiScreen(medicDetalii: medicSelectat!,
+                builder: (context) => ProfilDoctorDisponibilitateServiciiScreen(medicDetalii: medicSelectat!, listaRecenzii: listaRecenziiMedicSelectat, ecranTotiMedicii: false,
                 ),
               )
             );

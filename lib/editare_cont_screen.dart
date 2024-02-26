@@ -125,7 +125,7 @@ class EditareContScreenState extends State<EditareContScreen> {
   }
   */
 
-  
+
   Future<http.Response?> updateDateClient() async {
 
     LocalizationsApp l = LocalizationsApp.of(context)!;

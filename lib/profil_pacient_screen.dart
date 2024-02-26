@@ -257,8 +257,13 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
         backgroundColor: const Color.fromRGBO(30, 214, 158, 1),
         foregroundColor: Colors.white,
         leading:
-          const BackButton(
+          BackButton(
             color: Colors.white,
+            onPressed: (){
+
+              Navigator.pop(context);
+
+            },
           ),
         title:Text(
           //'Profilul meu',
@@ -377,7 +382,21 @@ class ProfilulMeuPacientScreenState extends State<ProfilulMeuPacientScreen> {
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(18, 25, 36, 1), fontSize: 14, fontWeight: FontWeight.w400),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async 
+                                {
+
+                                  await getListaMedici();
+                                  if (context.mounted)
+                                  {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => VeziMediciSalvatiScreen(listaMedici: listaMedici,),
+                                    ));
+
+                                  }
+
+                                },
                                 icon: Image.asset('./assets/images/arrow_right_verde_icon.png'),
                               ),
                             ],
