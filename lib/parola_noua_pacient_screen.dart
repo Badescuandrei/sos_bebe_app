@@ -157,9 +157,9 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
 
       });
 
-      print('Informatii insuficiente');
+      print('Informații insuficiente');
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
       textMessage = l.parolaNouaPacientInformatiiInsuficiente;
       backgroundColor = Colors.red;
       textColor = Colors.black;

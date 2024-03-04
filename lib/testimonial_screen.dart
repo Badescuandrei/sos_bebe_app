@@ -139,10 +139,10 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
 
       });
 
-      print('Informatii insuficiente');
+      print('Informații insuficiente');
     
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
 
       textMessage = l.testimonialInformatiiInsuficiente;
 

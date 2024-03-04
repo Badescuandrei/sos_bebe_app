@@ -237,9 +237,9 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       });
 
-      print('Informatii insuficiente!');
+      print('Informații insuficiente!');
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
       textMessage = l.editareContInformatiiInsuficiente;
       backgroundColor = Colors.red;
       textColor = Colors.black;

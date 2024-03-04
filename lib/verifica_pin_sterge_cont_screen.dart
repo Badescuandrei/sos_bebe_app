@@ -450,9 +450,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
           
         });
 
-        print('Informatii insuficiente!');
+        print('Informații insuficiente!');
 
-        //textMessage = 'Informatii insuficiente!'; //old IGV
+        //textMessage = 'Informații insuficiente!'; //old IGV
 
         textMessage = l.verificaPinStergeContInformatiiInsuficiente;
 
@@ -584,9 +584,9 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
           
         });
         
-        print('Informatii insuficiente!');
+        print('Informații insuficiente!');
 
-        //textMessage = 'Informatii insuficiente!'; //old IGV
+        //textMessage = 'Informații insuficiente!'; //old IGV
         textMessage = l.verificaPinStergeContInformatiiInsuficienteStergeCont;
 
         backgroundColor = Colors.red;

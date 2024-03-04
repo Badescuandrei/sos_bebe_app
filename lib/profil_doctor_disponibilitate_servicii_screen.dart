@@ -873,10 +873,10 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
 
       });
 
-      print('Informatii insuficiente');
+      print('Informații insuficiente');
     
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
 
       textMessage = l.profilDoctorDisponibilitateServiciiMedicAdaugatInformatiiInsuficiente;
 
@@ -1019,10 +1019,10 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
 
       });
 
-      print('Informatii insuficiente');
+      print('Informații insuficiente');
     
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
 
       textMessage = l.profilDoctorDisponibilitateServiciiMedicScosInformatiiInsuficiente;
 

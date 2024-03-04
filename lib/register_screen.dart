@@ -191,14 +191,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (context.mounted)
       {
 
-        showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
+        showSnackbar(context, "Informații insuficiente!", Colors.red, Colors.black);
 
       }
       
       return resAdaugaCont;
       */
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
       textMessage = l.registerInformatiiInsuficiente;
 
       backgroundColor = Colors.red;

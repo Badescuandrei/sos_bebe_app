@@ -437,9 +437,9 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
 
       });
 
-      print('Informatii insuficiente!');
+      print('Informații insuficiente!');
       
-      //textMessage = 'Informatii insuficiente!'; //old IGV
+      //textMessage = 'Informații insuficiente!'; //old IGV
       textMessage = l.questionareInformatiiInsuficiente;
       backgroundColor = Colors.red;
       textColor = Colors.black;

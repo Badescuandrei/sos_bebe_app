@@ -495,10 +495,10 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
       });
 
-      print('Informatii insuficiente');
+      print('Informații insuficiente');
     
       
-      textMessage = 'Informatii insuficiente!';
+      textMessage = 'Informații insuficiente!';
       backgroundColor = Colors.red;
       textColor = Colors.black;
       */

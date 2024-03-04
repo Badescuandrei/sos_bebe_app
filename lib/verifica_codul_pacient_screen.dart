@@ -338,9 +338,9 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
       {
 
         
-        print('Informatii insuficiente!');
+        print('Informații insuficiente!');
 
-        //textMessage = 'Informatii insuficiente!'; //old IGV
+        //textMessage = 'Informații insuficiente!'; //old IGV
 
         textMessage = l.verificaCodulPacientInformatiiInsuficiente;
 
@@ -350,7 +350,7 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
         //{
 
           
-          //showSnackbar(context, "Informatii insuficiente!", Colors.red, Colors.black);
+          //showSnackbar(context, "Informații insuficiente!", Colors.red, Colors.black);
 
         //}
         
