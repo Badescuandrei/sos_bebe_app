@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/intro_screen.dart';
 import 'package:sos_bebe_app/register_screen.dart';
@@ -101,9 +102,10 @@ class _LoginScreenState extends State<LoginScreen> {
       pUser: mailTelefonUser,
       pParola: userPassMD5,
       pDeviceToken: '',
-      pTipDispozitiv: '',
+      pTipDispozitiv: Platform.isAndroid ? '1' : '2',
+      pModelDispozitiv: await apiCallFunctions.getDeviceInfo(),
+      pTokenVoip: '',
     );
-    
 
     if (resGetCont != null)
     {

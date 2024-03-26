@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -315,7 +316,9 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
       pUser: user,
       pParola: userPassMD5,
       pDeviceToken: '',
-      pTipDispozitiv: '',
+      pTipDispozitiv: Platform.isAndroid ? '1' : '2',
+      pModelDispozitiv: await apiCallFunctions.getDeviceInfo(),
+      pTokenVoip: '',
     );
 
     //return rezGetContClient;

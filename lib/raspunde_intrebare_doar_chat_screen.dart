@@ -19,6 +19,7 @@ import './utils/chat.dart' as chat;
 import './utils/chat_l10n.dart' as chat_l10n;
 import './utils/chat_theme.dart' as chat_theme;
 import './utils/typing_indicator.dart' as typing_indicator;
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/classes.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';

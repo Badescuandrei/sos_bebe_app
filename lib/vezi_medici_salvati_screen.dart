@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 //import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -12,6 +13,7 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/profil_doctor_disponibilitate_servicii_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
+
 
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
@@ -340,7 +342,9 @@ class _TopIconFiltreazaMediciSalvatiWidgetState extends State<TopIconFiltreazaMe
       pUser: user,
       pParola: userPassMD5,
       pDeviceToken: '',
-      pTipDispozitiv: '',
+      pTipDispozitiv: Platform.isAndroid ? '1' : '2',
+      pModelDispozitiv: await apiCallFunctions.getDeviceInfo(),
+      pTokenVoip: '',
     );
 
     //return rezGetContClient;

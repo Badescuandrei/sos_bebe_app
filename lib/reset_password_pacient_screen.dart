@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:sos_bebe_app/verifica_codul_pacient_screen.dart';
@@ -204,7 +205,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                           pUser: controllerPhoneEmailUser.text,
                           pParola: userPassMD5 ?? '',
                           pDeviceToken: '',
-                          pTipDispozitiv: '',
+                          pTipDispozitiv: Platform.isAndroid ? '1' : '2',
+                          pModelDispozitiv: await apiCallFunctions.getDeviceInfo(),
+                          pTokenVoip: '',
                         );
 
 

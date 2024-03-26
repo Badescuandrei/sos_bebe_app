@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/login_screen.dart';
 //import 'package:sos_bebe_app/select_service_screen_old_dart';
@@ -68,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       pUser: controllerEmail.text,
       pParola: controllerPass.text,
       pDeviceToken: '',
-      pTipDispozitiv: '',
+      pTipDispozitiv: Platform.isAndroid ? '1' : '2',
     );
 
     print('adaugaContClient resAdaugaCont.body ${resAdaugaCont!.body}');

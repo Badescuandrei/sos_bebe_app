@@ -118,13 +118,14 @@ class MedicMobile {
 
 class RecenzieMobile {
 
+  final int id;
   final double rating;
   final String identitateClient;
   final DateTime dataRecenzie;
   final String comentariu;
   final String linkPozaProfil;
 
-  const RecenzieMobile({required this.rating, required this.identitateClient, required this.dataRecenzie, required this.comentariu, 
+  const RecenzieMobile({required this.id, required this.rating, required this.identitateClient, required this.dataRecenzie, required this.comentariu, 
     required this.linkPozaProfil,
 
   });
@@ -134,6 +135,8 @@ class RecenzieMobile {
     print('RecenzieMobile.fromJson $json');
 
     return RecenzieMobile(
+
+      id: json['ID'] as int,
       rating: json['Rating'] as double,
       identitateClient: json['IdentitateClient'] as String,
       //dataRecenzie: json['DataRecenzie'] as DateTime,

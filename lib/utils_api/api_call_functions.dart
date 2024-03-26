@@ -84,6 +84,8 @@ class ApiCallFunctions {
     required String pParola,
     required String pDeviceToken,
     required String pTipDispozitiv,
+    required String pModelDispozitiv,
+    required String pTokenVoip,
   }) async {
     //final String pParolaMD5 = generateMd5(pParola);
     final Map<String, String> parametriiApiCall = {
@@ -93,6 +95,8 @@ class ApiCallFunctions {
       'pParolaMD5': pParola,
       'pDeviceToken': pDeviceToken,
       'pTipDispozitiv': pTipDispozitiv,
+      'pModelDispozitiv': pModelDispozitiv,
+      'pTokenVoip': pTokenVoip,
     };
 
     http.Response? resGetContClient;
@@ -469,8 +473,6 @@ class ApiCallFunctions {
 
   }
 
-
-
   Future<ChestionarClientMobile?> getUltimulChestionarCompletatByContClient({
     //required String pNumeComplet,
     required String pUser,
@@ -842,7 +844,48 @@ class ApiCallFunctions {
 
   }
 
+  Future<http.Response?> trimitePushPrinOneSignal({
+    required String pUser,
+    required String pParola,
+    required String pTipNotificare,
+
+  }) async {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pTipNotificare': pTipNotificare,
+
+    };
+
+    http.Response? resTrimitePushPrinOneSignal;
+
+    resTrimitePushPrinOneSignal = await postApelFunctie(parametriiApiCall, 'TrimitePushPrinOneSignal');
+
+    print('trimitePushPrinOneSignal status rezultat: ${resTrimitePushPrinOneSignal!.statusCode} body rezultat: ${resTrimitePushPrinOneSignal.body}');
+
+    return resTrimitePushPrinOneSignal;
+
+  }
+
+  Future<String> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    String device = '';
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      device = androidInfo.model ?? '';
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      device = iosInfo.utsname.machine ?? '';
+    }
+
+    return device;
+  }
+
 }
+
 
 
 //////////////////////////////////////old
