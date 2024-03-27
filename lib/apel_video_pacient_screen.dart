@@ -16,15 +16,26 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 const appId = "da37c68ec4f64cd1af4093c758f20869";
       //appId: 'a6810f83c0c549aab473207134b69489',
-const channel =  "TestIGV_1";
-
 const appCertificate = '69b34ac5d15044a7906063342cc15471';
+//const channelName =  "TestIGV_1";
+const channelName =  "TestChannelIGV_1";
+
+const role = RtcRole.subscriber;
+
+const expirationInSeconds = 86400;
+
+final currentTimestamp = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+final expireTimestamp = currentTimestamp + expirationInSeconds;
+
+//const token = '007eJxTYNjEWLn2xZZnXDv2ON9yF7NNF5oRcX7WwSVmC2fZ127pVu1XYEhJNDZPNrNITTZJMzNJTjFMTDMxsDRONje1SDMysDCzdF1xJLUhkJEhWVCBgREKQXxOhpDU4hJP97B4QwYGAAa3IGo=';
+
 /*      username: "4",
       uid: 4,
 */
 //const username = "pacient1";
 //const uid = 10;
-const token = '007eJxTYNjEWLn2xZZnXDv2ON9yF7NNF5oRcX7WwSVmC2fZ127pVu1XYEhJNDZPNrNITTZJMzNJTjFMTDMxsDRONje1SDMysDCzdF1xJLUhkJEhWVCBgREKQXxOhpDU4hJP97B4QwYGAAa3IGo=';
+
+
 
 /*
 const role = RtcRole.publisher;
@@ -57,6 +68,8 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   int? _remoteUid;
   bool _localUserJoined = false;
   late RtcEngine _engine;
+
+  String token = '';
 
   final Stopwatch _stopwatch = Stopwatch();
   
@@ -104,11 +117,36 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
   @override
   void initState() {
     super.initState();
+
+
+    token = RtcTokenBuilder.build(
+            appId: appId,
+            channelName: channelName,
+            appCertificate: appCertificate,
+            uid: '0',
+            role: role,
+            expireTimestamp: expireTimestamp,
+
+    );
+
+    //print('token: $token');
+
     initAgora();
+
     //_start();
   }
 
   Future<void> initAgora() async {
+
+    String token = RtcTokenBuilder.build(
+        appId: appId,
+        channelName: channelName,
+        appCertificate: appCertificate,
+        uid: '1',
+        role: role,
+        expireTimestamp: expireTimestamp,
+
+    );
     // retrieve permissions
     await [Permission.microphone, Permission.camera].request();
 
@@ -140,9 +178,23 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
             _remoteUid = null;
           });
         },
-        onTokenPrivilegeWillExpire: (RtcConnection connection, String token) {
+        onTokenPrivilegeWillExpire: (RtcConnection connection, String token) async {
+          /*
           debugPrint(
               '[onTokenPrivilegeWillExpire] connection: ${connection.toJson()}, token: $token');
+          */
+          
+          token = RtcTokenBuilder.build(
+            appId: appId,
+            channelName: channelName,
+            appCertificate: appCertificate,
+            uid: 'pacient1',
+            role: role,
+            expireTimestamp: expireTimestamp,
+
+          );
+
+          await _engine.renewToken(token);
         },
       ),
     );
@@ -153,8 +205,8 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
 
     await _engine.joinChannel(
       token: token,
-      channelId: channel,
-      uid: 0,
+      channelId: channelName,
+      uid: 1,
       options: const ChannelMediaOptions(),
     );
   }
@@ -278,7 +330,7 @@ class _ApelVideoPacientScreenState extends State<ApelVideoPacientScreen> {
         controller: VideoViewController.remote(
           rtcEngine: _engine,
           canvas: VideoCanvas(uid: _remoteUid),
-          connection: const RtcConnection(channelId: channel),
+          connection: const RtcConnection(channelId: channelName),
         ),
       );
     } else {

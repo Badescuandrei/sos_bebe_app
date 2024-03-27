@@ -203,7 +203,7 @@ class ApiCallFunctions {
       //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
         specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, 
-        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0, esteFavorit: false);
+        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0, esteFavorit: false, channelName: '');
     }
 
     //return resGetContClient;
@@ -265,7 +265,6 @@ class ApiCallFunctions {
 
   }
 
-  
 
   Future<List<FacturaClientMobile>?> getListaFacturi({
     //required String pNumeComplet,
@@ -562,6 +561,33 @@ class ApiCallFunctions {
     }
 
     //return resGetContClient;
+
+  }
+
+
+  Future<ChestionarClientMobile?> getCredentialeAgora() async
+  {
+
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+    };
+
+    http.Response? resGetCredentialeAgora;
+
+    resGetCredentialeAgora = await getApelFunctie(parametriiApiCall, 'GetCredentialeAgora');
+
+    
+    if (resGetCredentialeAgora!.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return ChestionarClientMobile.fromJson(jsonDecode(resGetCredentialeAgora.body) as Map<String, dynamic>);
+    }
+    else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      //throw Exception('Nu s-a putut crea corect contul de client mobile din Json-ul rezultat.'); //old IGV
+      return null;
+    }
 
   }
 

@@ -61,6 +61,7 @@ class MedicMobile {
   final int totalTestimoniale;
   final double procentRating;
   final bool esteFavorit;
+  final String channelName;
 
 
   const MedicMobile({required this.id, required this.linkPozaProfil, required this.titulatura, required this.numeleComplet, required this.locDeMunca, 
@@ -68,7 +69,7 @@ class MedicMobile {
     required this.primesteIntrebari, required this.interpreteazaAnalize, required this.consultatieVideo, required this.monedaPreturi,
     required this.pretIntrebare, required this.pretConsultatieVideo, required this.pretInterpretareAnalize, required this.experienta,
     required this.adresaLocDeMunca, required this.totalClienti, required this.totalTestimoniale, required this.procentRating,
-     required this.esteFavorit,
+    required this.esteFavorit, required this.channelName,
   });
 
   factory MedicMobile.fromJson(Map<String, dynamic> json) {
@@ -101,6 +102,7 @@ class MedicMobile {
         totalTestimoniale: json['TotalTestimoniale'] as int,
         procentRating: json['ProcentRating'] as double,
         esteFavorit: json['EsteFavorit'] as bool,
+        channelName: json['ChannelName'] as String,
 
       );
     }
@@ -109,7 +111,7 @@ class MedicMobile {
 
       return const MedicMobile(id: -1, linkPozaProfil: '', titulatura: '', numeleComplet: '', locDeMunca: '', functia: '', 
         specializarea: '', medieReviewuri: -1.0, nrLikeuri: -1, status: -1, primesteIntrebari: false, interpreteazaAnalize: false, consultatieVideo: false, monedaPreturi: -1, pretIntrebare: -1.0, pretConsultatieVideo: -1.0, 
-        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0, esteFavorit: false);
+        pretInterpretareAnalize: -1.0, experienta: '', adresaLocDeMunca: '', totalClienti: 0, totalTestimoniale: 0, procentRating: 0.0, esteFavorit: false, channelName: '');
 
     }
   }
@@ -322,6 +324,30 @@ class RaspunsIntrebareChestionarClientMobile {
   }
 }
 
+
+class Agora {
+
+  String? appID;
+  String? appCertificate;
+  
+
+  Agora({this.appID, this.appCertificate,
+
+  });
+
+  factory Agora.fromJson(Map<String, dynamic> json) {
+
+    print('Agora.fromJson $json');
+
+    return Agora(
+
+      appID: json['AppID'] as String,
+      appCertificate: json['AppCertificate'] as String,
+
+    );
+
+  }
+}
 
 
 enum EnumStatusMedicMobile

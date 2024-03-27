@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/intro_screen.dart';
 import 'package:sos_bebe_app/register_screen.dart';
@@ -33,6 +34,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodePassword = FocusNode();
 
+  bool requireConsent = false;
+  String oneSignalToken = '';
   
   Locale _locale = const Locale('ro', 'RO');
   onLocaleChange(Locale l) {
@@ -46,7 +49,25 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    
     loadLocale();
+
+  }
+
+  Future<void> initOneSignalPlatformState() async 
+  {
+
+    if (!mounted) return;
+
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
+    OneSignal.Debug.setAlertLevel(OSLogLevel.none);
+    OneSignal.consentRequired(requireConsent);
+
+    OneSignal.initialize("bf049046-edaf-41f1-bb07-e2ac883af161");
+    
+    oneSignalToken = OneSignal.User.pushSubscription.token?? '';
+
   }
 
   loadLocale() async {
@@ -98,10 +119,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
     String userPassMD5 = apiCallFunctions.generateMd5(pass);
 
+//    OneSignal.initialize("bf049046-edaf-41f1-bb07-e2ac883af161");
+
+    //var state = await OneSignal.shared.getDeviceState();
+
+    //String? fcmtoken = state?.pushToken;
+
     ContClientMobile? resGetCont = await apiCallFunctions.getContClient(
       pUser: mailTelefonUser,
       pParola: userPassMD5,
-      pDeviceToken: '',
+      //pDeviceToken: '', //old IGV
+      pDeviceToken: oneSignalToken,
       pTipDispozitiv: Platform.isAndroid ? '1' : '2',
       pModelDispozitiv: await apiCallFunctions.getDeviceInfo(),
       pTokenVoip: '',
