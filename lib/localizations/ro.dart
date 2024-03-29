@@ -131,6 +131,7 @@ Map<String, dynamic> values = {
     'valoare_tva': 'Valoare TVA',
     'valoare_fara_tva': 'Valoare fără TVA',
     'buton_download_pdf': 'Download PDF',
+    'trimite_testimonial': 'TRIMITE TESTIMONIAL',
 
     },
     

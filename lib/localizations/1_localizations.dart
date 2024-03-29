@@ -399,6 +399,11 @@ class LocalizationsApp {
   String get facturaButonDownloadPdf {
     return _localizedValues[locale.languageCode]!['factura']['buton_download_pdf'];
   }
+  
+
+  String get facturaTrimiteTestimonial {
+    return _localizedValues[locale.languageCode]!['factura']['trimite_testimonial'];
+  }
 
 
   // intro

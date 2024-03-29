@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      //home: const LoginScreen(),
+      home: const LoginScreen(),
 
       //home: const ParolaNouaPacientScreen(user: 'george.iordache@gmail.com'),
 
@@ -143,7 +143,7 @@ class MyApp extends StatelessWidget {
       
       //home: const RegisterScreen(),
       
-      home: const ApelVideoPacientScreen(),
+      //home: const ApelVideoPacientScreen(),
       
       //home: const AdaugaMetodaPlataScreen(),
 

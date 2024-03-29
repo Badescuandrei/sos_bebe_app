@@ -1085,6 +1085,69 @@ class _FacturaScreenState extends State<FacturaScreen> {
                     ),
                   ],
                 ),
+                //IGV către ecran testimonial 
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 284,
+                      height: 48,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //Navigator.push(
+                            //context,
+                            //MaterialPageRoute(
+                              //builder: (context) => const ServiceSelectScreen(),
+                              //builder: (context) => const TestimonialScreen(),
+                            //));
+                          //Navigator.of(context).popUntil((route) => route.isFirst);
+                        
+                          
+                          //_takeScreenshot(context);
+
+                          print("pressed on button Trimite testimonial");
+                          /*Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const QuestionaireScreen(),
+                            )
+                          );
+                          */
+                          /*
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TestimonialScreen(idMedic:1),
+                            )
+                          );
+                          */
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
+                            minimumSize: const Size.fromHeight(50), // NEW
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5),
+                            )),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            /*
+                            Image.asset('./assets/images/download_icon.png'),
+                            const SizedBox(
+                              width:10
+                            ),
+                            */
+                            Text(
+                                //'Trimite feedback',
+                                l.facturaTrimiteTestimonial,
+                                style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 14, fontWeight: FontWeight.w400)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),  
         ),

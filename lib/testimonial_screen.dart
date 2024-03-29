@@ -18,8 +18,9 @@ ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 class TestimonialScreen extends StatefulWidget {
 
   final int idMedic;
+  final int idFactura;
 
-  const TestimonialScreen({super.key, required this.idMedic});
+  const TestimonialScreen({super.key, required this.idMedic, required this.idFactura});
 
   @override
   State<TestimonialScreen> createState() => _TestimonialScreenState();
@@ -65,6 +66,7 @@ class _TestimonialScreenState extends State<TestimonialScreen> {
       pUser: user,
       pParola: userPassMD5,
       pIdMedic: widget.idMedic.toString(),
+      pIdFactura: widget.idFactura.toString(),
       pNota: _ratingValue.toString(),
       pComentariu: controllerTestimonialText.toString(),
     );

@@ -356,7 +356,7 @@ class ApiCallFunctions {
       DateTime dataNow = DateTime.now();
       return FacturaClientMobile(id: -1, numar: '-1', serie: '-1', dataEmitere: dataNow, dataPlata: dataNow, denumireBeneficiar: '',
         telefonBeneficiar: '', emailBeneficiar: '', valoareCuTVA: 0.0, valoareTVA: 0.0, valoareFaraTVA: 0.0, moneda:0, denumireMedic: '',
-        serviciiFactura:'', telefonEmitent:'', emailEmitent:'');
+        serviciiFactura:'', telefonEmitent:'', emailEmitent:'', idFeedbackClient: 1);
 
     }
 
@@ -718,7 +718,7 @@ class ApiCallFunctions {
 
     resStergeContClient = await postApelFunctie(parametriiApiCall, 'StergeContClient');
 
-    print('trimitePinPentruStergereContClient rezultat: ${resStergeContClient!.statusCode} body rezultat: ${resStergeContClient.body}');
+    print('stergeContClient rezultat: ${resStergeContClient!.statusCode} body rezultat: ${resStergeContClient.body}');
 
     return resStergeContClient;
 
@@ -750,6 +750,7 @@ class ApiCallFunctions {
     required String pUser,
     required String pParola,
     required String pIdMedic,
+    required String pIdFactura,
     required String pNota,
     required String pComentariu,
   }) async {
@@ -758,6 +759,7 @@ class ApiCallFunctions {
       'pUser': pUser, //IGV
       'pParolaMD5': pParola,
       'pIdMedic': pIdMedic,
+      'pIdFactura': pIdFactura,
       'pNota': pNota,
       'pComentariu': pComentariu,
     };
@@ -771,6 +773,57 @@ class ApiCallFunctions {
     return resAdaugaFeedbackDinContClient;
 
   }
+
+
+  Future<http.Response?> modificaFeedbackDinContClient({
+    required String pUser,
+    required String pParola,
+    required String pIdFeedback,
+    required String pNota,
+    required String pComentariu,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pIdFeedback': pIdFeedback,
+      'pNota': pNota,
+      'pComentariu': pComentariu,
+    };
+
+    http.Response? resModificaFeedbackDinContClient;
+
+    resModificaFeedbackDinContClient = await postApelFunctie(parametriiApiCall, 'ModificaFeedbackDinContClient');
+
+    print('modificaFeedbackDinContClient status rezultat: ${resModificaFeedbackDinContClient!.statusCode} body rezultat: ${resModificaFeedbackDinContClient!.body}');
+
+    return resModificaFeedbackDinContClient;
+
+  }
+
+
+  Future<http.Response?> stergeFeedbackDinContClient({
+    required String pUser,
+    required String pParola,
+    required String pIdFeedback,
+  }) async {
+    //final String pParolaMD5 = generateMd5(pParola);
+    final Map<String, String> parametriiApiCall = {
+      'pUser': pUser, //IGV
+      'pParolaMD5': pParola,
+      'pIdFeedback': pIdFeedback,
+    };
+
+    http.Response? resStergeFeedbackDinContClient;
+
+    resStergeFeedbackDinContClient = await postApelFunctie(parametriiApiCall, 'StergeFeedbackDinContClient');
+
+    print('stergeFeedbackDinContClient rezultat: ${resStergeFeedbackDinContClient!.statusCode} body rezultat: ${resStergeFeedbackDinContClient.body}');
+
+    return resStergeFeedbackDinContClient;
+
+  }
+
 
   Future<http.Response?> adaugaMesajDinContClient({
     required String pUser,

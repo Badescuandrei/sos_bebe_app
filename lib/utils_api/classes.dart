@@ -126,9 +126,11 @@ class RecenzieMobile {
   final DateTime dataRecenzie;
   final String comentariu;
   final String linkPozaProfil;
+  final String raspuns;
+
 
   const RecenzieMobile({required this.id, required this.rating, required this.identitateClient, required this.dataRecenzie, required this.comentariu, 
-    required this.linkPozaProfil,
+    required this.linkPozaProfil, required this.raspuns,
 
   });
 
@@ -145,6 +147,7 @@ class RecenzieMobile {
       dataRecenzie: DateTime.parse(json['DataRecenzie'].toString()),
       comentariu: json['Comentariu'] as String,
       linkPozaProfil: json['LinkPozaProfil'] as String,
+      raspuns: json['Raspuns'] as String,
 
     );
 
@@ -234,11 +237,12 @@ class FacturaClientMobile {
   final String serviciiFactura;
   final String telefonEmitent;
   final String emailEmitent;
+  final int idFeedbackClient;
 
   const FacturaClientMobile({required this.id, required this.numar, required this.serie, required this.dataEmitere, required this.dataPlata,
     required this.denumireBeneficiar, required this.telefonBeneficiar, required this.emailBeneficiar, required this.valoareCuTVA,
     required this.valoareTVA, required this.valoareFaraTVA, required this.moneda, required this.denumireMedic, required this.serviciiFactura,
-    required this.telefonEmitent, required this.emailEmitent,
+    required this.telefonEmitent, required this.emailEmitent, required this.idFeedbackClient,
   });
 
   factory FacturaClientMobile.fromJson(Map<String, dynamic> json) {
@@ -263,6 +267,7 @@ class FacturaClientMobile {
       serviciiFactura: json['ServiciiFactura']??'',
       telefonEmitent: json['TelefonEmitent']??'',
       emailEmitent: json['EmailEmitent']??'',
+      idFeedbackClient: json['IdFeedbackClient']??'',
 
     );
   }
