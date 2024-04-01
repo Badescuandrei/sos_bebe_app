@@ -190,6 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
     
     return Scaffold(
       //begin added by George Valentin Iordache
+      /*
       appBar: AppBar(
         title: Text(
           //'Înapoi'
@@ -201,6 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
           color: Colors.white,
         ),
       ),
+      */
       //end added by George Valentin Iordache
       backgroundColor: Colors.white,
       body: SafeArea(

@@ -1113,14 +1113,12 @@ class _FacturaScreenState extends State<FacturaScreen> {
                             )
                           );
                           */
-                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const TestimonialScreen(idMedic:1),
+                              builder: (context) => const TestimonialScreen(idMedic:1, idFactura:1), //old IGV
                             )
                           );
-                          */
 
                         },
                         style: ElevatedButton.styleFrom(
@@ -1139,7 +1137,7 @@ class _FacturaScreenState extends State<FacturaScreen> {
                             ),
                             */
                             Text(
-                                //'Trimite feedback',
+                                //'TRIMITE TESTIMONIAL',
                                 l.facturaTrimiteTestimonial,
                                 style: GoogleFonts.rubik(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: 14, fontWeight: FontWeight.w400)),
                           ],

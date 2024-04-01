@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/login_screen.dart';
 //import 'package:sos_bebe_app/select_service_screen_old_dart';
@@ -492,15 +493,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         //TextSpan(text: 'Dacă te înscrii, îți exprimi acordul cu '), //old IGV
                         TextSpan(text: l.registerDacaTeInscrii),
                         //TextSpan(text: 'Condițiile de utilizare.', style: TextStyle(fontWeight: FontWeight.bold)), //old IGV
-                        TextSpan(text: l.registerConditiiUtilizare, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: l.registerConditiiUtilizare, style: const TextStyle(fontWeight: FontWeight.bold),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              /*
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateAccount()),
+                              
+                              ),
+                              */
+                          }
+                        ),
                         //TextSpan(text: 'Din '), //old IGV
                         TextSpan(text: l.registerDin),
                         //TextSpan(text: 'Politica de confidențialitate', style: TextStyle(fontWeight: FontWeight.bold)), //old IGV
-                        TextSpan(text: l.registerPoliticaDeConfidentialitate, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: l.registerPoliticaDeConfidentialitate, style: const TextStyle(fontWeight: FontWeight.bold),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              /*
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateAccount()),
+                              
+                              ),
+                              */
+                          },
+                        ),
                         //TextSpan(text: ' poți afla cum colectăm, folosim și distribuim datele tale, iar din '), //old IGV
                         TextSpan(text: l.registerPotiAflaCumColectam),
                         //TextSpan(text: 'Politica de utilizare a modulelor cookie', style: TextStyle(fontWeight: FontWeight.bold)), //old IGV
-                        TextSpan(text: l.registerPoliticaDeUtilizare, style: const TextStyle(fontWeight: FontWeight.bold)),
+                        TextSpan(text: l.registerPoliticaDeUtilizare, style: const TextStyle(fontWeight: FontWeight.bold),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              /*
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CreateAccount()),
+                              
+                              ),
+                              */
+                          },
+                        ),
                         //TextSpan(text: ' poți afla cum utilizăm modulele cookie și tehnologii similare. '), //old IGV
                         TextSpan(text: l.registerPotiAflaCumUtilizam),
                       ],
