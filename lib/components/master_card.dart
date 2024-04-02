@@ -33,7 +33,7 @@ Card buildCreditCard({
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                //'Introduceti datele cardului',
+                //'Introduceți datele cardului',
                 l.adaugaMetodaPlataIntroducetiDateleCardului,
                 style: GoogleFonts.rubik(color:const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w500, fontSize: 18),
               ),

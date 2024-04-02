@@ -6,10 +6,18 @@ import  'package:sos_bebe_app/factura_screen.dart';
 import  'package:sos_bebe_app/questionare_screen.dart';
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
 
 
 class PlataRealizataCuSuccesScreen extends StatefulWidget {
-  const PlataRealizataCuSuccesScreen({super.key});
+
+  final int tipServiciu;
+
+  final ContClientMobile contClientMobile;
+
+  final MedicMobile medicDetalii;
+
+  const PlataRealizataCuSuccesScreen({super.key, required this.tipServiciu, required this.contClientMobile, required this.medicDetalii});
 
   @override
   State<PlataRealizataCuSuccesScreen> createState() => _PlataRealizataCuSuccesScreenState();
@@ -31,7 +39,7 @@ class _PlataRealizataCuSuccesScreenState extends State<PlataRealizataCuSuccesScr
       */
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) 
-                          => const QuestionaireScreen()));
+                          => QuestionaireScreen(tipServiciu:widget.tipServiciu, contClientMobile: widget.contClientMobile, medicDetalii: widget.medicDetalii,)));
 
   });
   

@@ -21,7 +21,12 @@ ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 List<MedicMobile> listaMedici = [];
 
 class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
-  const VeziMediciDisponibiliIntroScreen({super.key});
+
+  
+
+  final ContClientMobile contClientMobile;
+
+  const VeziMediciDisponibiliIntroScreen({super.key, required this.contClientMobile});
 
   getListaMedici() async 
   {
@@ -116,13 +121,14 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                             onPressed: () async {
                               
                               await getListaMedici();
+                              print('Email intro_screen ${contClientMobile.email}');
 
                               if (context.mounted)
                               {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici,),
+                                    builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici, contClientMobile:contClientMobile,),
                                   ));
                               }
                             },
@@ -222,7 +228,7 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             textAlign: TextAlign.left,
                           ),
-                        ),  
+                        ),
                       ),
                     ],
                   ),

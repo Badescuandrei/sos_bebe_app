@@ -282,8 +282,8 @@ class LocalizationsApp {
     return _localizedValues[locale.languageCode]!['editare_cont']['introduceti_numele_complet'];
   }
 
-  String get editareContResetareParolaHint {
-    return _localizedValues[locale.languageCode]!['editare_cont']['resetare_parola_hint'];
+  String get editareContResetareParola {
+    return _localizedValues[locale.languageCode]!['editare_cont']['resetare_parola'];
   }
 
   String get editareContVaRugamIntroducetiParola {

@@ -35,15 +35,19 @@ List<ConversatieMobile> listaConversatii = [];
 
 class RaspundeIntrebareDoarChatScreen extends StatefulWidget {
 
-  final String textNume;
+  //final String textNume;
   final String textIntrebare;
   final String textRaspuns;
   
-  final int idMedic;
+  final ContClientMobile contClientMobile;
+
+  
+  
+  final MedicMobile medic;
 
   const RaspundeIntrebareDoarChatScreen({
 
-    super.key, required this.textNume, required this.textIntrebare, required this.textRaspuns, required this.idMedic
+    super.key, required this.textIntrebare, required this.textRaspuns, required this.contClientMobile, required this.medic
 
   });
 
@@ -59,12 +63,17 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
   String textIntrebare = '';
   String textRaspuns = '';
 
+  
+  static const activ = EnumStatusMedicMobile.activ;
+  static const indisponibil = EnumStatusMedicMobile.indisponibil;
+  static const inConsultatie = EnumStatusMedicMobile.inConsultatie;
+
   List<types.Message> _messages = [];
 
   List<types.TextMessage> newMessages = [];
 
-  final _user = const types.User(
-    id: '12',
+  types.User _user = const types.User(
+    id: '-1',
   );
 
   //final _user = const types.User(id: '12345', imageUrl: 'https://i.pravatar.cc/300', firstName: 'Test', lastName: 'Test');
@@ -73,6 +82,10 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
   initState(){
 
     super.initState();
+
+    _user = types.User(
+      id: widget.contClientMobile.id.toString(),
+    );
     //textNume = '';
     //textIntrebare = '';
     //textRaspuns = '';
@@ -105,17 +118,18 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 
     //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-    //String user = prefs.getString('user')??'';
-    //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
     //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5('123456')); //old IGV
 
     //String? userPassMD5 = prefs.getString(pref_keys.userPassMD5);
 
+    /*
     String? user = 'george.iordache@gmail.com';
 
     String? userPassMD5 = apiCallFunctions.generateMd5('123456');
-
+    */
     
     //SharedPreferences prefs = await SharedPreferences.getInstance(); 
     
@@ -128,6 +142,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     )?? [];
 
     print('listaConversatii length: ${listaConversatii.length} ${listaConversatii[0].idDestinatar} ${listaConversatii[0].idExpeditor} ${listaConversatii[0].id.toString()}');
+    print('listaConversatii  id medic: ${widget.medic.id} id client: ${widget.contClientMobile.id}');
 
   }
 
@@ -137,31 +152,46 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     
     List<MesajConversatieMobile> listaMesaje = [];
 
-    String? user = 'george.iordache@gmail.com';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+    //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-    listaConversatii.retainWhere((element) => element.idDestinatar == widget.idMedic);
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
+    //String? user = 'george.iordache@gmail.com';
 
-    listaMesaje = await apiCallFunctions.getListaMesajePeConversatie(
-      pUser: user,
-      pParola: userPassMD5,
-      pIdConversatie: listaConversatii[0].id.toString(),
-    )?? [];
+    //String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+    listaConversatii.retainWhere((element) {
+     //do something when textType == "birth"
+        return ((element.idDestinatar == widget.medic.id) && (element.idExpeditor == widget.contClientMobile.id));
+      }
+    );
+
+    if (listaConversatii.isNotEmpty)
+    {
+
+      listaMesaje = await apiCallFunctions.getListaMesajePeConversatie(
+        pUser: user,
+        pParola: userPassMD5,
+        pIdConversatie: listaConversatii[0].id.toString(),
+      )?? [];
+
     
-    //final response = await rootBundle.loadString('./assets/messages.json');
+      //final response = await rootBundle.loadString('./assets/messages.json');
 
-    //print('test');
+      //print('test');
 
-    /*
-    final messages = listaMesaje
-        .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == _user.id.toString()?_user.id:e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
-        .toList();
-    */
-    newMessages = listaMesaje
-        .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == _user.id.toString()?_user.id:e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
-        .toList();
+      /*
+      final messages = listaMesaje
+          .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == _user.id.toString()?_user.id:e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
+          .toList();
+      */
+      newMessages = listaMesaje
+          .map((e) => types.TextMessage(id:e.id.toString(), author:types.User(id:e.idExpeditor.toString() == widget.contClientMobile.id.toString() ? widget.contClientMobile.id.toString() : e.idExpeditor.toString()), text:e.comentariu, createdAt:e.dataMesaj.millisecondsSinceEpoch))
+          .toList();
+    }
 
   }
 
@@ -421,7 +451,7 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
     http.Response? resAdaugaMesaj = await apiCallFunctions.adaugaMesajDinContClient(
       pUser: user,
       pParola: userPassMD5,
-      pIdMedic: widget.idMedic.toString(),
+      pIdMedic: widget.medic.id.toString(),
       pMesaj: mesaj,
     );
 
@@ -553,9 +583,16 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
       //resizeToAvoidBottomInset: false,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        toolbarHeight: 75,
+        toolbarHeight: 140,
         //title: const RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: 'Nume pacienta',),
-        title: RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: l.raspundeIntrebareDoarChatNumePacient,),
+        //title: RaspundeIntrebareTopIconsTextWidget(iconPath: './assets/images/raspunde_intrebare_pacienta.png', textNume: l.raspundeIntrebareDoarChatNumePacient,),
+        title: RaspundeIntrebareTopIconsTextWidget(iconPath: widget.medic.linkPozaProfil, eInConsultatie: widget.medic.status == inConsultatie.value,
+            eDisponibil: widget.medic.status == activ.value,
+            textNume: '${widget.medic.titulatura}. ${widget.medic.numeleComplet}', 
+            textSpital: widget.medic.locDeMunca, 
+            textTipMedic: '${widget.medic.functia}. ${widget.medic.specializarea}',
+            idMedic: widget.medic.id,
+            ),
       ),
       body:
 
@@ -563,21 +600,24 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
       Column(
         
         children: [
+          /*
           ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
-          ),
-          child: Text(
-            //'Apel mesaje' //old IGV
-            l.raspundeIntrebareDoarChatApelMesaje,
-          ),
-          onPressed: () async 
-          {
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.green,
+            ),
+            child: Text(
+              //'Apel mesaje' //old IGV
+              l.raspundeIntrebareDoarChatApelMesaje,
+            ),`
+            onPressed: () async 
+            {
 
-            _loadMessagesFromList();
+              _loadMessagesFromList();
 
-          },
-        ),
+            },
+          ),
+          */
+
           Expanded(flex: 2, child:
             chat.Chat(
               messages: _messages,
@@ -634,12 +674,25 @@ class _RaspundeIntrebareDoarChatScreenState extends State<RaspundeIntrebareDoarC
 class RaspundeIntrebareTopIconsTextWidget extends StatelessWidget {
   
   final String iconPath;
-  final String textNume;
+  //final String textNume;
+  //final MedicMobile medicDetalii;
+  final bool eInConsultatie;
+  final bool eDisponibil;
+  final String textNume; //'${widget.medic.titulatura}. ${widget.medic.numeleComplet}', 
+  final String textSpital; //widget.medic.locDeMunca, 
+  final String textTipMedic; //'${widget.medic.functia}. ${widget.medicDetalii.specializarea}',
+  final int idMedic;
     
-  const RaspundeIntrebareTopIconsTextWidget({super.key, required this.iconPath, required this.textNume});
+  //const RaspundeIntrebareTopIconsTextWidget({super.key, required this.iconPath, required this.textNume});
+  const RaspundeIntrebareTopIconsTextWidget({super.key, required this.iconPath, required this.eInConsultatie, required this.eDisponibil,
+    required this.textNume, required this.textSpital, required this.textTipMedic, required this.idMedic
+  });
 
   @override
   Widget build(BuildContext context) {
+
+    print('text Spital $textSpital $textTipMedic');
+
     return Column(
       children: [
         const SizedBox(height: 25),
@@ -653,12 +706,65 @@ class RaspundeIntrebareTopIconsTextWidget extends StatelessWidget {
               color: const Color.fromRGBO(103, 114, 148, 1),
             ),
             const SizedBox(width: 5),
-            CircleAvatar(foregroundImage: AssetImage(iconPath), radius: 25),
-            const SizedBox(width: 15),
-            Text(textNume, style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 12, fontWeight: FontWeight.w500)),
-            //const SizedBox(width: 160),
           ],
         ),
+          Row(
+            children: [
+              const SizedBox(width: 15),
+              Stack(
+                children: [
+                  iconPath.isNotEmpty? Image.network(iconPath, height: 60, width:60)
+                  : Image.asset('./assets/images/user_fara_poza.png', height: 60, width:60),
+                  Positioned(
+                    bottom: 0.0,
+                    right: 0.0,
+                    child: Image.asset(eInConsultatie? './assets/images/on_call_icon.png' : eDisponibil? './assets/images/online_icon.png': './assets/images/offline_icon.png'),
+                  ),  
+                ],
+              ),
+              const SizedBox(width: 25),
+                      
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 190,
+                        height: 17,
+                        child: Text(textNume, style: GoogleFonts.rubik(color:const Color.fromRGBO(30, 214, 158, 1), fontSize: 14, fontWeight: FontWeight.w400)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 190,
+                        height: 17,
+                        child: Text(textSpital, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 12, fontWeight: FontWeight.w300)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: 175,
+                        height: 17,
+                        child: Text(textTipMedic, style: GoogleFonts.rubik(color:const Color.fromRGBO(64, 75, 109, 1), fontSize: 10, fontWeight: FontWeight.w300)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+            //CircleAvatar(foregroundImage: AssetImage(iconPath), radius: 25),
+           // const SizedBox(width: 15),
+           // Text(textNume, style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 12, fontWeight: FontWeight.w500)),
+            //const SizedBox(width: 160),
       ],
     );
   }

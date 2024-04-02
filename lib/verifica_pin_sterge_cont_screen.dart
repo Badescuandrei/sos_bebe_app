@@ -109,6 +109,7 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                                 length: 4,
                                 //obscureText: false,
                                 textStyle: const TextStyle(color: Colors.white),
+                                keyboardType: TextInputType.number,
                                 //animationType: AnimationType.fade,
                                 appContext: context,
                                 pinTheme: PinTheme(

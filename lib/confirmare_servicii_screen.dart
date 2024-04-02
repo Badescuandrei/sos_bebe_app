@@ -3,16 +3,23 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/register_screen.dart';
 import 'package:sos_bebe_app/utils/utils_widgets.dart';
 import 'package:sos_bebe_app/adauga_metoda_plata_screen.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 class ConfirmareServiciiScreen extends StatelessWidget {
 
   final String pret;
+  final int tipServiciu;
+  final ContClientMobile contClientMobile;
+  final MedicMobile medicDetalii;
 
   const ConfirmareServiciiScreen({
     super.key,
     required this.pret,
+    required this.tipServiciu,
+    required this.contClientMobile,
+    required this.medicDetalii,
   });
 
   @override
@@ -184,7 +191,7 @@ class ConfirmareServiciiScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AdaugaMetodaPlataScreen(),
+                        builder: (context) => AdaugaMetodaPlataScreen(tipServiciu: tipServiciu, contClientMobile: contClientMobile, medicDetalii: medicDetalii),
                       ));
                 },
                 style: ElevatedButton.styleFrom(

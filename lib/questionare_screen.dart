@@ -24,7 +24,14 @@ ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 ChestionarClientMobile? chestionarInitial;
 
 class QuestionaireScreen extends StatefulWidget {
-  const QuestionaireScreen({super.key});
+
+  final int tipServiciu;
+
+  final ContClientMobile contClientMobile;
+
+  final MedicMobile medicDetalii;
+
+  const QuestionaireScreen({super.key, required this.tipServiciu, required this.contClientMobile, required this.medicDetalii,});
 
   @override
   State<QuestionaireScreen> createState() => _QuestionaireScreenState();
@@ -274,9 +281,14 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
     //String user = prefs.getString('user')??'';
     //String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
+    /* //old IGV
     String? user = 'george.iordache@gmail.com';
 
     String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+    */
+
+    String user = prefs.getString('user')??'';
+    String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
     chestionarInitial = await apiCallFunctions.getUltimulChestionarCompletatByContClient(
       pUser: user,
@@ -851,14 +863,16 @@ class _QuestionaireScreenState extends State<QuestionaireScreen> {
                 }
               }
 
-              /*
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  //return const PaymentScreen();
-                  return const RaspundeIntrebareDoarChatScreen(textNume: '', textIntrebare: '', textRaspuns: '', idMedic: 1,);
-                },
-              ));
-              */
+              if (context.mounted)
+              {
+                
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    //return const PaymentScreen();
+                    return RaspundeIntrebareDoarChatScreen(textIntrebare: '', textRaspuns: '', medic: widget.medicDetalii, contClientMobile: widget.contClientMobile,);
+                  },
+                ));
+              }
 
             },
             child: Container(

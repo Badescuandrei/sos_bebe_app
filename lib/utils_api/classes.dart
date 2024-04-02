@@ -389,6 +389,18 @@ enum EnumTipDispozitiv
 
 }
 
+enum EnumTipConsultatie
+{
+    nedefinit(0),
+    consultVideo(1),
+    interpretareAnalize(2),
+    intrebare(3);
+
+    const EnumTipConsultatie(this.value);
+    final int value;
+
+}
+
 ////////////////////////////////////////////////// old Andrei Bădescu
 
 class DosarulMeu {

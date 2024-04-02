@@ -6,6 +6,8 @@ import  'package:sos_bebe_app/register_screen.dart';
 
 import  'package:sos_bebe_app/factura_screen.dart';
 
+import 'package:sos_bebe_app/reset_password_pacient_screen.dart';
+
 import 'package:sos_bebe_app/utils_api/classes.dart';
 import 'package:sos_bebe_app/utils_api/functions.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -150,10 +152,11 @@ class EditareContScreenState extends State<EditareContScreen> {
 
       pUser: user,
       pParola: userPassMD5,
-      pNumeleComplet: controllerNumeComplet.text,
-      pTelefonNou: controllerTelefon.text,
-      pAdresaEmailNoua: controllerEmail.text,
-      pUserNou: controllerUser.text,
+      pNumeleComplet: controllerNumeComplet.text.isNotEmpty? controllerNumeComplet.text : 
+        (widget.contInfo!.nume.isNotEmpty || widget.contInfo!.prenume.isNotEmpty)? '${widget.contInfo!.nume} ${widget.contInfo!.prenume}':'',
+      pTelefonNou: controllerTelefon.text.isNotEmpty? controllerTelefon.text : widget.contInfo!.telefon,
+      pAdresaEmailNoua: controllerEmail.text.isNotEmpty? controllerEmail.text : widget.contInfo!.email,
+      pUserNou: controllerUser.text.isNotEmpty? controllerUser.text : widget.contInfo!.user,
 
     );
 
@@ -176,7 +179,7 @@ class EditareContScreenState extends State<EditareContScreen> {
       prefs.setString(pref_keys.user, controllerUser.text);
       //prefs.setString(pref_keys.userPassMD5, controllerEmail.text);
 
-      prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerResetareParola.text));
+      //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerResetareParola.text)); //old IGV
 
       print('Actualizare date finalizată cu succes!');
 
@@ -369,7 +372,7 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 //hintText: "Email", //old IGV
-                                hintText: l.editareContEmailHint,
+                                hintText: widget.contInfo!.email.isNotEmpty? widget.contInfo!.email : l.editareContEmailHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -427,7 +430,7 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 //hintText: "Telefon", //old IGV
-                                hintText: l.editareContTelefonHint,
+                                hintText: widget.contInfo!.telefon.isNotEmpty? widget.contInfo!.telefon : l.editareContTelefonHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -486,7 +489,7 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 //hintText: "User", //old IGV
-                                hintText: l.editareContUserHint,
+                                hintText: widget.contInfo!.user.isNotEmpty? widget.contInfo!.user : l.editareContUserHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -544,7 +547,7 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 filled: true,
                                 fillColor: Colors.white,
                                 //hintText: "Numele complet", //old IGV
-                                hintText: l.editareContNumeleCompletHint,
+                                hintText: (widget.contInfo!.nume.isNotEmpty || widget.contInfo!.prenume.isNotEmpty)? '${widget.contInfo!.nume} ${widget.contInfo!.prenume}' : l.editareContNumeleCompletHint,
                                 hintStyle: const TextStyle(color: Color.fromRGBO(59, 86, 110, 1), fontSize: 14, fontWeight: FontWeight.w400), //added by George Valentin Iordache
                               ),
                               validator: (value) {
@@ -571,6 +574,7 @@ class EditareContScreenState extends State<EditareContScreen> {
                             const SizedBox(height: 10),
                             customDividerProfil(),
                             const SizedBox(height: 10),
+                            /*
                             TextFormField(
                               focusNode: focusNodeResetareParola,
                               controller: controllerResetareParola,
@@ -594,14 +598,14 @@ class EditareContScreenState extends State<EditareContScreen> {
                                     color: Color.fromRGBO(205, 211, 223, 1),
                                   ),
                                 ),
-                                /*enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                  borderSide: const BorderSide(
-                                    color: Color.fromRGBO(205, 211, 223, 1),
-                                    width: 1.0,
-                                  ),
-                                ),
-                                */
+                                //enabledBorder: OutlineInputBorder(
+                                //  borderRadius: BorderRadius.circular(5),
+                                //  borderSide: const BorderSide(
+                                //    color: Color.fromRGBO(205, 211, 223, 1),
+                                //    width: 1.0,
+                                //  ),
+                                //),
+                                
                                 border: InputBorder.none,
                                 filled: true,
                                 fillColor: Colors.white),
@@ -617,6 +621,37 @@ class EditareContScreenState extends State<EditareContScreen> {
                                 } else {
                                   return null;
                                 }
+                              },
+                            ),
+                            */
+                            GestureDetector(
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 18
+                                  ),
+                                  Image.asset(
+                                    'assets/images/resetare_parola_icon.png',
+                                    width: 15,
+                                    height: 15,    //fit: BoxFit.fill,
+                                  ),
+                                  const SizedBox(
+                                    width: 15
+                                  ),
+                                  Text(l.editareContResetareParola,
+                                    style: const TextStyle(color: Color.fromRGBO(103, 114, 148, 1), fontSize: 14, fontWeight: FontWeight.w400),
+                                  ),
+                                ]
+                              ),
+                              onTap:()
+                              {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return const ResetPasswordPacientScreen();
+                                    //return const PlataEsuataScreen();
+                                  },
+                                ));
+
                               },
                             ),
                           ],

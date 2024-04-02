@@ -36,6 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool requireConsent = false;
   String oneSignalToken = '';
+
+  ContClientMobile? contClientMobile;
   
   Locale _locale = const Locale('ro', 'RO');
   onLocaleChange(Locale l) {
@@ -140,6 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
       
       print('login_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user} linkPozaProfil: ${resGetCont.linkPozaProfil}');
 
+      contClientMobile = resGetCont;
       //textMesaj = 'Login realizat cu succes!'; //old IGV
       textMesaj = l.loginLoginCuSucces;
       
@@ -373,7 +376,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const IntroScreen(),
+                            builder: (context) => IntroScreen(contClientMobile: resGetCont),
                           )
                         );
                       }

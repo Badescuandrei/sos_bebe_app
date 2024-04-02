@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_bebe_app/plata_succes_screen.dart';
 import 'package:sos_bebe_app/plata_esuata_screen.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
 import '../components/card_alert_dialog.dart';
 import '../components/card_input_formatter.dart';
 import '../components/card_month_input_formatter.dart';
@@ -16,7 +17,12 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 
 class AdaugaMetodaPlataScreen extends StatefulWidget {
-  const AdaugaMetodaPlataScreen({Key? key}) : super(key: key);
+
+  final int tipServiciu;
+  final ContClientMobile contClientMobile;
+  final MedicMobile medicDetalii;
+
+  const AdaugaMetodaPlataScreen({Key? key, required this.tipServiciu, required this.contClientMobile, required this.medicDetalii}) : super(key: key);
 
   @override
   State<AdaugaMetodaPlataScreen> createState() => _AdaugaMetodaPlataScreenState();
@@ -518,7 +524,7 @@ class _AdaugaMetodaPlataScreenState extends State<AdaugaMetodaPlataScreen> {
                         if (isValidForm) {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return const PlataRealizataCuSuccesScreen();
+                            return PlataRealizataCuSuccesScreen(tipServiciu: widget.tipServiciu, contClientMobile: widget.contClientMobile, medicDetalii: widget.medicDetalii,);
                             //return const PlataEsuataScreen();
                           },
                         ));

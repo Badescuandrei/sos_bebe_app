@@ -39,6 +39,7 @@ List<MedicMobile> listaMedici = [];
 class ProfilDoctorDisponibilitateServiciiScreen extends StatefulWidget {
 
 final MedicMobile medicDetalii;
+final ContClientMobile contClientMobileInfo;
 final List<RecenzieMobile>? listaRecenzii;
 final bool ecranTotiMedicii;
 /*
@@ -70,7 +71,7 @@ final bool ecranTotiMedicii;
     required this.textActivitateNumarTestimoniale, required this.textActivitateTimpDeRaspuns});
 */
 
-  const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.medicDetalii, this.listaRecenzii, required this.ecranTotiMedicii});
+  const ProfilDoctorDisponibilitateServiciiScreen({super.key, required this.medicDetalii, required this.contClientMobileInfo, this.listaRecenzii, required this.ecranTotiMedicii});
   
 
   @override
@@ -87,6 +88,10 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
 
   static const ron = EnumTipMoneda.lei;
   static const euro = EnumTipMoneda.euro;
+
+  static const consultVideo = EnumTipConsultatie.consultVideo;
+  static const interpretareAnalize = EnumTipConsultatie.interpretareAnalize;
+  static const intrebare = EnumTipConsultatie.intrebare;
 
   @override
   void initState() {
@@ -229,7 +234,7 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici,),
+                    builder: (context) => VeziTotiMediciiScreen(listaMedici: listaMedici, contClientMobile: widget.contClientMobileInfo,),
                   ));
               }
               else
@@ -307,25 +312,31 @@ class _ProfilDoctorDisponibilitateServiciiScreenState extends State<ProfilDoctor
                   textServiciu: l.profilDoctorDisponibilitateServiciiScrieIntrebare,
                   iconLocation: './assets/images/chat_profil_doctor_icon.png',
                   color: const Color.fromRGBO(30, 166, 219, 1),
-                  tipConsultatieReteta: false,
+                  tipConsultatieReteta: false, tipServiciu: intrebare.value,
+                  contClientMobile: widget.contClientMobileInfo,
+                  medicDetalii:widget.medicDetalii,
                 ),
                 ButtonServiciiProfilDoctor(
-                  pret: '${widget.medicDetalii.pretIntrebare} ',
+                  pret: '${widget.medicDetalii.pretConsultatieVideo} ',
                   moneda: widget.medicDetalii.monedaPreturi == ron.value? l.profilDoctorDisponibilitateServiciiMonedaRon: widget.medicDetalii.monedaPreturi == euro.value? l.profilDoctorDisponibilitateServiciiMonedaEuro: l.profilDoctorDisponibilitateServiciiMonedaRon,
                   //textServiciu: "Sună acum", //old IGV
                   textServiciu: l.profilDoctorDisponibilitateServiciiSunaAcum, 
                   iconLocation: './assets/images/apel_video_profil_doctor_icon.png',
                   color: const Color.fromRGBO(14, 190, 127, 1),
-                  tipConsultatieReteta: false,
+                  tipConsultatieReteta: false, tipServiciu: consultVideo.value,
+                  contClientMobile: widget.contClientMobileInfo,
+                  medicDetalii:widget.medicDetalii,
                 ),
                 ButtonServiciiProfilDoctor(
-                  pret: '${widget.medicDetalii.pretIntrebare} ',
+                  pret: '${widget.medicDetalii.pretInterpretareAnalize} ',
                   moneda: widget.medicDetalii.monedaPreturi == ron.value? l.profilDoctorDisponibilitateServiciiMonedaRon: widget.medicDetalii.monedaPreturi == euro.value? l.profilDoctorDisponibilitateServiciiMonedaEuro: l.profilDoctorDisponibilitateServiciiMonedaRon,
                   //textServiciu: "Primiți o recomandare și rețetă medicală", //old IGV
                   textServiciu: l.profilDoctorDisponibilitateServiciiPrimitiRecomandare,
                   iconLocation: './assets/images/reteta_profil_doctor_icon.png',
                   color: const Color.fromRGBO(241, 201, 0, 1),
-                  tipConsultatieReteta: true,
+                  tipConsultatieReteta: true, tipServiciu: interpretareAnalize.value,
+                  contClientMobile: widget.contClientMobileInfo,
+                  medicDetalii:widget.medicDetalii,
                 ),
               ],
             ),
@@ -1296,6 +1307,9 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
   final String iconLocation;
   final Color color;
   final bool tipConsultatieReteta;
+  final int tipServiciu;
+  final ContClientMobile contClientMobile;
+  final MedicMobile medicDetalii;
 
   const ButtonServiciiProfilDoctor({
     super.key,
@@ -1305,6 +1319,10 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
     required this.iconLocation,
     required this.color,
     required this.tipConsultatieReteta,
+    required this.tipServiciu,
+    required this.contClientMobile,
+    required this.medicDetalii,
+
   });
 
   @override
@@ -1314,7 +1332,7 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
       onTap: (){
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return ConfirmareServiciiScreen(pret: pret);
+            return ConfirmareServiciiScreen(pret: pret, tipServiciu: tipServiciu, contClientMobile: contClientMobile, medicDetalii: medicDetalii);
           },
         ));
       },
@@ -1323,7 +1341,8 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           color: color,
         ),
-        height: 55,
+        //height: 55, //old IGV
+        height: MediaQuery.of(context).size.height * 0.07,
         child:     
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -1343,7 +1362,10 @@ class ButtonServiciiProfilDoctor extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left:10, right: 10, top: 1),
                       child:
-                      SizedBox( width: 95, height: 23,
+                      SizedBox( 
+                        //width: 95, height: 23, //old IGV
+                        width: MediaQuery.of(context).size.width * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.026,
                         child: AutoSizeText.rich(
                           TextSpan(text: textServiciu,
                           //style: GoogleFonts.rubik(color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18), old

@@ -213,7 +213,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
 
                         print('reset_password_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user} linkPozaProfil: ${resGetCont.linkPozaProfil}');
 
-                        //if (resGetCont != null )
+                        if (resGetCont.id  == 0)
                         {
                           //print('reset_password_screen getContClient id : ${resGetCont!.id} nume : ${resGetCont.nume} prenume : ${resGetCont.prenume} email: ${resGetCont.email} telefon: ${resGetCont.telefon}  user: ${resGetCont.user}');
 
@@ -232,42 +232,43 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                           }
 
                         }
-                        //else
+                        else
                         {
 
                           print('reset_password_pacient Aici resGetCont null');
 
-                        }
                         
-                        http.Response? resTrimitePin;
-          
-                        resTrimitePin = await trimitePinPentruResetareParolaClient();
+                          http.Response? resTrimitePin;
+            
+                          resTrimitePin = await trimitePinPentruResetareParolaClient();
 
-                        if(context.mounted)
-                        {
-                          if (int.parse(resTrimitePin!.body) == 200)
+                          if(context.mounted)
                           {
-                            print('reset_password_pacient: user ${controllerPhoneEmailUser.text} resTrimitePin!.statusCode: ${resTrimitePin!.statusCode} resTrimitePin!.body: ${resTrimitePin.body}' );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => VerificaCodulPacientScreen(user: controllerPhoneEmailUser.text),
-                                //builder: (context) => const ServiceSelectScreen(),
-                                //builder: (context) => const TestimonialScreen(),
-                              ),
-                            );
+                            if (int.parse(resTrimitePin!.body) == 200)
+                            {
+                              print('reset_password_pacient: user ${controllerPhoneEmailUser.text} resTrimitePin!.statusCode: ${resTrimitePin!.statusCode} resTrimitePin!.body: ${resTrimitePin.body}' );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => VerificaCodulPacientScreen(user: controllerPhoneEmailUser.text),
+                                  //builder: (context) => const ServiceSelectScreen(),
+                                  //builder: (context) => const TestimonialScreen(),
+                                ),
+                              );
+                            }
                           }
-                        }
 
-                        /*                              
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            //builder: (context) => const ServiceSelectScreen(),
-                            builder: (context) => const VerificaCodulPacientScreen(),
-                          ),
-                        );
-                        */
+                          /*                              
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              //builder: (context) => const ServiceSelectScreen(),
+                              builder: (context) => const VerificaCodulPacientScreen(),
+                            ),
+                          );
+                          */
+                          
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

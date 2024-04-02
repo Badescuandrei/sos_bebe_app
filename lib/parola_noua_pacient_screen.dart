@@ -29,9 +29,9 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
   
   final parolaNouaKey = GlobalKey<FormState>();
 
-  bool isHiddenParolaNoua = false;
+  bool isHiddenParolaNoua = true;
 
-  bool isHiddenParolaNouaRepetata = false;
+  bool isHiddenParolaNouaRepetata = true;
 
   final controllerParolaNoua = TextEditingController();
 
@@ -328,7 +328,7 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                             ),    
                             suffixIcon: IconButton(
                                 onPressed: parolaNouaRepetataVisibiltyToggle,
-                                icon: isHiddenParolaNoua ? const ImageIcon(
+                                icon: isHiddenParolaNouaRepetata ? const ImageIcon(
                                                     AssetImage('assets/images/password_right_visibility.png'),
                                                   ) : 
                                                   const ImageIcon(

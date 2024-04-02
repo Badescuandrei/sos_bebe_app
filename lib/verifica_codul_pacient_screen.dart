@@ -96,6 +96,7 @@ class _VerificaCodulPacientScreenState extends State<VerificaCodulPacientScreen>
                               height:80,  
                               child: PinCodeTextField(
                                 length: 4,
+                                keyboardType: TextInputType.number,
                                 //obscureText: false,
                                 textStyle: const TextStyle(color: Colors.white),
                                 //animationType: AnimationType.fade,

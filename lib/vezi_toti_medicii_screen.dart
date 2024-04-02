@@ -18,7 +18,7 @@ import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
 
-List<MedicMobile> listaMedici = [];
+List<MedicMobile> listaMediciInitiala = [];
 
 MedicMobile? medicSelectat;
 
@@ -30,14 +30,16 @@ List<RecenzieMobile>? listaRecenziiMedicSelectat = [];
     const activ = EnumStatusMedicMobile.activ;
     const inConsultatie = EnumStatusMedicMobile.inConsultatie;
     List<MedicMobile> listResult = [];
-    for(int index = 0; index <listaMedici.length; index++){
-      if (listaMedici[index].status == activ.value || listaMedici[index].status == inConsultatie.value)
+    for(int index = 0; index <listaMediciInitiala.length; index++){
+      
+      //print('filterListByActiv: listaMedici index = $index status: ${listaMediciInitiala[index].status}');
+      if (listaMediciInitiala[index].status == activ.value || listaMediciInitiala[index].status == inConsultatie.value)
       {
-        print('filterListByActiv: index = $index ');
-        listResult.add(listaMedici[index]);
+        //print('filterListByActiv: index = $index ');
+        listResult.add(listaMediciInitiala[index]);
       }
     }
-    print('filterListByActiv: listResult.length = ${listResult.length} ');
+    //print('filterListByActiv: listResult.length = ${listResult.length} ');
     return listResult;
 
   }
@@ -46,10 +48,11 @@ List<RecenzieMobile>? listaRecenziiMedicSelectat = [];
   {
     const activ = EnumStatusMedicMobile.activ;
     List<MedicMobile> listResult = [];
-    for(int index = 0; index <listaMedici.length; index++){
-      if ((listaMedici[index].primesteIntrebari == true) && (listaMedici[index].status == activ.value))
+    //print('Aici filterListByDisponibilitateScrieIntrebare: listaMediciInitialaLength: ${listaMediciInitiala.length} !');
+    for(int index = 0; index <listaMediciInitiala.length; index++){
+      if ((listaMediciInitiala[index].primesteIntrebari == true) && (listaMediciInitiala[index].status == activ.value))
       {
-        listResult.add(listaMedici[index]);
+        listResult.add(listaMediciInitiala[index]);
       }
     }  
     return listResult; 
@@ -61,10 +64,10 @@ List<RecenzieMobile>? listaRecenziiMedicSelectat = [];
   {
     const activ = EnumStatusMedicMobile.activ;
     List<MedicMobile> listResult = [];
-    for(int index = 0; index <listaMedici.length; index++){
-      if ((listaMedici[index].consultatieVideo == true) && (listaMedici[index].status == activ.value))
+    for(int index = 0; index <listaMediciInitiala.length; index++){
+      if ((listaMediciInitiala[index].consultatieVideo == true) && (listaMediciInitiala[index].status == activ.value))
       {
-        listResult.add(listaMedici[index]);
+        listResult.add(listaMediciInitiala[index]);
       }
     }  
     return listResult; 
@@ -74,10 +77,10 @@ List<RecenzieMobile>? listaRecenziiMedicSelectat = [];
   {
     const activ = EnumStatusMedicMobile.activ;
     List<MedicMobile> listResult = [];
-    for(int index = 0; index <listaMedici.length; index++){
-      if ((listaMedici[index].interpreteazaAnalize == true) && (listaMedici[index].status == activ.value))
+    for(int index = 0; index <listaMediciInitiala.length; index++){
+      if ((listaMediciInitiala[index].interpreteazaAnalize == true) && (listaMediciInitiala[index].status == activ.value))
       {
-        listResult.add(listaMedici[index]);
+        listResult.add(listaMediciInitiala[index]);
       }
     }  
     return listResult; 
@@ -87,7 +90,9 @@ class VeziTotiMediciiScreen extends StatefulWidget {
   
   final List<MedicMobile> listaMedici;
 
-  const VeziTotiMediciiScreen({super.key, required this.listaMedici});
+  final ContClientMobile contClientMobile;
+
+  const VeziTotiMediciiScreen({super.key, required this.listaMedici, required this.contClientMobile});
 
   @override
   State<VeziTotiMediciiScreen> createState() => _VeziTotiMediciiScreenState();
@@ -112,6 +117,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     setState(() {
 
       listaFiltrata = widget.listaMedici;
+      listaMediciInitiala = widget.listaMedici;
       //listaFiltrata = listaMedici;
 
     });
@@ -130,12 +136,12 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
     String user = prefs.getString('user')??'';
     String userPassMD5 = prefs.getString(pref_keys.userPassMD5)??'';
 
-    listaMedici = await apiCallFunctions.getListaMedici(
+    listaMediciInitiala = await apiCallFunctions.getListaMedici(
       pUser: user,
       pParola: userPassMD5,
     )?? [];
 
-    print('listaMedici: $listaMedici');
+    print('listaMedici: $listaMediciInitiala');
 
   }
 
@@ -212,7 +218,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
       if (index < listaFiltrata.length-1)
       {
         mywidgets.add(
-          IconStatusNumeRatingSpitalLikesMedic(medicItem: item,),  
+          IconStatusNumeRatingSpitalLikesMedic(medicItem: item, contClientMobile: widget.contClientMobile,),  
         );
         mywidgets.add(
           const SizedBox(height: 15),
@@ -221,7 +227,7 @@ class _VeziTotiMediciiScreenState extends State<VeziTotiMediciiScreen> {
       else if (index == listaFiltrata.length-1)
       {
         mywidgets.add(
-          IconStatusNumeRatingSpitalLikesMedic(medicItem: item,),  
+          IconStatusNumeRatingSpitalLikesMedic(medicItem: item, contClientMobile: widget.contClientMobile,),  
         );
       }
       /*
@@ -418,7 +424,7 @@ class _TopIconFiltreazaWidgetState extends State<TopIconFiltreazaWidget> {
                 //else {
 
                   //listaMedici = InitializareMediciWidget().initList();
-                  widget.callbackFiltreaza!(listaMedici);
+                  widget.callbackFiltreaza!(listaMediciInitiala);
 
                 //} 
               }
@@ -490,17 +496,17 @@ class ButoaneAlegeOptiunea extends StatelessWidget {
         //ButonAlegeServiciu(textServiciu: 'Scrie o întrebare', iconLocation: './assets/images/intrebare_icon.png', colorBackground: const Color.fromRGBO(241, 248, 251, 1), //old IGV
         //  colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMedici, onPressed: callbackScrieIntrebare, tipServiciu: 1,), //old IGV
         ButonAlegeServiciu(textServiciu: l.veziTotiMediciiScrieOIntrebare, iconLocation: './assets/images/intrebare_icon.png', colorBackground: const Color.fromRGBO(241, 248, 251, 1), //old IGV
-          colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMedici, onPressed: callbackScrieIntrebare, tipServiciu: 1,), //old IGV
+          colorScris: const Color.fromRGBO(30, 166, 219, 1), widthScris: 60, listaMedici: listaMediciInitiala, onPressed: callbackScrieIntrebare, tipServiciu: 1,), //old IGV
 
         //ButonAlegeServiciu(textServiciu: 'Consultație video', iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: const Color.fromRGBO(236, 251, 247, 1), //old IGV
         //  colorScris: const Color.fromRGBO(30, 214, 158, 1), widthScris: 70, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 2,), //old IGV
         ButonAlegeServiciu(textServiciu: l.veziTotiMediciiConsultatieVideo, iconLocation: './assets/images/phone-call_apel_video.png', colorBackground: const Color.fromRGBO(236, 251, 247, 1),
-          colorScris: const Color.fromRGBO(30, 214, 158, 1), widthScris: 70, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 2,),
+          colorScris: const Color.fromRGBO(30, 214, 158, 1), widthScris: 70, listaMedici: listaMediciInitiala, onPressed: callbackConsultatieVideo, tipServiciu: 2,),
         
         //ButonAlegeServiciu(textServiciu: 'Interpretare analize', iconLocation: './assets/images/analize_icon.png', colorBackground: const Color.fromRGBO(253, 250, 234, 1), //old IGV
         //  colorScris: const Color.fromRGBO(241, 201, 0, 1), widthScris: 73, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 3,), //old IGV
         ButonAlegeServiciu(textServiciu: l.veziTotiMediciiInterpretareAnalize, iconLocation: './assets/images/analize_icon.png', colorBackground: const Color.fromRGBO(253, 250, 234, 1),
-          colorScris: const Color.fromRGBO(241, 201, 0, 1), widthScris: 73, listaMedici: listaMedici, onPressed: callbackConsultatieVideo, tipServiciu: 3,),
+          colorScris: const Color.fromRGBO(241, 201, 0, 1), widthScris: 73, listaMedici: listaMediciInitiala, onPressed: callbackConsultatieVideo, tipServiciu: 3,),
       ],
     );
   }
@@ -510,7 +516,9 @@ class IconStatusNumeRatingSpitalLikesMedic extends StatefulWidget {
   
   final MedicMobile medicItem;
 
-  const IconStatusNumeRatingSpitalLikesMedic({super.key, required this.medicItem,});
+  final ContClientMobile contClientMobile;
+
+  const IconStatusNumeRatingSpitalLikesMedic({super.key, required this.medicItem, required this.contClientMobile,});
 
   @override
   State<IconStatusNumeRatingSpitalLikesMedic> createState() => _IconStatusNumeRatingSpitalLikesMedic();
@@ -571,7 +579,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
 
   LocalizationsApp l = LocalizationsApp.of(context)!;
 
-  return InkWell(
+  return GestureDetector(
       onTap: () async {
         print("tapped on container medic");
         /*
@@ -592,6 +600,7 @@ class _IconStatusNumeRatingSpitalLikesMedic extends State<IconStatusNumeRatingSp
               context,
               MaterialPageRoute(
                 builder: (context) => ProfilDoctorDisponibilitateServiciiScreen(medicDetalii: medicSelectat!, listaRecenzii: listaRecenziiMedicSelectat, ecranTotiMedicii: true,
+                  contClientMobileInfo: widget.contClientMobile,
                 ),
               )
             );
@@ -1019,7 +1028,7 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
     GestureDetector(
       onTap: () {  
         // ignore: avoid_print                        
-        print("tapped on container întrebare");
+        print("tapped on container ${widget.textServiciu}");
         
         if (widget.tipServiciu == 1)
         {
@@ -1028,13 +1037,14 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
               isChecked = !isChecked;
               if(isChecked == true)
               {
+                //print('Filtrează: ${widget.textServiciu}');
                 listaFiltrataRezultat = filterListByDisponibilitateScrieIntrebare(); 
                 widget.onPressed!(listaFiltrataRezultat);
               }
               else {
 
                 //listaMedici = InitializareMediciWidget().initList();
-                widget.onPressed!(listaMedici);
+                widget.onPressed!(listaMediciInitiala);
                 
               } 
             }
@@ -1055,7 +1065,7 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
               else {
 
                 //listaMedici = InitializareMediciWidget().initList();
-                widget.onPressed!(listaMedici);
+                widget.onPressed!(listaMediciInitiala);
                 
               }
             }
@@ -1074,7 +1084,7 @@ class _ButonAlegeServiciuState extends State<ButonAlegeServiciu> {
               }
               else {
                 //listaMedici = InitializareMediciWidget().initList();
-                widget.onPressed!(listaMedici);
+                widget.onPressed!(listaMediciInitiala);
               }
 
             }

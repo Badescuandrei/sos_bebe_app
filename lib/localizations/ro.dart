@@ -9,7 +9,7 @@ Map<String, dynamic> values = {
   
   'adauga_metoda_plata': {
 
-    'introduceti_datele_cardului': 'Introduceti datele cardului',
+    'introduceti_datele_cardului': 'Introduceți datele cardului',
     'card_holder_title': 'CARDHOLDER',
     'valid_thru_title': 'VALID THRU',
     'expiry_date': '08/2028',
@@ -26,7 +26,7 @@ Map<String, dynamic> values = {
     'cvv_title': 'CVV',
     'card_cvv': '● ● ●',
     'expired_date': 'Expired Date',
-    'expiry_date_hint': '08/29',
+    'expiry_date_hint': '08/28',
     'necompletata': 'Necompletată',
     'incorecta': 'Incorectă',
     'plata_adauga': 'PLATĂ / ADAUGĂ',
@@ -92,7 +92,7 @@ Map<String, dynamic> values = {
     'introduceti_utilizator': 'Introduceți un utilizator!',
     'numele_complet_hint': 'Numele complet',
     'introduceti_numele_complet': 'Introduceți numele complet!',
-    'resetare_parola_hint': 'Resetare parolă',
+    'resetare_parola': 'Resetare parolă',
     'va_rugam_introduceti_parola': 'Vă rugăm introduceți o parolă!',
     'parola_trebuie_sa_contina': 'Parola trebuie să aibă cel puțin 6 caractere!',
     'salvare_date': 'Salvare date',

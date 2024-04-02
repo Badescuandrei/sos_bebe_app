@@ -1,13 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sos_bebe_app/utils_api/classes.dart';
 //import 'package:sos_bebe_app/login_screen.dart';
 import 'package:sos_bebe_app/vezi_medici_disponibili_intro_screen.dart';
 
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 class IntroScreen extends StatelessWidget {
-  const IntroScreen({super.key});
+
+  final ContClientMobile contClientMobile;
+  const IntroScreen({super.key, required this.contClientMobile,});
 
   @override
   Widget build(BuildContext context) {
@@ -101,9 +104,7 @@ class IntroScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: Directionality(
-                                  textDirection: TextDirection.rtl,
-                                  child: ElevatedButton(
+                              child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         minimumSize: const Size.fromHeight(60),
 
@@ -120,17 +121,11 @@ class IntroScreen extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => const VeziMediciDisponibiliIntroScreen(),//LoginScreen(),
+                                            builder: (context) => VeziMediciDisponibiliIntroScreen(contClientMobile: contClientMobile,),//LoginScreen(),
                                           ));
                                     },
                                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,  
-                                      children: [
-                                      const ImageIcon(
-                                        AssetImage("./assets/images/babyhead.png"),
-                                        color: Colors.white,
-                                        size: 40,
-                                      ),
-                                      const SizedBox(width: 20), // give the width that you desire
+                                      children: [ // give the width that you desire
                                       Text(
                                         //"CONTINUĂ", //old IGV
                                         l.introContinua,
@@ -138,12 +133,17 @@ class IntroScreen extends StatelessWidget {
                                           color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22),
                                           //color: Colors.white, fontWeight: FontWeight.w500, fontSize: 24), old cu mesajul RIGHT OVERFLOW BY 3 PIXELS
                                       ),
+                                      const ImageIcon(
+                                        AssetImage("./assets/images/babyhead.png"),
+                                        color: Colors.white,
+                                        size: 40,
+                                      ),
+                                      
                                     ]),
                                   )),
-                            ),
                             const SizedBox(
                               width: 110,
-                            )
+                            ),
                           ],
                         ),
                       ),
