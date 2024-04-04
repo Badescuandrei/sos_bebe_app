@@ -362,6 +362,16 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 30),
               ElevatedButton(
+                
+                /*
+                onPressed: () async 
+                {
+
+                  await trimitePushPrinOneSignal();
+
+                },
+                */
+                //corect IGV
                 onPressed: () async {
                   final isValidForm = loginKey.currentState!.validate();
                   if (isValidForm) {
@@ -382,7 +392,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       }
                     }
                   }
-                },  
+                }, 
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromRGBO(14, 190, 127, 1),
                     //const Color.fromARGB(255, 14, 190, 127), old
@@ -500,4 +510,116 @@ class _LoginScreenState extends State<LoginScreen> {
       )),
     );
   }
+
+//metodă de testat
+
+Future<http.Response?> trimitePushPrinOneSignal() async 
+  {
+    
+      const consultatieVideo = EnumTipNotificare.consultatieVideo;
+      const analizeDeInterpretat = EnumTipNotificare.analizeDeInterpretat;
+      const intrebare = EnumTipNotificare.intrebare;
+
+      LocalizationsApp l = LocalizationsApp.of(context)!;
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      String textMessage = '';
+      Color backgroundColor = Colors.red;
+      Color textColor = Colors.black;
+
+          
+    String? user = 'george.iordache@gmail.com';
+
+    String? userPassMD5 = apiCallFunctions.generateMd5('123456');
+
+      http.Response? resTrimitePushPrinOneSignal = await apiCallFunctions.trimitePushPrinOneSignal(
+        pUser: user,
+        pParola: userPassMD5,
+        pTipNotificare: '1',
+      );
+
+      if (int.parse(resTrimitePushPrinOneSignal!.body) == 200)
+      {
+
+        //SharedPreferences prefs = await SharedPreferences.getInstance();
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+
+        print('Notificare trimisă cu succes!');
+
+        textMessage = 'Notificare trimisă cu succes!'; //old IGV
+        //textMessage = l.resetPasswordPacientCodTrimisCuSucces;
+
+        backgroundColor = const Color.fromARGB(255, 14, 190, 127);
+        textColor = Colors.white;
+        
+
+      }
+      else if (int.parse(resTrimitePushPrinOneSignal.body) == 400)
+      {
+
+        print('Apel invalid');
+
+        textMessage = 'Apel invalid!'; //old IGV
+        //textMessage = l.resetPasswordPacientApelInvalid;
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+      else if (int.parse(resTrimitePushPrinOneSignal!.body) == 401)
+      {
+
+        //prefs.setString(pref_keys.userEmail, controllerEmail.text);
+        //prefs.setString(pref_keys.userPassMD5, apiCallFunctions.generateMd5(controllerPass.text));
+        print('Nu s-a trimis notificarea!');
+
+        textMessage = 'Nu s-a trimis notificarea!'; //old IGV
+
+        //textMessage = l.resetPasswordPacientContInexistent;
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+      else if (int.parse(resTrimitePushPrinOneSignal!.body) == 405)
+      {
+
+        
+        print('Informații insuficiente!');
+        
+        textMessage = 'Informații insuficiente!'; //old IGV
+
+        //textMessage = l.resetPasswordPacientContExistentFaraDate; //old IGV
+
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+      else if (int.parse(resTrimitePushPrinOneSignal!.body) == 500)
+      {
+
+        print('A apărut o eroare la execuția metodei');
+
+        //textMessage = 'A apărut o eroare la execuția metodei!'; //old IGV
+        
+        textMessage = l.resetPasswordPacientAAparutOEroare;
+        backgroundColor = Colors.red;
+        textColor = Colors.black;
+
+      }
+
+      if (context.mounted)
+      {
+
+        showSnackbar(context, textMessage, backgroundColor, textColor);
+
+        return resTrimitePushPrinOneSignal;
+
+      }
+    
+      return null;
+
+    }
+
 }

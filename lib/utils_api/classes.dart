@@ -401,6 +401,19 @@ enum EnumTipConsultatie
 
 }
 
+enum EnumTipNotificare
+{
+    nedefinit(0),
+    analizeDeInterpretat(1),
+    consultatieVideo(2),
+    intrebare(3),
+    mesajChat(4);
+
+    const EnumTipNotificare(this.value);
+    final int value;
+
+}
+
 ////////////////////////////////////////////////// old Andrei Bădescu
 
 class DosarulMeu {

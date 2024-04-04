@@ -292,9 +292,9 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
     );
   }
 
-  Future<http.Response?> trimitePinPentruResetareParolaClient() async {
-
-      
+  Future<http.Response?> trimitePinPentruResetareParolaClient() async 
+  {
+    
       LocalizationsApp l = LocalizationsApp.of(context)!;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
