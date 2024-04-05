@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
+import 'package:sos_bebe_app/reset_password_pacient_screen.dart';
+
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 class ErrorPacientScreen extends StatelessWidget {
@@ -44,8 +46,8 @@ class ErrorPacientScreen extends StatelessWidget {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
-                          text: l.errorPacientDetaliiText,
+                          //text: 'Procesul de schimbare parolă nu a reușit. Vă rugăm să reîncercați.' //old IGV
+                          text: l.errorPacientResetareParola,
                           ),
                       ],
                     ),
@@ -61,7 +63,15 @@ class ErrorPacientScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
 
-                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      //Navigator.of(context).popUntil((route) => route.isFirst);
+
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const ResetPasswordPacientScreen();
+                          //return const PlataEsuataScreen();
+                        },
+                      ));
+
                       //Navigator.push(
                           //context,
                           //MaterialPageRoute(
@@ -81,8 +91,8 @@ class ErrorPacientScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                         )),
                     child: Text(
-                        //'Go home', //old IGV
-                        l.errorPacientGoHome,
+                        //'Resetare parolă', //old IGV
+                        l.errorPacientResetareParola,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),

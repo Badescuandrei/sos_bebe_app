@@ -78,12 +78,12 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                                //text: 'Introdu numărul de telefon pentru a-ți schimba parola contului' //old IGV
                                 text: l.resetPasswordPacientReseteazaParolaTextMijloc,
                               ),
                             ],
                           ),
-                          maxLines: 1,
+                          maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                         ),
@@ -278,7 +278,7 @@ class _ResetPasswordPacientScreenState extends State<ResetPasswordPacientScreen>
                           borderRadius: BorderRadius.circular(5),
                         )),
                     child: Text(
-                        //'Send code', //old IGV
+                        //'Trimite cod', //old IGV
                         l.resetPasswordPacientSendCode,
                         style: GoogleFonts.rubik(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w300)),
                   ),

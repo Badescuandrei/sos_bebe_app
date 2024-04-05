@@ -43,7 +43,7 @@ class SuccesPacientScreen extends StatelessWidget {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                          //text: 'Ați modificat parola cu succes!' //old IGV
                           text: l.succesPacientTextMijloc,
                         ),
                       ],
@@ -78,8 +78,8 @@ class SuccesPacientScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                         )),
                     child: Text(
-                        //'Go home', //old IGV
-                        l.succesPacientGoHome,
+                        //'Log in', //old IGV
+                        l.succesPacientLogIn,
                         style: GoogleFonts.rubik(color: const Color.fromRGBO(14, 190, 127, 1), fontSize: 14, fontWeight: FontWeight.w300)),
                   ),
                 ),

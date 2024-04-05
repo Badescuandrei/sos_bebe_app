@@ -201,33 +201,22 @@ class VeziMediciDisponibiliIntroScreen extends StatelessWidget {
                       const SizedBox(height: 25),
                       SizedBox(
                         width:310,
-                        child:
-                        ShaderMask(
-                          shaderCallback: (Rect rect) {
-                            return const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.white,Colors.white, Colors.transparent,],
-                              //stops: [0.0, 0.1, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
-                            ).createShader(rect);
-                          },
-                          child:AutoSizeText.rich(// old value RichText(
-                            TextSpan(
-                              style: GoogleFonts.rubik(
-                                color: const Color.fromRGBO(103, 114, 148, 1),
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              children: <TextSpan>[
-                                //TextSpan(text: 'Atentie! In cazul in care viata copilului este in pericol, va rugam sa apelati numarul unic de urgente 112 sau sa va adresati Unitatilor de Primire Urgente.'), //old IGV
-                                //'Atenție! În cazul în care viața copilului este în pericol, vă rugăm să apelați numărul unic de urgențe 112 sau să vă adresați Unităților de Primire Urgențe.' //text cu diacritice IGV
-                                TextSpan(text: l.veziMediciDisponibiliIntroAtentieText), 
-                              ],
+                        child:AutoSizeText.rich(// old value RichText(
+                          TextSpan(
+                            style: GoogleFonts.rubik(
+                              color: const Color.fromRGBO(103, 114, 148, 1),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w300,
                             ),
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
+                            children: <TextSpan>[
+                              //TextSpan(text: 'Atentie! In cazul in care viata copilului este in pericol, va rugam sa apelati numarul unic de urgente 112 sau sa va adresati Unitatilor de Primire Urgente.'), //old IGV
+                              //'Atenție! În cazul în care viața copilului este în pericol, vă rugăm să apelați numărul unic de urgențe 112 sau să vă adresați Unităților de Primire Urgențe.' //text cu diacritice IGV
+                              TextSpan(text: l.veziMediciDisponibiliIntroAtentieText), 
+                            ],
                           ),
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.left,
                         ),
                       ),
                     ],

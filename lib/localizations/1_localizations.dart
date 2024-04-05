@@ -309,8 +309,8 @@ class LocalizationsApp {
     return _localizedValues[locale.languageCode]!['error_pacient']['detalii_text'];
   }
 
-  String get errorPacientGoHome {
-    return _localizedValues[locale.languageCode]!['error_pacient']['go_home'];
+  String get errorPacientResetareParola {
+    return _localizedValues[locale.languageCode]!['error_pacient']['resetare_parola'];
   }
 
 
@@ -1267,9 +1267,9 @@ class LocalizationsApp {
 
   }
 
-  String get succesPacientGoHome {
+  String get succesPacientLogIn {
 
-    return _localizedValues[locale.languageCode]!['succes_pacient']['go_home'];
+    return _localizedValues[locale.languageCode]!['succes_pacient']['log_in'];
 
   }
 

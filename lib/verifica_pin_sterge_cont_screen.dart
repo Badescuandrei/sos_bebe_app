@@ -83,7 +83,7 @@ class _VerificaPinStergeContScreenState extends State<VerificaPinStergeContScree
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..' //old IGV
+                                //text: 'Introdu codul primit prin SMS' //old IGV
                                 text: l.verificaPinStergeContTextMijloc,
                               ),
                             ],

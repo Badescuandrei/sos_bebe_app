@@ -12,6 +12,8 @@ import 'package:sos_bebe_app/utils_api/api_call_functions.dart';
 import 'package:sos_bebe_app/utils_api/shared_pref_keys.dart' as pref_keys;
 import 'package:http/http.dart' as http;
 
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+
 import 'package:sos_bebe_app/localizations/1_localizations.dart';
 
 ApiCallFunctions apiCallFunctions = ApiCallFunctions();
@@ -414,7 +416,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: GoogleFonts.rubik(color: const Color.fromRGBO(103, 114, 148, 1), fontWeight: FontWeight.w400, fontSize: 14)),
               const SizedBox(height: 10),
               OutlinedButton(
-                onPressed: () {},
+                onPressed: () 
+                {
+
+
+
+                },
                 style: OutlinedButton.styleFrom(
                     backgroundColor: Colors.white,
                     minimumSize: const Size.fromHeight(50), // NEW

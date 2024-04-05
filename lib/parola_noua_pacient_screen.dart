@@ -237,7 +237,7 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                //text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..'
+                                //text: 'Introduceți o nouă parolă'
                                 text:l.parolaNouaPacientReseteazaParolaText,
                               ),
                             ],
@@ -262,12 +262,13 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                             ),    
                             suffixIcon: IconButton(
                                 onPressed: parolaNouaVisibiltyToggle,
-                                icon: isHiddenParolaNoua ? const ImageIcon(
-                                                    AssetImage('assets/images/password_right_visibility.png'),
-                                                  ) : 
-                                                  const ImageIcon(
-                                                    AssetImage('assets/images/password_right_visibility_off.png'),
-                                                  ),
+                                icon: isHiddenParolaNoua ? 
+                                const ImageIcon(
+                                  AssetImage('assets/images/password_right_visibility_off.png'),
+                                ):
+                                const ImageIcon(
+                                  AssetImage('assets/images/password_right_visibility.png'),
+                                ),
                               ),
                             //hintText: "Parola noua", old
                             //hintText: "Parolă", //old IGV
@@ -328,12 +329,13 @@ class _ParolaNouaPacientScreenState extends State<ParolaNouaPacientScreen> {
                             ),    
                             suffixIcon: IconButton(
                                 onPressed: parolaNouaRepetataVisibiltyToggle,
-                                icon: isHiddenParolaNouaRepetata ? const ImageIcon(
-                                                    AssetImage('assets/images/password_right_visibility.png'),
-                                                  ) : 
-                                                  const ImageIcon(
-                                                    AssetImage('assets/images/password_right_visibility_off.png'),
-                                                  ),
+                                icon: isHiddenParolaNouaRepetata ? 
+                                  const ImageIcon(
+                                    AssetImage('assets/images/password_right_visibility_off.png'),
+                                  ) :
+                                  const ImageIcon(
+                                    AssetImage('assets/images/password_right_visibility.png'),
+                                  ),
                               ),
                             //hintText: "Parola noua", old
                             //hintText: "Repetă noua parolă", //old IGV

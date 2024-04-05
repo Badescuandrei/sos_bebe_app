@@ -103,9 +103,9 @@ Map<String, dynamic> values = {
   'error_pacient': {
 
     'oops_text': 'Oops!',
-    'detalii_text': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
-    'go_home': 'Go home',
-        
+    'detalii_text': 'Procesul de schimbare parolă nu a reușit. Vă rugăm să reîncercați.',
+    'resetare_parola': 'Resetare parolă',
+
     },
     
   'factura': {
@@ -181,7 +181,7 @@ Map<String, dynamic> values = {
     'informatii_insuficiente': 'Informații insuficiente!',
     'a_aparut_o_eroare':'A apărut o eroare la execuția metodei!',
     'parola_noua':'Parola nouă',
-    'reseteaza_parola_text':'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'reseteaza_parola_text':'Introduceți o nouă parolă',
     'parola_hint':'Parolă',
     'introduceti_parola_noua':'Vă rugăm introduceți o parolă nouă',
     'parola_cel_putin':'Parola trebuie să aibă cel puțin 6 caractere',
@@ -189,10 +189,10 @@ Map<String, dynamic> values = {
     'repeta_noua_parola':'Repetă noua parolă',
     'se_incearca_resetarea_parolei':'Se încearcă resetarea parolei',
     'confirma':'Confirmă',
-        
+
     },
     
-    
+
   'plata_esuata': {
 
     'plata_esuata_titlu':'Plată eșuată',
@@ -387,17 +387,17 @@ Map<String, dynamic> values = {
   'reset_password_pacient': {
 
     'reseteaza_parola_titlu': 'Resetează parola',
-    'reseteaza_parola_text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
-    'telefon_email_utilizator_hint': 'Telefon, e-mail sau utilizator',
+    'reseteaza_parola_text_mijloc': 'Introdu numărul de telefon pentru a-ți schimba parola contului',
+    //'telefon_email_utilizator_hint': 'Telefon, e-mail sau utilizator',
+    'telefon_email_utilizator_hint': 'Telefon',
     'introduceti_utilizator_email_telefon': 'Introduceți un utilizator/email/numar de telefon valid!',
     'contul_dumneavoastra':'Contul dumneavoastră nu conține informațiile de contact pentru a reseta parola, vă rugăm să contactați un reprezentant SOS Bebe',
-    'send_code': 'Send code',
+    'send_code': 'Trimite cod',
     'cod_trimis_cu_succes': 'Cod trimis cu succes!',
     'apel_invalid': 'Apel invalid!',
     'cont_inexistent': 'Cont inexistent!',
     'cont_existent_fara_date': 'Cont existent dar clientul nu are date de contact!',
     'a_aparut_o_eroare': 'A apărut o eroare la execuția metodei!',
-    
 
     },
     
@@ -405,9 +405,8 @@ Map<String, dynamic> values = {
   'succes_pacient': {
 
     'felicitari': 'Felicitări!',
-    'text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..    ',
-    'go_home': 'Go home',
-
+    'text_mijloc': 'Ați modificat parola cu succes!',
+    'log_in': 'Log in',
 
     },
     
@@ -441,7 +440,7 @@ Map<String, dynamic> values = {
   'verifica_codul_pacient': {
 
     'verifica_codul': 'Verifică codul',
-    'text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'text_mijloc': 'Introdu codul primit prin SMS',
     'trimite_din_nou_codul': 'Timite din nou codul',
     'verifica': 'Verifică',
     'cod_verificat_cu_succes': 'Cod verificat cu succes!',
@@ -456,7 +455,7 @@ Map<String, dynamic> values = {
   'verifica_pin_sterge_cont': {
 
     'verifica_codul_sterge_cont_titlu': 'Verifică codul și șterge contul',
-    'text_mijloc': 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod..',
+    'text_mijloc': 'Introdu codul primit prin SMS',
     'trimite_din_nou_codul': 'Timite din nou codul',
     'se_verifica_codul_trimis': 'Se verifică codul trimis',
     'se_sterge_contul': 'Se sterge contul',
